@@ -1,0 +1,16 @@
+FluLineEdit {
+    border-radius: 4px;
+    color: black;
+    border: 1px solid rgb(229, 229, 229);
+    border-bottom: 1px solid rgb(134, 134, 134);
+    background-color: rgb(251, 251, 251);
+}
+
+FluLineEdit:hover {
+    background-color: rgb(246, 246, 246);
+}
+
+FluLineEdit:focus {
+    color: black;
+    border-bottom: 2px solid rgb(0, 90, 158);
+}

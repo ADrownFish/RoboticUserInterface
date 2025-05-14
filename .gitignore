@@ -1,0 +1,13 @@
+
+# root
+x64/
+.vs/
+
+# RoboticUserInterface
+RoboticUserInterface/x64/
+RoboticUserInterface/build/
+
+# RoboticUserInterfaceTest
+RoboticUserInterfaceTest/x64/
+RoboticUserInterfaceTest/build/
+

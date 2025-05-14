@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="libraries\qcustomplot\qcustomplot.cpp" />
+    <ClCompile Include="libraries\qt_gcw\QFlowLayout.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\layouts\qtmaterialsnackbarlayout.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialcheckable.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialcheckable_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialoverlaywidget.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialripple.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialrippleoverlay.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialstatetransition.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialstyle.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialtheme.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialappbar.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialautocomplete.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialautocomplete_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialavatar.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialbadge.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcheckbox.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcircularprogress.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcircularprogress_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcombobox.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcombobox_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialdialog.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialdialog_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialdrawer.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialdrawer_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialfab.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialflatbutton.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialflatbutton_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialiconbutton.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmateriallist.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmateriallistitem.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialmenu.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialmenu_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialpaper.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialprogress.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialprogress_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialradiobutton.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialraisedbutton.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialscrollbar.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialscrollbar_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialslider.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialslider_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialsnackbar.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialsnackbar_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtable.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtabs.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtabs_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtextfield.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtextfield_internal.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtoggle.cpp" />
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtoggle_internal.cpp" />
+    <ClCompile Include="libraries\qwool\qwbutton.cpp" />
+    <ClCompile Include="libraries\qwool\qwcharts.cpp" />
+    <ClCompile Include="libraries\qwool\qwcompasspan.cpp" />
+    <ClCompile Include="libraries\qwool\qwoolwidget.cpp" />
+    <ClCompile Include="libraries\qwool\qwprogressarc.cpp" />
+    <ClCompile Include="libraries\qwool\qwprogressball.cpp" />
+    <ClCompile Include="libraries\qwool\qwprogressvalue.cpp" />
+    <ClCompile Include="libraries\qwool\qwprogresswait.cpp" />
+    <ClCompile Include="libraries\qwool\qwrocker.cpp" />
+    <ClCompile Include="libraries\qwool\qwswitcher.cpp" />
+    <ClCompile Include="libraries\qwool\qwswitcherbutton.cpp" />
+    <ClCompile Include="libraries\qwool\qwwidget.cpp" />
+    <ClCompile Include="libraries\qwool\qwwindowbutton.cpp" />
+    <ClCompile Include="libraries\qwool\qwwindowwidget.cpp" />
+    <ClCompile Include="src\core\AsyncDataRecorder.cpp" />
+    <ClCompile Include="src\core\DataSource.cpp" />
+    <ClCompile Include="src\custom\CustomRobot.cpp" />
+    <ClCompile Include="src\custom\RobotBase.cpp" />
+    <ClCompile Include="src\custom\SevnceRobot.cpp" />
+    <ClCompile Include="src\dashboard\dashboard.cpp" />
+    <ClCompile Include="src\form\ActuatorDisplay.cpp" />
+    <ClCompile Include="src\form\CommSelector.cpp" />
+    <ClCompile Include="src\form\SettingsDisplay.cpp" />
+    <ClCompile Include="src\form\FocusStatus.cpp" />
+    <ClCompile Include="src\form\NavigationView.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
+    <ClCompile Include="src\plot\CurveDisplay.cpp" />
+    <ClCompile Include="src\plot\CustomPlotMap.cpp" />
+    <ClCompile Include="src\plot\DataSourceViewer.cpp" />
+    <ClCompile Include="src\RobotUserInterface.cpp" />
+    <ClCompile Include="src\mainApp.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
+    <ClCompile Include="test\QWidgetPrototypeTester.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="include\form\ActionCommand.ui" />
+    <QtUic Include="include\form\Actuator.ui" />
+    <QtUic Include="include\form\ActuatorDisplay.ui" />
+    <QtUic Include="include\form\BMS.ui" />
+    <QtUic Include="include\form\CommSelector.ui" />
+    <QtUic Include="include\form\curve.ui" />
+    <QtUic Include="include\form\DataItemDisplay.ui" />
+    <QtUic Include="include\form\Host.ui" />
+    <QtUic Include="include\form\IMU.ui" />
+    <QtUic Include="include\form\ItemButton.ui" />
+    <QtUic Include="include\form\ItemValue.ui" />
+    <QtUic Include="include\form\Odom.ui" />
+    <QtUic Include="include\form\RobotUserInterface.ui" />
+    <QtUic Include="include\form\Settings.ui" />
+    <QtUic Include="include\form\SevnceRobot.ui" />
+    <QtUic Include="include\form\TopStatus.ui" />
+    <QtUic Include="include\form\UserInterface.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\robotic_user_interface\ConfigManager.h" />
+    <ClInclude Include="include\robotic_user_interface\core\ConfigManager.h" />
+    <ClInclude Include="include\robotic_user_interface\core\DataPacketSolver.h" />
+    <QtMoc Include="include\robotic_user_interface\core\DataSource.h" />
+    <ClInclude Include="include\robotic_user_interface\core\EllipsoidFitter.h" />
+    <ClInclude Include="include\robotic_user_interface\core\RingBuffer.h" />
+    <ClInclude Include="include\robotic_user_interface\core\Types.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcombobox.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcombobox_internal.h" />
+    <QtMoc Include="include\robotic_user_interface\form\NavigationView.h" />
+    <ClInclude Include="libraries\FluControls\FliListViewItem.h" />
+    <ClInclude Include="libraries\FluControls\FluAction.h" />
+    <ClInclude Include="libraries\FluControls\FluAmPmView.h" />
+    <ClInclude Include="libraries\FluControls\FluAppBarButton.h" />
+    <ClInclude Include="libraries\FluControls\FluAppBarToggleButton.h" />
+    <ClInclude Include="libraries\FluControls\FluAutoSuggestBox.h" />
+    <ClInclude Include="libraries\FluControls\FluBorder.h" />
+    <ClInclude Include="libraries\FluControls\FluBusyProgressRing.h" />
+    <ClInclude Include="libraries\FluControls\FluCalendarDatePicker.h" />
+    <ClInclude Include="libraries\FluControls\FluCalendarDef.h" />
+    <ClInclude Include="libraries\FluControls\FluCalendarItem.h" />
+    <ClInclude Include="libraries\FluControls\FluCalendarSelectDayView.h" />
+    <ClInclude Include="libraries\FluControls\FluCalendarSelectMonthView.h" />
+    <ClInclude Include="libraries\FluControls\FluCalendarSelectYearView.h" />
+    <ClInclude Include="libraries\FluControls\FluCalendarView.h" />
+    <ClInclude Include="libraries\FluControls\FluCalendarViewTitle.h" />
+    <ClInclude Include="libraries\FluControls\FluCheckBox.h" />
+    <ClInclude Include="libraries\FluControls\FluCircleDot.h" />
+    <ClInclude Include="libraries\FluControls\FluCodeBox.h" />
+    <ClInclude Include="libraries\FluControls\FluCodeExpander.h" />
+    <ClInclude Include="libraries\FluControls\FluColorButton.h" />
+    <ClInclude Include="libraries\FluControls\FluColorFlyout.h" />
+    <ClInclude Include="libraries\FluControls\FluColorLabel.h" />
+    <ClInclude Include="libraries\FluControls\FluColorView.h" />
+    <ClInclude Include="libraries\FluControls\FluColorViewGradient.h" />
+    <ClInclude Include="libraries\FluControls\FluColorViewHHandle.h" />
+    <ClInclude Include="libraries\FluControls\FluColorViewVHandle.h" />
+    <ClInclude Include="libraries\FluControls\FluComboBox.h" />
+    <ClInclude Include="libraries\FluControls\FluComboBoxEx.h" />
+    <ClInclude Include="libraries\FluControls\FluComboBoxTextItem.h" />
+    <ClInclude Include="libraries\FluControls\FluCompleterMenu.h" />
+    <ClInclude Include="libraries\FluControls\FluConfirmFlyout.h" />
+    <ClInclude Include="libraries\FluControls\FluDatePicker.h" />
+    <ClInclude Include="libraries\FluControls\FluDatePickerView.h" />
+    <ClInclude Include="libraries\FluControls\FluDatePickerViewMask.h" />
+    <ClInclude Include="libraries\FluControls\FluDef.h" />
+    <ClInclude Include="libraries\FluControls\FluDisplayBox.h" />
+    <ClInclude Include="libraries\FluControls\FluDisplayBoxEx.h" />
+    <ClInclude Include="libraries\FluControls\FluDisplayIconBox.h" />
+    <ClInclude Include="libraries\FluControls\FluDoubleSpinBox.h" />
+    <ClInclude Include="libraries\FluControls\FluDropDownButton.h" />
+    <ClInclude Include="libraries\FluControls\FluExpander.h" />
+    <ClInclude Include="libraries\FluControls\FluFlowLayout.h" />
+    <ClInclude Include="libraries\FluControls\FluFrameLessWidget.h" />
+    <ClInclude Include="libraries\FluControls\FluFWScrollView.h" />
+    <ClInclude Include="libraries\FluControls\FluGraphicalButton.h" />
+    <ClInclude Include="libraries\FluControls\FluHCard.h" />
+    <ClInclude Include="libraries\FluControls\FluHFlipView.h" />
+    <ClInclude Include="libraries\FluControls\FluHNavigationFlyIconTextItem.h" />
+    <ClInclude Include="libraries\FluControls\FluHNavigationIconTextItem.h" />
+    <ClInclude Include="libraries\FluControls\FluHNavigationItem.h" />
+    <ClInclude Include="libraries\FluControls\FluHNavigationMoreItem.h" />
+    <ClInclude Include="libraries\FluControls\FluHNavigationSearchItem.h" />
+    <ClInclude Include="libraries\FluControls\FluHNavigationSettingsItem.h" />
+    <ClInclude Include="libraries\FluControls\FluHNavigationView.h" />
+    <ClInclude Include="libraries\FluControls\FluHRadioGroupBox.h" />
+    <ClInclude Include="libraries\FluControls\FluHScrollView.h" />
+    <ClInclude Include="libraries\FluControls\FluHSplitLine.h" />
+    <ClInclude Include="libraries\FluControls\FluHyperLinkButton.h" />
+    <ClInclude Include="libraries\FluControls\FluIconButton.h" />
+    <ClInclude Include="libraries\FluControls\FluImageBox.h" />
+    <ClInclude Include="libraries\FluControls\FluIndicatorMenuItemDeleage.h" />
+    <ClInclude Include="libraries\FluControls\FluInfoBadge.h" />
+    <ClInclude Include="libraries\FluControls\FluInfoBarMgr.h" />
+    <ClInclude Include="libraries\FluControls\FluIntructions.h" />
+    <ClInclude Include="libraries\FluControls\FluIntValidator.h" />
+    <ClInclude Include="libraries\FluControls\FluLabel.h" />
+    <ClInclude Include="libraries\FluControls\FluLineEdit.h" />
+    <ClInclude Include="libraries\FluControls\FluListView.h" />
+    <ClInclude Include="libraries\FluControls\FluListViewItemDelegate.h" />
+    <ClInclude Include="libraries\FluControls\FluLoopView.h" />
+    <ClInclude Include="libraries\FluControls\FluMenu.h" />
+    <ClInclude Include="libraries\FluControls\FluMenuAniMgr.h" />
+    <ClInclude Include="libraries\FluControls\FluMenuAniType.h" />
+    <ClInclude Include="libraries\FluControls\FluMenuBar.h" />
+    <ClInclude Include="libraries\FluControls\FluMenuItemDelegate.h" />
+    <ClInclude Include="libraries\FluControls\FluMessageBox.h" />
+    <ClInclude Include="libraries\FluControls\FluMSNavigationItem.h" />
+    <ClInclude Include="libraries\FluControls\FluMSNavigationView.h" />
+    <ClInclude Include="libraries\FluControls\FluMSWindow.h" />
+    <ClInclude Include="libraries\FluControls\FluPasswordBox.h" />
+    <ClInclude Include="libraries\FluControls\FluPivot.h" />
+    <ClInclude Include="libraries\FluControls\FluPivotTitleBar.h" />
+    <ClInclude Include="libraries\FluControls\FluPivotTitleBarItem.h" />
+    <ClInclude Include="libraries\FluControls\FluPPushButton.h" />
+    <ClInclude Include="libraries\FluControls\FluProgressBar.h" />
+    <ClInclude Include="libraries\FluControls\FluProgressRing.h" />
+    <ClInclude Include="libraries\FluControls\FluPushButton.h" />
+    <ClInclude Include="libraries\FluControls\FluRadioButton.h" />
+    <ClInclude Include="libraries\FluControls\FluRatingControl.h" />
+    <ClInclude Include="libraries\FluControls\FluRepeatButton.h" />
+    <ClInclude Include="libraries\FluControls\FluRotationButton.h" />
+    <ClInclude Include="libraries\FluControls\FluRoundMenu.h" />
+    <ClInclude Include="libraries\FluControls\FluRoundMenuView.h" />
+    <ClInclude Include="libraries\FluControls\FluScaleButton.h" />
+    <ClInclude Include="libraries\FluControls\FluScrollArea.h" />
+    <ClInclude Include="libraries\FluControls\FluScrollBar.h" />
+    <ClInclude Include="libraries\FluControls\FluScrollBarArrowButton.h" />
+    <ClInclude Include="libraries\FluControls\FluScrollBarHandle.h" />
+    <ClInclude Include="libraries\FluControls\FluScrollBarTrunk.h" />
+    <ClInclude Include="libraries\FluControls\FluScrollDelegate.h" />
+    <ClInclude Include="libraries\FluControls\FluSearchLineEdit.h" />
+    <ClInclude Include="libraries\FluControls\FluSegmented.h" />
+    <ClInclude Include="libraries\FluControls\FluSegmentedItem.h" />
+    <ClInclude Include="libraries\FluControls\FluSettingsLabelBox.h" />
+    <ClInclude Include="libraries\FluControls\FluSettingsSelectBox.h" />
+    <ClInclude Include="libraries\FluControls\FluSettingsVersionBox.h" />
+    <ClInclude Include="libraries\FluControls\FluShortcutMenuItemDelegate.h" />
+    <ClInclude Include="libraries\FluControls\FluShortcutPicker.h" />
+    <ClInclude Include="libraries\FluControls\FluShortcutPickerDlg.h" />
+    <ClInclude Include="libraries\FluControls\FluShortInfoBar.h" />
+    <ClInclude Include="libraries\FluControls\FluSlider.h" />
+    <ClInclude Include="libraries\FluControls\FluSpinBox.h" />
+    <ClInclude Include="libraries\FluControls\FluSplitButton.h" />
+    <ClInclude Include="libraries\FluControls\FluStackedLayout.h" />
+    <ClInclude Include="libraries\FluControls\FluStar.h" />
+    <ClInclude Include="libraries\FluControls\FluStyleButton.h" />
+    <ClInclude Include="libraries\FluControls\FluSubMenuItemWidget.h" />
+    <ClInclude Include="libraries\FluControls\FluTabBar.h" />
+    <ClInclude Include="libraries\FluControls\FluTabBarContent.h" />
+    <ClInclude Include="libraries\FluControls\FluTabBarItem.h" />
+    <ClInclude Include="libraries\FluControls\FluTableItemDelegate.h" />
+    <ClInclude Include="libraries\FluControls\FluTableView.h" />
+    <ClInclude Include="libraries\FluControls\FluTabView.h" />
+    <ClInclude Include="libraries\FluControls\FluTabWidget.h" />
+    <ClInclude Include="libraries\FluControls\FluTeachingTip.h" />
+    <ClInclude Include="libraries\FluControls\FluTeachingTipContent.h" />
+    <ClInclude Include="libraries\FluControls\FluTextEdit.h" />
+    <ClInclude Include="libraries\FluControls\FluTextEditWrap.h" />
+    <ClInclude Include="libraries\FluControls\FluTextToggleSwitchEx.h" />
+    <ClInclude Include="libraries\FluControls\FluThread.h" />
+    <ClInclude Include="libraries\FluControls\FluTimeLine.h" />
+    <ClInclude Include="libraries\FluControls\FluTimeLineIcon.h" />
+    <ClInclude Include="libraries\FluControls\FluTimeLineItem.h" />
+    <ClInclude Include="libraries\FluControls\FluTimePicker24H.h" />
+    <ClInclude Include="libraries\FluControls\FluTimePicker24HView.h" />
+    <ClInclude Include="libraries\FluControls\FluTimePickerAP.h" />
+    <ClInclude Include="libraries\FluControls\FluTimePickerAPView.h" />
+    <ClInclude Include="libraries\FluControls\FluTimePickerViewMask.h" />
+    <ClInclude Include="libraries\FluControls\FluToggleButton.h" />
+    <ClInclude Include="libraries\FluControls\FluToggleSwitch.h" />
+    <ClInclude Include="libraries\FluControls\FluToggleSwitchEx.h" />
+    <ClInclude Include="libraries\FluControls\FluTreeView.h" />
+    <ClInclude Include="libraries\FluControls\FluTreeViewItemDelegate.h" />
+    <ClInclude Include="libraries\FluControls\FluTriangle.h" />
+    <ClInclude Include="libraries\FluControls\FluValueObject.h" />
+    <ClInclude Include="libraries\FluControls\FluVCard.h" />
+    <ClInclude Include="libraries\FluControls\FluVFlipView.h" />
+    <ClInclude Include="libraries\FluControls\FluVFlyout.h" />
+    <ClInclude Include="libraries\FluControls\FluVNavigationFlyIconTextItem.h" />
+    <ClInclude Include="libraries\FluControls\FluVNavigationIconTextItem.h" />
+    <ClInclude Include="libraries\FluControls\FluVNavigationItem.h" />
+    <ClInclude Include="libraries\FluControls\FluVNavigationMenuItem.h" />
+    <ClInclude Include="libraries\FluControls\FluVNavigationSearchItem.h" />
+    <ClInclude Include="libraries\FluControls\FluVNavigationSettingsItem.h" />
+    <ClInclude Include="libraries\FluControls\FluVNavigationView.h" />
+    <ClInclude Include="libraries\FluControls\FluVRadioGroupBox.h" />
+    <ClInclude Include="libraries\FluControls\FluVScrollView.h" />
+    <ClInclude Include="libraries\FluControls\FluVSplitLine.h" />
+    <ClInclude Include="libraries\FluControls\FluWidget.h" />
+    <ClInclude Include="libraries\FluControls\FluWindowkitButton.h" />
+    <QtMoc Include="libraries\FluControls\FluWindowKitTitleBar.h" />
+    <ClInclude Include="libraries\FluControls\FluWindowKitWidget.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialcombobox_p.h" />
+    <QtMoc Include="test\QWidgetPrototypeTester.h" />
+    <QtMoc Include="include\robotic_user_interface\custom\CustomRobot.h" />
+    <ClInclude Include="include\robotic_user_interface\custom\SevnceTypes.h" />
+    <ClInclude Include="include\robotic_user_interface\dashboard\dashboard.h" />
+    <ClInclude Include="libraries\qt_gcw\QFlowLayout.h" />
+    <ClInclude Include="libraries\qt_material_widgets\layouts\qtmaterialsnackbarlayout.h" />
+    <ClInclude Include="libraries\qt_material_widgets\layouts\qtmaterialsnackbarlayout_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\lib\qtmaterialcheckable_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\lib\qtmaterialstatetransitionevent.h" />
+    <ClInclude Include="libraries\qt_material_widgets\lib\qtmaterialstyle_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\lib\qtmaterialtheme_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialappbar_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialautocomplete_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialavatar_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialbadge_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialcheckbox_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialcircularprogress_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialdialog_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialdrawer_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialfab_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialflatbutton_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialiconbutton_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmateriallist.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmateriallistitem.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmateriallistitem_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmateriallist_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialmenu_internal.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialmenu_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialpaper.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialpaper_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialprogress_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialradiobutton_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialraisedbutton_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialscrollbar_p.h" />
+    <QtMoc Include="libraries\qwool\qwwindowwidget.h" />
+    <QtMoc Include="libraries\qwool\qwwindowbutton.h" />
+    <QtMoc Include="libraries\qwool\qwwidget.h" />
+    <QtMoc Include="libraries\qwool\qwswitcherbutton.h" />
+    <QtMoc Include="libraries\qwool\qwswitcher.h" />
+    <QtMoc Include="libraries\qwool\qwrocker.h" />
+    <QtMoc Include="libraries\qwool\qwprogresswait.h" />
+    <QtMoc Include="libraries\qwool\qwprogressvalue.h" />
+    <QtMoc Include="libraries\qwool\qwprogressball.h" />
+    <QtMoc Include="libraries\qwool\qwprogressarc.h" />
+    <QtMoc Include="libraries\qwool\qwoolwidget.h" />
+    <QtMoc Include="libraries\qwool\qwcompasspan.h" />
+    <QtMoc Include="libraries\qwool\qwcharts.h" />
+    <QtMoc Include="libraries\qwool\qwbutton.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialslider.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialscrollbar_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialscrollbar.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialraisedbutton.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialradiobutton.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialprogress_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialprogress.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialmenu.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialiconbutton.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialflatbutton_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialflatbutton.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialfab.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialdrawer_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialdrawer.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialdialog_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialdialog.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcircularprogress_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcircularprogress.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcheckbox.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialbadge.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialavatar.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialautocomplete_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialautocomplete.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialappbar.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialslider_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialsnackbar_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtable.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtable_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtabs_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtextfield_p.h" />
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtoggle_p.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtoggle_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtoggle.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtextfield_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtextfield.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtabs_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtabs.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialsnackbar_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialsnackbar.h" />
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialslider_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialtheme.h" />
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialstyle.h" />
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialstatetransition.h" />
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialrippleoverlay.h" />
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialripple.h" />
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialoverlaywidget.h" />
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialcheckable_internal.h" />
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialcheckable.h" />
+    <QtMoc Include="libraries\qt_gcw\QSnackbarManager.h" />
+    <QtMoc Include="libraries\qcustomplot\qcustomplot.h" />
+    <QtMoc Include="include\robotic_user_interface\plot\DataSourceViewer.h" />
+    <QtMoc Include="include\robotic_user_interface\plot\CustomPlotMap.h" />
+    <QtMoc Include="include\robotic_user_interface\plot\CurveDisplay.h" />
+    <QtMoc Include="include\robotic_user_interface\form\FocusStatus.h" />
+    <QtMoc Include="include\robotic_user_interface\form\SettingsDisplay.h" />
+    <QtMoc Include="include\robotic_user_interface\form\CommSelector.h" />
+    <QtMoc Include="include\robotic_user_interface\form\ActuatorDisplay.h" />
+    <QtMoc Include="include\robotic_user_interface\custom\SevnceRobot.h" />
+    <QtMoc Include="include\robotic_user_interface\custom\RobotBase.h" />
+    <QtMoc Include="include\robotic_user_interface\core\Communicator.h" />
+    <QtMoc Include="include\robotic_user_interface\core\AsyncDataRecorder.h" />
+    <QtMoc Include="include\robotic_user_interface\RobotUserInterface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="libraries\qt_material_widgets\resources.qrc" />
+    <QtRcc Include="RUI.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libraries\Eigen\Cholesky" />
+    <None Include="libraries\Eigen\CholmodSupport" />
+    <None Include="libraries\Eigen\Core" />
+    <None Include="libraries\Eigen\Dense" />
+    <None Include="libraries\Eigen\Eigen" />
+    <None Include="libraries\Eigen\Eigenvalues" />
+    <None Include="libraries\Eigen\Geometry" />
+    <None Include="libraries\Eigen\Householder" />
+    <None Include="libraries\Eigen\IterativeLinearSolvers" />
+    <None Include="libraries\Eigen\Jacobi" />
+    <None Include="libraries\Eigen\KLUSupport" />
+    <None Include="libraries\Eigen\LU" />
+    <None Include="libraries\Eigen\MetisSupport" />
+    <None Include="libraries\Eigen\OrderingMethods" />
+    <None Include="libraries\Eigen\PardisoSupport" />
+    <None Include="libraries\Eigen\PaStiXSupport" />
+    <None Include="libraries\Eigen\QR" />
+    <None Include="libraries\Eigen\QtAlignedMalloc" />
+    <None Include="libraries\Eigen\Sparse" />
+    <None Include="libraries\Eigen\SparseCholesky" />
+    <None Include="libraries\Eigen\SparseCore" />
+    <None Include="libraries\Eigen\SparseLU" />
+    <None Include="libraries\Eigen\SparseQR" />
+    <None Include="libraries\Eigen\SPQRSupport" />
+    <None Include="libraries\Eigen\StdDeque" />
+    <None Include="libraries\Eigen\StdList" />
+    <None Include="libraries\Eigen\StdVector" />
+    <None Include="libraries\Eigen\SuperLUSupport" />
+    <None Include="libraries\Eigen\SVD" />
+    <None Include="libraries\Eigen\UmfPackSupport" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1C76778E-DA61-416E-A2EB-B0E58799A30F}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>6.10.0_msvc2022_64</QtInstall>
+    <QtModules>core;gui;network;widgets;bluetooth;opengl;openglwidgets;printsupport;serialport;statemachine;svg</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>6.10.0_msvc2022_64</QtInstall>
+    <QtModules>core;gui;network;widgets;bluetooth;opengl;openglwidgets;printsupport;serialport;statemachine;svg</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)RoboticUserInterface\include\;$(SolutionDir)RoboticUserInterface\libraries\;$(SolutionDir)RoboticUserInterface\libraries\qt_gcw\;$(SolutionDir)RoboticUserInterface\libraries\qcustomplot\;$(SolutionDir)RoboticUserInterface\libraries\qt_material_widgets\;$(SolutionDir)RoboticUserInterface\libraries\qwool\;$(SolutionDir)RoboticUserInterface\libraries\FluControls\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)RoboticUserInterface\libraries\FluControls\lib\;$(SolutionDir)RoboticUserInterface\libraries\FluUtils\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>FluControls.lib;FluUtils.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>cmd /k taskkill /IM $(TargetName).exe</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)RoboticUserInterface\include\;$(SolutionDir)RoboticUserInterface\libraries\;$(SolutionDir)RoboticUserInterface\libraries\qt_gcw\;$(SolutionDir)RoboticUserInterface\libraries\qcustomplot\;$(SolutionDir)RoboticUserInterface\libraries\qt_material_widgets\;$(SolutionDir)RoboticUserInterface\libraries\qwool\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)RoboticUserInterface\libraries\FluControls\lib\;$(SolutionDir)RoboticUserInterface\libraries\FluUtils\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>FluControlsd.lib;FluUtilsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>cmd /k taskkill /IM $(TargetName).exe</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>
+      </SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

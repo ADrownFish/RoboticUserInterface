@@ -1,0 +1,1334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{b42e64a3-f66a-41a0-bd4d-91d4944ff9bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{3fd07cab-4094-4ff7-86c6-312ab7155f66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{bb672f1d-667b-49bb-a210-2616629dc79b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{2851383a-7fde-4cc7-b7c1-930ed1de6a5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\custom">
+      <UniqueIdentifier>{191bec4b-77ba-44a7-89a5-bc2c6af5a6a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\dashboard">
+      <UniqueIdentifier>{a63444ff-74b7-47c7-a400-be8dab23f498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\form">
+      <UniqueIdentifier>{7542c3fb-8bae-47bd-8752-a8252172aa3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\plot">
+      <UniqueIdentifier>{48f15538-ebea-4d4a-9114-f051ecc4e848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\form">
+      <UniqueIdentifier>{83430bf6-af5b-4c8d-a817-affa7684d31d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\robotic_user_interface">
+      <UniqueIdentifier>{107694b1-a8f3-42af-83d0-cf55186a48df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\robotic_user_interface\core">
+      <UniqueIdentifier>{950bde97-4eaf-4db5-9aab-84d308756fd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\robotic_user_interface\custom">
+      <UniqueIdentifier>{cfc54ca4-f036-4394-af1d-8d5b8a929bce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\robotic_user_interface\dashboard">
+      <UniqueIdentifier>{0c77c888-cff7-43c2-9dd3-6b36a411b444}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\robotic_user_interface\form">
+      <UniqueIdentifier>{5c4d22ba-19ad-4c7d-8199-c8cb4f281834}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\robotic_user_interface\plot">
+      <UniqueIdentifier>{d6aa1c29-cbc8-4f5d-9b1c-77b4a1f42a0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\qcustomplot">
+      <UniqueIdentifier>{53052633-00ef-48c2-803d-b4cd4470c762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\qt_gcw">
+      <UniqueIdentifier>{02810eec-0c4b-4e48-adb4-37ff78a71aed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\qt_material_widgets">
+      <UniqueIdentifier>{b3fb98b7-c834-4185-bd5d-60292b73ef59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\qwool">
+      <UniqueIdentifier>{f7f61782-24df-4d5e-b084-55c0a802548c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\qt_material_widgets\layouts">
+      <UniqueIdentifier>{982b1f17-de79-4142-9729-88e465408983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\qt_material_widgets\lib">
+      <UniqueIdentifier>{1ca6065e-7b95-4852-809d-d74936bb76e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{72492fc0-3ad0-40fd-8eb9-6d84160a6ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\FluControls">
+      <UniqueIdentifier>{9002dfb3-78c3-4d9e-a31e-0a6d83e86fe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\Eigen">
+      <UniqueIdentifier>{ce57c4b2-4732-486d-8502-1aec3375a217}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\RobotUserInterface.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\AsyncDataRecorder.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\custom\SevnceRobot.cpp">
+      <Filter>src\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="src\custom\RobotBase.cpp">
+      <Filter>src\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dashboard\dashboard.cpp">
+      <Filter>src\dashboard</Filter>
+    </ClCompile>
+    <ClCompile Include="src\form\FocusStatus.cpp">
+      <Filter>src\form</Filter>
+    </ClCompile>
+    <ClCompile Include="src\form\ActuatorDisplay.cpp">
+      <Filter>src\form</Filter>
+    </ClCompile>
+    <ClCompile Include="src\form\CommSelector.cpp">
+      <Filter>src\form</Filter>
+    </ClCompile>
+    <ClCompile Include="src\form\SettingsDisplay.cpp">
+      <Filter>src\form</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plot\DataSourceViewer.cpp">
+      <Filter>src\plot</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plot\CurveDisplay.cpp">
+      <Filter>src\plot</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plot\CustomPlotMap.cpp">
+      <Filter>src\plot</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qcustomplot\qcustomplot.cpp">
+      <Filter>libraries\qcustomplot</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_gcw\QFlowLayout.cpp">
+      <Filter>libraries\qt_gcw</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\layouts\qtmaterialsnackbarlayout.cpp">
+      <Filter>libraries\qt_material_widgets\layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialcheckable_internal.cpp">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialoverlaywidget.cpp">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialripple.cpp">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialrippleoverlay.cpp">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialstatetransition.cpp">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialstyle.cpp">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialtheme.cpp">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\lib\qtmaterialcheckable.cpp">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialslider_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialsnackbar.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialsnackbar_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtable.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtabs.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtabs_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtextfield.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtextfield_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtoggle.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialtoggle_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialappbar.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialautocomplete.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialautocomplete_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialavatar.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialbadge.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcheckbox.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcircularprogress.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcircularprogress_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialdialog.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialdialog_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialdrawer.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialdrawer_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialfab.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialflatbutton.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialflatbutton_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialiconbutton.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmateriallist.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmateriallistitem.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialmenu.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialmenu_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialpaper.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialprogress.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialprogress_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialradiobutton.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialraisedbutton.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialscrollbar.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialscrollbar_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialslider.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwcharts.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwcompasspan.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwoolwidget.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwprogressarc.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwprogressball.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwprogressvalue.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwprogresswait.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwrocker.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwswitcher.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwswitcherbutton.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwwidget.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwwindowbutton.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwwindowwidget.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qwool\qwbutton.cpp">
+      <Filter>libraries\qwool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\custom\CustomRobot.cpp">
+      <Filter>src\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="test\QWidgetPrototypeTester.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcombobox.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\qt_material_widgets\qtmaterialcombobox_internal.cpp">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\DataSource.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mainApp.cpp" />
+    <ClCompile Include="src\form\NavigationView.cpp">
+      <Filter>src\form</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="include\form\ActionCommand.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\Actuator.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\ActuatorDisplay.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\BMS.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\CommSelector.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\curve.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\DataItemDisplay.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\Host.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\IMU.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\ItemButton.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\ItemValue.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\Odom.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\RobotUserInterface.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\Settings.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\SevnceRobot.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\TopStatus.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+    <QtUic Include="include\form\UserInterface.ui">
+      <Filter>include\form</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\robotic_user_interface\ConfigManager.h">
+      <Filter>include\robotic_user_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotic_user_interface\core\ConfigManager.h">
+      <Filter>include\robotic_user_interface\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotic_user_interface\core\DataPacketSolver.h">
+      <Filter>include\robotic_user_interface\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotic_user_interface\core\Types.h">
+      <Filter>include\robotic_user_interface\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotic_user_interface\custom\SevnceTypes.h">
+      <Filter>include\robotic_user_interface\custom</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotic_user_interface\dashboard\dashboard.h">
+      <Filter>include\robotic_user_interface\dashboard</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_gcw\QFlowLayout.h">
+      <Filter>libraries\qt_gcw</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\layouts\qtmaterialsnackbarlayout_p.h">
+      <Filter>libraries\qt_material_widgets\layouts</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\layouts\qtmaterialsnackbarlayout.h">
+      <Filter>libraries\qt_material_widgets\layouts</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\lib\qtmaterialcheckable_p.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\lib\qtmaterialstatetransitionevent.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\lib\qtmaterialstyle_p.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\lib\qtmaterialtheme_p.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialslider_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialsnackbar_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtable.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtable_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtabs_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtextfield_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialtoggle_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialappbar_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialautocomplete_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialavatar_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialbadge_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialcheckbox_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialcircularprogress_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialdialog_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialdrawer_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialfab_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialflatbutton_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialiconbutton_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmateriallist.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmateriallist_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmateriallistitem.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmateriallistitem_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialmenu_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialmenu_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialpaper.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialpaper_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialprogress_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialradiobutton_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialraisedbutton_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialscrollbar_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\qt_material_widgets\qtmaterialcombobox_p.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotic_user_interface\core\RingBuffer.h">
+      <Filter>include\robotic_user_interface\core</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FliListViewItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluAction.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluAmPmView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluAppBarButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluAppBarToggleButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluAutoSuggestBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluBorder.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluBusyProgressRing.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCalendarDatePicker.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCalendarDef.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCalendarItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCalendarSelectDayView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCalendarSelectMonthView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCalendarSelectYearView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCalendarView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCalendarViewTitle.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCheckBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCircleDot.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCodeBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCodeExpander.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluColorButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluColorFlyout.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluColorLabel.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluColorView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluColorViewGradient.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluColorViewHHandle.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluColorViewVHandle.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluComboBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluComboBoxEx.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluComboBoxTextItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluCompleterMenu.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluConfirmFlyout.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDatePicker.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDatePickerView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDatePickerViewMask.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDef.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDisplayBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDisplayBoxEx.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDisplayIconBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDoubleSpinBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluDropDownButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluExpander.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluFlowLayout.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluFrameLessWidget.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluFWScrollView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluGraphicalButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHCard.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHFlipView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHNavigationFlyIconTextItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHNavigationIconTextItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHNavigationItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHNavigationMoreItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHNavigationSearchItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHNavigationSettingsItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHNavigationView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHRadioGroupBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHScrollView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHSplitLine.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluHyperLinkButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluIconButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluImageBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluIndicatorMenuItemDeleage.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluInfoBadge.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluInfoBarMgr.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluIntructions.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluIntValidator.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluLabel.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluLineEdit.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluListView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluListViewItemDelegate.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluLoopView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMenu.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMenuAniMgr.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMenuAniType.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMenuBar.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMenuItemDelegate.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMessageBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMSNavigationItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMSNavigationView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluMSWindow.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluPasswordBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluPivot.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluPivotTitleBar.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluPivotTitleBarItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluPPushButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluProgressBar.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluProgressRing.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluPushButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluRadioButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluRatingControl.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluRepeatButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluRotationButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluRoundMenu.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluRoundMenuView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluScaleButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluScrollArea.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluScrollBar.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluScrollBarArrowButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluScrollBarHandle.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluScrollBarTrunk.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluScrollDelegate.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSearchLineEdit.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSegmented.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSegmentedItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSettingsLabelBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSettingsSelectBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSettingsVersionBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluShortcutMenuItemDelegate.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluShortcutPicker.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluShortcutPickerDlg.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluShortInfoBar.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSlider.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSpinBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSplitButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluStackedLayout.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluStar.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluStyleButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluSubMenuItemWidget.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTabBar.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTabBarContent.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTabBarItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTableItemDelegate.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTableView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTabView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTabWidget.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTeachingTip.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTeachingTipContent.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTextEdit.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTextEditWrap.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTextToggleSwitchEx.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluThread.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTimeLine.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTimeLineIcon.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTimeLineItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTimePicker24H.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTimePicker24HView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTimePickerAP.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTimePickerAPView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTimePickerViewMask.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluToggleButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluToggleSwitch.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluToggleSwitchEx.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTreeView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTreeViewItemDelegate.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluTriangle.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluValueObject.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVCard.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVFlipView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVFlyout.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVNavigationFlyIconTextItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVNavigationIconTextItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVNavigationItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVNavigationMenuItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVNavigationSearchItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVNavigationSettingsItem.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVNavigationView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVRadioGroupBox.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVScrollView.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluVSplitLine.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluWidget.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluWindowkitButton.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\FluControls\FluWindowKitWidget.h">
+      <Filter>libraries\FluControls</Filter>
+    </ClInclude>
+    <ClInclude Include="include\robotic_user_interface\core\EllipsoidFitter.h">
+      <Filter>include\robotic_user_interface\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="include\robotic_user_interface\RobotUserInterface.h">
+      <Filter>include\robotic_user_interface</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\core\AsyncDataRecorder.h">
+      <Filter>include\robotic_user_interface\core</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\core\Communicator.h">
+      <Filter>include\robotic_user_interface\core</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\custom\RobotBase.h">
+      <Filter>include\robotic_user_interface\custom</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\custom\SevnceRobot.h">
+      <Filter>include\robotic_user_interface\custom</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\form\ActuatorDisplay.h">
+      <Filter>include\robotic_user_interface\form</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\form\CommSelector.h">
+      <Filter>include\robotic_user_interface\form</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\form\SettingsDisplay.h">
+      <Filter>include\robotic_user_interface\form</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\form\FocusStatus.h">
+      <Filter>include\robotic_user_interface\form</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\plot\CurveDisplay.h">
+      <Filter>include\robotic_user_interface\plot</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\plot\CustomPlotMap.h">
+      <Filter>include\robotic_user_interface\plot</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\plot\DataSourceViewer.h">
+      <Filter>include\robotic_user_interface\plot</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qcustomplot\qcustomplot.h">
+      <Filter>libraries\qcustomplot</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_gcw\QSnackbarManager.h">
+      <Filter>libraries\qt_gcw</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialcheckable.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialcheckable_internal.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialoverlaywidget.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialripple.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialrippleoverlay.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialstatetransition.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialstyle.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\lib\qtmaterialtheme.h">
+      <Filter>libraries\qt_material_widgets\lib</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialslider_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialsnackbar.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialsnackbar_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtabs.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtabs_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtextfield.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtextfield_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtoggle.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialtoggle_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialappbar.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialautocomplete.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialautocomplete_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialavatar.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialbadge.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcheckbox.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcircularprogress.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcircularprogress_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialdialog.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialdialog_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialdrawer.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialdrawer_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialfab.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialflatbutton.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialflatbutton_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialiconbutton.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialmenu.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialprogress.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialprogress_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialradiobutton.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialraisedbutton.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialscrollbar.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialscrollbar_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialslider.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwbutton.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwcharts.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwcompasspan.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwoolwidget.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwprogressarc.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwprogressball.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwprogressvalue.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwprogresswait.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwrocker.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwswitcher.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwswitcherbutton.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwwidget.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwwindowbutton.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qwool\qwwindowwidget.h">
+      <Filter>libraries\qwool</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\custom\CustomRobot.h">
+      <Filter>include\robotic_user_interface\custom</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcombobox.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\qt_material_widgets\qtmaterialcombobox_internal.h">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="test\QWidgetPrototypeTester.h">
+      <Filter>test</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\core\DataSource.h">
+      <Filter>include\robotic_user_interface\core</Filter>
+    </QtMoc>
+    <QtMoc Include="libraries\FluControls\FluWindowKitTitleBar.h">
+      <Filter>libraries\FluControls</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\form\NavigationView.h">
+      <Filter>include\robotic_user_interface\form</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="libraries\qt_material_widgets\resources.qrc">
+      <Filter>libraries\qt_material_widgets</Filter>
+    </QtRcc>
+    <QtRcc Include="RUI.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libraries\Eigen\OrderingMethods">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\PardisoSupport">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\PaStiXSupport">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\QR">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\QtAlignedMalloc">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Sparse">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\SparseCholesky">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\SparseCore">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\SparseLU">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\SparseQR">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\SPQRSupport">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\StdDeque">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\StdList">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\StdVector">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\SuperLUSupport">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\SVD">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\UmfPackSupport">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Cholesky">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\CholmodSupport">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Core">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Dense">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Eigen">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Eigenvalues">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Geometry">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Householder">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\IterativeLinearSolvers">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\Jacobi">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\KLUSupport">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\LU">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+    <None Include="libraries\Eigen\MetisSupport">
+      <Filter>libraries\Eigen</Filter>
+    </None>
+  </ItemGroup>
+</Project>

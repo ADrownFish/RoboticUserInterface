@@ -1,0 +1,209 @@
+#include "robotic_user_interface/core/Ssh.h.bck"
+#include <QDebug>
+
+Ssh::Ssh(QString ip, int port, QString user, QString pwd, QObject *parent)
+    : QObject(parent) {
+  strIp = ip;
+  nPort = port;
+  strUser = user;
+  strPwd = pwd;
+}
+
+// 初始化 SSH，包括创建线程、创建 SSH 连接
+void Ssh::init() {
+  thread = new QThread(this);
+  connect(thread, SIGNAL(finished()), this, SLOT(threadFinished()));
+  this->moveToThread(thread);
+  thread->start();
+
+  connect(this, SIGNAL(sigInit()), this, SLOT(sigInitSlot()));
+  emit sigInit();
+}
+
+// 退出线程
+void Ssh::unInit() { thread->quit(); }
+
+// SSH 是否可用
+bool Ssh::isEnableSSH() {
+  if (bConnected && bSendable)
+    return true;
+  else
+    return false;
+}
+
+Ssh::~Ssh() {
+  if (sshSocket) {
+    delete sshSocket;
+    sshSocket = nullptr;
+  }
+}
+
+// 向 SSH 写指令
+int Ssh::sendCmd(QString message) {
+  int nSize = 0;
+  if (bConnected && bSendable) {
+    nSize = shell->write(message.toUtf8().data());
+  } else {
+    qDebug() << "SSH 未连接或 shell 未连接:" << getIpPort();
+  }
+
+  return nSize;
+}
+
+// 统一编码，防止中文乱码
+QString Ssh::convertCodeC(const QByteArray &ba) {
+  QTextCodec::ConverterState state;
+  QString text = QTextCodec::codecForName("UTF-8")->toUnicode(
+      ba.constData(), ba.size(), &state);
+  if (state.invalidChars > 0)
+    text = QTextCodec::codecForName("GBK")->toUnicode(ba);
+  else
+    text = ba;
+  return text;
+}
+
+void Ssh::sigInitSlot() {
+  argParameters.setHost(strIp);
+  argParameters.setPort(nPort);
+  argParameters.setUserName(strUser);
+  argParameters.setPassword(strPwd);
+  argParameters.timeout = 10;
+  // 密码方式连接
+  argParameters.authenticationType =
+      QSsh::SshConnectionParameters::AuthenticationTypePassword;
+  // 连接
+  createConnection();
+}
+
+// 重置 SSH 连接，即断开连接
+void Ssh::resetConnection(QString ipPort) {
+  if (this->getIpPort() == ipPort) {
+    this->sshDisconnected();
+  }
+}
+
+// 向 SSH 写指令
+void Ssh::send(QString message) { sendCmd(message); }
+
+// 向 SSH 写指令
+void Ssh::sendByQByteArray(QString ipPort, QByteArray arrMsg) {
+  if (ipPort.compare(getIpPort()))
+    return;
+
+  if (bConnected && bSendable)
+    shell->write(arrMsg);
+  else
+    qDebug() << "发送失败，未建立连接：" << getIpPort();
+}
+
+// 断开连接
+void Ssh::sshDisconnected() {
+  sshSocket->disconnectFromHost();
+  // 此处断开需要时间，因此直接赋值false
+  emit sigConnectStateChanged(false, strIp, nPort);
+}
+
+// 处理交互信息
+void Ssh::dataReceived() {
+  QByteArray byteRecv = shell->readAllStandardOutput();
+  QString strRecv = convertCodeC(byteRecv);
+
+  if (strRecv.contains("password") ||
+      strRecv.contains(QString::fromLocal8Bit("密码"))) {
+    QString pwd = strPwd + "\n";
+    shell->write(pwd.toUtf8().data());
+  }
+
+  if (strRecv.contains("yes/no/[fingerprint]")) {
+    QString str = "yes\n";
+    shell->write(str.toUtf8().data());
+  }
+
+  if (!strRecv.isEmpty()) // 过滤空行
+  {
+    emit sigDataArrived(strRecv, strIp, nPort);
+  }
+}
+
+// 创建 SSH 连接
+void Ssh::createConnection() {
+  if (bConnected)
+    return;
+
+  if (!sshSocket) {
+    sshSocket = new QSsh::SshConnection(argParameters);
+    connect(sshSocket, SIGNAL(connected()), SLOT(sshConnected()));
+    connect(sshSocket, SIGNAL(error(QSsh::SshError)),
+            SLOT(sshConnectError(QSsh::SshError)));
+  }
+  sshSocket->connectToHost();
+}
+
+// 连接后处理，包括创建shell
+void Ssh::sshConnected() {
+  shell = sshSocket->createRemoteShell();
+  connect(shell.data(), SIGNAL(started()), SLOT(shellStart()));
+  connect(shell.data(), SIGNAL(readyReadStandardOutput()),
+          SLOT(dataReceived()));
+  connect(shell.data(), SIGNAL(readyReadStandardError()), SLOT(shellError()));
+  shell.data()->start();
+
+  bConnected = true;
+  emit sigConnectStateChanged(bConnected, strIp, nPort);
+}
+
+void Ssh::threadFinished() {
+  thread->deleteLater();
+  this->deleteLater();
+}
+
+// 错误信息处理
+void Ssh::sshConnectError(QSsh::SshError sshError) {
+  bSendable = false;
+  bConnected = false;
+  emit sigConnectStateChanged(bConnected, strIp, nPort);
+
+  switch (sshError) {
+  case QSsh::SshNoError:
+    qDebug() << "sshConnectError SshNoError" << getIpPort();
+    break;
+  case QSsh::SshSocketError:
+    qDebug() << "sshConnectError SshSocketError"
+             << getIpPort(); // 拔掉网线是这种错误
+    break;
+  case QSsh::SshTimeoutError:
+    qDebug() << "sshConnectError SshTimeoutError" << getIpPort();
+    break;
+  case QSsh::SshProtocolError:
+    qDebug() << "sshConnectError SshProtocolError" << getIpPort();
+    break;
+  case QSsh::SshHostKeyError:
+    qDebug() << "sshConnectError SshHostKeyError" << getIpPort();
+    break;
+  case QSsh::SshKeyFileError:
+    qDebug() << "sshConnectError SshKeyFileError" << getIpPort();
+    break;
+  case QSsh::SshAuthenticationError:
+    qDebug() << "sshConnectError SshAuthenticationError" << getIpPort();
+    break;
+  case QSsh::SshClosedByServerError:
+    qDebug() << "sshConnectError SshClosedByServerError" << getIpPort();
+    break;
+  case QSsh::SshInternalError:
+    qDebug() << "sshConnectError SshInternalError" << getIpPort();
+    break;
+  default:
+    break;
+  }
+}
+
+// shell 开始
+void Ssh::shellStart() {
+  bSendable = true;
+  qDebug() << "shellStart Shell 已连接:" << getIpPort();
+}
+
+// shell 发生错误
+void Ssh::shellError() {
+  qDebug() << "shellError Shell 发生错误:" << getIpPort();
+}

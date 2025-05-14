@@ -1,0 +1,17 @@
+FluWindowkitButton {
+	border:0;
+}
+
+FluWindowkitButton:hover {
+	border:0;
+	border-radius: 2px;
+}
+
+FluWindowkitButton:pressed {
+	border:0;
+	border-radius: 2px;
+}
+
+FluWindowkitButton:focus {
+    outline: none;
+}

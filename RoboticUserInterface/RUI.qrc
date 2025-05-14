@@ -1,0 +1,43 @@
+<RCC>
+  <qresource prefix="/svg">
+    <file>svg/manual.svg</file>
+    <file>svg/auto.svg</file>
+    <file>svg/hide.svg</file>
+    <file>svg/show.svg</file>
+    <file>svg/apply.svg</file>
+    <file>svg/arrow-down.svg</file>
+    <file>svg/arrow-up.svg</file>
+    <file>svg/battery.svg</file>
+    <file>svg/clear.svg</file>
+    <file>svg/continue.svg</file>
+    <file>svg/dot.svg</file>
+    <file>svg/dotline.svg</file>
+    <file>svg/less.svg</file>
+    <file>svg/line.svg</file>
+    <file>svg/menu.svg</file>
+    <file>svg/background.svg</file>
+    <file>svg/more.svg</file>
+    <file>svg/network.svg</file>
+    <file>svg/settings.svg</file>
+    <file>svg/stop.svg</file>
+    <file>svg/temperature.svg</file>
+    <file>svg/info.svg</file>
+    <file>svg/operation.svg</file>
+	<file>svg/tools.svg</file>
+  </qresource>
+  <qresource prefix="/">
+    <file>libraries/fonts/Roboto/Roboto-Black.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-BlackItalic.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-Bold.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-BoldItalic.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-Italic.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-Light.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-LightItalic.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-Medium.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-MediumItalic.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-Regular.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-Thin.ttf</file>
+    <file>libraries/fonts/Roboto/Roboto-ThinItalic.ttf</file>
+    <file>libraries/fonts/Roboto/NotoSansSC.ttf</file>
+  </qresource>
+</RCC>

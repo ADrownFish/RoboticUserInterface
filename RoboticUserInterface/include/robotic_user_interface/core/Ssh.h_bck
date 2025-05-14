@@ -1,0 +1,176 @@
+#pragma once
+
+#include <QHostAddress>
+#include <QTextCodec>
+#include <QThread>
+#include <ssh/sftpchannel.h>
+#include <ssh/sshconnection.h>
+#include <ssh/sshremoteprocess.h>
+
+class Ssh : public QObject {
+  Q_OBJECT
+public:
+  /**
+   * @brief Ssh
+   * @param ip            IP 地址
+   * @param port          端口号，默认 22
+   * @param user          用户名
+   * @param pwd           密码
+   */
+  explicit Ssh(QString ip, int port = 22, QString user = "robot",
+               QString pwd = "123", QObject *parent = NULL);
+
+  /**
+   * @brief init                              初始化 SSH，包括创建线程、创建 SSH
+   * 连接
+   */
+  void init();
+
+  /**
+   * @brief unInit                            退出线程
+   */
+  void unInit();
+
+  /**
+   * @brief isEnableSSH                       SSH 是否可用
+   */
+  bool isEnableSSH();
+
+  /**
+   *                                          释放内存
+   */
+  ~Ssh();
+
+private:
+  /**
+   * @brief sendCmd                   向 SSH 写指令
+   * @param message                   指令
+   * @return                          写入成功的字节数
+   */
+  int sendCmd(QString message);
+
+  /**
+   * @brief getIpPort                 获取 IP 和 Port 的值
+   * @return
+   */
+  QString getIpPort() { return strIp + ":" + QString::number(nPort); }
+
+  /**
+   * @brief convertCodeC              统一编码，防止中文乱码
+   * @param ba
+   * @return
+   */
+  QString convertCodeC(const QByteArray &ba);
+
+  // 新建线程，用于 SSH
+  QThread *thread = nullptr;
+  // SSH 是否已连接
+  bool bConnected = false;
+  // SSH 是否可发送
+  bool bSendable = false;
+
+  // IP 地址
+  QString strIp;
+  // 端口号
+  int nPort;
+  // 用户名
+  QString strUser;
+  // 密码
+  QString strPwd;
+
+  // SSH 连接参数
+  QSsh::SshConnectionParameters argParameters;
+  // SSH Socket
+  QSsh::SshConnection *sshSocket = nullptr;
+  // Shell 脚本
+  QSharedPointer<QSsh::SshRemoteProcess> shell;
+
+signals:
+  /**
+   * @brief sigInit                   子线程和主线程交互
+   */
+  void sigInit();
+
+  /**
+   * @brief sigConnectStateChanged    SSH 连接状态改变
+   * @param state                     true: 连接,  false: 断开
+   * @param ip                        IP 地址
+   * @param port                      端口号
+   */
+  void sigConnectStateChanged(bool state, QString ip, int port);
+
+  /**
+   * @brief sigDataArrived            SSH 接收数据再往外转发
+   * @param msg                       数据
+   * @param ip                        IP 地址
+   * @param port                      端口号
+   */
+  void sigDataArrived(QString msg, QString ip, int port);
+
+public slots:
+  /**
+   * @brief sigInitSlot
+   */
+  void sigInitSlot();
+
+  /**
+   * @brief resetConnection           重置 SSH 连接，即断开连接
+   * @param ipPort                    IP 和端口，IP:端口
+   */
+  void resetConnection(QString ipPort);
+
+  /**
+   * @brief send                      向 SSH 写指令
+   * @param message                   指令
+   */
+  void send(QString message);
+
+  /**
+   * @brief sendByQByteArray          向 SSH 写指令
+   * @param ipPort                    IP:端口号
+   * @param arrMsg                    指令
+   */
+  void sendByQByteArray(QString ipPort, QByteArray arrMsg);
+
+  /**
+   * @brief sshDisconnected           断开连接
+   */
+  void sshDisconnected();
+
+  /**
+   * @brief dataReceived              处理交互信息
+   */
+  void dataReceived();
+
+private slots:
+  /**
+   * @brief createConnection          创建 SSH 连接
+   */
+  void createConnection();
+
+  /**
+   * @brief sshConnected              连接后处理，包括创建shell
+   */
+  void sshConnected();
+
+  /**
+   * @brief threadFinished            删除线程，释放内存
+   */
+  void threadFinished();
+
+  /**
+   * @brief sshConnectError           错误信息处理
+   * @param sshError                  错误信息
+   */
+  void sshConnectError(QSsh::SshError sshError);
+
+  /**
+   * @brief shellStart                shell 开始
+   */
+  void shellStart();
+
+  /**
+   * @brief shellError                shell 发生错误
+   */
+  void shellError();
+};
