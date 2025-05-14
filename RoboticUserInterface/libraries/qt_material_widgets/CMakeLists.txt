@@ -5,12 +5,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_AUTOMOC ON)
+
 find_package(Qt6 REQUIRED COMPONENTS
-    Core
-    Gui
-    Widgets
-    StateMachine
-    Svg
+  Core
+  Gui
+  Widgets
+  StateMachine
+  Svg
 )
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS

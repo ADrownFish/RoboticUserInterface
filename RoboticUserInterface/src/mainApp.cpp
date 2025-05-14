@@ -1,5 +1,7 @@
-﻿#include "QApplication"
+﻿#include <QApplication>
 #include <QFontDatabase>
+// #include <QtCore>
+// #include <QtCore/qglobal.h>
 
 #include <iostream>
 
@@ -13,7 +15,11 @@
 // #define PROTOTYPE_TESTER true
 #define PROTOTYPE_TESTER false
 
+
+
 int main(int argc, char *argv[]){
+
+    // Q_INIT_RESOURCE(RUI);
 
   // 环境设置
 #if defined(Q_OS_ANDROID)
