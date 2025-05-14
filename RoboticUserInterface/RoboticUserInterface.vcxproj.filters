@@ -1237,7 +1237,7 @@
     <QtRcc Include="libraries\qt_material_widgets\resources.qrc">
       <Filter>libraries\qt_material_widgets</Filter>
     </QtRcc>
-    <QtRcc Include="RUI.qrc" />
+    <QtRcc Include="resources.qrc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libraries\Eigen\OrderingMethods">
