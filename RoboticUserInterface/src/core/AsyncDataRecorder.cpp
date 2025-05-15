@@ -228,4 +228,4 @@ qint64 AsyncDataRecorder::getCurrentTimestampMs() {
   return QDateTime::currentDateTime().toMSecsSinceEpoch();
 }
 
-} // namespace sevnce
+} // namespace robot

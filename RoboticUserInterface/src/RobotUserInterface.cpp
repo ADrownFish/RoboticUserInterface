@@ -109,13 +109,16 @@ void RobotUserInterface::setupSignalConnection() {
   // 数据传递
   // QObject::connect(communicator_, &Communicator::readyRead, robotBase_,    &RobotBase::readyRead);
   // QObject::connect(robotBase_,    &RobotBase::readyWrite,   communicator_, &Communicator::readyWrite);
-  QObject::connect(communicator_, &Communicator::readyRead, [this](const QByteArray &buffer){
+  QObject::connect(communicator_, &Communicator::readyRead, [this](){
+    
+    QByteArray buffer;
+    communicator_->read(buffer);
     topStatus_->appendDownloadByte(buffer.size());
     robotBase_->readyRead(buffer);
   });
   QObject::connect(robotBase_,    &RobotBase::readyWrite,   [this](const QByteArray &buffer){
     if(communicator_->isOpen()) topStatus_->appedUploadBytes(buffer.size());
-    communicator_->readyWrite(buffer);
+    communicator_->write(buffer);
   });
 
 }
@@ -305,7 +308,7 @@ void RobotUserInterface::init(){
   ui.layout_obj_settings->addWidget(settingsDisplay_);
   
   // communicator
-  communicator_ = new Communicator();
+  communicator_ = new Communicator(this);
   communicator_->init();
 
   navView_ = new NavigationView(this);
@@ -319,6 +322,11 @@ void RobotUserInterface::init(){
   curveDisplay_->setObservations(robotBase_->observations());
   curveDisplay_->init();
   ui.layout_curve->addWidget(curveDisplay_);
+
+  // tools
+  toolsBox_ = new ToolsBox(this);
+  toolsBox_->init();
+  ui.layout_toolsbox->addWidget(toolsBox_);
 
   // file Catcher
   // fileCatcher_ = new FileCatcher(ui.page_fileCatch);

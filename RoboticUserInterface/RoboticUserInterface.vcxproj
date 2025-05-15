@@ -84,6 +84,7 @@
     <ClCompile Include="src\dashboard\dashboard.cpp" />
     <ClCompile Include="src\form\ActuatorDisplay.cpp" />
     <ClCompile Include="src\form\CommSelector.cpp" />
+    <ClCompile Include="src\form\FunctionCard.cpp" />
     <ClCompile Include="src\form\SettingsDisplay.cpp" />
     <ClCompile Include="src\form\FocusStatus.cpp" />
     <ClCompile Include="src\form\NavigationView.cpp">
@@ -92,6 +93,7 @@
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
+    <ClCompile Include="src\form\ToolsBox.cpp" />
     <ClCompile Include="src\plot\CurveDisplay.cpp" />
     <ClCompile Include="src\plot\CustomPlotMap.cpp" />
     <ClCompile Include="src\plot\DataSourceViewer.cpp" />
@@ -134,6 +136,8 @@
     <QtMoc Include="libraries\qt_material_widgets\qtmaterialcombobox.h" />
     <QtMoc Include="libraries\qt_material_widgets\qtmaterialcombobox_internal.h" />
     <QtMoc Include="include\robotic_user_interface\form\NavigationView.h" />
+    <QtMoc Include="include\robotic_user_interface\form\FunctionCard.h" />
+    <QtMoc Include="include\robotic_user_interface\form\ToolsBox.h" />
     <ClInclude Include="libraries\FluControls\FliListViewItem.h" />
     <ClInclude Include="libraries\FluControls\FluAction.h" />
     <ClInclude Include="libraries\FluControls\FluAmPmView.h" />
@@ -180,7 +184,7 @@
     <ClInclude Include="libraries\FluControls\FluFrameLessWidget.h" />
     <ClInclude Include="libraries\FluControls\FluFWScrollView.h" />
     <ClInclude Include="libraries\FluControls\FluGraphicalButton.h" />
-    <ClInclude Include="libraries\FluControls\FluHCard.h" />
+    <QtMoc Include="libraries\FluControls\FluHCard.h" />
     <ClInclude Include="libraries\FluControls\FluHFlipView.h" />
     <ClInclude Include="libraries\FluControls\FluHNavigationFlyIconTextItem.h" />
     <ClInclude Include="libraries\FluControls\FluHNavigationIconTextItem.h" />
@@ -411,7 +415,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="libraries\qt_material_widgets\resources.qrc" />
-    <QtRcc Include="resources.qrc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libraries\Eigen\Cholesky" />
@@ -519,6 +522,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)RoboticUserInterface\include\;$(SolutionDir)RoboticUserInterface\libraries\;$(SolutionDir)RoboticUserInterface\libraries\qt_gcw\;$(SolutionDir)RoboticUserInterface\libraries\qcustomplot\;$(SolutionDir)RoboticUserInterface\libraries\qt_material_widgets\;$(SolutionDir)RoboticUserInterface\libraries\qwool\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)RoboticUserInterface\libraries\FluControls\lib\;$(SolutionDir)RoboticUserInterface\libraries\FluUtils\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

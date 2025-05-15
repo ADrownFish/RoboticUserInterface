@@ -323,6 +323,12 @@
     <ClCompile Include="src\form\NavigationView.cpp">
       <Filter>src\form</Filter>
     </ClCompile>
+    <ClCompile Include="src\form\ToolsBox.cpp">
+      <Filter>src\form</Filter>
+    </ClCompile>
+    <ClCompile Include="src\form\FunctionCard.cpp">
+      <Filter>src\form</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="include\form\ActionCommand.ui">
@@ -649,9 +655,6 @@
       <Filter>libraries\FluControls</Filter>
     </ClInclude>
     <ClInclude Include="libraries\FluControls\FluGraphicalButton.h">
-      <Filter>libraries\FluControls</Filter>
-    </ClInclude>
-    <ClInclude Include="libraries\FluControls\FluHCard.h">
       <Filter>libraries\FluControls</Filter>
     </ClInclude>
     <ClInclude Include="libraries\FluControls\FluHFlipView.h">
@@ -1232,12 +1235,20 @@
     <QtMoc Include="include\robotic_user_interface\form\NavigationView.h">
       <Filter>include\robotic_user_interface\form</Filter>
     </QtMoc>
+    <QtMoc Include="libraries\FluControls\FluHCard.h">
+      <Filter>libraries\FluControls</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\form\FunctionCard.h">
+      <Filter>include\robotic_user_interface\form</Filter>
+    </QtMoc>
+    <QtMoc Include="include\robotic_user_interface\form\ToolsBox.h">
+      <Filter>include\robotic_user_interface\form</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="libraries\qt_material_widgets\resources.qrc">
       <Filter>libraries\qt_material_widgets</Filter>
     </QtRcc>
-    <QtRcc Include="resources.qrc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libraries\Eigen\OrderingMethods">

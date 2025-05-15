@@ -1,11 +1,14 @@
 #pragma once
 
+#include <atomic>
+
 #include <QObject>
 #include <QUdpSocket>
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <QThread>
 
+#include "robotic_user_interface/core/RingBuffer.h"
 #include "robotic_user_interface/core/Types.h"
 #include "../libraries/qt_gcw/QSnackbarManager.h"
 
@@ -13,22 +16,18 @@ class Communicator : public QObject{
   Q_OBJECT
   
 public:
-  Communicator() : QObject(nullptr) {
-    socket_udp_ = new QUdpSocket(this);
-    socket_tcp_ = new QTcpSocket(this);
-    server_tcp_ = new QTcpServer(this);
-    
-    //thread_ = new QThread(this);
-    //this->moveToThread(thread_);
+  Communicator(QObject *parent) : QObject(nullptr) {
+
+    thread_ = new QThread(parent);
+    this->moveToThread(thread_);
   }
   ~Communicator(){
-    delete socket_udp_;
-    delete socket_tcp_;
-    delete server_tcp_;
+
   }
 
   void init(){
     setupSignalConnection();
+    thread_->start();
   }
 
   void setup(const CommunicationConfiguration& comm){
@@ -52,7 +51,98 @@ public:
     }
     return false;
   }
-  void close(){
+
+  void open() {
+    requestOpen();
+  }
+
+  void close() {
+    requestClose();
+  }
+
+  void write(const QByteArray& buffer){
+    // on main thread
+    tx_buffer.WriteBatch((uint8_t*)buffer.data(), buffer.size());
+    readySend();
+  }
+
+  void read(QByteArray& buffer) {
+    // on main thread
+    buffer.resize(rx_buffer.Size());
+    rx_buffer.ReadBatch((uint8_t*)buffer.data(), buffer.size());
+  }
+
+private:
+  void setupSignalConnection(){
+
+    QObject::connect(thread_, &QThread::started,  this, &Communicator::start);
+  }
+
+  void start() {
+    // on obj thread
+    socket_udp_ = new QUdpSocket(this);
+    socket_tcp_ = new QTcpSocket(this);
+    server_tcp_ = new QTcpServer(this);
+
+    QObject::connect(socket_udp_, &QUdpSocket::readyRead, this,   &Communicator::readyReadUdp);
+    QObject::connect(socket_udp_, &QUdpSocket::disconnected, [this]() {  open_udp_ = false; });
+
+    QObject::connect(socket_tcp_, &QTcpSocket::readyRead, this,     &Communicator::readyReadTcp);
+    QObject::connect(socket_tcp_, &QUdpSocket::disconnected, [this]() {   open_tcp_ = false;  });
+
+    QObject::connect(this,             &Communicator::readySend, this,     &Communicator::readySendSocket);
+    QObject::connect(this,             &Communicator::requestOpen, this, &Communicator::open_threadImpl);
+    QObject::connect(this,             &Communicator::requestClose, this, &Communicator::close_threadImpl);
+  }
+
+  void readyReadUdp(){
+    // on obj thread
+    QByteArray buffer;
+    QHostAddress sender;
+    quint16 senderPort; 
+    
+    buffer.resize(int(socket_udp_->pendingDatagramSize()));
+    socket_udp_->readDatagram(buffer.data(), buffer.size(), &sender, &senderPort);
+
+    rx_buffer.WriteBatch((uint8_t *)buffer.data(), buffer.size());
+    readyRead();
+  }
+  void readyReadTcp(){
+    // on obj thread
+    QByteArray buffer = socket_tcp_->readAll();
+
+    rx_buffer.WriteBatch((uint8_t*)buffer.data(), buffer.size());
+    readyRead();
+  }
+
+  void readySendSocket() {
+    // on obj thread
+    QByteArray buffer;
+    buffer.resize(tx_buffer.Size());
+    tx_buffer.ReadBatch((uint8_t *)buffer.data(), buffer.size());
+
+    switch (config_.commType){
+      case CommunicationConfiguration::CommType::UDP:{
+        if(open_udp_){
+          socket_udp_->writeDatagram(buffer,QHostAddress(config_.udp.ip),config_.udp.port);
+        }
+      }break;
+      case CommunicationConfiguration::CommType::TCP:{
+        if(open_tcp_){
+          socket_tcp_->write(buffer);
+        }        
+      }break;
+      case CommunicationConfiguration::CommType::SERIAL:{
+        // nullptr;
+      }break;
+      case CommunicationConfiguration::CommType::BLUETOOTH:{
+        // nullptr;
+      }break;
+    }
+  }
+
+
+  void close_threadImpl() {
     switch (config_.commType){
       case CommunicationConfiguration::CommType::UDP:{
         emit publishNotify(GCW::NotifyType::Info, "UDP", "closed");
@@ -77,7 +167,8 @@ public:
       } break;
     }
   }
-  void open(){
+  void open_threadImpl() {
+
     bool result = true;
     switch (config_.commType)
     {
@@ -133,71 +224,21 @@ public:
     emit openResult(result);
   }
 
-  void readyWrite(const QByteArray& buffer){
-    switch (config_.commType){
-      case CommunicationConfiguration::CommType::UDP:{
-        if(open_udp_){
-          socket_udp_->writeDatagram(buffer,QHostAddress(config_.udp.ip),config_.udp.port);
-        }
-      }break;
-      case CommunicationConfiguration::CommType::TCP:{
-        if(open_tcp_){
-          socket_tcp_->write(buffer);
-        }        
-      }break;
-      case CommunicationConfiguration::CommType::SERIAL:{
-        // nullptr;
-      }break;
-      case CommunicationConfiguration::CommType::BLUETOOTH:{
-        // nullptr;
-      }break;
-    }
-  }
-
-private:
-  void setupSignalConnection(){
-    if(socket_udp_){
-      socket_udp_->disconnect();
-      QObject::connect(socket_udp_, &QUdpSocket::readyRead, this, &Communicator::readyReadUdp);
-      QObject::connect(socket_udp_, &QUdpSocket::disconnected, [this](){
-        open_udp_ = false;
-      });
-    }
-    if(socket_tcp_){
-      socket_tcp_->disconnect();
-      QObject::connect(socket_tcp_, &QTcpSocket::readyRead, this, &Communicator::readyReadTcp);
-      QObject::connect(socket_tcp_, &QUdpSocket::disconnected, [this](){
-        open_tcp_ = false;
-      });
-    }
-
-  }
-  void readyReadUdp(){
-    QByteArray datagram;
-    QHostAddress sender;
-    quint16 senderPort; 
-    
-    datagram.resize(int(socket_udp_->pendingDatagramSize()));
-    socket_udp_->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
-
-    readyRead(datagram);
-  }
-  void readyReadTcp(){
-    readyRead(socket_tcp_->readAll());
-  }
-
 signals:
   void openResult(bool result);
   
   void publishNotify(GCW::NotifyType type,const QString &title, const QString& text);
 
-  void readyRead(const QByteArray& buffer);
+  void readyRead();
+
+  void readySend();
+
+  void requestOpen();
+
+  void requestClose();
 
 private:
-
-  
-private:
-  QThread *thread_;
+  QThread *thread_ = nullptr;
 
   CommunicationConfiguration config_;
 
@@ -205,9 +246,12 @@ private:
   QTcpSocket *socket_tcp_ = nullptr;
   QTcpServer *server_tcp_ = nullptr;
 
-  bool open_udp_ = false;
-  bool open_tcp_ = false;
-  bool open_serial_ = false;
-  bool open_bluetooth_ = false;
+  std::atomic_bool open_udp_ = false;
+  std::atomic_bool open_tcp_ = false;
+  std::atomic_bool open_serial_ = false;
+  std::atomic_bool open_bluetooth_ = false;
 
+  static constexpr int bufferSize = 1 << 24;
+  RingBuffer<uint8_t, bufferSize> rx_buffer;
+  RingBuffer<uint8_t, bufferSize> tx_buffer;
 };

@@ -221,8 +221,8 @@ height: 0px;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1000</width>
-            <height>380</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="layout_obj_settings"/>
@@ -310,7 +310,7 @@ height: 0px;
       </layout>
      </widget>
      <widget class="QWidget" name="page_tools">
-      <layout class="QGridLayout" name="layout_fileCatch">
+      <layout class="QGridLayout" name="layout_toolsbox">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -341,7 +341,7 @@ height: 0px;
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../RUI.qrc"/>
+  <include location="../../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -90,6 +90,8 @@ protected:
   
   QPointer<robot::AsyncDataRecorder> dataRecorder_ = nullptr;
 
+  //QPointer<> dataRecorder_ = nullptr;
+
   QString configFilePath;
   QString recordFilePath;
 };

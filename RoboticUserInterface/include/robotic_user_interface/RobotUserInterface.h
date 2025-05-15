@@ -14,11 +14,12 @@
 #include "robotic_user_interface/core/Communicator.h"
 #include "robotic_user_interface/core/ConfigManager.h"
 #include "robotic_user_interface/core/Types.h"
+#include "robotic_user_interface/plot/CurveDisplay.h"
 #include "robotic_user_interface/form/FocusStatus.h"
 #include "robotic_user_interface/form/CommSelector.h"
 #include "robotic_user_interface/form/SettingsDisplay.h"
-#include "robotic_user_interface/plot/CurveDisplay.h"
 #include "robotic_user_interface/form/NavigationView.h"
+#include "robotic_user_interface/form/ToolsBox.h"
 // #include "robotic_user_interface/form/FileCatcher.h"
 
 #include "robotic_user_interface/dashboard/dashboard.h"
@@ -84,6 +85,8 @@ private:
   QPointer<CommSelector> commSelector_;
   QPointer<SettingsDisplay> settingsDisplay_;
   QPointer<CurveDisplay> curveDisplay_;
+  QPointer<ToolsBox> toolsBox_;
+  
   // QPointer<FileCatcher> fileCatcher_;
   
   // dashboard

@@ -18,6 +18,11 @@
 class StatusItem : public QWidget {
   Q_OBJECT
 public:
+  enum class DisplayMode {
+    normal,
+    vertical,
+  };
+public:
   StatusItem(QWidget* parent = nullptr);
   ~StatusItem();
 
@@ -33,6 +38,9 @@ public:
   void setInterval(int value);
   int getInterval();
 
+  void setDisplayMode(DisplayMode value);
+  DisplayMode getDisplayMode();
+
   void resetFixedWidth();
 
 protected:
@@ -47,6 +55,8 @@ private:
   QMap<uint32_t, QColor> backgrounds_;
   QMap<uint32_t, std::shared_ptr<QSvgRenderer>> svgs_;
   QMap<uint32_t, QString> texts_;
+
+  DisplayMode mode = DisplayMode::normal;
 };
 
 class FocusStatus : public QObject
@@ -57,8 +67,7 @@ public:
   enum StatusItemEnum{
     batterySoc,
     netType,
-    netUpSpeed,
-    netDownSpeed,
+    netSpeed,
     tempDriver,
     tempMotor,
   };
@@ -87,15 +96,10 @@ public:
 
   void appendDownloadByte(int byte);
 
-  // Ui::FocusStatus& form(){return ui;}
-
   void setCommStatus(bool status);
 
   QWidget* getStatusItemsWidget();
 
-   //QWidget* getNavWidget() {
-   //  return ui.button_nav;
-   //}
 
 private:
   void flush();
@@ -110,8 +114,6 @@ signals:
   void publishNotify(GCW::NotifyType type,const QString &title, const QString& text);
 
 private:
-  // ui
-  // Ui::FocusStatus ui;
   QTimer timer_flush_;
 
   TopStatusValue value_;
