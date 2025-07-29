@@ -148,10 +148,7 @@ void CustomPlotLayer::updateAxis(bool replot)
 {
   xAxis->rescale(true);
   yAxis->rescale(true);
-
-  QCPRange range = yAxis->range();
-  double margin = 0.025 * (range.upper - range.lower); // 5% 的边距
-  yAxis->setRange(range.lower - margin, range.upper + margin);
+  yAxis->scaleRange(1.1);
 
   if (replot) {
     this->replot(QCustomPlot::rpQueuedReplot);
