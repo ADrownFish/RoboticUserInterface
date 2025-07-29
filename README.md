@@ -1,6 +1,14 @@
 # Robotic User Interface
 
+**Robotic User Interface - 可定制机器人上位机框架**
+**Robotic User Interface - Customizable Robotic HMI Framework**
+
 友好的机器人交互界面，无论是哪一个机器人，继承并实现RobotBase基类中相对应的解包或组包，也可提供自定义的UI控件，会一并显示在UI中。
+
+特点:
+  - 接入 **UDP/TCP/Serial/BlueTooth** 原始数据流  
+  - 内置（可选） **[DataPacketSolver](https://github.com/ADrownFish/DataPacketSolver)** 组包解包引擎  
+  - 支持**调试模式**(类串口助手)和**集成模式**  
 
 开发
   - C++ 17
