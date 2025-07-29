@@ -15,16 +15,26 @@ class ObjectData {
 
 public:
 	using Ptr = std::shared_ptr<ObjectData>;
+	enum DataType {
+		Dynamic,    // 动态数据，不断新增的
+		Static,         // 静态数据，数据量不变
+	};
 
 public:
 	QString name;
 
+	DataType type = DataType::Dynamic;
 	bool enable = true;
-	bool zeroData = true;
+	bool refreshOnceFlag = false;
 	scalar_t timeWindow = 10.0;
 
 	QVector<scalar_t> data;
 	QVector<scalar_t> time;
+
+private:
+	bool zeroData = true;
+	bool commonValue = false;
+
 
 public:
 	ObjectData(const QString &dataName){
@@ -32,13 +42,33 @@ public:
 	}
 
 	void appendData(scalar_t time_, scalar_t data_) {
+
+		// 如果时间被重置，则删除所有数据
+		if(!time.isEmpty()){
+			if(time_ < time.last()){
+				data.clear();
+				time.clear();
+			}
+		}
+
+		// 如果数据是重复的，则更改标志位，防止后续axis缩放问题 TODO
+
+
 		time.append(time_);
 		data.append(data_);
+
+		// 如果传进来的值 不为0，避免绘图出现缩放问题
 		if (zeroData && data_ != 0.0) {
-			// 如果传进来的值 不为0，避免绘图出现缩放问题
 			zeroData = false;
 		}
+		if (type == ObjectData::Static) {
+			return;
+		}
+
 		while (!time.isEmpty() && time.first() < time_ - timeWindow) {
+
+
+
 			time.removeFirst();
 			data.removeFirst();
 		}
@@ -50,6 +80,10 @@ public:
 
 	bool isZeroData() const {
 		return zeroData;
+	}
+
+	bool isCommonValue() const {
+		return commonValue;
 	}
 
 	void clear() {
@@ -121,6 +155,23 @@ public:
 		return QString();
 	}
 
+	void setAllStatic() {
+    for (auto& d : data) {
+      d->type = ObjectData::DataType::Static;
+    }
+    for (auto& d : children) {
+      d->setAllStatic();
+    }
+	}
+
+	void setrefreshOnce() {
+		for (auto& d : data) {
+			d->refreshOnceFlag = true;
+		}
+		for (auto& d : children) {
+			d->setAllStatic();
+		}
+	}
 
 	QString toString(int level = 0) const {
 		QString indent(level * 2, ' ');
@@ -128,7 +179,7 @@ public:
 
 		QString dataResult;
 		for (const auto& d : data) {
-			dataResult += QString("  %1[%2] ").arg(d->name).arg(d->data.size());
+			dataResult += QString("  %1(%2) ").arg(d->name).arg(d->data.size());
 		}
 		if (!dataResult.isEmpty()) {
 			result += indent + dataResult + "\r\n";
@@ -149,6 +200,17 @@ public:
 
 		for (auto &child : children) {
 			child->clearData();
+		}
+	}
+
+	void clear() {
+		for (auto& d : data) {
+			d.reset();
+		}
+		data.clear();
+
+		for (auto& child : children) {
+			child->clear();
 		}
 	}
 

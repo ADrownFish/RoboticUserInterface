@@ -11,7 +11,7 @@ DataSource::DataSource(int num_actuator){
 
   topNode_->resetID(topNode_->id);
 
-	std::cout << topNode_->toString().toLocal8Bit().data() << std::endl;
+	//std::cout << topNode_->toString().toLocal8Bit().data() << std::endl;
   
   resetTime();
 }
@@ -45,7 +45,7 @@ ObjectNode::Ptr DataSource::createTestNode() {
 
 ObjectNode::Ptr DataSource::createBaseNode(int num_actuator){
 	ObjectNode::Ptr node = std::make_shared<ObjectNode>();
-	node->name = "Base";
+	node->name = "Plugin";
 
   auto odom = std::make_shared<ObjectNode>();
   odom->name = "Odom";
@@ -79,7 +79,7 @@ ObjectNode::Ptr DataSource::createBaseNode(int num_actuator){
   actuators->name = "Actuators";
   for (int i = 0; i < num_actuator; ++i) {
     auto actuator = std::make_shared<ObjectNode>();
-    actuator->name = QString("Actuator_%1").arg(i);
+    actuator->name = QString("[%1]").arg(i);
     actuator->addObject(std::make_shared<ObjectData>("state"));
     actuator->addObject(std::make_shared<ObjectData>("pos"));
     actuator->addObject(std::make_shared<ObjectData>("vel"));

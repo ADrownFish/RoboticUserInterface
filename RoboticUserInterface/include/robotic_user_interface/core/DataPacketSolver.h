@@ -67,6 +67,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define FORCE_INLINE inline __attribute__((always_inline))
 #endif
 
+#define DATAPACKETSOLVER_PRINT_OPTIONS
+
 #ifdef DATAPACKETSOLVER_PRINT_OPTIONS
 #include <iostream>
 #include <iomanip>

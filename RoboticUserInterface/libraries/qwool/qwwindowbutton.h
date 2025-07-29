@@ -7,6 +7,8 @@
 #include <QPainterPath>
 #include <QTimer>
 #include <QWidget>
+#include <QVariantAnimation>
+#include <QEasingCurve>
 
 class QWWindowButton : public QWidget {
   Q_OBJECT
@@ -18,14 +20,14 @@ public:
     MultiSelection,
   };
 
-  QWWindowButton(QWidget *m_mainPage = 0);
+  QWWindowButton(QWidget* m_mainPage = nullptr);
   ~QWWindowButton();
 
   void addUnit(QString UnitName);
   void delUnit(int index);
 
   void setSelectUnitIndex(int index);
-  void setSelectUnit(const QString &name );
+  void setSelectUnit(const QString& name);
 
   int getCurrentUnitIndex();
 
@@ -54,26 +56,31 @@ public:
   void setUnselectedVisible(bool ok);
   bool  getUnselectedVisible();
 
+  void setAnimationDuration(int duration);
+  int getAnimationDuration() const;
+
+  void setHoverColor(QColor c);
+  QColor getHoverColor() const;
+
 protected:
-  // 绘制开关
-  void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-  // 大小改变事件
-  void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
-  // 鼠标按下事件
-  void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-  // 鼠标释放事件 - 切换开关状态、发射toggled()信号
-  void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-
-  void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-
-  void leaveEvent(QEvent *e) override;
-  void enterEvent(QEnterEvent *e) override;
+  void paintEvent(QPaintEvent* event) Q_DECL_OVERRIDE;
+  void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
+  void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+  void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+  void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+  void leaveEvent(QEvent* e) override;
+  void enterEvent(QEnterEvent* e) override;
 
 signals:
   void selectUnitIndexChanged(unsigned int index);
 
 private:
-  unsigned int getMousePosInUnit();
+  void updateHoverAnimation(int index);
+  void updateSelectionAnimation(int targetIndex);
+  int getMousePosInUnit();
+  void calculateUnitRects();
+  void startHoverAnimation(int index, double startValue, double endValue);
+  void startSelectionAnimation(double startValue, double endValue);
 
 private:
   bool mouseClicked = false;
@@ -81,10 +88,11 @@ private:
   bool unselectedVisible = true;
 
   QStringList UnitList;
+  QList<QRectF> unitRects; // 存储每个单元的位置和大小
 
   int currentUnitIndex = -1;
   int hoverUnitIndex = -1;
-  int hoverUnitIndexLast = 0;
+  int hoverUnitIndexLast = -1;
 
   unsigned int currentMultiUnitIndex = 0;
 
@@ -94,6 +102,7 @@ private:
   int unitBorderRadius = 6;
 
   int intervalDistance = 5;
+  int animationDuration = 200; // 动画持续时间(ms)
 
   bool drawBackground = true;
   bool drawBackgroundBorder = false;
@@ -111,9 +120,20 @@ private:
   QColor selectdBorderHighLightColor;
   QColor notSelectdColor;
   QColor notSelectdBorderColor;
+  QColor hoverColor;
 
   ShowMode showMode = ShowMode::List;
   SelectionMode selectionMode = SelectionMode::SingleSelection;
+
+  // 动画相关
+  QVariantAnimation* hoverAnimation;
+  QVariantAnimation* selectionAnimation;
+  double hoverProgress = 0.0;      // 0.0-1.0
+  double selectionProgress = 0.0;  // 0.0-1.0
+  int animationTargetIndex = -1;   // 动画目标索引
+  int animationStartIndex = -1;    // 动画起始索引
+
+  int hoverAnimationIndex = -1;
 };
 
 #endif

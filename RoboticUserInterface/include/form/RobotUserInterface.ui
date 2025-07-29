@@ -328,6 +328,9 @@ height: 0px;
        </property>
       </layout>
      </widget>
+     <widget class="QWidget" name="page_terminal">
+      <layout class="QGridLayout" name="layout_terminal"/>
+     </widget>
     </widget>
    </item>
   </layout>

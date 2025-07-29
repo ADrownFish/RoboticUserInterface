@@ -12,24 +12,24 @@ RobotUserInterface::RobotUserInterface(int argc_, char **argv_, QWidget *parent 
   ui.setupUi(desktopWidget);
   m_contentLayout->addWidget(desktopWidget);
 
-  this->setFocusPolicy(Qt::StrongFocus);
 
-  m_titleLabel->setText("Robot User Interface");
-  //BlurMode blurMode;
-  //blurMode.HandleMethodCall(this, 4, kInitialize, 0);
-  //blurMode.setColorBackground(QColor(255, 73, 242, 64));
-  //blurMode.HandleMethodCall(this, 4, kSetEffect, 0);
+ 
+  QFont titleLabelFont = m_titleLabel->font();
+  titleLabelFont.setPointSize(24);
+  m_titleLabel->setFont(titleLabelFont);
+  m_titleLabel->setText(tr("Robot User Interface"));
+  m_iconButton->setIcon(QIcon(":/log/logo/main.svg"));
+
+  this->setWindowTitle(tr("Robot User Interface"));
+  this->setWindowIcon(QIcon(":/log/logo/main.svg"));
+  this->setFocusPolicy(Qt::StrongFocus);
 }
 
 RobotUserInterface::~RobotUserInterface()
 {
-  robotBase_->saveConfiguration();
-  communicator_->close();
-
   delete topStatus_;
   delete commSelector_;
   delete settingsDisplay_;
-  // delete fileCatcher_;
 
   delete robotBase_;
 }
@@ -48,18 +48,13 @@ void RobotUserInterface::resizeEvent(QResizeEvent* event){
   card.windowsWidth = windowSize.width();
   card.windowsHeight = windowSize.height();
 
-  //buttom_button_widget->move(10,desktopWidget->  height() - buttom_button_widget->height() - 10);
-  //buttom_button_widget_bg->move(10, desktopWidget->height() - buttom_button_widget->height() - 10);
-  
   FluWindowKitWidget::resizeEvent(event);
 }
-// void RobotUserInterface::loadConfig() {
 
-// }
-
-// void RobotUserInterface::saveConfig() {
-
-// }
+void RobotUserInterface::closeEvent(QCloseEvent* event)
+{
+  this->shutdown();
+}
 
 void RobotUserInterface::keyPressEvent(QKeyEvent *event) {
   dashboard_base_->keyPressEventGlobal(event);
@@ -78,18 +73,11 @@ void RobotUserInterface::setupSignalConnection() {
   QObject::connect(topStatus_,    &FocusStatus::publishNotify, this,    &RobotUserInterface::publishNotify);
   QObject::connect(robotBase_,    &RobotBase::publishNotify, this,    &RobotUserInterface::publishNotify);
   QObject::connect(curveDisplay_, &CurveDisplay::publishNotify, this, &RobotUserInterface::publishNotify);
-  // QObject::connect(fileCatcher_,  &FileCatcher::publishNotify, this, &RobotUserInterface::publishNotify);
-
-  //auto& topStatusUi = topStatus_->form();
-  // 导航
-  //QObject::connect(button_nav_, &QPushButton::clicked, [this](){
-    //drawer_->openDrawer();
-    //button_nav_->hide();
-  //});
+  QObject::connect(toolsBox_,     &ToolsBox::publishNotify, this, &RobotUserInterface::publishNotify);
 
   // 设置
   QObject::connect(ui.widget_settings_apply, &QPushButton::clicked, [this](){
-    publishNotify(GCW::Info, QString("Settings"), QString("configuration has been updated"));
+    publishNotify(GCW::Info, tr("Settings"), tr("configuration has been updated"));
     
     settingsDisplay_->pullParameters();
     topStatus_->flushConfiguration();
@@ -101,32 +89,11 @@ void RobotUserInterface::setupSignalConnection() {
     settingsDisplay_->pushParameters();
   });
 
-
-
   QObject::connect(commSelector_, &CommSelector::ok, commSelectorDialog_, &QtMaterialDialog::hideDialog);
   QObject::connect(commSelector_, &CommSelector::cancel, commSelectorDialog_, &QtMaterialDialog::hideDialog);
-
-  // 数据传递
-  // QObject::connect(communicator_, &Communicator::readyRead, robotBase_,    &RobotBase::readyRead);
-  // QObject::connect(robotBase_,    &RobotBase::readyWrite,   communicator_, &Communicator::readyWrite);
-  QObject::connect(communicator_, &Communicator::readyRead, [this](){
-    
-    QByteArray buffer;
-    communicator_->read(buffer);
-    topStatus_->appendDownloadByte(buffer.size());
-    robotBase_->readyRead(buffer);
-  });
-  QObject::connect(robotBase_,    &RobotBase::readyWrite,   [this](const QByteArray &buffer){
-    if(communicator_->isOpen()) topStatus_->appedUploadBytes(buffer.size());
-    communicator_->write(buffer);
-  });
-
 }
 
 void RobotUserInterface::setupWidgetsControls() {
-  //this->setBorderRadius(0);
-  //this->setBackgroundColor(QColor(40,49,73));
-
   // message
   snackbar_ = new GCW::QSnackbarManager(this);
   
@@ -137,39 +104,13 @@ void RobotUserInterface::setupWidgetsControls() {
   ui.page_operation->setLayout(ui.layout_operation);
   ui.stackedWidget->setCurrentWidget(ui.page_info);
 
-  //// button
-  //button_operation_ = new QtMaterialRaisedButton(this);
-  //button_operation_->setText("Operation");
-  //button_info_      = new QtMaterialRaisedButton(this);
-  //button_info_->setText("Info");
-  //button_curve_     = new QtMaterialRaisedButton(this);
-  //button_curve_->setText("Curve");
-  //button_settings_  = new QtMaterialRaisedButton(this);
-  //button_settings_->setText("Settings");
-  //button_comm_  = new QtMaterialRaisedButton(this);
-  //button_comm_->setText("Communition");
-
-  //button_nav_ = new QtMaterialRaisedButton;
-  //button_nav_->setText("NAV");
-
   makeNav();
 
-  // button_fileCatch_  = new QtMaterialRaisedButton(this);
-  // button_fileCatch_->setText("File Catch");
-
+  QColor onColor = QColor(83, 109, 145);
   ui.widget_settings_apply->setText("Apply");
   ui.widget_settings_reset->setText("Reset");
-
-  //QVBoxLayout *drawerLayout = new QVBoxLayout;
-  //drawerLayout->addWidget(button_operation_);
-  //drawerLayout->addWidget(button_info_);
-  //drawerLayout->addWidget(button_curve_);
-  //drawerLayout->addWidget(button_comm_);
-  //// drawerLayout->addWidget(button_fileCatch_);
-  //drawerLayout->addStretch(3);
-  //drawerLayout->addWidget(button_settings_);
-  //drawer_->setDrawerLayout(drawerLayout);
-
+  ui.widget_settings_apply->setBackgroundColor(onColor);
+  ui.widget_settings_reset->setBackgroundColor(onColor);
 }
 
 void RobotUserInterface::makeNav(){
@@ -180,26 +121,55 @@ void RobotUserInterface::makeNav(){
   item = new NavigationItem();
   item->setText(tr("Operation"));
   item->setIcon(QIcon(":/svg/svg/operation.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() { container->setCurrentWidget(ui.page_operation); });
+  QObject::connect(item, &NavigationItem::clicked, [=]() { 
+    container->setCurrentWidget(ui.page_operation); 
+    curveDisplay_->setActivate(false);
+    commTerminal_->setActivate(false);
+    });
   navView_->addItemToCenter(item);
 
   item = new NavigationItem();
   item->setText(tr("Info"));
   item->setIcon(QIcon(":/svg/svg/info.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() { container->setCurrentWidget(ui.page_info); });
+  QObject::connect(item, &NavigationItem::clicked, [=]() {
+    container->setCurrentWidget(ui.page_info); 
+    curveDisplay_->setActivate(false);
+    commTerminal_->setActivate(false);
+    });
   navView_->addItemToCenter(item);
   navView_->setClicked(item);
 
   item = new NavigationItem();
   item->setText(tr("Curve"));
   item->setIcon(QIcon(":/svg/svg/line.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() { container->setCurrentWidget(ui.page_curve); });
+  QObject::connect(item, &NavigationItem::clicked, [=]() { 
+    container->setCurrentWidget(ui.page_curve); 
+    curveDisplay_->setActivate(true);
+    commTerminal_->setActivate(false);
+    });
+  navView_->addItemToCenter(item);
+
+  item = new NavigationItem();
+  item->setText(tr("Terminal"));
+  item->setIcon(QIcon(":/svg/svg/DataStudio.svg"));
+  QObject::connect(item, &NavigationItem::clicked, [=]() {
+    if (robotBase_->configuration()->comm.commProtocol != CommunicationConfiguration::CommProtocol::Raw) {
+      publishNotify(GCW::Info, tr("Attention"), tr("The communication terminal can only send and receive data when the communication protocol is [Raw]."));
+    }
+      container->setCurrentWidget(ui.page_terminal); 
+      curveDisplay_->setActivate(false);
+      commTerminal_->setActivate(true);
+    });
   navView_->addItemToCenter(item);
 
   item = new NavigationItem();
   item->setText(tr("Tools"));
   item->setIcon(QIcon(":/svg/svg/tools.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() { container->setCurrentWidget(ui.page_tools); });
+  QObject::connect(item, &NavigationItem::clicked, [=]() {
+    container->setCurrentWidget(ui.page_tools); 
+    curveDisplay_->setActivate(false);
+    commTerminal_->setActivate(false);
+    });
   navView_->addItemToCenter(item);
 
   item = new NavigationItem();
@@ -212,7 +182,11 @@ void RobotUserInterface::makeNav(){
   item = new NavigationItem();
   item->setText(tr("Settings"));
   item->setIcon(QIcon(":/svg/svg/settings.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() { container->setCurrentWidget(ui.page_settings); });
+  QObject::connect(item, &NavigationItem::clicked, [=]() { 
+    container->setCurrentWidget(ui.page_settings); 
+    curveDisplay_->setActivate(false);
+    commTerminal_->setActivate(false);
+    });
   navView_->addItemToBottom(item);
 
   NavigationSwitcher* switcher = nullptr;
@@ -223,7 +197,7 @@ void RobotUserInterface::makeNav(){
   toggle = switcher->getSwitcher();
   toggle->setToggle(false);
   switcher->setText(tr("Comm"));
-	QObject::connect(toggle, &QWSwitcher::toggled, [this](bool ok) {
+    QObject::connect(toggle, &QWSwitcher::toggled, [this](bool ok) {
 		if (ok) {
 			if (!communicator_->isOpen()) {
 				communicator_->setup(robotBase_->configuration()->comm);
@@ -239,11 +213,11 @@ void RobotUserInterface::makeNav(){
 		});
   navView_->addItemToTop(switcher);
 
-	QObject::connect(communicator_, &Communicator::openResult, [this, toggle](bool ok) {
-    toggle->setToggle(ok);
-		topStatus_->setCommStatus(ok);
-		robotBase_->networkStatusChanged(ok);
-		});
+  QObject::connect(communicator_, &Communicator::openResult, [this, toggle](bool ok) {
+  toggle->setToggle(ok);
+    topStatus_->setCommStatus(ok);
+    robotBase_->commStatusChanged(ok);
+  });
 
   // recording
   switcher = new NavigationSwitcher();
@@ -251,9 +225,17 @@ void RobotUserInterface::makeNav(){
   toggle->setToggle(false);
   switcher->setText(tr("Record"));
   navView_->addItemToTop(switcher);
-	QObject::connect(toggle, &QWSwitcher::toggled, [this](bool ok) {
-		robotBase_->setEnabledRecord(ok);
-		});
+  QObject::connect(toggle, &QWSwitcher::toggled, [this](bool ok) {
+    robotBase_->setEnabledRecord(ok);
+  });
+}
+
+void RobotUserInterface::shutdown()
+{
+  robotBase_->saveConfiguration();
+  communicator_->shutdown();
+
+  QCoreApplication::exit(0);
 }
 
 void RobotUserInterface::setRobotBase(RobotBase *robotBase){
@@ -261,6 +243,26 @@ void RobotUserInterface::setRobotBase(RobotBase *robotBase){
 }
 
 void RobotUserInterface::init(){
+  // communicator
+  communicator_ = new Communicator(this);
+  communicator_->init();
+
+  // dataAllocator
+  dataAllocator_ = new DataAllocator();
+  dataAllocator_->setCommPtr(communicator_);
+  dataAllocator_->setConfiguration(robotBase_->configuration());
+  dataAllocator_->init();
+
+  // dataStreamSolver
+  dataStreamSolver_ = new DataStreamSolver();
+  dataStreamSolver_->setConfiguration(robotBase_->configuration());
+  dataStreamSolver_->setDataAllocator(dataAllocator_);
+  dataStreamSolver_->setDataSource(robotBase_->dataSource());
+  dataStreamSolver_->init();
+
+  // robotBase
+  robotBase_->setDataAllocator(dataAllocator_);
+  robotBase_->setTopWidget(this);
 
   // dashboard
   dashboard_base_ = new Dashboard();
@@ -279,13 +281,9 @@ void RobotUserInterface::init(){
   topStatus_ = new FocusStatus();
   topStatus_->setConfiguration(robotBase_->configuration());
   topStatus_->setObservations(robotBase_->observations());
-  //m_titleBar->insertDefaultSpace(4);
-  //ui.layout_topStatus->addWidget( topStatus_);
-
-  //m_titleBar->takeWidgetAt(FluWindowKitTitleBar::MenuWidget);
-  //m_titleBar->setWidgetAt(FluWindowKitTitleBar::MenuWidget, topStatus_->getNavWidget());
-  //m_titleBar->setWidgetAt(FluWindowKitTitleBar::StatusItems, new QPushButton("new button"));
+  topStatus_->setCommunicator(communicator_);
   m_titleBar->setWidgetAt(FluWindowKitTitleBar::StatusItems,topStatus_->getStatusItemsWidget());
+  topStatus_->start();
 
   // comm Selector && dialog box
   commSelector_ = new CommSelector(desktopWidget);
@@ -306,12 +304,9 @@ void RobotUserInterface::init(){
   settingsDisplay_->init();
   settingsDisplay_->pushParameters();
   ui.layout_obj_settings->addWidget(settingsDisplay_);
-  
-  // communicator
-  communicator_ = new Communicator(this);
-  communicator_->init();
-
-  navView_ = new NavigationView(this);
+ 
+  // nav
+  navView_ = new NavigationView();
   ui.LayoutMain->addWidget(navView_, 0, 1);
   ui.LayoutMain->addWidget(ui.stackedWidget, 0, 2);
 
@@ -320,20 +315,24 @@ void RobotUserInterface::init(){
   curveDisplay_->setDataSource(robotBase_->dataSource());
   curveDisplay_->setConfiguration(robotBase_->configuration());
   curveDisplay_->setObservations(robotBase_->observations());
+  curveDisplay_->setSteamSolver(dataStreamSolver_);
   curveDisplay_->init();
   ui.layout_curve->addWidget(curveDisplay_);
 
   // tools
-  toolsBox_ = new ToolsBox(this);
+  toolsBox_ = new ToolsBox();
+  toolsBox_->setConfiguration(robotBase_->configuration());
+  toolsBox_->setObservations(robotBase_->observations());
   toolsBox_->init();
   ui.layout_toolsbox->addWidget(toolsBox_);
 
-  // file Catcher
-  // fileCatcher_ = new FileCatcher(ui.page_fileCatch);
-  // fileCatcher_->setConfiguration(robotBase_->configuration());
-  // fileCatcher_->init();
-  // ui.layout_fileCatch->addWidget(fileCatcher_);
-  
+  // commTerminal
+  commTerminal_ = new CommTerminal();
+  commTerminal_->setConfiguration(robotBase_->configuration());
+  commTerminal_->setDataAllocator(dataAllocator_);
+  commTerminal_->init();
+  ui.layout_terminal->addWidget(commTerminal_);
+
   // init
   setupWidgetsControls();
   setupSignalConnection();
@@ -348,10 +347,6 @@ void RobotUserInterface::init(){
 
   // 设置主题
   FluThemeUtils::getUtils()->setTheme(FluTheme::Dark);
-
-  // 先不用
-  //button_operation_->deleteLater();
-
 
   navView_-> toggleExpandRetract();
 }

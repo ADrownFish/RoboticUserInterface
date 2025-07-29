@@ -53,8 +53,8 @@ void Dashboard::initLabel(){
   ui_imu.lineEdit_euler_y->setLabel("pitch");
   ui_imu.lineEdit_euler_z->setLabel("yaw");
 
-  ui_odom.label_linear_pos->setText("Position m");
-  ui_odom.label_linear_vel->setText("Velocity m/s");
+  ui_odom.label_linear_pos->setText(tr("Position m"));
+  ui_odom.label_linear_vel->setText(tr("Velocity m/s"));
 
   ui_odom.lineEdit_linear_pos_x->setLabel("x");
   ui_odom.lineEdit_linear_pos_y->setLabel("y");
@@ -170,9 +170,9 @@ void Dashboard::setupWidgetsControls(){
   ui_odom.toggle->setToggle(true);
   ui_actionCommand.toggle->setToggle(true);
 
-  ui_actionCommand.lineEdit_pos_x->setText(QString::number(0,'f',config_->display.precision));
-  ui_actionCommand.lineEdit_pos_y->setText(QString::number(0,'f',config_->display.precision));
-  ui_actionCommand.lineEdit_pos_z->setText(QString::number(0,'f',config_->display.precision));
+  ui_actionCommand.lineEdit_pos_x->setText(QString::number(config_->action.pos_key[0],'f',config_->display.precision));
+  ui_actionCommand.lineEdit_pos_y->setText(QString::number(config_->action.pos_key[1],'f',config_->display.precision));
+  ui_actionCommand.lineEdit_pos_z->setText(QString::number(config_->action.pos_key[2],'f',config_->display.precision));
 
   ui_actionCommand.lineEdit_vel_x->setText(QString::number(config_->action.vel_key[0],  'f',config_->display.precision));
   ui_actionCommand.lineEdit_vel_y->setText(QString::number(config_->action.vel_key[1],  'f',config_->display.precision));
@@ -272,8 +272,11 @@ void Dashboard::flush(){
   ui_host.lineEdit_cpu                 ->setText(QString::number(system.cpuUsage));
   ui_host.lineEdit_mem                 ->setText(QString::number(system.memoryUsage));
   ui_host.lineEdit_disk                ->setText(QString::number(system.diskUsage));
-  ui_host.lineEdit_bodyTemp            ->setText(QString::number(system.bodyTemp));
-  ui_host.lineEdit_bodyHumidity        ->setText(QString::number(system.bodyHumidity));
+
+  // sensor
+  const auto& sensor = observations_->sensor;
+  ui_host.lineEdit_bodyTemp            ->setText(QString::number(sensor.temp));
+  ui_host.lineEdit_bodyHumidity        ->setText(QString::number(sensor.humidity));
 
   // battery
   const auto& battery = observations_->battery;

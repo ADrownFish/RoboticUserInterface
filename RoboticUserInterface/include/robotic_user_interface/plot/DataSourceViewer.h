@@ -9,8 +9,12 @@
 #include <QMimeData>
 
 #include "robotic_user_interface/core/DataSource.h"
+#include "robotic_user_interface/core/DataStreamSolver.h"
+#include "robotic_user_interface/form/CsvLoadDialog.h"
+
 #include "qt_gcw/QSnackbarManager.h"
 #include "qcustomplot/qcustomplot.h"
+#include "qt_material_widgets/qtmaterialdialog.h"
 
 class ObjectDataViewer {
 
@@ -91,6 +95,18 @@ public:
     return nullptr;
   }
 
+  void clear() {
+    for (auto& d : data) {
+      d.reset();
+    }
+    data.clear();
+
+    for (auto& d : children) {
+      d->clear();
+    }
+    children.clear();
+  }
+
   void populateTree(QTreeWidgetItem* parentItem, ObjectNode::Ptr node) {
     item = parentItem;
     item->setText(0, node->name);
@@ -148,6 +164,8 @@ public:
 
   void setConfiguration(std::shared_ptr<Configuration> config);
 
+  void setSteamSolver(DataStreamSolver* ss);
+
   void init();
 
   void setupWidgetsControls();
@@ -159,14 +177,20 @@ public:
 signals:
   void publishNotify(GCW::NotifyType type, const QString &title, const QString &text);
 
+  void readyLoad(const QString& path);
+
 private:
   void makeImage();
 
   void readyDrag(QTreeWidgetItem* item);
 
+  void flushItem();
+
 protected:
   void paintEvent(QPaintEvent *event) override;
   void resizeEvent(QResizeEvent *event) override;
+  void dragEnterEvent(QDragEnterEvent *event) override;
+  void dropEvent(QDropEvent *event) override;
 
 private:
   // 绘图
@@ -174,8 +198,21 @@ private:
   QColor backgroudColor = QColor(20, 20, 20);
 
   QPointer<DataSourceViewerTreeWidget> treeWidget;
-  ObjectNodeViewer::Ptr objectNodeViewer_;
   DataSource::Ptr dataSource_;
+
+  ObjectNodeViewer::Ptr viewer_plugin;
+  ObjectNodeViewer::Ptr viewer_csv;
+  ObjectNodeViewer::Ptr viewer_float;
+  ObjectNodeViewer::Ptr viewer_json;
+
+  QTreeWidgetItem* item_csv;
+  QTreeWidgetItem* item_plugin;
+  QTreeWidgetItem* item_float;
+  QTreeWidgetItem* item_json;
+
+  //防止刷新过快
+  QElapsedTimer elapsedTimer;
+  qint64 lastEnterTime = 0;
 
   QTimer clock_flush;
   QFont uiFont;
@@ -183,4 +220,12 @@ private:
 
   uint32_t BorderRadius = 10;
   bool isActive = false;
+
+  // 数据解析器
+  QPointer<DataStreamSolver> dataStreamSolver_ = nullptr;
+
+
+  // load csv 部分
+  QPointer<QtMaterialDialog> SelectorDialog_;
+  QPointer<CsvLoadDialog>     csvLoadDialog_;
 };

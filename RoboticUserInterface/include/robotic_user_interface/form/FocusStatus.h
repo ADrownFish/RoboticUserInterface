@@ -5,14 +5,16 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QSvgRenderer>
+#include <QPointer>
 
-#include <Map>
+#include <map>
 
 #include "qt_gcw/QSnackbarManager.h"
 #include "qwool/qwwindowwidget.h"
 
 #include "robotic_user_interface/form/ActuatorDisplay.h"
 #include "robotic_user_interface/core/Types.h"
+#include "robotic_user_interface/core/Communicator.h"
 
 
 class StatusItem : public QWidget {
@@ -67,6 +69,7 @@ public:
   enum StatusItemEnum{
     batterySoc,
     netType,
+    protocolType,
     netSpeed,
     tempDriver,
     tempMotor,
@@ -86,20 +89,21 @@ public:
   FocusStatus(QObject*parent = nullptr);
   ~FocusStatus();
 
-  void setConfiguration(std::shared_ptr<Configuration> config);
+  void setConfiguration(std::shared_ptr<Configuration> p);
 
-  void setObservations(std::shared_ptr<ObservationsBase> config);
+  void setObservations(std::shared_ptr<ObservationsBase> p);
+
+  void setCommunicator(QPointer<Communicator> p);
 
   void flushConfiguration();
-
-  void appedUploadBytes(int byte);
-
-  void appendDownloadByte(int byte);
 
   void setCommStatus(bool status);
 
   QWidget* getStatusItemsWidget();
 
+  void start();
+
+  void stop();
 
 private:
   void flush();
@@ -123,4 +127,7 @@ private:
 
   std::shared_ptr<Configuration> config_;
   std::shared_ptr<ObservationsBase> observations_;
+  QPointer<Communicator> communicator_;
+  
+  const int prec = 1;
 };

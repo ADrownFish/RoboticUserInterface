@@ -1,11 +1,14 @@
 #pragma once
 
+#include "Eigen/Dense"
+
 #include <memory>
 #include <vector>
 #include <array>
 #include <math.h>
 
 #include <QVector>
+#include <QList>
 #include <QSharedPointer>
 #include <QColor>
 #include <QString>
@@ -14,11 +17,19 @@
 
 // ****************************************************************
 using scalar_t = double;
-using quaternion     = std::array<scalar_t, 4>;
+// using quaternion     = std::array<scalar_t, 4>;
+using quaternion     = Eigen::Quaternion<scalar_t>;
+
 using vector_t       = std::vector<scalar_t>;
 using vector_bool_t  = std::vector<bool>;
-using vector3_t      = std::array<scalar_t, 3>;
+// using vector3_t      = std::array<scalar_t, 3>;
 
+// using vector_t       = Eigen::Matrix<scalar_t, -1, 1>;
+// using vector_bool_t  = std::vector<bool>;
+using vector3_t      = Eigen::Matrix<scalar_t, 3, 1>;
+
+// using matrix_t      = Eigen::Matrix<scalar_t, -1, -1>;
+// using matrix3_t      = Eigen::Matrix<scalar_t, 3, 3>;
 
 constexpr scalar_t Rad2Deg = scalar_t(180.0 / M_PI);
 constexpr scalar_t Deg2Rad = scalar_t(M_PI / 180.0);
@@ -51,7 +62,7 @@ public:
   using Ptr = std::shared_ptr<ObservationsBase>;
 
   struct Actuator {
-    scalar_t state = 0.f;
+    uint32_t state = 0;
     scalar_t pos = 0.f;
     scalar_t vel = 0.f;
     scalar_t torque = 0.f;
@@ -66,30 +77,37 @@ public:
     vector_t velocity;
   };
   struct Battery {
-    uint8_t soc;
-    int8_t temp;
-    uint16_t cycle;
-    uint32_t status;
-    scalar_t current;
-    scalar_t voltage;
+    int32_t cycle;
+    int32_t status;
+    double soc;
+    double temp;
+    double current;
+    double voltage;
   };
   struct Imu {
+    scalar_t timestamp;
+
     quaternion quat;
     vector_t eulerAngles;
     vector_t acceleration;
 
     vector_t angularVelocity;
     vector_t angularAcceleration;
+
+    vector_t Magnetometer;
   };
   struct System {
-    uint8_t status;
-    int8_t cpuCoreMaxTemp;
-    int8_t cpuPackageTemp;
-    uint8_t cpuUsage;
-    uint8_t memoryUsage;
-    uint8_t diskUsage;
-    int8_t bodyTemp;
-    uint8_t bodyHumidity;
+    int32_t status;
+    double cpuUsage;
+    double memoryUsage;
+    double diskUsage;
+    double cpuCoreMaxTemp;
+    double cpuPackageTemp;
+  };
+
+  struct Sensor {
+    double temp;
+    double humidity;
   };
   struct EndEffector {
     vector_t position;
@@ -110,12 +128,16 @@ public:
     odom.velocity.resize(3, 0.0);
 
     // imu
+    imu.timestamp = 0.0;
+
     imu.quat = quaternion{1.0,0.0,0.0,0.0};
     imu.acceleration.resize(3, 0.0);
     imu.eulerAngles.resize(3, 0.0);
 
     imu.angularVelocity.resize(3, 0.0);
     imu.angularAcceleration.resize(3, 0.0);
+
+    imu.Magnetometer.resize(3, 0.0);
 
     // battery
     battery.status = 0;
@@ -132,6 +154,10 @@ public:
     system.cpuUsage = 0;
     system.memoryUsage = 0;
     system.diskUsage = 0;
+
+    // sensor
+    sensor.temp = 0;
+    sensor.humidity = 0;
 
     // actuator
     actuator.resize(numberOfActuator);
@@ -153,7 +179,8 @@ public:
       imu(other.imu),
       battery(other.battery), 
       endEffector(other.endEffector),
-      system(other.system) {}
+      system(other.system),
+      sensor(other.sensor) {}
 
   ObservationsBase &operator=(const ObservationsBase &other) {
     if (this != &other) {
@@ -166,6 +193,7 @@ public:
       battery = other.battery;
       endEffector = other.endEffector;
       system = other.system;
+      sensor = other.sensor;
     }
     return *this;
   }
@@ -182,6 +210,7 @@ public:
   Battery battery;
   EndEffector endEffector;
   System system;
+  Sensor sensor;
 };
 
 class CommunicationConfiguration {
@@ -216,12 +245,29 @@ public:
     SERIAL,
     None,
   };
+  enum class CommProtocol{
+    Plugin,
+    JSON,
+    Float,
+    Raw,
+  };
+
   struct UDP {
+    QList<int> listenHistory = {};
+    QList<QString> ipHistory = {};
+    QList<int> portHistory = {};
+
     int listen = 26666;
     QString ip = "127.0.0.1";
     int port = 25555;
   };
   struct TCP {
+    QList<int> listenHistory = {};
+    QList<QString> ipHistory = {};
+    QList<int> portHistory = {};
+
+    int server = 0;
+
     int listen = 25555;
     QString ip = "127.0.0.1";
     int port = 26666;
@@ -250,10 +296,26 @@ public:
     }
   }
 
+  inline static QString commProtocolToQString(CommProtocol type) {
+    switch (type) {
+    case CommProtocol::Plugin:
+      return "Plugin";
+    case CommProtocol::JSON:
+      return "JSON";
+    case CommProtocol::Float:
+      return "Float";
+    case CommProtocol::Raw:
+      return "Raw";
+    default:
+      return "Unknown";
+    }
+  }
+
   UDP udp;
   TCP tcp;
   Serial serial;
   CommType commType = CommType::UDP;
+  CommProtocol commProtocol = CommProtocol::Plugin;
 };
 
 enum class AngleUnit {
@@ -339,6 +401,9 @@ public:
   bool yAutoScale = true; // Y轴自动缩放
   bool xAutoScale = true; // X轴自动缩放
   bool settingsVisible = false;    // 更多显示
+  bool legend = true;
+  bool link = true;
+  bool tracker = true;
   bool isPaused = false;
   bool gridLine = true;
 
@@ -348,6 +413,17 @@ public:
   int plotFlushRate = 20;       // 绘图帧率（Frames Per Second）
 };
 
+enum class EncodingType{
+  Abc,
+  Hex,
+};
+
+class TerminalConfiguaration{
+public:
+  EncodingType outputType = EncodingType::Abc;
+  EncodingType inputType = EncodingType::Abc;
+};
+
 class Configuration {
 public:
   DisplayConfiguration display;
@@ -355,29 +431,30 @@ public:
   CommunicationConfiguration comm;
   ActionConfiguration action;
   PlotConfiguration plot;
+  TerminalConfiguaration terminal;
   QVector<std::shared_ptr<FilePathConfiguration>> filePaths;
 };
 
 class ColorScheme {
 public:
   enum ColorSchemeEnum {
-    White = 0,
-    Red,
-    Pink,
-    Purple,
-    DeepPurple,
-    Indigo,
     Blue,
+    Red,
+    Yellow,
+    Purple,    
+    Indigo,
     LightBlue,
     Cyan,
     Teal,
     Green,
     LightGreen,
     Lime,
-    Yellow,
+    Pink,
     Amber,
     Orange,
+    White,
     DeepOrange,
+    DeepPurple,
     Brown,
     Grey,
     BlueGrey,
@@ -423,4 +500,3 @@ public:
     return getColor(static_cast<ColorSchemeEnum>(wrappedIndex));
   }
 };
-

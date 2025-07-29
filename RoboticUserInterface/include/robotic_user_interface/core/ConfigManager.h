@@ -25,7 +25,7 @@ public:
     }
 
     ~ConfigManager() {
-        writeConfig();
+        //writeConfig();
     }
 
     // 读取配置文件到结构体
@@ -66,20 +66,34 @@ public:
       config_->card.windowsWidth = cardObj.value("windowsWidth").toInt(config_->card.windowsWidth);
       config_->card.windowsHeight = cardObj.value("windowsHeight").toInt(config_->card.windowsHeight);
 
+      // 读取 TerminalConfiguration
+      QJsonObject terminalObj = json.value("Terminal").toObject();
+      config_->terminal.outputType = static_cast<EncodingType>(terminalObj.value("outputType").toInt(static_cast<int>(config_->terminal.outputType)));
+      config_->terminal.inputType =  static_cast<EncodingType>(terminalObj.value("inputType").toInt( static_cast<int>(config_->terminal.inputType)));
+
       // 读取 CommunicationConfiguration
       QJsonObject commObj = json.value("Communication").toObject();
       config_->comm.commType = static_cast<CommunicationConfiguration::CommType>(
           commObj.value("commType").toInt(static_cast<int>(config_->comm.commType)));
+      config_->comm.commProtocol = static_cast<CommunicationConfiguration::CommProtocol>(
+          commObj.value("commProtocol").toInt(static_cast<int>(config_->comm.commProtocol)));
 
       QJsonObject udpObj = commObj.value("UDP").toObject();
+      config_->comm.udp.listenHistory = toList<int>(udpObj.value("listenHistory").toArray());
+      config_->comm.udp.ipHistory = toList<QString>(udpObj.value("ipHistory").toArray());
+      config_->comm.udp.portHistory = toList<int>(udpObj.value("portHistory").toArray());
       config_->comm.udp.listen = udpObj.value("listen").toInt(config_->comm.udp.listen);
       config_->comm.udp.ip = udpObj.value("ip").toString(config_->comm.udp.ip);
       config_->comm.udp.port = udpObj.value("port").toInt(config_->comm.udp.port);
 
       QJsonObject tcpObj = commObj.value("TCP").toObject();
+      config_->comm.tcp.listenHistory = toList<int>(tcpObj.value("listenHistory").toArray());
+      config_->comm.tcp.ipHistory = toList<QString>(tcpObj.value("ipHistory").toArray());
+      config_->comm.tcp.portHistory = toList<int>(tcpObj.value("portHistory").toArray());
       config_->comm.tcp.listen = tcpObj.value("listen").toInt(config_->comm.tcp.listen);
       config_->comm.tcp.ip = tcpObj.value("ip").toString(config_->comm.tcp.ip);
       config_->comm.tcp.port = tcpObj.value("port").toInt(config_->comm.tcp.port);
+      config_->comm.tcp.server = tcpObj.value("server").toInt(config_->comm.tcp.server);
 
       QJsonObject serialObj = commObj.value("Serial").toObject();
       config_->comm.serial.serialName = serialObj.value("serialName").toString(config_->comm.serial.serialName);
@@ -94,7 +108,7 @@ public:
           serialObj.value("dataBits").toInt(static_cast<int>(config_->comm.serial.dataBits)));
 
       // 读取 ActionConfiguration
-      QJsonObject actionObj = commObj.value("Action").toObject();
+      QJsonObject actionObj = json.value("Action").toObject();
       for (int i = 0; i < 3; ++i) {
         // 读取 pos_limit
         QJsonObject posLimitObj = actionObj["pos_limit"].toArray().at(i).toObject();
@@ -162,8 +176,6 @@ public:
 
       // 写入 DisplayConfiguration
       QJsonObject displayObj;
-//      displayObj["highTempAlarm_motor"] = config_->display.highTempAlarm_motor;
-//      displayObj["highTempAlarm_driver"] = config_->display.highTempAlarm_driver;
       displayObj["spacing"] = config_->display.spacing;
       displayObj["farmRate"] = config_->display.farmRate;
       displayObj["precision"] = config_->display.precision;
@@ -182,20 +194,34 @@ public:
       cardObj["windowsHeight"] = config_->card.windowsHeight;
       json["Card"] = cardObj;
 
+      // 写入 TerminalConfiguration
+      QJsonObject terminalObj;
+      terminalObj["inputType"] = static_cast<int>(config_->terminal.inputType);
+      terminalObj["outputType"] = static_cast<int>(config_->terminal.outputType);
+      json["Terminal"] = terminalObj;
+
       // 写入 CommunicationConfiguration
       QJsonObject commObj;
       commObj["commType"] = static_cast<int>(config_->comm.commType);
+      commObj["commProtocol"] = static_cast<int>(config_->comm.commProtocol);
 
       QJsonObject udpObj;
+      udpObj["listenHistory"] = toJsonArray(config_->comm.udp.listenHistory);
+      udpObj["ipHistory"] = toJsonArray(config_->comm.udp.ipHistory);
+      udpObj["portHistory"] = toJsonArray(config_->comm.udp.portHistory);
       udpObj["listen"] = config_->comm.udp.listen;
       udpObj["ip"] = config_->comm.udp.ip;
       udpObj["port"] = config_->comm.udp.port;
       commObj["UDP"] = udpObj;
 
       QJsonObject tcpObj;
+      tcpObj["listenHistory"] = toJsonArray(config_->comm.tcp.listenHistory);
+      tcpObj["ipHistory"] = toJsonArray(config_->comm.tcp.ipHistory);
+      tcpObj["portHistory"] = toJsonArray(config_->comm.tcp.portHistory);
       tcpObj["listen"] = config_->comm.tcp.listen;
-      tcpObj["ip"] = config_->comm.tcp.ip;
+      tcpObj["ip"] = config_->comm.udp.ip;
       tcpObj["port"] = config_->comm.tcp.port;
+      tcpObj["server"] = config_->comm.tcp.server;
       commObj["TCP"] = tcpObj;
 
       QJsonObject serialObj;
@@ -301,6 +327,26 @@ public:
         writeConfig();  // 写入默认配置到文件
         qDebug() << "Default config written.";
     }
+
+private:
+
+  template <typename T>
+  QJsonArray toJsonArray(const QList<T>&vec) {
+    QJsonArray array;
+    for (const auto& item : vec) {
+      array.append(item);
+    }
+    return array;
+  }
+
+  template <typename T>
+  QList<T> toList(const QJsonArray& array) {
+    QList<T> list;
+    for (const auto& value : array) {
+      list.append(static_cast<T>(value.toVariant().value<T>()));
+    }
+    return list;
+  }
 
 private:
     std::shared_ptr<Configuration> config_;

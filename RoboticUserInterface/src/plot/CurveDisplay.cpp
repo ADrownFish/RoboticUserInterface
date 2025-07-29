@@ -1,5 +1,7 @@
 #include "robotic_user_interface/plot/CurveDisplay.h"
 
+#include "qt_material_widgets/qtmaterialraisedbutton.h"
+
 CurveDisplay::CurveDisplay(QWidget *parent) : QWidget(parent) {
   ui.setupUi(this);
 }
@@ -16,6 +18,14 @@ void CurveDisplay::init() {
   appendCustomPlot();
 }
 
+void CurveDisplay::setActivate(bool ok) {
+  if(ok){
+    flushTimer_.start();
+  } else {
+    flushTimer_.stop();
+  }
+}
+
 void CurveDisplay::setConfiguration(const std::shared_ptr<Configuration>& config) {
   config_ = config;
 }
@@ -28,11 +38,16 @@ void CurveDisplay::setDataSource(const std::shared_ptr<DataSource>& ds) {
   dataSource_ = ds;
 }
 
+void CurveDisplay::setSteamSolver(DataStreamSolver* ss)
+{
+  dataStreamSolver_ = ss;
+}
+
 void CurveDisplay::setupSignalConnection() {
   QObject::connect(dataSourceViewer_, &DataSourceViewer::publishNotify, this, &CurveDisplay::publishNotify);
 
-  QObject::connect(ui.lineEdit_cacheDuration, &QLineEdit::textChanged, [&](const QString &value) {
-    uint32_t time = value.toInt();
+  QObject::connect(ui.lineEdit_cacheDuration, &QLineEdit::editingFinished, [&]() {
+    uint32_t time = ui.lineEdit_cacheDuration->text().toInt();
 
     if (time < 1) {
       time = 1;
@@ -49,63 +64,54 @@ void CurveDisplay::setupSignalConnection() {
   });
   QObject::connect(ui.curve_gridLine, &QWSwitcherButton::selectIndexChanged, [this](int index) {
     gridLineVisible(index);
+    updateOnce();
   });
-  QObject::connect(ui.curve_pauseResumeButton, &QWSwitcherButton::selectIndexChanged, [this](int index) {
+
+  QObject::connect(ui.curve_pauseResume, &QWSwitcherButton::selectIndexChanged, [this](int index) {
     setPaused(index);
+    updateOnce();
   });
+
   QObject::connect(ui.AutoScaleAxisY, &QWSwitcherButton::selectIndexChanged, [this](int index) {
      config_->plot.yAutoScale = index;
   });
+
   QObject::connect( ui.AutoScaleAxisX, &QWSwitcherButton::selectIndexChanged, [this](int index) {
      config_->plot.xAutoScale = index;
    });
-  QObject::connect(ui.qWSwitcherButton_PlotMode, &QWSwitcherButton::selectIndexChanged, [this](int index) {
-    config_->plot.plotLine = static_cast<PlotLineType>(index);
-    //QCPGraph::LineStyle lineStyle;
-    //QCPScatterStyle scatterStyle;
-    //if (index == 1) {
-    //  lineStyle = QCPGraph::LineStyle::lsNone;
-    //  scatterStyle = QCPScatterStyle(QCPScatterStyle::ssDiamond, 4);
-    //} else if (index == 2) {
-    //  lineStyle = QCPGraph::LineStyle::lsLine;
-    //  scatterStyle = QCPScatterStyle(QCPScatterStyle::ssSquare, 4);
-    //} else {
-    //  lineStyle = QCPGraph::LineStyle::lsLine;
-    //  scatterStyle = QCPScatterStyle(QCPScatterStyle::ssNone);
-    //}
 
-    //int curveCount = ui.tabWidget_curve->count();
-    //for (int i = 0; i < curveCount; i++) {
-    //  CustomPlotMap *ptr = qobject_cast<CustomPlotMap *>(ui.tabWidget_curve->widget(i));
-    //  int graphCount = ptr->graphCount();
-    //  for (int j = 0; j < graphCount; j++) {
-    //    ptr->graph(j)->setLineStyle(lineStyle);
-    //    ptr->graph(j)->setScatterStyle(scatterStyle);
-    //  }
-    //  ptr->replot(QCustomPlot::rpQueuedReplot);
-    //}
-  });
+  QObject::connect(ui.curve_legend, &QWSwitcherButton::selectIndexChanged, [this](int index) {
+    config_->plot.legend = index;
 
-  QObject::connect(ui.curve_clearData, &QPushButton::clicked, this, &CurveDisplay::clearAllDataSource);
-  QObject::connect(ui.curve_addTab, &QPushButton::clicked, this, &CurveDisplay::appendCustomPlot);
+    });
+
+  QObject::connect(ui.curve_link, &QWSwitcherButton::selectIndexChanged, [this](int index) {
+    config_->plot.link = index;
+    });
+
+  QObject::connect(ui.curve_dataTraker, &QWSwitcherButton::selectIndexChanged, [this](int index) {
+    config_->plot.tracker = index;
+    });
+  
   QObject::connect(ui.tabWidget_curve, &QTabWidget::tabBarClicked, [this](int index) {
     CustomPlotMap* castPlotMap = qobject_cast<CustomPlotMap*>(ui.tabWidget_curve->currentWidget());
     if (castPlotMap) {
       currentPlotMap = castPlotMap;
     }
     else {
-      publishNotify(GCW::NotifyType::Error, QStringLiteral("错误"), QStringLiteral("获取当前Plot句柄失败"));
+      publishNotify(GCW::NotifyType::Error, tr("error"), tr("Failed to obtain the current Plot handle."));
     }
   });
   QObject::connect(ui.tabWidget_curve->tabBar(), &QTabBar::tabBarDoubleClicked, [this](int index) {
     QString currentText = ui.tabWidget_curve->tabBar()->tabText(index);
 
     bool ok;
-    QString newText = QInputDialog::getText(this, QStringLiteral("修改画布名称"),
-        QStringLiteral("新的画布名称:"), QLineEdit::Normal, currentText, &ok);
+    QString newText = QInputDialog::getText(this, tr("Modify map name"),
+        tr("New map name:"), QLineEdit::Normal, currentText, &ok);
 
     if (ok && !newText.isEmpty()) {
       ui.tabWidget_curve->tabBar()->setTabText(index, newText);
+      ui.tabWidget_curve->setTabToolTip(index, newText);
     }
   });
   QObject::connect(ui.tabWidget_curve, &QTabWidget::tabCloseRequested, [this](int index) {
@@ -123,18 +129,14 @@ void CurveDisplay::setupSignalConnection() {
     currentPlotMap = qobject_cast<CustomPlotMap*>(ui.tabWidget_curve->currentWidget());
     });
 
-  QObject::connect(&flushTimer_, &QTimer::timeout, [this]() {
-    if (currentPlotMap) {
-      currentPlotMap->updatePlot();
-    }
-    dataSourceViewer_->updateNodeValue();
-  });
+  QObject::connect(&flushTimer_, &QTimer::timeout, this, &CurveDisplay::updateOnce);
 }
 
 void CurveDisplay::setupWidgetsControls() {
 
   dataSourceViewer_ = new DataSourceViewer(this);
   dataSourceViewer_->setConfiguration(config_);
+  dataSourceViewer_->setSteamSolver(dataStreamSolver_);
   dataSourceViewer_->init();
   dataSourceViewer_->updateDataSource(dataSource_);
 
@@ -146,48 +148,92 @@ void CurveDisplay::setupWidgetsControls() {
   splitter->setContentsMargins(0, 0, 0, 0);
   splitter->setHandleWidth(20);  // 设置分隔条的宽度 像素
 
+  QColor onColor  = QColor(60, 100, 120);
+  QColor offColor = QColor(63, 63, 70, 50);
+
   ui.gridLayout->addWidget(splitter);
 
-  ui.curve_pauseResumeButton->setBorder(false);
-  ui.curve_pauseResumeButton->setBorderRadius(5);
-  ui.curve_pauseResumeButton->appendState({ true, QString("Pause"), QColor(80, 85, 90) , QString(":/svg/svg/stop.svg") });
-  ui.curve_pauseResumeButton->appendState({ true, QString("Continue"), QColor(80, 85, 90) , QString(":/svg/svg/continue.svg") });
-
-  ui.qWSwitcherButton_PlotMode->setBorder(false);
-  ui.qWSwitcherButton_PlotMode->setBorderRadius(5);
-  ui.qWSwitcherButton_PlotMode->appendState({ true, QString("Line"), QColor(80, 85, 90) , QString(":/svg/svg/line.svg") });
-  ui.qWSwitcherButton_PlotMode->appendState({ true, QString("Point"), QColor(80, 85, 90) , QString(":/svg/svg/dot.svg") });
-  ui.qWSwitcherButton_PlotMode->appendState({ true, QString("Line & Point"), QColor(80, 85, 90) , QString(":/svg/svg/dotline.svg") });
+  ui.curve_pauseResume->setBorder(false);
+  ui.curve_pauseResume->setBorderRadius(5);
+  ui.curve_pauseResume->appendState({ true, tr("Continue"), offColor , QString(":/svg/svg/continue.svg") });
+  ui.curve_pauseResume->appendState({ true, tr("Pause"), onColor , QString(":/svg/svg/stop.svg") });
 
   ui.curve_moreLess->setBorder(false);
   ui.curve_moreLess->setBorderRadius(5);
-  ui.curve_moreLess->appendState({ true, QString("Expand"), QColor(80, 85, 90) , QString(":/svg/svg/more.svg") });
-  ui.curve_moreLess->appendState({ true, QString("Collapse"), QColor(80, 85, 90) , QString(":/svg/svg/less.svg") });
+  ui.curve_moreLess->appendState({ true, tr("Collapse"), offColor , QString(":/svg/svg/less.svg") });
+  ui.curve_moreLess->appendState({ true, tr("Expand"), onColor , QString(":/svg/svg/more.svg") });
   //ui.curve_gridLine->setSelectState(1);
 
   ui.curve_gridLine->setBorder(false);
   ui.curve_gridLine->setBorderRadius(5);
-  ui.curve_gridLine->appendState({ true, QString("Grid Show"), QColor(80, 85, 90) , QString(":/svg/svg/show.svg") });
-  ui.curve_gridLine->appendState({ true, QString("Grid Hide"), QColor(80, 85, 90) , QString(":/svg/svg/hide.svg") });
+  ui.curve_gridLine->appendState({ true, tr("Grid"), offColor , QString(":/svg/svg/hide.svg") });
+  ui.curve_gridLine->appendState({ true, tr("Grid"), onColor , QString(":/svg/svg/show.svg") });
   ui.curve_gridLine->setSelectState(1);
 
   ui.AutoScaleAxisX->setBorder(false);
   ui.AutoScaleAxisX->setBorderRadius(5);
-  ui.AutoScaleAxisX->appendState({ true, QString("Manual Scaling X"), QColor(80, 85, 90) , QString(":/svg/svg/manual.svg") });
-  ui.AutoScaleAxisX->appendState({ true, QString("Auto Scaling X"), QColor(80, 85, 90) , QString(":/svg/svg/auto.svg") });
+  ui.AutoScaleAxisX->appendState({ true, tr("Manual Scaling X"), offColor , QString(":/svg/svg/manual.svg") });
+  ui.AutoScaleAxisX->appendState({ true, tr("Auto Scaling X"), onColor , QString(":/svg/svg/auto.svg") });
   ui.AutoScaleAxisX->setSelectState(1);
 
   ui.AutoScaleAxisY->setBorder(false);
   ui.AutoScaleAxisY->setBorderRadius(5);
-  ui.AutoScaleAxisY->appendState({ true, QString("Manual Scaling Y"), QColor(80, 85, 90) , QString(":/svg/svg/manual.svg") });
-  ui.AutoScaleAxisY->appendState({ true, QString("Auto Scaling Y"), QColor(80, 85, 90) , QString(":/svg/svg/auto.svg") });
+  ui.AutoScaleAxisY->appendState({ true, tr("Manual Scaling Y"), offColor , QString(":/svg/svg/manual.svg") });
+  ui.AutoScaleAxisY->appendState({ true, tr("Auto Scaling Y"), onColor , QString(":/svg/svg/auto.svg") });
   ui.AutoScaleAxisY->setSelectState(1);
-  
-  ui.curve_addTab->setText("Add map");
-  ui.curve_clearData->setText("Clear data");
 
-  ui.lineEdit_cacheDuration->setLabel("Cache Duration (s)");
+  ui.curve_legend->setBorder(false);
+  ui.curve_legend->setBorderRadius(5);
+  ui.curve_legend->appendState({ true, tr("Legend"), offColor , QString(":/svg/svg/manual.svg") });
+  ui.curve_legend->appendState({ true, tr("Legend"), onColor , QString(":/svg/svg/auto.svg") });
+  ui.curve_legend->setSelectState(1);
+
+  ui.curve_link->setBorder(false);
+  ui.curve_link->setBorderRadius(5);
+  ui.curve_link->appendState({ true, tr("Link"), offColor , QString(":/svg/svg/manual.svg") });
+  ui.curve_link->appendState({ true, tr("Link"), onColor , QString(":/svg/svg/auto.svg") });
+  ui.curve_link->setSelectState(1);
+
+  ui.curve_dataTraker->setBorder(false);
+  ui.curve_dataTraker->setBorderRadius(5);
+  ui.curve_dataTraker->appendState({ true, tr("Data Tracker"), offColor , QString(":/svg/svg/manual.svg") });
+  ui.curve_dataTraker->appendState({ true, tr("Data Tracker"), onColor , QString(":/svg/svg/auto.svg") });
+  ui.curve_dataTraker->setSelectState(1);
+
+  QTabBar* tabBar = ui.tabWidget_curve->tabBar();
+  tabBar->setElideMode(Qt::ElideNone);
+
+  ui.lineEdit_cacheDuration->setLabel(tr("Cache Duration (s)"));
   ui.lineEdit_cacheDuration->setText(QString::number(config_->plot.cacheDuration));
+
+  // =========== 添加的菜单按钮 ===========
+  dropButton_ = new QWDropWidget(this);
+  FluMenu* menu = new FluMenu(this);
+  FluAction* action_clearData = new FluAction(tr("Clear Data"));
+  QObject::connect(action_clearData, &QAction::triggered, this, &CurveDisplay::clearData);
+  menu->addAction(action_clearData);
+  menu->addSeparator();
+  FluAction* action_export_image = new FluAction(tr("Export As Image"));
+  QObject::connect(action_export_image, &QAction::triggered, this, &CurveDisplay::exportDataImage);
+  menu->addAction(action_export_image);
+  FluAction* action_export_file = new FluAction(tr("Export As File"));
+  QObject::connect(action_export_file, &QAction::triggered, this, &CurveDisplay::exportDataFile);
+  menu->addAction(action_export_file);
+  dropButton_->setMenu(menu);
+
+  QtMaterialRaisedButton* button;
+  button = new QtMaterialRaisedButton();
+  button->setText(tr("Add Map"));
+  button->setFixedHeight(25);
+  button->setBackgroundColor(onColor);
+  QObject::connect(button, &QPushButton::clicked, this, &CurveDisplay::appendCustomPlot);
+  dropButton_->setWidget(button);
+
+  dropButton_->setDropDirection(QWDropWidget::DropDirection::Up);
+  dropButton_->setDropIcon(QIcon(":/svg/svg/arrow-up2.svg"));
+  ui.horizontalLayout->insertWidget(0, dropButton_);
+
+  // =========== 添加的菜单按钮 ===========
 
   settingsVisible(false);
 }
@@ -197,7 +243,10 @@ void CurveDisplay::appendCustomPlot(){
   obj->init();
   QObject::connect(obj, &CustomPlotMap::publishNotify, this, &CurveDisplay::publishNotify);
 
-  ui.tabWidget_curve->addTab(obj,QStringLiteral("plot map ") + QString::number(ui.tabWidget_curve->count() + 1));
+  QString tabName = tr("plot map ") + QString::number(ui.tabWidget_curve->count() + 1);
+  ui.tabWidget_curve->addTab(obj, tabName);
+  ui.tabWidget_curve->setTabToolTip(ui.tabWidget_curve->count() - 1, tabName);
+
   currentPlotMap = qobject_cast<CustomPlotMap*>(ui.tabWidget_curve->currentWidget());
 }
 void CurveDisplay::clearAllDataSource(){
@@ -219,4 +268,25 @@ void CurveDisplay::gridLineVisible(bool ok){
 
 void CurveDisplay::setPaused(bool ok) {
   config_->plot.isPaused = ok;
+}
+
+void CurveDisplay::updateOnce()
+{
+  if (currentPlotMap) {
+    currentPlotMap->updatePlot();
+  }
+
+  dataSourceViewer_->updateNodeValue();
+}
+
+void CurveDisplay::clearData()
+{
+}
+
+void CurveDisplay::exportDataImage()
+{
+}
+
+void CurveDisplay::exportDataFile()
+{
 }

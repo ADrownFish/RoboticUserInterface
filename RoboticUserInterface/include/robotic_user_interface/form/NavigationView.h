@@ -34,9 +34,9 @@ private:
   QLabel text;
   QWSwitcher toggle;
 
-  QHBoxLayout* layout;
-  QWidget stretchWidget;
-  QWidget stretchWidgetHead;
+  QVBoxLayout* layout;
+  // QWidget stretchWidget;
+  // QWidget stretchWidgetHead;
 };
 
 class NavigationItem : public NavigationObject {

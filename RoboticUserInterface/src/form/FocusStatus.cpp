@@ -82,7 +82,8 @@ void StatusItem::resetFixedWidth() {
     int fixedWidth = 0;
     fixedWidth += svgs_.size() * pixmapWidth;
 
-    QFontMetrics fontMetrics(font());
+    QFont font_ = font();
+    QFontMetrics fontMetrics(font_);
     for (const auto& str : texts_.values()) {
       fixedWidth += interval;
       fixedWidth += fontMetrics.horizontalAdvance(str) * 1.1;
@@ -102,7 +103,7 @@ void StatusItem::resetFixedWidth() {
     fixedWidth += pixmapWidth;
 
     for (const auto& str : texts_.values()) {
-      maxTextWidth = qMax(fontMetrics.horizontalAdvance(str) * 1.1, (double)maxTextWidth);
+      maxTextWidth = qMax(fontMetrics.horizontalAdvance(str) * 1.2, (double)maxTextWidth) + 5;
     }
 
     fixedWidth += interval;
@@ -136,6 +137,7 @@ void StatusItem::paintEvent(QPaintEvent* event) {
       svgRect.translate(svgWidth + interval, 0);
     }
     painter.setPen(Qt::white);
+    painter.setFont(font());
     QFontMetrics fontMetrics(font());
     for (const auto& str : texts_.values()) {
       int fontWidth = fontMetrics.horizontalAdvance(str) * 1.1;
@@ -157,7 +159,7 @@ void StatusItem::paintEvent(QPaintEvent* event) {
     }
     svgRect.moveTo(svgRect.x() + svgWidth + interval, interval);
     QFont drawfont = font();
-    drawfont.setPointSizeF(drawfont.pointSize() / 1.5);
+    drawfont.setPointSizeF(drawfont.pointSize() / 1.3);
     painter.setPen(Qt::white);
     painter.setFont(drawfont);
     QFontMetrics fontMetrics(drawfont);
@@ -181,13 +183,6 @@ FocusStatus::FocusStatus(QObject*parent)
 
   connect(&timer_flush_, &QTimer::timeout, this, &FocusStatus::flush);
 
-  timer_flush_.start(1000);
-  //ui.button_nav->setText(QString("Nav"));
-  //ui.button_nav->setIcon(QIcon(":/svg/svg/menu.svg"));
-
-  //ui.widget_net_switcher->setToggle(false);
-  //ui.widget_record_switcher->setToggle(false);
-
   createStatusItems();
 
   setCommStatus(false);
@@ -205,14 +200,15 @@ void FocusStatus::setObservations(std::shared_ptr<ObservationsBase> config){
   observations_ = config;
 }
 
-void FocusStatus::appedUploadBytes(int byte){
-  value_.uploadBytes += byte;
-}
-void FocusStatus::appendDownloadByte(int byte){
-  value_.downloadBytes += byte;
+void FocusStatus::setCommunicator(QPointer<Communicator> p)
+{
+  communicator_ = p;
 }
 
 void FocusStatus::createStatusItems() {
+  using CCCP = CommunicationConfiguration::CommProtocol;
+  using CCCT = CommunicationConfiguration::CommType;
+
   itemsWidget = new QWidget();
 
   QHBoxLayout* layout = new QHBoxLayout();
@@ -222,6 +218,7 @@ void FocusStatus::createStatusItems() {
 
   StatusItem *batterySoc = new StatusItem();
   StatusItem *netType = new StatusItem();
+  StatusItem* protocolType = new StatusItem();
   StatusItem *netSpeed = new StatusItem();
   StatusItem *tempDriver = new StatusItem();
   StatusItem *tempMotor = new StatusItem();
@@ -236,6 +233,7 @@ void FocusStatus::createStatusItems() {
 
   initStatusItem(netType);
   initStatusItem(netSpeed);
+  initStatusItem(protocolType);
   initStatusItem(tempDriver);
   initStatusItem(tempMotor);
   initStatusItem(batterySoc);
@@ -243,17 +241,26 @@ void FocusStatus::createStatusItems() {
   batterySoc->setSvg(0, ":/svg/svg/battery.svg");
   batterySoc->setDescribe(0, "0 %");
 
+
   netType->setSvg(0, ":/svg/svg/network.svg");
-  netType->setDescribe(0, "NONE");
-  netType->setBackgroundColor(1, QColor(130, 180, 129));
+  netType->setDescribe(0, "None");
+  netType->setBackgroundColor(0, QColor(50, 55, 55));
+  netType->setBackgroundColor(1, QColor(70, 90, 70));
 
   netSpeed->setDisplayMode(StatusItem::DisplayMode::vertical);
-  netSpeed->setInterval(1);
+  netSpeed->setInterval(0);
   netSpeed->setSvg(0, ":/svg/svg/arrow-up.svg");
   netSpeed->setDescribe(0, formatByteRateUnit(0));
   netSpeed->setSvg(1, ":/svg/svg/arrow-down.svg");
   netSpeed->setDescribe(1, formatByteRateUnit(0));
 
+  protocolType->setSvg(0, ":/svg/svg/dot.svg");
+  protocolType->setDescribe(0, CommunicationConfiguration::commProtocolToQString((CommunicationConfiguration::CommProtocol)0));
+  protocolType->setBackgroundColor(static_cast<int>(CCCP::Plugin), QColor(47, 79, 130));
+  protocolType->setBackgroundColor(static_cast<int>(CCCP::JSON),  QColor(56, 135, 110));
+  protocolType->setBackgroundColor(static_cast<int>(CCCP::Float),   QColor(153, 80, 150));
+  protocolType->setBackgroundColor(static_cast<int>(CCCP::Raw),    QColor(150, 50, 90));
+ 
   tempDriver->setSvg(0, ":/svg/svg/temperature.svg");
   tempDriver->setDescribe(0, "Driver");
   tempDriver->setDescribe(1, "0");
@@ -268,6 +275,7 @@ void FocusStatus::createStatusItems() {
 
   items[StatusItemEnum::batterySoc] = batterySoc;
   items[StatusItemEnum::netType] = netType;
+  items[StatusItemEnum::protocolType] = protocolType;
   items[StatusItemEnum::netSpeed] = netSpeed;
   items[StatusItemEnum::tempDriver] = tempDriver;
   items[StatusItemEnum::tempMotor] = tempMotor;
@@ -280,6 +288,9 @@ void FocusStatus::flush(){
   value_.time = currentTime;
   if(value_.time == 0)  return; 
 
+  value_.uploadBytes = communicator_->getWriteBytesLength();
+  value_.downloadBytes = communicator_->getReadBytesLength();
+
   scalar_t speed_up =   (value_.uploadBytes - value_.lastUploadBytes) / dt;
   scalar_t speed_down = (value_.downloadBytes - value_.lastDownloadBytes) / dt;
   value_.lastUploadBytes   = value_.uploadBytes;
@@ -291,7 +302,9 @@ void FocusStatus::flush(){
     maxTempMotor  = qMax(maxTempMotor, observations_->actuator[i].temperature);
     maxTempDriver = qMax(maxTempDriver,observations_->actuator[i].driverTemperature);
   }
-  
+
+  int typeColorIndex = static_cast<int>(config_->comm.commProtocol);
+  items[protocolType]->setBackgroundColor(typeColorIndex);
 
   //ui.batteryLevel->setText(formatBatteryUnit(observations_->battery.soc));
   //ui.network_download->setText(QString("↓ ") + formatByteUnit(speed_down));
@@ -302,8 +315,9 @@ void FocusStatus::flush(){
   items[batterySoc]->setDescribe(0, formatBatteryUnit(observations_->battery.soc));
   items[netSpeed]->setDescribe(0, formatByteRateUnit(speed_up));
   items[netSpeed]->setDescribe(1, formatByteRateUnit(speed_down));
-  items[tempDriver]->setDescribe(1, QString::number(maxTempDriver, 'f', 2));
-  items[tempMotor]->setDescribe(1, QString::number(maxTempMotor, 'f', 2));
+  items[protocolType]->setDescribe(0, CommunicationConfiguration::commProtocolToQString(config_->comm.commProtocol));
+  items[tempDriver]->setDescribe(1, QString::number(maxTempDriver, 'f', prec));
+  items[tempMotor]->setDescribe(1, QString::number(maxTempMotor, 'f', prec));
 
   if (maxTempDriver < 70) {
     items[tempDriver]->setBackgroundColor(0);
@@ -316,23 +330,31 @@ void FocusStatus::flush(){
   }  else {
     items[tempMotor]->setBackgroundColor(1);
   }
+
+  // 如果是RAW
+  using CCCP = CommunicationConfiguration::CommProtocol;
+  bool plugin = (config_->comm.commProtocol == CCCP::Plugin);
+  items[batterySoc]->setVisible(plugin);
+  items[tempDriver]->setVisible(plugin);
+  items[tempMotor]->setVisible(plugin);
 }
 
 QString FocusStatus::formatByteRateUnit(qint64 bytes) {
+  
   if (bytes < 1024) {
     return QString::number(bytes) + " B/s"; // 小于1KB
   } else if (bytes < 1024 * 1024) {
-    return QString::number(bytes / 1024.0, 'f', 2) + " KB/s"; // 小于1MB
+    return QString::number(bytes / 1024.0, 'f', prec) + " KB/s"; // 小于1MB
   } else if (bytes < 1024 * 1024 * 1024) {
-    return QString::number(bytes / (1024.0 * 1024), 'f', 2) + " MB/s"; // 小于1GB
+    return QString::number(bytes / (1024.0 * 1024), 'f', prec) + " MB/s"; // 小于1GB
   } else {
-    return QString::number(bytes / (1024.0 * 1024 * 1024), 'f', 2) +
+    return QString::number(bytes / (1024.0 * 1024 * 1024), 'f', prec) +
            " GB/s"; // 大于1GB
   }
 }
 
 QString FocusStatus::formatBatteryUnit(double level) {
-  return QString::number(level, 'f' , 2) + " %";
+  return QString::number(level, 'f' , prec) + " %";
 }
 
 void FocusStatus::flushConfiguration(){
@@ -340,11 +362,13 @@ void FocusStatus::flushConfiguration(){
 }
 
 void FocusStatus::setCommStatus(bool status) {
+  using CCCT = CommunicationConfiguration::CommType;
+
   if (status) {
     items[netType]->setDescribe(0, CommunicationConfiguration::commTypeToQString(config_->comm.commType));
     items[netType]->setBackgroundColor(1);
   } else {
-    items[netType]->setDescribe(0, CommunicationConfiguration::commTypeToQString(CommunicationConfiguration::CommType::None));
+    items[netType]->setDescribe(0, tr("None"));
     items[netType]->setBackgroundColor(0);
   }
 }
@@ -352,4 +376,14 @@ void FocusStatus::setCommStatus(bool status) {
 QWidget* FocusStatus::getStatusItemsWidget()
 {
   return itemsWidget;
+}
+
+void FocusStatus::start()
+{
+  timer_flush_.start(1000);
+}
+
+void FocusStatus::stop()
+{
+  timer_flush_.stop();
 }

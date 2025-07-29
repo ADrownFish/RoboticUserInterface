@@ -1,0 +1,68 @@
+#pragma once
+
+#include <QString>
+#include <QSysInfo>
+#include <QtGlobal>
+
+class BuildInfo {
+public:
+    // 基本信息
+    static constexpr const char* APP_NAME = "@PROJECT_NAME@";
+    static constexpr const char* APP_VERSION = "@PROJECT_VERSION@";
+    static constexpr const char* BUILD_TIMESTAMP = "@BUILD_TIMESTAMP@";
+    static constexpr const char* BUILD_TYPE = "@CMAKE_BUILD_TYPE@";
+    static constexpr const char* REPOSITORY = "https://github.com/ADrownFish/RoboticUserInterface";
+    
+    // 开发者信息
+    static constexpr const char* DEVELOPER_EMAIL = "a.drownfish@qq.com";
+    static constexpr const char* DEVELOPER_NAME = "ADrownFish";
+
+    // 获取精简信息
+    static QString getBriefInfo() {
+        return QString(
+            "<b>Application:</b> %1<br>"
+            "<b>Version:</b> %2<br>"
+            "<b>Build Time:</b> %3<br>"
+            "<b>Build Type:</b> %4<br>"
+            "<b>Developer:</b> %5 &lt;<a href=\"mailto:%6\">%6</a>&gt;<br>"
+            "<b>Repository:</b> <a href=\"%7\">%7</a><br>"
+            "<b>Qt Version:</b> %8<br>"
+            "<b>Compiler:</b> %9<br>"
+            "<b>System:</b> %10<br>"
+            "<b>ABI:</b> %11")
+            .arg(APP_NAME)
+            .arg(APP_VERSION)
+            .arg(BUILD_TIMESTAMP)
+            .arg(BUILD_TYPE)
+            .arg(DEVELOPER_NAME)
+            .arg(DEVELOPER_EMAIL)
+            .arg(REPOSITORY)
+            .arg(qtVersion())
+            .arg(compilerInfo())
+            .arg(systemInfo())
+            .arg(QSysInfo::buildAbi());
+    }
+
+private:
+    static QString qtVersion() {
+        return QString("%1 (runtime) / %2 (compile-time)")
+            .arg(qVersion())
+            .arg(QT_VERSION_STR);
+    }
+
+    static QString compilerInfo() {
+        #if defined(Q_CC_CLANG)
+            return QString("Clang %1.%2.%3").arg(__clang_major__).arg(__clang_minor__).arg(__clang_patchlevel__);
+        #elif defined(Q_CC_GNU)
+            return QString("GCC %1.%2.%3").arg(__GNUC__).arg(__GNUC_MINOR__).arg(__GNUC_PATCHLEVEL__);
+        #elif defined(Q_CC_MSVC)
+            return QString("MSVC %1").arg(_MSC_VER);
+        #else
+            return "Unknown";
+        #endif
+    }
+
+    static QString systemInfo() {
+        return QSysInfo::prettyProductName();
+    }
+};

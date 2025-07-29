@@ -1,0 +1,68 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "x64-Release",
+      "generator": "Ninja",
+      "configurationType": "RelWithDebInfo",
+      "buildRoot": "${projectDir}\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "variables": [
+        {
+          "name": "CMAKE_PREFIX_PATH",
+          "value": "D:/Qt6/6.10.0/msvc2022_64",
+          "type": "STRING"
+        },
+        {
+          "name": "Qt6_DIR",
+          "value": "D:/Qt6/6.10.0/msvc2022_64/lib/cmake/Qt6",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "name": "x64-Release-Static",
+      "generator": "Ninja",
+      "configurationType": "Release",
+      "buildRoot": "${projectDir}\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "variables": [
+        {
+          "name": "CMAKE_PREFIX_PATH",
+          "value": "D:/Qt6/6.10.0/qt6-full-static",
+          "type": "STRING"
+        },
+        {
+          "name": "Qt6_DIR",
+          "value": "D:/Qt6/6.10.0/qt6-full-static/lib/cmake/Qt6",
+          "type": "STRING"
+        },
+        {
+          "name": "OPENSSL_ROOT_DIR",
+          "value": "D:/OpenSSL-3.6",
+          "type": "STRING"
+        },
+        {
+          "name": "OPENSSL_USE_STATIC_LIBS",
+          "value": "ON",
+          "type": "BOOL"
+        }
+      ]
+    }
+  ]
+}

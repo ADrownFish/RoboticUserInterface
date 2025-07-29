@@ -13,32 +13,39 @@ public:
   SevnceRobot(QObject *parent = nullptr);
 
   ~SevnceRobot();
-  // init
+
   void init(int numberOfActuator, int numberOfEndEffector);
 
-/****************  virtual  ****************/
-public:  
+  /****************  override  ****************/
   QList<QWidget *> createCustomInfoWidgets() override;
 
   QWidget *createCustomOperationWidget() override;
 
   QStringList getActuators() override;
+
+  QString getPluginName() override;
+
+  void flushConfiguration() override;
+
+  void setEnabledRecord(bool enabled) override;
+  
+  void commStatusChanged(bool enable) override;
+
 protected:
   void displayData() override;
 
   void catchData() override;
 
-  void readyRead(const QByteArray& data) override;   // received data
+  void recordData() override;
 
-  void flushConfiguration() override;
+  void readyRead() override;
 
-  void networkStatusChanged(bool status) override;
 private:
   void setupWidgetsControls();
 
   void setupSignalConnection();
 
-  void processData(const Data& data);
+  void unpackData(const Data& data);
   
   void copyToObservations();
   
@@ -48,11 +55,16 @@ private:
   
   void writeData();
 
+  void writeData(uint8_t dstID, uint8_t dataID, const QByteArray &data);
+
 private:
   std::unique_ptr<SevnceData> sevnceData;
   std::unique_ptr<SevnceWidget> sevnceWidget;
 
   QTimer timer_sendCmd;
+  QTimer timer_app;
+
+  bool dataUpdate = false;
 };
 
 }

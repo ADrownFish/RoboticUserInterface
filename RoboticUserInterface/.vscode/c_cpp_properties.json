@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "${default}",
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "includePath": [
+                "/opt/ros/noetic/include/**",
+                "/home/adf/Qt/6.9.0/qt6.9.0-static/include/**",
+                "/usr/include/**",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/libraries/FluentUI",
+                "${workspaceFolder}/build/Desktop_Qt_6_9_0_Static-Release",
+                "${workspaceFolder}/libraries",
+                "/home/adf/Qt/6.9.0/qt6.9.0-static/include/QtWidgets"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

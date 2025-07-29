@@ -3,6 +3,30 @@
 #include <QDir>
 #include <QDate>
 
+#include "FluControls/FluMessageBox.h"
+
+void RobotBase::setDataAllocator(const QPointer<DataAllocator>& p)
+{
+  dataAllocator_ = p;
+
+  // 数据传递
+  QObject::connect(dataAllocator_, &DataAllocator::readyRead, [this]() {
+
+    // on signal thread
+    
+    if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::Plugin) {
+      QByteArray buffer;
+      dataAllocator_->read(CommunicationConfiguration::CommProtocol::Plugin, buffer);
+      
+      recvMutex_.lock();
+      recvbuffer_.append(buffer);
+      recvMutex_.unlock();
+
+      emit dataReaches();
+    }
+  });
+}
+
 void RobotBase::init(int numberOfActuator, int numberOfEndEffector){
   numberOfActuator_ = numberOfActuator;
   numberOfEndEffector_ = numberOfEndEffector;
@@ -29,19 +53,23 @@ void RobotBase::init(int numberOfActuator, int numberOfEndEffector){
   observations_ = std::make_unique<ObservationsBase>(numberOfActuator_, numberOfEndEffector_);
   command_ = std::make_unique<CommandBase>();
   
-
   QObject::connect(&timer_flush, &QTimer::timeout, [this](){
     catchData();
     displayData();
   });
+
+  QObject::connect(this, &RobotBase::dataReaches, 
+                   this, &RobotBase::readyRead,
+                   Qt::QueuedConnection);
+
   timer_flush.start(config_->display.getDt());
 }
 
-void RobotBase::saveConfiguration(){
+void RobotBase::saveConfiguration() const{
   configManager_->writeConfig();
 }
 
-void RobotBase::readConfiguration(){
+void RobotBase::readConfiguration() const{
   configManager_->readConfig();
 }
 
@@ -61,14 +89,23 @@ const std::shared_ptr<DataSource>& RobotBase::dataSource() const {
   return dataSource_;
 }
 
-void RobotBase::appendBaseDataSource() {
-  scalar_t time = dataSource_->time();
+const QString& RobotBase::getRecordFilePath()
+{
+  return recordFilePath;
+}
 
+QDialog::DialogCode RobotBase::displayMessageDialog(const QString& title, const QString text)
+{
+  FluMessageBox messageBox(title, text, topWidget_);
+  return (QDialog::DialogCode)messageBox.exec();
+}
+
+void RobotBase::updateDataSource(scalar_t time) {
   // 获取顶层节点引用
   const ObjectNode::Ptr& top = dataSource_->topNode();
 
   // 查找并缓存各个节点
-  const ObjectNode::Ptr& base = top->findObjectNode("Base");
+  const ObjectNode::Ptr& base = top->findObjectNode("Plugin");
   const ObjectNode::Ptr& odom = base->findObjectNode("Odom");
 
   const ObjectNode::Ptr& position = odom->findObjectNode("position");
@@ -127,11 +164,13 @@ void RobotBase::appendBaseDataSource() {
   // 获取观测值
   auto& obs_imu = observations_->imu;
 
+  auto& quat_buffer = obs_imu.quat.coeffs();
+
   // 直接使用缓存的节点引用进行数据追加
-  quat_w->appendData(time, obs_imu.quat[0]);
-  quat_x->appendData(time, obs_imu.quat[1]);
-  quat_y->appendData(time, obs_imu.quat[2]);
-  quat_z->appendData(time, obs_imu.quat[3]);
+  quat_w->appendData(time, quat_buffer[3]);
+  quat_x->appendData(time, quat_buffer[0]);
+  quat_y->appendData(time, quat_buffer[1]);
+  quat_z->appendData(time, quat_buffer[2]);
 
   euler_x->appendData(time, obs_imu.eulerAngles[0]);
   euler_y->appendData(time, obs_imu.eulerAngles[1]);
@@ -190,7 +229,7 @@ void RobotBase::appendBaseDataSource() {
   const ObjectNode::Ptr& actuators = base->findObjectNode("Actuators");
 
   for (int i = 0; i < numberOfActuator_; i++) {
-    const ObjectNode::Ptr& actuators_x = actuators->findObjectNode(QString("Actuator_%1").arg(i));
+    const ObjectNode::Ptr& actuators_x = actuators->findObjectNode(QString("[%1]").arg(i));
     actuators_x->findObjectData("state")         ->appendData(time, obs_act[i].state);
     actuators_x->findObjectData("pos")           ->appendData(time, obs_act[i].pos);
     actuators_x->findObjectData("vel")            ->appendData(time, obs_act[i].vel);
@@ -201,90 +240,26 @@ void RobotBase::appendBaseDataSource() {
     actuators_x->findObjectData("temp_m")    ->appendData(time, obs_act[i].temperature);
     actuators_x->findObjectData("Temp_d")    ->appendData(time, obs_act[i].driverTemperature);
   }
+
 }
 
-
-void RobotBase::setEnabledRecord(bool enabled){
-  record_ = enabled;
-  if(dataRecorder_ == nullptr){
-    dataRecorder_ = new robot::AsyncDataRecorder(recordFilePath,this);
-    QStringList col;
-    col 
-    // odom
-    << "odom_position_x" << "odom_position_y" << "odom_position_z"
-    << "odom_velocity_x" << "odom_velocity_y" << "odom_velocity_z"
-
-    // imu
-    << "imu_quat_w" << "imu_quat_x" << "imu_quat_y" << "imu_quat_z"
-    << "imu_euler_x" << "imu_euler_y" << "imu_euler_z"
-    << "imu_linear_acc_x" << "imu_linear_acc_y" << "imu_linear_acc_z"
-    << "imu_angular_vel_x" << "imu_angular_vel_y" << "imu_angular_vel_z"
-    << "imu_angular_acc_x" << "imu_angular_acc_y" << "imu_angular_acc_z"
-
-    // system
-    << "sys_status" << "sys_cpu_CoreMaxTemp" << "sys_cpuPackageTemp" << "sys_cpuUsage" << "sys_memoryUsage" << "sys_diskUsage"
-
-    // battery
-    << "bms_status" << "bms_soc" << "bms_current" << "bms_voltage" << "bms_cycle" << "bms_temp";
-
-    for (size_t i = 0; i < numberOfActuator_; i++){
-      col 
-      << QString("actuator%1_state").arg(i) 
-      << QString("actuator%1_pos").arg(i) 
-      << QString("actuator%1_vel").arg(i) 
-      << QString("actuator%1_tau").arg(i) 
-      << QString("actuator%1_current").arg(i) 
-      << QString("actuator%1_voltage").arg(i) 
-      << QString("actuator%1_power").arg(i)
-      << QString("actuator%1_temp").arg(i)
-      << QString("actuator%1_driverTemp").arg(i);
-    }
-    
-    dataRecorder_->init(1000,col);
-  }
+void RobotBase::writeData(const QByteArray& data){
+  dataAllocator_->write(CommunicationConfiguration::CommProtocol::Plugin, data);
 }
 
-void RobotBase::recordDataOnce(){
-  if(dataRecorder_ == nullptr)
-    return;
-  if(!record_){
+void RobotBase::readData(QByteArray& data){
+  if(recvbuffer_.isEmpty()){
     return;
   }
 
-  const auto & odom = observations_->odom;
-  const auto & imu = observations_->imu;
-  const auto & sys = observations_->system;
-  const auto & bat = observations_->battery;
-  const auto & act = observations_->actuator;
+  recvMutex_.lock();
+  data = std::move(recvbuffer_);
+  recvMutex_.unlock();
 
-  QVector<scalar_t> data;
-  data 
-  << odom.position[0] << odom.position[1] << odom.position[2]
-  << odom.velocity[0] << odom.velocity[1] << odom.velocity[2]
-
-  << imu.quat[0] << imu.quat[1] << imu.quat[2] << imu.quat[3]
-  << imu.eulerAngles[0] << imu.eulerAngles[1] << imu.eulerAngles[2]
-  << imu.acceleration[0] << imu.acceleration[1] << imu.acceleration[2]
-  << imu.angularVelocity[0] << imu.angularVelocity[1] << imu.angularVelocity[2]
-  << imu.angularAcceleration[0] << imu.angularAcceleration[1] << imu.angularAcceleration[2]
-
-  << (int)sys.status << (int)sys.cpuCoreMaxTemp << (int)sys.cpuPackageTemp << (int)sys.cpuUsage << (int)sys.memoryUsage << (int)sys.diskUsage
-
-  << (int)bat.status << (int)bat.soc << bat.current << bat.voltage << bat.cycle << bat.temp;
-
-
-  for (size_t i = 0; i < numberOfActuator_; i++){
-    data 
-    << act[i].state
-    << act[i].pos
-    << act[i].vel
-    << act[i].torque
-    << act[i].current
-    << act[i].voltage
-    << act[i].power
-    << act[i].temperature
-    << act[i].driverTemperature;
-  }
-
-  dataRecorder_->submitRecord(data);
+  recvbuffer_.clear();
 }
+
+void RobotBase::setTopWidget(QWidget *topWidget){
+  topWidget_ = topWidget;
+}
+

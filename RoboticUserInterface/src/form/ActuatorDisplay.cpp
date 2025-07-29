@@ -19,12 +19,12 @@ void ActuatorUnit::setConfiguration(std::shared_ptr<Configuration> config){
 }
 
 void ActuatorUnit::setupWidgetsControls(){
-  ui_actuator.lineEdit_q->setLabel(QString("Position %1").arg(config_->display.getDegRad()));
-  ui_actuator.lineEdit_dq->setLabel(QString("Velocity %1").arg(config_->display.getDegRadPerSecond()));
-  ui_actuator.lineEdit_tau->setLabel("Torque Nm");
-  ui_actuator.lineEdit_temp_m->setLabel("Motor Temp °C");
-  ui_actuator.lineEdit_temp_d->setLabel("Driver Temp °C");
-  ui_actuator.lineEdit_power->setLabel("Power W");
+  ui_actuator.lineEdit_q->setLabel(QString(tr("Position %1")).arg(config_->display.getDegRad()));
+  ui_actuator.lineEdit_dq->setLabel(QString(tr("Velocity %1")).arg(config_->display.getDegRadPerSecond()));
+  ui_actuator.lineEdit_tau->setLabel(tr("Torque Nm"));
+  ui_actuator.lineEdit_temp_m->setLabel(tr("Motor Temp °C"));
+  ui_actuator.lineEdit_temp_d->setLabel(tr("Driver Temp °C"));
+  ui_actuator.lineEdit_power->setLabel(tr("Power W"));
 }
 
 void ActuatorUnit::setActuator(const ObservationsBase::Actuator &actuator){

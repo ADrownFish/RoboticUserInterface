@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>937</width>
+    <width>865</width>
     <height>543</height>
    </rect>
   </property>
@@ -60,7 +60,7 @@
        <number>0</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>5</number>
       </property>
       <item>
        <widget class="QTabWidget" name="tabWidget_curve">
@@ -125,7 +125,7 @@ QTabBar QToolButton:hover {
          <number>-1</number>
         </property>
         <property name="elideMode">
-         <enum>Qt::TextElideMode::ElideNone</enum>
+         <enum>Qt::TextElideMode::ElideLeft</enum>
         </property>
         <property name="usesScrollButtons">
          <bool>true</bool>
@@ -182,6 +182,43 @@ border-bottom:1.5 solid rgb(255,255,255)
          <property name="verticalSpacing">
           <number>4</number>
          </property>
+         <item row="0" column="4">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="1">
+          <widget class="QWSwitcherButton" name="AutoScaleAxisY" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>140</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>140</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="Checked" stdset="0">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="1">
           <widget class="QWSwitcherButton" name="AutoScaleAxisX" native="true">
            <property name="minimumSize">
@@ -227,70 +264,6 @@ border-bottom:1.5 solid rgb(255,255,255)
            </property>
           </widget>
          </item>
-         <item row="0" column="5">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="1">
-          <widget class="QWSwitcherButton" name="AutoScaleAxisY" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>140</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>140</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="Checked" stdset="0">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
-          <widget class="QWSwitcherButton" name="qWSwitcherButton_PlotMode" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>120</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>120</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="stateSetQuantity" stdset="0">
-            <number>3</number>
-           </property>
-           <property name="selectState" stdset="0">
-            <number>2</number>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </item>
@@ -305,7 +278,7 @@ border-bottom:1.5 solid rgb(255,255,255)
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <property name="font">
@@ -333,48 +306,6 @@ border-bottom:1.5 solid rgb(255,255,255)
           <number>0</number>
          </property>
          <item>
-          <widget class="QtMaterialRaisedButton" name="curve_addTab" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>100</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QtMaterialRaisedButton" name="curve_clearData" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>100</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-          </widget>
-         </item>
-         <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
@@ -388,16 +319,22 @@ border-bottom:1.5 solid rgb(255,255,255)
           </spacer>
          </item>
          <item>
-          <widget class="QWSwitcherButton" name="curve_pauseResumeButton" native="true">
+          <widget class="QWSwitcherButton" name="curve_pauseResume" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
-             <width>100</width>
+             <width>70</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>70</width>
              <height>30</height>
             </size>
            </property>
@@ -415,16 +352,104 @@ border-bottom:1.5 solid rgb(255,255,255)
           </widget>
          </item>
          <item>
-          <widget class="QWSwitcherButton" name="curve_moreLess" native="true">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>50</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QWSwitcherButton" name="curve_dataTraker" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
-             <width>80</width>
+             <width>130</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>80</width>
+             <width>130</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="stateSetQuantity" stdset="0">
+            <number>2</number>
+           </property>
+           <property name="selectState" stdset="0">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWSwitcherButton" name="curve_legend" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>90</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>90</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="stateSetQuantity" stdset="0">
+            <number>2</number>
+           </property>
+           <property name="selectState" stdset="0">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWSwitcherButton" name="curve_link" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>70</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>70</width>
              <height>30</height>
             </size>
            </property>
@@ -443,15 +468,54 @@ border-bottom:1.5 solid rgb(255,255,255)
          </item>
          <item>
           <widget class="QWSwitcherButton" name="curve_gridLine" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
-             <width>100</width>
+             <width>70</width>
              <height>30</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>100</width>
+             <width>70</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="stateSetQuantity" stdset="0">
+            <number>2</number>
+           </property>
+           <property name="selectState" stdset="0">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWSwitcherButton" name="curve_moreLess" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>70</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>70</width>
              <height>30</height>
             </size>
            </property>
@@ -481,12 +545,6 @@ border-bottom:1.5 solid rgb(255,255,255)
    <class>QtMaterialTextField</class>
    <extends>QWidget</extends>
    <header>qt_material_widgets/qtmaterialtextfield.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>QtMaterialRaisedButton</class>
-   <extends>QWidget</extends>
-   <header>qt_material_widgets/qtmaterialraisedbutton.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

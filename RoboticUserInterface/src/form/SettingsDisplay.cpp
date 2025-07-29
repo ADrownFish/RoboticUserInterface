@@ -1,5 +1,8 @@
 #include "robotic_user_interface/form/SettingsDisplay.h"
 
+#include <QSvgRenderer>
+
+#include "BuildInfo.h"
 
 SettingsDisplay::SettingsDisplay(QWidget *parent)
 : QWWindowWidget(parent){
@@ -29,14 +32,42 @@ void SettingsDisplay::SettingsDisplay::setupSignalConnection(){
 
 
 void SettingsDisplay::setupWidgetsControls(){
+  
+  QColor bgColor(32, 32, 32);
+
   setBorderRadius(8);
-  setBackgroundColor(QColor(74,85,115));
+  setBackgroundColor(bgColor);
 
-  ui.widget_degRad->addUnit("Deg");
-  ui.widget_degRad->addUnit("Rad");
+  ui.widget_degRad->addUnit(tr("Deg"));
+  ui.widget_degRad->addUnit(tr("Rad"));
+  ui.widget_degRad->setBackgroundColor(QColor(100,100,100,50));
 
-//  ui.lineEdit_farmRate->setLabel("Farm Rate");
-//  ui.lineEdit_precision->setLabel("Precision");
+  ui.widget_language->addUnit(tr("Chinese"));
+  ui.widget_language->addUnit("English");
+  ui.widget_language->setBackgroundColor(QColor(100, 100, 100, 50));
+
+  ui.widget_font->addUnit(tr("NotoSansSC"));
+  ui.widget_font->setBackgroundColor(QColor(100, 100, 100, 50));
+
+  ui.widget_font_point_size->addUnit(tr("10"));
+  ui.widget_font_point_size->addUnit(tr("11"));
+  ui.widget_font_point_size->addUnit(tr("12"));
+  ui.widget_font_point_size->addUnit(tr("13"));
+  ui.widget_font_point_size->setBackgroundColor(QColor(100, 100, 100, 50));
+
+  ui.textEdit->setText(BuildInfo::getBriefInfo());
+  ui.textEdit->setReadOnly(true);               // 设置只读
+  ui.textEdit->setOpenExternalLinks(true);      // 启用外部超链接
+  ui.textEdit->setTextInteractionFlags(Qt::TextBrowserInteraction);
+  ui.textEdit->setHtml(BuildInfo::getBriefInfo());  // 设置HTML内容
+
+  QSvgRenderer renderer(QString(":/log/logo/main.svg"));
+  QPixmap pixmap(ui.label_icon->size());
+  pixmap.fill(Qt::transparent); // 透明背景
+  QPainter painter(&pixmap);
+  renderer.render(&painter);
+  ui.label_icon->setPixmap(pixmap);
+  ui.label_icon->setScaledContents(true); // 允许缩放
 }
 
 

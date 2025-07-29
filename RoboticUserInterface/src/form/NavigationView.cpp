@@ -3,7 +3,7 @@
 NavigationSwitcher::NavigationSwitcher(QWidget* parent)
   : NavigationObject(parent)
 {
-  layout = new QHBoxLayout(this);
+  layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
 
@@ -17,16 +17,20 @@ NavigationSwitcher::NavigationSwitcher(QWidget* parent)
   toggle.setToggle(true);
   toggle.setBackCheCkedgroundColor(QColor(0, 0, 0, 0));
 
-  stretchWidgetHead.setFixedWidth(10);
-  stretchWidget.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+  // stretchWidgetHead.setFixedWidth(10);
+  // stretchWidget.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
   // 添加 text、弹簧、toggle 到布局
-  layout->addWidget(&stretchWidgetHead);
-  layout->addWidget(&text);
-  layout->addWidget(&stretchWidget);
+  // layout->addWidget(&stretchWidgetHead);
+  // layout->addWidget(&stretchWidget);
   layout->addWidget(&toggle);
+  layout->addWidget(&text);
 
-  this->setFixedHeight(40);
+  layout->setAlignment(&toggle, Qt::AlignHCenter);
+  layout->setAlignment(&text,   Qt::AlignHCenter);
+
+
+  this->setFixedHeight(50);
 }
 
 void NavigationSwitcher::setText(const QString& t) {
@@ -40,9 +44,9 @@ QWSwitcher* NavigationSwitcher::getSwitcher()
 
 void NavigationSwitcher::setExpand(bool ok)
 {
-  text.setVisible(ok);
-  stretchWidget.setVisible(ok);
-  stretchWidgetHead.setVisible(ok);
+  // text.setVisible(ok);
+  // stretchWidget.setVisible(ok);
+  // stretchWidgetHead.setVisible(ok);
 }
 
 

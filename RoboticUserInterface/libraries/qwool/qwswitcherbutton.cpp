@@ -111,7 +111,8 @@ void QWSwitcherButton::paintEvent(QPaintEvent* event){
   }
   else
   {
-    painter.setBrush(QColor(0, 0, 0, 0));
+    QColor color = curState.color;
+    painter.setBrush(color);
   }
   if (_border)
   {
