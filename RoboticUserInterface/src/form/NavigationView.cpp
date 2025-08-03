@@ -61,7 +61,7 @@ NavigationItem::NavigationItem(QWidget* parent)
   setMouseTracking(true); // 启用鼠标追踪以支持 hover
 
   QFont font;
-  font.setPointSize(11);
+  // font.setPointSize(11);
   font.setWeight(QFont::Medium);
 
   // 左边选中态竖线

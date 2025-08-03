@@ -8,13 +8,13 @@ DataSourceViewer::DataSourceViewer(QWidget *parent)
   setAcceptDrops(true);
 
   treeWidget = new DataSourceViewerTreeWidget(this);
-
-
-  QVBoxLayout *layout = new QVBoxLayout(this);
   treeWidget->setHeaderLabels({ tr("ObjectNode Tree") , tr("Value")});
   treeWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
+  treeWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  
+  layout = new QVBoxLayout(this);
   layout->addWidget(treeWidget);
+  // layout->setSpacing(5);
 }
 DataSourceViewer::~DataSourceViewer(){
   
@@ -60,9 +60,9 @@ void DataSourceViewer::setupWidgetsControls(){
   item_json->setHidden(true);
 
   viewer_plugin  = std::make_shared<ObjectNodeViewer>();
-  viewer_csv       = std::make_shared<ObjectNodeViewer>();
-  viewer_float     = std::make_shared<ObjectNodeViewer>();
-  viewer_json      = std::make_shared<ObjectNodeViewer>();
+  viewer_csv     = std::make_shared<ObjectNodeViewer>();
+  viewer_float   = std::make_shared<ObjectNodeViewer>();
+  viewer_json    = std::make_shared<ObjectNodeViewer>();
 
   csvLoadDialog_ = new CsvLoadDialog();
   csvLoadDialog_->setConfiguration(config_);
@@ -75,9 +75,14 @@ void DataSourceViewer::setupWidgetsControls(){
   SelectorDialog_->setWindowLayout(commSelectorLayout);
   commSelectorLayout->addWidget(csvLoadDialog_);
   SelectorDialog_->hideDialog();
+
+  menu = new FluMenu(this);
 }
 
 void DataSourceViewer::setupSignalConnection(){
+  QColor onColor  = QColor(60, 100, 120);
+  QColor offColor = QColor(63, 63, 70, 50);
+
   QObject::connect(treeWidget, &DataSourceViewerTreeWidget::readyDrag,this, &DataSourceViewer::readyDrag);
 
   QObject::connect(this, &DataSourceViewer::readyLoad, this, [this](const QString& path) {
@@ -88,6 +93,55 @@ void DataSourceViewer::setupSignalConnection(){
   QObject::connect(csvLoadDialog_, &CsvLoadDialog::ok, this, &DataSourceViewer::flushItem);
 
   QObject::connect(csvLoadDialog_, &CsvLoadDialog::cancel, SelectorDialog_, &QtMaterialDialog::hideDialog);
+
+  dropButton_ = new QWDropWidget(this);
+  dropButton_->setSizePolicy(QSizePolicy::Minimum ,QSizePolicy::Minimum);
+  dropButton_->setFixedHeight(30);
+  
+
+  FluAction* action_clearData = new FluAction(tr("Clear all data"));
+  QObject::connect(action_clearData, &QAction::triggered, this, &DataSourceViewer::clearAllData);
+  menu->addAction(action_clearData);
+
+  FluMenu* menu_clear_item_data = new FluMenu();
+  menu_clear_item_data->setTitle(tr("Clear item data"));
+  QObject::connect(menu_clear_item_data, &QMenu::aboutToShow, [this, menu_clear_item_data](){
+    clearItsData(menu_clear_item_data);
+  });
+  menu->addMenu(menu_clear_item_data);
+  menu->addSeparator();
+
+  FluMenu* menu_remove_item_data = new FluMenu();
+  menu_remove_item_data->setTitle(tr("Remove item"));
+  QObject::connect(menu_remove_item_data, &QMenu::aboutToShow, [this, menu_remove_item_data](){
+    removeItem(menu_remove_item_data);
+  });
+  menu->addMenu(menu_remove_item_data);
+
+  FluAction* action_reset_tree = new FluAction(tr("Reset tree"));
+  QObject::connect(action_reset_tree, &QAction::triggered, this, &DataSourceViewer::resetTree);
+  menu->addAction(action_reset_tree);
+  dropButton_->setMenu(menu);
+
+  QtMaterialRaisedButton* button;
+  button = new QtMaterialRaisedButton();
+  button->setText(tr("Importing File"));
+  button->setFixedHeight(25);
+  button->setBackgroundColor(offColor);
+  QObject::connect(button, &QPushButton::clicked, [this](){
+    QString fileName = QFileDialog::getOpenFileName(
+      this->topLevelWidget(), tr("Select File"), "", tr("CSV files (*.csv);;All files (*)"));
+
+    if(QFileInfo(fileName).exists()){
+      csvLoadDialog_->loadFile(fileName);
+      SelectorDialog_->showDialog();
+    }
+  });
+  dropButton_->setWidget(button);
+
+  dropButton_->setDropDirection(QWDropWidget::DropDirection::Up);
+  dropButton_->setDropIcon(QIcon(":/svg/svg/arrow-up2.svg"));
+  layout->addWidget(dropButton_);
 }
 
 void DataSourceViewer::makeImage(){
@@ -103,9 +157,9 @@ void DataSourceViewer::resizeEvent(QResizeEvent *event){
 }
 
 void DataSourceViewer::dragEnterEvent(QDragEnterEvent *event) {
-    if (event->mimeData()->hasUrls()) {
-        event->acceptProposedAction();  // 允许拖拽
-    }
+  if (event->mimeData()->hasUrls()) {
+    event->acceptProposedAction();  // 允许拖拽
+  }
 }
 
 void DataSourceViewer::dropEvent(QDropEvent *event) {
@@ -186,4 +240,133 @@ void DataSourceViewer::flushItem(){
   publishNotify(GCW::NotifyType::Info, tr("Data loading completed"), tr("Data updated"));
 }
 
+void DataSourceViewer::clearAllData()
+{
+  dataSource_->clearData();
+}
 
+void DataSourceViewer::clearItsData(QMenu *subMenu)
+{
+  subMenu->clear();
+  if(!item_plugin->isHidden()){
+    FluAction *action = new FluAction(tr("Plugin"));
+    subMenu->addAction(action);
+    QObject::connect(action, &QAction::triggered, [this]() {
+      auto p = dataSource_->topNode()->findObjectNode("Plugin");
+      if(p){
+        p->clearData();
+      }
+    });
+  } 
+  if(!item_csv->isHidden()){
+    FluAction *action = new FluAction(tr("Csv"));
+    subMenu->addAction(action);
+    QObject::connect(action, &QAction::triggered, [this]() {
+      auto p = dataSource_->topNode()->findObjectNode("Csv");
+      if(p){
+        p->clearData();
+      }
+    });
+  } 
+  if(!item_json->isHidden()){
+    FluAction *action = new FluAction(tr("Json"));
+    subMenu->addAction(action);
+    QObject::connect(action, &QAction::triggered, [this]() {
+      auto p = dataSource_->topNode()->findObjectNode("Json");
+      if(p){
+        p->clearData();
+      }
+    });
+  } if(!item_float->isHidden()){
+    FluAction *action = new FluAction(tr("Float"));
+    subMenu->addAction(action);
+    QObject::connect(action, &QAction::triggered, [this]() {
+      auto p = dataSource_->topNode()->findObjectNode("Float");
+      if(p){
+        p->clearData();
+      }
+    });
+  }
+}
+
+void DataSourceViewer::removeItem(QMenu *subMenu) {
+  // 创建子菜单
+  subMenu->clear();
+  auto topNode = dataSource_->topNode();
+
+  if(!item_plugin->isHidden()){
+    FluAction *action = new FluAction(tr("Plugin"));
+    subMenu->addAction(action);
+    QObject::connect(action, &QAction::triggered, [this, topNode]() {
+      auto p = topNode->findObjectNode("Plugin");
+      if(p){
+        p->clearData();
+      }
+      item_plugin->setHidden(true);
+    });
+  } 
+  if(!item_csv->isHidden()){
+    FluAction *action = new FluAction(tr("Csv"));
+    subMenu->addAction(action);
+    QObject::connect(action, &QAction::triggered, [this]() {
+      auto p = dataSource_->topNode()->findObjectNode("Csv");
+      if(p){
+        p->clearData();
+      }
+      item_csv->setHidden(true);
+    });
+  } 
+  if(!item_json->isHidden()){
+    FluAction *action = new FluAction(tr("Json"));
+    subMenu->addAction(action);
+    QObject::connect(action, &QAction::triggered, [this]() {
+      auto p = dataSource_->topNode()->findObjectNode("Json");
+      if(p){
+        p->clearData();
+      }
+      item_json->setHidden(true);
+    });
+  } if(!item_float->isHidden()){
+    FluAction *action = new FluAction(tr("Float"));
+    subMenu->addAction(action);
+    QObject::connect(action, &QAction::triggered, [this]() {
+      auto p = dataSource_->topNode()->findObjectNode("Float");
+      if(p){
+        p->clearData();
+      }
+      item_float->setHidden(true);
+    });
+  }
+
+  emit updateObjectData();
+}
+
+void DataSourceViewer::resetTree()
+{
+  auto p = dataSource_->topNode()->findObjectNode("Csv");
+  if(p){
+    p->clear();
+  }
+  p = dataSource_->topNode()->findObjectNode("Float");
+  if(p){
+    p->clear();
+  }
+  p = dataSource_->topNode()->findObjectNode("Json");
+  if(p){
+    p->clear();
+  }
+
+  item_csv->takeChildren(); // 移除并自动删除所有子项
+  item_float->takeChildren();
+  item_json->takeChildren();
+
+  item_csv->setHidden(true);
+  item_float->setHidden(true);
+  item_json->setHidden(true);
+
+  viewer_csv->clear();
+  viewer_float->clear();
+  viewer_json->clear();
+
+  emit updateObjectData();
+}

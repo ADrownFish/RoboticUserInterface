@@ -71,6 +71,7 @@ add_subdirectory(libraries/qt_material_widgets)
 add_subdirectory(libraries/qt_gcw)
 add_subdirectory(libraries/qcustomplot)
 add_subdirectory(libraries/FluentUI)
+add_subdirectory(libraries/taskflow)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -129,21 +130,21 @@ add_executable(${PROJECT_NAME}
 )
 
 if (MSVC)
-    if (CMAKE_BUILD_TYPE STREQUAL "Release")
-        # Release 模式：隐藏控制台（GUI 程序）
-        set_target_properties(${PROJECT_NAME} PROPERTIES
-            LINK_FLAGS "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
-        )
-    else()
-        # Debug 模式：保留控制台（方便调试）
-        set_target_properties(${PROJECT_NAME} PROPERTIES
-            LINK_FLAGS "/SUBSYSTEM:CONSOLE"
-        )
-    endif()
+  if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    # Release 模式：隐藏控制台（GUI 程序）
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+      LINK_FLAGS "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
+    )
+  else()
+    # Debug 模式：保留控制台（方便调试）
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+      LINK_FLAGS "/SUBSYSTEM:CONSOLE"
+    )
+  endif()
 endif()
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-  ${CMAKE_CURRENT_BINARY_DIR}         # ✅ 这里面有 ui_xxx.h
+  ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -154,6 +155,7 @@ target_link_libraries(${PROJECT_NAME}
   FluControls
   FluUtils
   ellipsoid-fit
+  Taskflow
 
   Qt6::Core
   Qt6::Gui

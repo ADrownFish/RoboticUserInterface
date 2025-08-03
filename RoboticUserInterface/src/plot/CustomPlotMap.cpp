@@ -111,7 +111,7 @@ void CustomPlotLayer::updatePlot() {
       scatterStyle = QCPScatterStyle(QCPScatterStyle::ssNone);
     } else if (config_->plot.plotLine == PlotLineType::Point) {
       lineStyle = QCPGraph::LineStyle::lsNone;
-      scatterStyle = QCPScatterStyle(QCPScatterStyle::ssDiamond, 4);
+      scatterStyle = QCPScatterStyle(QCPScatterStyle::ssSquare, 4);
     } else {
       lineStyle = QCPGraph::LineStyle::lsLine;
       scatterStyle = QCPScatterStyle(QCPScatterStyle::ssSquare, 4);
@@ -121,8 +121,8 @@ void CustomPlotLayer::updatePlot() {
   }
 
   updateLineAndText();
-
-  this->replot(QCustomPlot::rpQueuedReplot);
+  QApplication::processEvents();
+  this->replot();
 }
 
 void CustomPlotLayer::updateAxisX(bool replot)
@@ -226,12 +226,13 @@ void CustomPlotLayer::updateLineAndText(bool replot)
       auto it = data->findBegin(x);
       if (it != data->constEnd()) {
         double value = it->value;
+        double time = it->key;
 
         label->setText(QString::number(value, 'g', 6));
         Qt::Alignment xAlign = ((xRatio > 0.8) ? Qt::AlignRight : Qt::AlignLeft) | Qt::AlignVCenter;
         label->setPositionAlignment(xAlign);
-        label->position->setCoords(x, value);
-        tracer->position->setCoords(x, value);
+        label->position->setCoords(time, value);
+        tracer->position->setCoords(time, value);
       }
     }
   }
@@ -281,19 +282,15 @@ void CustomPlotLayer::initAxisRect(QCPAxisRect *axisRect) {
   axisRect->axis(QCPAxis::atBottom)->setTickPen(tickPen);
   axisRect->axis(QCPAxis::atBottom)->setSubTickPen(subTickPen);
 
-  QFont xFont = axisRect->axis(QCPAxis::atBottom)->labelFont();
-  xFont.setPointSize(12);
-  xFont.setFamily(QStringLiteral("微软雅黑"));
-  axisRect->axis(QCPAxis::atBottom)->setLabelFont(xFont);
-
   axisRect->axis(QCPAxis::atLeft)->setTickLabelColor(Qt::white);
   axisRect->axis(QCPAxis::atLeft)->setLabelColor(QColor(180, 200, 200));
   axisRect->axis(QCPAxis::atLeft)->setBasePen(basePen);
   axisRect->axis(QCPAxis::atLeft)->setTickPen(tickPen);
   axisRect->axis(QCPAxis::atLeft)->setSubTickPen(subTickPen);
-  QFont yFont(xFont);
-  yFont.setPointSize(12);
-  axisRect->axis(QCPAxis::atLeft)->setLabelFont(yFont);
+
+  QFont axisFont;
+  axisRect->axis(QCPAxis::atBottom)->setLabelFont(axisFont);
+  axisRect->axis(QCPAxis::atLeft)->setLabelFont(axisFont);
 }
 
 void CustomPlotLayer::initItemText(QCPItemText* itemText)
@@ -310,6 +307,9 @@ void CustomPlotLayer::initItemText(QCPItemText* itemText)
   itemText->setBrush(QBrush(QColor(60, 60, 60, 220)));  // 背景画刷
   itemText->setPadding(QMargins(5, 2, 5, 2));          // 文字边距（增加背景范围）
   //itemText->setPen(QPen(QColor(255, 255, 255), 1));  // 边框画笔
+
+  QFont font;
+  itemText->setFont(font);
 }
 
 void CustomPlotLayer::initItemTracer(QCPItemTracer *itemTracer){
@@ -317,10 +317,18 @@ void CustomPlotLayer::initItemTracer(QCPItemTracer *itemTracer){
   itemTracer->setSelectable(false);
   itemTracer->setLayer("overlay");
   itemTracer->setStyle(QCPItemTracer::tsCircle);
-  itemTracer->setSize(12);
+  itemTracer->setSize(8);
 }
 
 void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
+
+  if(!config_->app.antiAliasing){
+    customPlot->setNotAntialiasedElements(QCP::aeAll); // 禁用所有抗锯齿
+  }
+
+  // 启用快速折线绘制（减少精度提高速度）
+  customPlot->setPlottingHint(QCP::phFastPolylines, true);
+
   // 启用鼠标跟踪
   customPlot->setMouseTracking(true);
 
@@ -329,12 +337,22 @@ void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
   customPlot->setPlottingHints(QCP::phFastPolylines);
 
   // 设置基本坐标轴（左侧Y轴和下方X轴）可拖动、可缩放、曲线可选、legend可选、设置伸缩比例，使所有图例可见
-  customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | /*QCP::iSelectLegend |*/ QCP::iSelectItems);
+  customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom /*| QCP::iSelectAxes | QCP::iSelectLegend | QCP::iSelectItems */);
   customPlot->legend->setVisible(true);
-  QFont font = customPlot->font();
-  font.setPointSize(9);
+
+  // 设置字体
+  QFont font;
+
+  customPlot->setFont(font);
+  customPlot->xAxis->setTickLabelFont(font);  // 设置刻度值字体
+  customPlot->xAxis->setLabelFont(font);      // 设置轴标题字体
+  customPlot->xAxis->setRangeReversed(false); // 避免反转范围的计算开销
+  customPlot->yAxis->setTickLabelFont(font);
+  customPlot->yAxis->setLabelFont(font);
+  customPlot->yAxis->setRangeReversed(false); // 避免反转范围的计算开销
   customPlot->legend->setFont(font);
   customPlot->legend->setSelectedFont(font);
+
   customPlot->legend->setBrush(QColor(40, 40, 40, 200));
   customPlot->legend->setBorderPen(QColor(40, 100, 150));
   customPlot->legend->setTextColor(QColor(200, 200, 200));
@@ -408,11 +426,13 @@ void CustomPlotLayer::appedObjectData(ObjectData* data, const QString& name) {
 
   CustomPlotMapBind bind;
   bind.data = data;
+  bind.color = ColorScheme::getColor(bindList_.size());
+
   bind.graph = this->addGraph();
   bind.graph->setName(name);
-  bind.graph->setAdaptiveSampling(true);
-  bind.color = ColorScheme::getColor(bindList_.size());
+  bind.graph->setAdaptiveSampling(true);  // 启用自适应采样
   bind.graph->setPen(QPen(bind.color));
+
   bindList_.append(bind);
 
   if(!coordLabels.contains(bind.graph)){
@@ -424,7 +444,7 @@ void CustomPlotLayer::appedObjectData(ObjectData* data, const QString& name) {
     initItemTracer(coordLabel.itemTracer);
   }
   
-  bind.graph->setData(data->time, data->data);
+  bind.graph->setData(data->time, data->data, true);
   updateAxis(true);
 }
 void CustomPlotLayer::init() {
@@ -605,7 +625,7 @@ void CustomPlotMap::setupWidgetsControls() {
     "QMenu::item{"
     "padding:11px 10px;"
     "color:rgba(51,51,51,1);"
-    "font-size:12px;"
+    // "font-size:12px;"
     "}"
     "QMenu::item:hover{"
     "background-color:#409CE1;"

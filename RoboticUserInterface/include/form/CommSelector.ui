@@ -181,7 +181,7 @@
    <item row="3" column="0" colspan="4">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_udp">
       <layout class="QGridLayout" name="gridLayout_udp">
@@ -483,7 +483,20 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_bluetooth"/>
+     <widget class="QWidget" name="page_bluetooth">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Coming Soon</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="page_serial">
       <layout class="QGridLayout" name="gridLayout_4">
        <property name="leftMargin">
@@ -511,7 +524,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>440</width>
+            <width>439</width>
             <height>292</height>
            </rect>
           </property>
@@ -740,9 +753,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QtMaterialTextField</class>
+   <class>QWWindowButton</class>
    <extends>QWidget</extends>
-   <header>qt_material_widgets/qtmaterialtextfield.h</header>
+   <header>qwool/qwwindowbutton.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -752,9 +765,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>QWWindowButton</class>
+   <class>QtMaterialTextField</class>
    <extends>QWidget</extends>
-   <header>qwool/qwwindowbutton.h</header>
+   <header>qt_material_widgets/qtmaterialtextfield.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

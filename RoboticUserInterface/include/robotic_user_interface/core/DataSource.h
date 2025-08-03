@@ -21,15 +21,15 @@ public:
 	};
 
 public:
+	QVector<scalar_t> data;
+	QVector<scalar_t> time;
+	
 	QString name;
 
 	DataType type = DataType::Dynamic;
 	bool enable = true;
 	bool refreshOnceFlag = false;
 	scalar_t timeWindow = 10.0;
-
-	QVector<scalar_t> data;
-	QVector<scalar_t> time;
 
 private:
 	bool zeroData = true;
@@ -134,7 +134,7 @@ public:
 		return nullptr;
 	}
 
-	QString findObjectDataPath(const  ObjectData::Ptr od) const {
+	QString findObjectDataPath(const ObjectData::Ptr od) const {
 		QString path;
 		if (this->id != 0) {
 			path = this->name + "/";
@@ -153,6 +153,20 @@ public:
 		}
 
 		return QString();
+	}
+
+	bool exists(const ObjectData::Ptr od) const {
+		if(data.contains(od)){
+			return true;
+		}
+
+		for (auto& d : children) {
+			if (d->exists(od)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	void setAllStatic() {
@@ -249,22 +263,30 @@ public:
 	const ObjectNode::Ptr& topNode(){ return topNode_;}
 
 	void resetTime();
-
+	
 	scalar_t time();
+
+public:
+
+	static inline uint64_t timestamp_ms() {
+		using namespace std::chrono;
+		return static_cast<uint64_t>(duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count());
+	}
+
+	static inline scalar_t timestamp_ms_f() {
+		using namespace std::chrono;
+        return static_cast<uint64_t>(duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count()) / 1000'000'000.;
+	}
+	
+	static inline uint64_t timestamp_ns() {
+		using namespace std::chrono;
+		return static_cast<uint64_t>(duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count());
+	}
 
 private:
 	ObjectNode::Ptr createAxis3Node(const QString& nodeName);
 	ObjectNode::Ptr createAxisQuatNode(const QString& nodeName);
 
-	inline uint64_t timestamp_ms() {
-		using namespace std::chrono;
-		return static_cast<uint64_t>(duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count());
-	}
-
-	inline uint64_t timestamp_ns() {
-		using namespace std::chrono;
-		return static_cast<uint64_t>(duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count());
-	}
 private:
 	ObjectNode::Ptr topNode_;
 	uint64_t startTime = 0;

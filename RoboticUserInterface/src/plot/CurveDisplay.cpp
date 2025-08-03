@@ -209,10 +209,6 @@ void CurveDisplay::setupWidgetsControls() {
   // =========== 添加的菜单按钮 ===========
   dropButton_ = new QWDropWidget(this);
   FluMenu* menu = new FluMenu(this);
-  FluAction* action_clearData = new FluAction(tr("Clear Data"));
-  QObject::connect(action_clearData, &QAction::triggered, this, &CurveDisplay::clearData);
-  menu->addAction(action_clearData);
-  menu->addSeparator();
   FluAction* action_export_image = new FluAction(tr("Export As Image"));
   QObject::connect(action_export_image, &QAction::triggered, this, &CurveDisplay::exportDataImage);
   menu->addAction(action_export_image);
@@ -225,7 +221,7 @@ void CurveDisplay::setupWidgetsControls() {
   button = new QtMaterialRaisedButton();
   button->setText(tr("Add Map"));
   button->setFixedHeight(25);
-  button->setBackgroundColor(onColor);
+  button->setBackgroundColor(QColor(63, 63, 70, 50));
   QObject::connect(button, &QPushButton::clicked, this, &CurveDisplay::appendCustomPlot);
   dropButton_->setWidget(button);
 
@@ -281,6 +277,7 @@ void CurveDisplay::updateOnce()
 
 void CurveDisplay::clearData()
 {
+  dataSource_->clearData();
 }
 
 void CurveDisplay::exportDataImage()

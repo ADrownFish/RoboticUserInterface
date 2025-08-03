@@ -1,0 +1,91 @@
+namespace tf {
+
+/** @page RequestCancellation Request Cancellation
+
+This chapters discusses how to cancel a running taskflow.
+
+@tableofcontents
+
+@section CancelARunningTaskflow Cancel a Running Taskflow
+
+When you submit a taskflow to an executor using the run series (e.g., tf::Executor::run), the executor returns a tf::Future object that holds the result of the execution.
+tf::Future is derived from std::future.
+In addition to the base methods of std::future, you can call tf::Future::cancel to cancel the execution of a running taskflow.
+The following example demonstrates cancelling a submission of a taskflow containing 1000 tasks, each running for one second.
+
+@code{.cpp}
+tf::Executor executor;
+tf::Taskflow taskflow;
+
+for(int i=0; i<1000; i++) {
+  taskflow.emplace([](){ 
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+  });
+}
+
+// submit the taskflow
+tf::Future<void> fu = executor.run(taskflow);
+
+// request to cancel the above submitted execution
+fu.cancel();
+
+// wait until the cancellation completes
+fu.wait();
+@endcode
+
+When you request a cancellation, the executor will stop scheduling the remaining tasks of the taskflow.
+Requesting a cancellation does not guarantee an immediate stop of a running taskflow.
+Tasks that are already running will continue to finish,
+but their successor tasks will not be scheduled.
+A cancellation is considered complete only after all running tasks have finished.
+To wait for the cancellation to complete, you can explicitly call tf::Future::wait.
+Note that it is your responsibility to ensure that the taskflow remains alive until the cancellation is complete, as there may still be running tasks that cannot be canceled.
+For instance, the following code results in undefined behavior:
+
+@code{.cpp}
+tf::Executor executor;
+{
+  tf::Taskflow taskflow;
+  
+  for(int i=0; i<1000; i++) {
+    taskflow.emplace([](){});
+  }
+
+  tf::Future fu = executor.run(taskflow);
+
+  fu.cancel();  // there can still be task running after cancellation
+
+} // destroying taskflow here can result in undefined behavior
+@endcode
+
+To avoid this issue, call @c wait to ensure the cancellation completes before the taskflow is destroyed at the end of the scope.
+
+@code{.cpp}
+tf::Executor executor;
+{
+  tf::Taskflow taskflow;
+  
+  for(int i=0; i<1000; i++) {
+    taskflow.emplace([](){});
+  }
+
+  tf::Future fu = executor.run(taskflow);
+
+  fu.cancel();  // there can still be task running after cancellation
+  fu.wait();    // wait until the cancellation completes
+}
+@endcode
+
+@section UnderstandTheLimitationsOfCancellation Understand the Limitations of Cancellation
+
+Due to its asynchronous and non-deterministic nature, taskflow cancellation has the following limitations:
+  + **Non-preemptive behavior**: Cancellation does not forcibly terminate running tasks. Any task already in execution will continue to completion before cancellation takes effect.
+  + **%Semaphore incompatibility**: Cancelling a taskflow that includes tasks involving tf::Semaphore (i.e., acquiring or releasing) is currently unsupported and may lead to undefined behavior.
+
+We may overcome these limitations in the future releases.
+
+*/
+
+}
+
+

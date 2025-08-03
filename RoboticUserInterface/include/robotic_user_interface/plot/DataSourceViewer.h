@@ -12,6 +12,9 @@
 #include "robotic_user_interface/core/DataStreamSolver.h"
 #include "robotic_user_interface/form/CsvLoadDialog.h"
 
+#include "qwool/qwdropwidget.h"
+#include "FluControls/FluAction.h"
+#include "FluControls/FluMenu.h"
 #include "qt_gcw/QSnackbarManager.h"
 #include "qcustomplot/qcustomplot.h"
 #include "qt_material_widgets/qtmaterialdialog.h"
@@ -174,17 +177,28 @@ public:
 
   void updateNodeValue();
 
+  
 signals:
   void publishNotify(GCW::NotifyType type, const QString &title, const QString &text);
-
+  
   void readyLoad(const QString& path);
 
+  void updateObjectData();
+  
 private:
   void makeImage();
-
+  
   void readyDrag(QTreeWidgetItem* item);
-
+  
   void flushItem();
+  
+  void clearAllData();
+
+  void clearItsData(QMenu *subMenu);
+
+  void removeItem(QMenu *subMenu);
+
+  void resetTree();
 
 protected:
   void paintEvent(QPaintEvent *event) override;
@@ -221,8 +235,16 @@ private:
   uint32_t BorderRadius = 10;
   bool isActive = false;
 
+  QVBoxLayout *layout;
+
   // 数据解析器
   QPointer<DataStreamSolver> dataStreamSolver_ = nullptr;
+
+  // 上下拉按钮
+  QPointer<QWDropWidget>     dropButton_;
+
+  // 菜单
+  FluMenu* menu;
 
 
   // load csv 部分

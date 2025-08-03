@@ -11,6 +11,7 @@
 #include "robotic_user_interface/core/DataSource.h"
 #include "robotic_user_interface/core/DataStreamSolver.h"
 
+
 #include "ui_Curve.h"
 
 class CurveDisplay : public QWidget {

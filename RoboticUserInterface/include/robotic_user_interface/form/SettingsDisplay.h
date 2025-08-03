@@ -35,6 +35,14 @@ private:
 
   void pullParameters();
 
+  int toFontPointSize(int value);
+
+  int toFontUnitIndex(int value);
+
+  int toLanguageIndex(const QString& value);
+
+  QString toLanguageString(int value);
+
 private:
   std::shared_ptr<Configuration> config_;
 

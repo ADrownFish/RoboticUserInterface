@@ -43,7 +43,7 @@ void RobotUserInterface::publishNotify(GCW::NotifyType type,const QString &title
 }
 
 void RobotUserInterface::resizeEvent(QResizeEvent* event){
-  auto &card = robotBase_->configuration()->card;
+  auto &card = config_->card;
   QSize windowSize = event->size();
   card.windowsWidth = windowSize.width();
   card.windowsHeight = windowSize.height();
@@ -111,6 +111,21 @@ void RobotUserInterface::setupWidgetsControls() {
   ui.widget_settings_reset->setText("Reset");
   ui.widget_settings_apply->setBackgroundColor(onColor);
   ui.widget_settings_reset->setBackgroundColor(onColor);
+
+  auto &pageName = config_->app.pageName;
+  if(pageName == "Operation"){
+    onPage_Operation();
+  } else if(pageName == "Info"){
+    onPage_Info();
+  } else if(pageName == "Curve"){
+    onPage_Curve();
+  } else if(pageName == "Terminal"){
+    onPage_Terminal();
+  } else if(pageName == "Tools"){
+    onPage_Tools();
+  } else if(pageName == "Settings"){
+    onPage_Settings();
+  } 
 }
 
 void RobotUserInterface::makeNav(){
@@ -121,55 +136,32 @@ void RobotUserInterface::makeNav(){
   item = new NavigationItem();
   item->setText(tr("Operation"));
   item->setIcon(QIcon(":/svg/svg/operation.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() { 
-    container->setCurrentWidget(ui.page_operation); 
-    curveDisplay_->setActivate(false);
-    commTerminal_->setActivate(false);
-    });
+  QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Operation);
   navView_->addItemToCenter(item);
 
   item = new NavigationItem();
   item->setText(tr("Info"));
   item->setIcon(QIcon(":/svg/svg/info.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() {
-    container->setCurrentWidget(ui.page_info); 
-    curveDisplay_->setActivate(false);
-    commTerminal_->setActivate(false);
-    });
+  QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Info);
   navView_->addItemToCenter(item);
   navView_->setClicked(item);
 
   item = new NavigationItem();
   item->setText(tr("Curve"));
   item->setIcon(QIcon(":/svg/svg/line.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() { 
-    container->setCurrentWidget(ui.page_curve); 
-    curveDisplay_->setActivate(true);
-    commTerminal_->setActivate(false);
-    });
+  QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Curve);
   navView_->addItemToCenter(item);
 
   item = new NavigationItem();
   item->setText(tr("Terminal"));
   item->setIcon(QIcon(":/svg/svg/DataStudio.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() {
-    if (robotBase_->configuration()->comm.commProtocol != CommunicationConfiguration::CommProtocol::Raw) {
-      publishNotify(GCW::Info, tr("Attention"), tr("The communication terminal can only send and receive data when the communication protocol is [Raw]."));
-    }
-      container->setCurrentWidget(ui.page_terminal); 
-      curveDisplay_->setActivate(false);
-      commTerminal_->setActivate(true);
-    });
+  QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Terminal);
   navView_->addItemToCenter(item);
 
   item = new NavigationItem();
   item->setText(tr("Tools"));
   item->setIcon(QIcon(":/svg/svg/tools.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() {
-    container->setCurrentWidget(ui.page_tools); 
-    curveDisplay_->setActivate(false);
-    commTerminal_->setActivate(false);
-    });
+  QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Tools);
   navView_->addItemToCenter(item);
 
   item = new NavigationItem();
@@ -182,11 +174,7 @@ void RobotUserInterface::makeNav(){
   item = new NavigationItem();
   item->setText(tr("Settings"));
   item->setIcon(QIcon(":/svg/svg/settings.svg"));
-  QObject::connect(item, &NavigationItem::clicked, [=]() { 
-    container->setCurrentWidget(ui.page_settings); 
-    curveDisplay_->setActivate(false);
-    commTerminal_->setActivate(false);
-    });
+  QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Settings);
   navView_->addItemToBottom(item);
 
   NavigationSwitcher* switcher = nullptr;
@@ -200,7 +188,7 @@ void RobotUserInterface::makeNav(){
     QObject::connect(toggle, &QWSwitcher::toggled, [this](bool ok) {
 		if (ok) {
 			if (!communicator_->isOpen()) {
-				communicator_->setup(robotBase_->configuration()->comm);
+				communicator_->setup(config_->comm);
 				communicator_->open();
 			}
 		}
@@ -243,6 +231,10 @@ void RobotUserInterface::setRobotBase(RobotBase *robotBase){
 }
 
 void RobotUserInterface::init(){
+
+  config_ = robotBase_->configuration();
+  config_->runtime.worker = std::make_shared<Runtime::Worker>(config_->app.maxWorkerThread);
+
   // communicator
   communicator_ = new Communicator(this);
   communicator_->init();
@@ -250,12 +242,12 @@ void RobotUserInterface::init(){
   // dataAllocator
   dataAllocator_ = new DataAllocator();
   dataAllocator_->setCommPtr(communicator_);
-  dataAllocator_->setConfiguration(robotBase_->configuration());
+  dataAllocator_->setConfiguration(config_);
   dataAllocator_->init();
 
   // dataStreamSolver
   dataStreamSolver_ = new DataStreamSolver();
-  dataStreamSolver_->setConfiguration(robotBase_->configuration());
+  dataStreamSolver_->setConfiguration(config_);
   dataStreamSolver_->setDataAllocator(dataAllocator_);
   dataStreamSolver_->setDataSource(robotBase_->dataSource());
   dataStreamSolver_->init();
@@ -266,7 +258,7 @@ void RobotUserInterface::init(){
 
   // dashboard
   dashboard_base_ = new Dashboard();
-  dashboard_base_->setConfiguration(robotBase_->configuration());
+  dashboard_base_->setConfiguration(config_);
   dashboard_base_->setObservations(robotBase_->observations());
   dashboard_base_->setCommand(robotBase_->command());
   dashboard_base_->init();
@@ -279,7 +271,7 @@ void RobotUserInterface::init(){
 
   // top
   topStatus_ = new FocusStatus();
-  topStatus_->setConfiguration(robotBase_->configuration());
+  topStatus_->setConfiguration(config_);
   topStatus_->setObservations(robotBase_->observations());
   topStatus_->setCommunicator(communicator_);
   m_titleBar->setWidgetAt(FluWindowKitTitleBar::StatusItems,topStatus_->getStatusItemsWidget());
@@ -287,7 +279,7 @@ void RobotUserInterface::init(){
 
   // comm Selector && dialog box
   commSelector_ = new CommSelector(desktopWidget);
-  commSelector_->setConfiguration(robotBase_->configuration());
+  commSelector_->setConfiguration(config_);
   commSelector_->init();
   commSelector_->flushConfiguration();
   QVBoxLayout *commSelectorLayout = new QVBoxLayout;
@@ -300,7 +292,7 @@ void RobotUserInterface::init(){
 
   // settings Display_
   settingsDisplay_ = new SettingsDisplay(desktopWidget);
-  settingsDisplay_->setConfiguration(robotBase_->configuration());
+  settingsDisplay_->setConfiguration(config_);
   settingsDisplay_->init();
   settingsDisplay_->pushParameters();
   ui.layout_obj_settings->addWidget(settingsDisplay_);
@@ -313,7 +305,7 @@ void RobotUserInterface::init(){
   // curve
   curveDisplay_ = new CurveDisplay(desktopWidget);
   curveDisplay_->setDataSource(robotBase_->dataSource());
-  curveDisplay_->setConfiguration(robotBase_->configuration());
+  curveDisplay_->setConfiguration(config_);
   curveDisplay_->setObservations(robotBase_->observations());
   curveDisplay_->setSteamSolver(dataStreamSolver_);
   curveDisplay_->init();
@@ -321,14 +313,14 @@ void RobotUserInterface::init(){
 
   // tools
   toolsBox_ = new ToolsBox();
-  toolsBox_->setConfiguration(robotBase_->configuration());
+  toolsBox_->setConfiguration(config_);
   toolsBox_->setObservations(robotBase_->observations());
   toolsBox_->init();
   ui.layout_toolsbox->addWidget(toolsBox_);
 
   // commTerminal
   commTerminal_ = new CommTerminal();
-  commTerminal_->setConfiguration(robotBase_->configuration());
+  commTerminal_->setConfiguration(config_);
   commTerminal_->setDataAllocator(dataAllocator_);
   commTerminal_->init();
   ui.layout_terminal->addWidget(commTerminal_);
@@ -337,16 +329,87 @@ void RobotUserInterface::init(){
   setupWidgetsControls();
   setupSignalConnection();
 
-  ui.stackedWidget->setCurrentWidget(ui.page_info);
+  // ui.stackedWidget->setCurrentWidget(ui.page_info);
 
   // top window
   QSize windowSize;
-  windowSize.setWidth(robotBase_->configuration()->card.windowsWidth);
-  windowSize.setHeight(robotBase_->configuration()->card.windowsHeight);
+  windowSize.setWidth(config_->card.windowsWidth);
+  windowSize.setHeight(config_->card.windowsHeight);
   resize(windowSize);
 
   // 设置主题
   FluThemeUtils::getUtils()->setTheme(FluTheme::Dark);
 
   navView_-> toggleExpandRetract();
+
+  if(config_->app.appName.isNull()){
+    this->setWindowTitle(config_->app.appName);
+  }
+}
+
+void RobotUserInterface::onPage_Operation() {
+  auto &container = ui.stackedWidget;
+
+  container->setCurrentWidget(ui.page_operation);
+  curveDisplay_->setActivate(false);
+  commTerminal_->setActivate(false);
+
+  auto &pageName = config_->app.pageName;
+  pageName = "Operation";
+}
+
+void RobotUserInterface::onPage_Info() {
+  auto &container = ui.stackedWidget;
+  container->setCurrentWidget(ui.page_info);
+  curveDisplay_->setActivate(false);
+  commTerminal_->setActivate(false);
+
+  auto &pageName = config_->app.pageName;
+  pageName = "Info";
+}
+
+void RobotUserInterface::onPage_Curve() {
+  auto &container = ui.stackedWidget;
+  container->setCurrentWidget(ui.page_curve);
+  curveDisplay_->setActivate(true);
+  commTerminal_->setActivate(false);
+
+  auto &pageName = config_->app.pageName;
+  pageName = "Curve";
+}
+
+void RobotUserInterface::onPage_Terminal() {
+  auto &container = ui.stackedWidget;
+  if (config_->comm.commProtocol !=
+      CommunicationConfiguration::CommProtocol::Raw) {
+    publishNotify(GCW::Info, tr("Attention"),
+                  tr("The communication terminal can only send and receive "
+                     "data when the communication protocol is [Raw]."));
+  }
+  container->setCurrentWidget(ui.page_terminal);
+  curveDisplay_->setActivate(false);
+  commTerminal_->setActivate(true);
+
+  auto &pageName = config_->app.pageName;
+  pageName = "Terminal";
+}
+
+void RobotUserInterface::onPage_Tools() {
+  auto &container = ui.stackedWidget;
+  container->setCurrentWidget(ui.page_tools);
+  curveDisplay_->setActivate(false);
+  commTerminal_->setActivate(false);
+
+  auto &pageName = config_->app.pageName;
+  pageName = "Tools";
+}
+
+void RobotUserInterface::onPage_Settings() {
+  auto &container = ui.stackedWidget;
+  container->setCurrentWidget(ui.page_settings);
+  curveDisplay_->setActivate(false);
+  commTerminal_->setActivate(false);
+
+  auto &pageName = config_->app.pageName;
+  pageName = "Settings";
 }

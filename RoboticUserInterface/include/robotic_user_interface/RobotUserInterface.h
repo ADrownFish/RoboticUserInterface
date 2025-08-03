@@ -64,6 +64,18 @@ private:
   // navigation
   void makeNav();
 
+  void onPage_Operation();
+
+  void onPage_Info();
+
+  void onPage_Curve();
+
+  void onPage_Terminal();
+
+  void onPage_Tools();
+
+  void onPage_Settings();
+
 signals:
 
 protected:
@@ -85,18 +97,19 @@ private:
   QPointer<GCW::QSnackbarManager> snackbar_;
   
   // core
-  QPointer<Communicator> communicator_;
-  QPointer<RobotBase>        robotBase_;
-  QPointer<DataAllocator>    dataAllocator_;
-  QPointer<DataStreamSolver> dataStreamSolver_;
+  QPointer<Communicator>         communicator_;
+  QPointer<RobotBase>            robotBase_;
+  QPointer<DataAllocator>        dataAllocator_;
+  QPointer<DataStreamSolver>     dataStreamSolver_;
+  std::shared_ptr<Configuration> config_;
 
   // form
   QPointer<FocusStatus>      topStatus_;
-  QPointer<CommSelector>  commSelector_;
+  QPointer<CommSelector>     commSelector_;
   QPointer<SettingsDisplay>  settingsDisplay_;
   QPointer<CurveDisplay>     curveDisplay_;
-  QPointer<ToolsBox>           toolsBox_;
-  QPointer<CommTerminal>  commTerminal_;
+  QPointer<ToolsBox>         toolsBox_;
+  QPointer<CommTerminal>     commTerminal_;
   
 
   // dashboard

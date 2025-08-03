@@ -1,5 +1,8 @@
 #include "robotic_user_interface/form/CsvLoadDialog.h"
 
+#include <QFileDialog>
+#include <QFileInfo>
+
 CsvLoadDialog::CsvLoadDialog(QWidget* parent)
 : QWWindowWidget(parent){
 	ui.setupUi(this);
@@ -68,6 +71,7 @@ void CsvLoadDialog::setupSignalConnection() {
 	QObject::connect(ui.button_loadit, &QPushButton::clicked, this, &CsvLoadDialog::loadit);
 
 	QObject::connect(ui.widget_LoadingType, &QWWindowButton::selectUnitIndexChanged, this, &CsvLoadDialog::switchType);
+
 }
 
 void CsvLoadDialog::setupWidgetsControls() {
@@ -79,7 +83,7 @@ void CsvLoadDialog::setupWidgetsControls() {
 
 	ui.widget_LoadingType->addUnit(tr("By Quantity"));
 	ui.widget_LoadingType->addUnit(tr("Select One"));
-	ui.widget_LoadingType->setSelectUnitIndex(1);
+  ui.widget_LoadingType->setSelectUnitIndex(1);
   ui.widget_LoadingType->setBackgroundColor(QColor(100, 110, 110, 50));
 
 	ui.widget_DelimiterType->addItem(",");
@@ -97,6 +101,11 @@ void CsvLoadDialog::setupWidgetsControls() {
 }
 
 void CsvLoadDialog::loadit() {
+
+	if(!QFileInfo(filePath).exists()){
+		publishNotify(GCW::NotifyType::Info, tr("Acttention"), tr("You need to select a file"));
+		return;
+	}
 
 	ui.widget_loading->show();
 

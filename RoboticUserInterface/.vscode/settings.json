@@ -107,7 +107,9 @@
     "filesystem": "cpp",
     "source_location": "cpp",
     "ranges": "cpp",
-    "slist": "cpp"
+    "slist": "cpp",
+    "qstring": "cpp",
+    "qfileinfo": "cpp"
   },
   "svg.preview.background": "editor",
   "commentTranslate.source": "Bing"

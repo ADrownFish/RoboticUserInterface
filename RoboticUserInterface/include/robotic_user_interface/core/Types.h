@@ -1,5 +1,7 @@
 #pragma once
 
+#include "taskflow/taskflow/taskflow.hpp"
+
 #include "Eigen/Dense"
 
 #include <memory>
@@ -11,6 +13,7 @@
 #include <QList>
 #include <QSharedPointer>
 #include <QColor>
+#include <QFont>
 #include <QString>
 #include <QRegularExpression>
 #include <QRandomGenerator>
@@ -424,6 +427,35 @@ public:
   EncodingType inputType = EncodingType::Abc;
 };
 
+//运行中的全局暂存配置，不保存到配置文件
+class Runtime {
+public:
+  struct Worker{
+    Worker(int num_threads = 4)
+    : executor(num_threads){
+    }
+    tf::Executor executor;  // 固定4个线程
+    tf::Taskflow taskflow;
+  };
+
+  scalar_t currentPlotFrameRate;
+  std::shared_ptr<Worker> worker;
+  
+};
+
+class MainAppConfiguration {
+public:
+
+  bool antiAliasing = true;
+  int fontPointSize = 10;
+  int maxWorkerThread = 4;
+  QString appName = "Robotic User Interface";
+  QString fontFamily = "NotoSansSC";
+  QString pluginName = "DefaultRobot";
+  QString language = "zh_CN";
+  QString pageName = "Info";
+};
+
 class Configuration {
 public:
   DisplayConfiguration display;
@@ -432,6 +464,9 @@ public:
   ActionConfiguration action;
   PlotConfiguration plot;
   TerminalConfiguaration terminal;
+  MainAppConfiguration app;
+  Runtime runtime;
+
   QVector<std::shared_ptr<FilePathConfiguration>> filePaths;
 };
 

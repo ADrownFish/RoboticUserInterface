@@ -1,5 +1,6 @@
 ﻿#include <QApplication>
 #include <QFontDatabase>
+#include <QProcess>
 
 #include <iostream>
 
@@ -58,8 +59,8 @@ int main(int argc, char *argv[]){
 
   QApplication a(argc, argv);
   a.setWindowIcon(QIcon(":/log/logo/main.svg"));
-
   FluLogUtils::__init();
+  InitialConfiguration initCfg = ConfigManager::getInitialConfiguration();
 
   /*********** 加载翻译 ***********/
   QTranslator translator;
@@ -71,13 +72,17 @@ int main(int argc, char *argv[]){
   }
 
   /*********** 加载字体 ***********/
+  QString FontName(":/libraries/fonts/NotoSansSC.ttf");
   Q_INIT_RESOURCE(resources);
-  int fontId = QFontDatabase::addApplicationFont(":/libraries/fonts/NotoSansSC.ttf");
+  int fontId = QFontDatabase::addApplicationFont(FontName);
   if (fontId != -1) {
     auto fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
     QString fontFamily = fontFamilies.at(0);
     QFont defaultFont(fontFamily);
+    defaultFont.setPointSize(initCfg.fontSize);
     QApplication::setFont(defaultFont);
+
+    qDebug() << QString("%2[%1] has been loaded: ").arg(initCfg.fontSize).arg(FontName) << defaultFont;
   }
 
   /*********** 加载主类 ***********/
@@ -87,11 +92,17 @@ int main(int argc, char *argv[]){
 #else
   RobotUserInterface w(argc, argv);
 
-  // QPointer<sevnce::SevnceRobot> robot = new sevnce::SevnceRobot();
-  // robot->init(12, 4);
-  // w.setRobotBase(robot);
-  QPointer<robot::DefaultRobot> robot = new robot::DefaultRobot();
-  robot->init(20, 10);
+  QPointer<RobotBase> robot;
+  // 暂时先没实现插件加载器 TODO
+  {
+    if(initCfg.pluginName == "SevnceRobot"){
+      robot = new sevnce::SevnceRobot();
+      robot->init(12, 4);
+    } else {
+      robot = new robot::DefaultRobot();
+      robot->init(20, 10);
+    }
+  }
   w.setRobotBase(robot);
   w.init();
   w.show();
@@ -111,7 +122,12 @@ int main(int argc, char *argv[]){
   std::signal(SIGHUP, handleSignal);    // 控制台挂起
 #endif
 
-  return a.exec();
+  int code =  a.exec();
+  if(code == 666){
+    // 如果需要重启
+    QProcess::startDetached(qApp->applicationFilePath());
+  }
+  return code;
 }
 
 

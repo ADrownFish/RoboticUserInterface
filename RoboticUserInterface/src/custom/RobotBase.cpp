@@ -31,12 +31,10 @@ void RobotBase::init(int numberOfActuator, int numberOfEndEffector){
   numberOfActuator_ = numberOfActuator;
   numberOfEndEffector_ = numberOfEndEffector;
   
-  QString appDir = QCoreApplication::applicationDirPath();
-  QString normalizedPath = QDir::cleanPath(appDir);  // 正规化路径
-  QString appName = QCoreApplication::applicationName();
-
-  configFilePath = normalizedPath + "/" + appName + "_config.json";
-  QString recordFileDir = normalizedPath + "/data/";
+  auto cfg = ConfigManager::getInitialConfiguration();
+  configFilePath = cfg.configFile;
+  
+  QString recordFileDir = cfg.configDir + "/data/";
   if(!QDir(recordFileDir).exists()){
     QDir().mkdir(recordFileDir);
   }
@@ -101,6 +99,8 @@ QDialog::DialogCode RobotBase::displayMessageDialog(const QString& title, const 
 }
 
 void RobotBase::updateDataSource(scalar_t time) {
+
+  // scalar_t tttt =  DataSource::timestamp_ms_f() * 1000.;
   // 获取顶层节点引用
   const ObjectNode::Ptr& top = dataSource_->topNode();
 
@@ -240,6 +240,8 @@ void RobotBase::updateDataSource(scalar_t time) {
     actuators_x->findObjectData("temp_m")    ->appendData(time, obs_act[i].temperature);
     actuators_x->findObjectData("Temp_d")    ->appendData(time, obs_act[i].driverTemperature);
   }
+
+  // qDebug() << "RobotBase::updateData() " << DataSource::timestamp_ms_f()*1000. - tttt;;
 
 }
 
