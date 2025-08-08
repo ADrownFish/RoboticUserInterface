@@ -77,13 +77,14 @@ void RobotUserInterface::setupSignalConnection() {
 
   // 设置
   QObject::connect(ui.widget_settings_apply, &QPushButton::clicked, [this](){
-    publishNotify(GCW::Info, tr("Settings"), tr("configuration has been updated"));
+    publishNotify(GCW::Info, tr("Settings"), tr("configuration has been updated, Some settings require a reboot to take effect."));
     
     settingsDisplay_->pullParameters();
     topStatus_->flushConfiguration();
     dashboard_base_->flushConfiguration();
     commSelector_->flushConfiguration();
     robotBase_->flushConfiguration();
+
   });
   QObject::connect(ui.widget_settings_reset, &QPushButton::clicked, [this](){
     settingsDisplay_->pushParameters();
@@ -115,16 +116,22 @@ void RobotUserInterface::setupWidgetsControls() {
   auto &pageName = config_->app.pageName;
   if(pageName == "Operation"){
     onPage_Operation();
+    navView_->setClicked(pageItem[PageName::Operation]);
   } else if(pageName == "Info"){
     onPage_Info();
+    navView_->setClicked(pageItem[PageName::Info]);
   } else if(pageName == "Curve"){
     onPage_Curve();
+    navView_->setClicked(pageItem[PageName::Curve]);
   } else if(pageName == "Terminal"){
     onPage_Terminal();
+    navView_->setClicked(pageItem[PageName::Terminal]);
   } else if(pageName == "Tools"){
     onPage_Tools();
+    navView_->setClicked(pageItem[PageName::Tools]);
   } else if(pageName == "Settings"){
     onPage_Settings();
+    navView_->setClicked(pageItem[PageName::Settings]);
   } 
 }
 
@@ -138,6 +145,7 @@ void RobotUserInterface::makeNav(){
   item->setIcon(QIcon(":/svg/svg/operation.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Operation);
   navView_->addItemToCenter(item);
+  pageItem[PageName::Operation] = item;
 
   item = new NavigationItem();
   item->setText(tr("Info"));
@@ -145,24 +153,28 @@ void RobotUserInterface::makeNav(){
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Info);
   navView_->addItemToCenter(item);
   navView_->setClicked(item);
+  pageItem[PageName::Info] = item;
 
   item = new NavigationItem();
   item->setText(tr("Curve"));
   item->setIcon(QIcon(":/svg/svg/line.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Curve);
   navView_->addItemToCenter(item);
+  pageItem[PageName::Curve] = item;
 
   item = new NavigationItem();
   item->setText(tr("Terminal"));
   item->setIcon(QIcon(":/svg/svg/DataStudio.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Terminal);
   navView_->addItemToCenter(item);
+  pageItem[PageName::Terminal] = item;
 
   item = new NavigationItem();
   item->setText(tr("Tools"));
   item->setIcon(QIcon(":/svg/svg/tools.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Tools);
   navView_->addItemToCenter(item);
+  pageItem[PageName::Tools] = item;
 
   item = new NavigationItem();
   item->setText(tr("Comm"));
@@ -176,6 +188,7 @@ void RobotUserInterface::makeNav(){
   item->setIcon(QIcon(":/svg/svg/settings.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Settings);
   navView_->addItemToBottom(item);
+  pageItem[PageName::Settings] = item;
 
   NavigationSwitcher* switcher = nullptr;
   QWSwitcher* toggle = nullptr;
@@ -336,6 +349,10 @@ void RobotUserInterface::init(){
   windowSize.setWidth(config_->card.windowsWidth);
   windowSize.setHeight(config_->card.windowsHeight);
   resize(windowSize);
+
+  if (!config_->app.appName.isEmpty()) {
+    m_titleLabel->setText(config_->app.appName);
+  }
 
   // 设置主题
   FluThemeUtils::getUtils()->setTheme(FluTheme::Dark);

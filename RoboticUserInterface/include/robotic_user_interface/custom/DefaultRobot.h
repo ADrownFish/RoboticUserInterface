@@ -26,7 +26,7 @@ public:
 public:
   DefaultRobot(QObject *parent = nullptr);
 
-  ~DefaultRobot();
+  ~DefaultRobot() override;
 
   void init(int numberOfActuator, int numberOfEndEffector);
 

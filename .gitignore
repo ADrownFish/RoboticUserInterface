@@ -6,6 +6,8 @@ x64/
 # RoboticUserInterface
 RoboticUserInterface/x64/
 RoboticUserInterface/build/
+RoboticUserInterface/.vs
+RoboticUserInterface/x64-Debug
 
 # RoboticUserInterfaceTest
 RoboticUserInterfaceTest/x64/

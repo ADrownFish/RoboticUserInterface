@@ -1,7 +1,214 @@
 #include "robotic_user_interface/plot/DataSourceViewer.h"
 
 #include <QFileInfo>
-  
+
+ObjectNodeViewer::ObjectNodeViewer() {
+
+}
+
+ObjectNodeViewer::~ObjectNodeViewer() {
+  for (auto& d : children) {
+    d.reset();
+  }
+
+  for (auto& d : data) {
+    d.reset();
+  }
+}
+
+void ObjectNodeViewer::addNode(ObjectNodeViewer::Ptr d) { children.append(d); }
+
+void ObjectNodeViewer::addObject(ObjectDataViewer::Ptr d) { data.append(d); }
+
+void ObjectNodeViewer::updateViewer() {
+  for (auto& d : data) {
+    if (d->data->data.count()) {
+      scalar_t value = d->data->data.back();
+      d->item->setText(1, QString::number(value, 'f', 2));
+    } else {
+      d->item->setText(1, QString::number(0, 'f', 2));
+    }
+  }
+
+  for (auto& d : children) {
+    d->updateViewer();
+  }
+}
+
+ObjectDataViewer::Ptr ObjectNodeViewer::findObjectDataViewer(const  QTreeWidgetItem* item) const {
+  for (auto& d : data) {
+    if (d->item == item) {
+      return d;
+    }
+  }
+
+  for (auto& d : children) {
+    ObjectDataViewer::Ptr result = d->findObjectDataViewer(item);
+    if (result) {
+      return result;
+    }
+  }
+
+  return nullptr;
+}
+
+void ObjectNodeViewer::clear() {
+  for (auto& d : data) {
+    d->data->clear();
+    d.reset();
+  }
+  data.clear();
+
+  for (auto& d : children) {
+    d->clear();
+  }
+  children.clear();
+}
+
+void ObjectNodeViewer::clearData()
+{
+  for (auto& d : data) {
+    d->data->clear();
+  }
+
+  for (auto& d : children) {
+    d->clearData();
+  }
+}
+
+void ObjectNodeViewer::populateTree(QTreeWidgetItem* parentItem, ObjectNode::Ptr node) {
+  // qDebug() << parentItem->flags();
+  parentItem->setFlags(Qt::ItemIsEnabled);
+  item = parentItem;
+
+  for (const auto& dataObj : node->data) {
+    auto dataViewer = std::make_shared<ObjectDataViewer>(dataObj);
+    QTreeWidgetItem* dataItem = new QTreeWidgetItem(item, QStringList(dataObj->name));
+    dataItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsDragEnabled|Qt::ItemIsDropEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+    dataViewer->item = dataItem;
+
+    addObject(dataViewer);
+  }
+
+  for (const auto& childNode : node->children) {
+    auto childViewer = std::make_shared<ObjectNodeViewer>();
+    QTreeWidgetItem * newItem = new QTreeWidgetItem(parentItem);
+    newItem->setText(0, childNode->name);
+    childViewer->populateTree(newItem, childNode);
+
+    addNode(childViewer);
+  }
+}
+
+
+ 
+
+
+DataSourceViewerTreeWidget::DataSourceViewerTreeWidget(QWidget* parent)
+: QTreeWidget(parent) {
+  setDragEnabled(true);
+  setSelectionMode(QAbstractItemView::ExtendedSelection);
+  setContextMenuPolicy(Qt::CustomContextMenu);
+
+  menu = menu.create();
+  action_eliminate_selection = new FluAction(tr("Eliminate selection"));
+  action_clear_item_data = new FluAction(tr("Clear item data"));
+  action_delete_item = new FluAction(tr("Delete item"));
+
+  menu->addAction(action_eliminate_selection);
+  menu->addSeparator();
+  menu->addAction(action_clear_item_data);
+  menu->addAction(action_delete_item);
+
+  connect(action_eliminate_selection, &QAction::triggered, this, &DataSourceViewerTreeWidget::clearSelection);
+
+  connect(action_clear_item_data, &QAction::triggered, this, &DataSourceViewerTreeWidget::clearItem);
+
+  connect(action_delete_item, &QAction::triggered, this, &DataSourceViewerTreeWidget::deleteItem);
+
+  connect(this, &QTreeWidget::itemExpanded, this, &DataSourceViewerTreeWidget::onItemExpanded);
+
+}
+
+void DataSourceViewerTreeWidget::startDrag(Qt::DropActions supportedActions) {
+  QList<QTreeWidgetItem*> items = selectedItems();
+  if (items.isEmpty())
+    return;
+
+  emit readyDrag(items);
+}
+
+void DataSourceViewerTreeWidget::onItemExpanded(QTreeWidgetItem* item) {
+  this->resizeColumnToContents(0);  // 自动调整列宽
+}
+
+void DataSourceViewerTreeWidget::mousePressEvent(QMouseEvent* event) {
+
+  if (event->button() != Qt::RightButton) {
+    QTreeWidget::mousePressEvent(event);
+    return;
+  }
+
+  QPoint pos = event->pos();
+  QTreeWidgetItem* item = itemAt(pos);
+  QString item_name;
+
+  if (item && (item_name = item->text(0)) != "Plugin") {
+    //只有top才能清空
+    bool isTop = false;
+    for (const auto& it : topNode_->children) {
+      if (it->name == item_name) {
+        isTop = true;
+        selectedNode = it;
+        selectedItem = item;
+        break;
+      }
+    }
+
+    action_clear_item_data->setVisible(isTop);
+    action_delete_item->setVisible(isTop);
+  } else {
+    action_clear_item_data->setVisible(false);
+    action_delete_item->setVisible(false);
+    menu->exec(viewport()->mapToGlobal(pos));
+  }
+
+  menu->exec(viewport()->mapToGlobal(pos));
+}
+
+void DataSourceViewerTreeWidget::clearItem() {
+
+  if (selectedNode) {
+
+    selectedNode->clearData();
+    selectedNode = nullptr;
+    selectedItem = nullptr;
+
+    emit checkObjectData();
+  }
+}
+
+void DataSourceViewerTreeWidget::deleteItem() {
+  if (selectedNode) {
+
+
+    selectedItem->takeChildren();
+    selectedItem->setHidden(true);
+
+    selectedNode->clear();
+
+    selectedNode = nullptr;
+    selectedItem = nullptr;
+
+    emit checkObjectData();
+  }
+}
+
+void DataSourceViewerTreeWidget::setTopNode(const ObjectNode::Ptr& p) {
+  topNode_ = p;
+}
+
+
 DataSourceViewer::DataSourceViewer(QWidget *parent)
   : QWidget(parent){
 
@@ -17,10 +224,10 @@ DataSourceViewer::DataSourceViewer(QWidget *parent)
   // layout->setSpacing(5);
 }
 DataSourceViewer::~DataSourceViewer(){
-  
+
 }
 
-void DataSourceViewer::updateDataSource(const DataSource::Ptr &ds){
+void DataSourceViewer::setDataSource(const DataSource::Ptr &ds){
   dataSource_ = ds;
   auto rootNode = dataSource_->topNode();
   auto node = rootNode->findObjectNode("Plugin");
@@ -30,6 +237,7 @@ void DataSourceViewer::updateDataSource(const DataSource::Ptr &ds){
   item_plugin->setHidden(false);
 
   treeWidget->resizeColumnToContents(0);  // 自动调整第一列宽度以适应内容
+  treeWidget->setTopNode(dataSource_->topNode());
 }
 
 void DataSourceViewer::setConfiguration(std::shared_ptr<Configuration> config){
@@ -76,7 +284,7 @@ void DataSourceViewer::setupWidgetsControls(){
   commSelectorLayout->addWidget(csvLoadDialog_);
   SelectorDialog_->hideDialog();
 
-  menu = new FluMenu(this);
+  menu = new FluMenu();
 }
 
 void DataSourceViewer::setupSignalConnection(){
@@ -85,6 +293,8 @@ void DataSourceViewer::setupSignalConnection(){
 
   QObject::connect(treeWidget, &DataSourceViewerTreeWidget::readyDrag,this, &DataSourceViewer::readyDrag);
 
+  QObject::connect(treeWidget, &DataSourceViewerTreeWidget::checkObjectData, this, &DataSourceViewer::checkObjectData);
+  
   QObject::connect(this, &DataSourceViewer::readyLoad, this, [this](const QString& path) {
     csvLoadDialog_->loadFile(path);
     SelectorDialog_->showDialog();
@@ -125,6 +335,7 @@ void DataSourceViewer::setupSignalConnection(){
 
   QtMaterialRaisedButton* button;
   button = new QtMaterialRaisedButton();
+  button->setFont(font());
   button->setText(tr("Importing File"));
   button->setFixedHeight(25);
   button->setBackgroundColor(offColor);
@@ -193,31 +404,48 @@ void DataSourceViewer::updateNodeValue() {
   viewer_json->updateViewer();
 }
 
-void DataSourceViewer::readyDrag(QTreeWidgetItem* item) {
-  ObjectDataViewer::Ptr result;
+QPointer<DataSourceViewerTreeWidget> DataSourceViewer::getTreeWidget() {
+  return treeWidget;
+}
+void DataSourceViewer::readyDrag(QList<QTreeWidgetItem *> items) {
+  QList<ObjectDataViewer::Ptr> validViewers;
 
-  if ((result = viewer_plugin->findObjectDataViewer(item)) == nullptr) {
-    if ((result = viewer_csv->findObjectDataViewer(item)) == nullptr) {
-      if ((result = viewer_json->findObjectDataViewer(item)) == nullptr) {
-        if ((result = viewer_float->findObjectDataViewer(item)) == nullptr) {
-          return;
-        }
-      }
+  // 1. 遍历所有 items，收集有效的 ObjectDataViewer
+  for (auto *item : items) {
+    ObjectDataViewer::Ptr result;
+    if ((result = viewer_plugin->findObjectDataViewer(item)) ||
+        (result = viewer_csv->findObjectDataViewer(item)) ||
+        (result = viewer_json->findObjectDataViewer(item)) ||
+        (result = viewer_float->findObjectDataViewer(item))) {
+      validViewers.append(result);
     }
   }
 
-  // 直接存储 `ObjectDataViewer*` 地址
-  quintptr ptrValue = reinterpret_cast<quintptr>(result->data.get());
-  QByteArray data;
-  data.setRawData(reinterpret_cast<const char*>(&ptrValue), sizeof(ptrValue));
+  if (validViewers.isEmpty()) {
+    return; // 没有可拖放的对象
+  }
 
-  QString name = dataSource_->topNode()->findObjectDataPath(result->data);
+  // 2. 准备 MIME 数据（存储多个对象的指针和名称）
+  QJsonArray objectDataArray;
+  QStringList objectNames;
 
-  QMimeData* mimeData = new QMimeData();
-  mimeData->setData("application-robotuserinterface-objectdata", data);
-  mimeData->setData("application-robotuserinterface-objectname", name.toUtf8());
+  for (const auto &viewer : validViewers) {
+    quintptr ptrValue = reinterpret_cast<quintptr>(viewer->data.get());
+    objectDataArray.append(static_cast<qint64>(ptrValue));
+    objectNames.append(
+        dataSource_->topNode()->findObjectDataPath(viewer->data));
+  }
 
-  QDrag* drag = new QDrag(this);
+  QJsonDocument doc(objectDataArray);
+  QByteArray ptrData = doc.toJson(QJsonDocument::Compact);
+
+  QMimeData *mimeData = new QMimeData();
+  mimeData->setData("application/robotuserinterface-objectdata-list", ptrData);
+  mimeData->setData("application/robotuserinterface-objectname-list",
+                    objectNames.join(";").toUtf8());
+
+  // 3. 执行拖放操作
+  QDrag *drag = new QDrag(this);
   drag->setMimeData(mimeData);
   drag->exec(Qt::MoveAction);
 }
@@ -294,17 +522,6 @@ void DataSourceViewer::removeItem(QMenu *subMenu) {
   subMenu->clear();
   auto topNode = dataSource_->topNode();
 
-  if(!item_plugin->isHidden()){
-    FluAction *action = new FluAction(tr("Plugin"));
-    subMenu->addAction(action);
-    QObject::connect(action, &QAction::triggered, [this, topNode]() {
-      auto p = topNode->findObjectNode("Plugin");
-      if(p){
-        p->clearData();
-      }
-      item_plugin->setHidden(true);
-    });
-  } 
   if(!item_csv->isHidden()){
     FluAction *action = new FluAction(tr("Csv"));
     subMenu->addAction(action);
@@ -338,7 +555,7 @@ void DataSourceViewer::removeItem(QMenu *subMenu) {
     });
   }
 
-  emit updateObjectData();
+  emit checkObjectData();
 }
 
 void DataSourceViewer::resetTree()
@@ -368,5 +585,5 @@ void DataSourceViewer::resetTree()
   viewer_float->clear();
   viewer_json->clear();
 
-  emit updateObjectData();
+  emit checkObjectData();
 }

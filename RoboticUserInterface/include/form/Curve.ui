@@ -64,11 +64,7 @@
       </property>
       <item>
        <widget class="QTabWidget" name="tabWidget_curve">
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
+
         <property name="styleSheet">
          <string notr="true">/*设置TabWidget中tab_1的样式*/
 #tab_1.QWidget{
@@ -209,11 +205,6 @@ border-bottom:1.5 solid rgb(255,255,255)
              <height>25</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
            <property name="Checked" stdset="0">
             <bool>true</bool>
            </property>
@@ -232,11 +223,6 @@ border-bottom:1.5 solid rgb(255,255,255)
              <width>140</width>
              <height>25</height>
             </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
            </property>
            <property name="Checked" stdset="0">
             <bool>false</bool>
@@ -257,11 +243,7 @@ border-bottom:1.5 solid rgb(255,255,255)
              <height>100</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
+           
           </widget>
          </item>
         </layout>
@@ -280,11 +262,6 @@ border-bottom:1.5 solid rgb(255,255,255)
           <width>16777215</width>
           <height>30</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
         </property>
         <property name="styleSheet">
          <string notr="true"/>
@@ -338,11 +315,6 @@ border-bottom:1.5 solid rgb(255,255,255)
              <height>30</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
            <property name="stateSetQuantity" stdset="0">
             <number>2</number>
            </property>
@@ -387,11 +359,6 @@ border-bottom:1.5 solid rgb(255,255,255)
              <height>30</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
            <property name="stateSetQuantity" stdset="0">
             <number>2</number>
            </property>
@@ -419,11 +386,6 @@ border-bottom:1.5 solid rgb(255,255,255)
              <width>90</width>
              <height>30</height>
             </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
            </property>
            <property name="stateSetQuantity" stdset="0">
             <number>2</number>
@@ -453,11 +415,6 @@ border-bottom:1.5 solid rgb(255,255,255)
              <height>30</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
            <property name="stateSetQuantity" stdset="0">
             <number>2</number>
            </property>
@@ -486,11 +443,6 @@ border-bottom:1.5 solid rgb(255,255,255)
              <height>30</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
            <property name="stateSetQuantity" stdset="0">
             <number>2</number>
            </property>
@@ -518,11 +470,6 @@ border-bottom:1.5 solid rgb(255,255,255)
              <width>70</width>
              <height>30</height>
             </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
            </property>
            <property name="stateSetQuantity" stdset="0">
             <number>2</number>

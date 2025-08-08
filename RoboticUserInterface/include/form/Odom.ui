@@ -119,11 +119,7 @@
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="0" column="2">
@@ -140,11 +136,7 @@
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="0" column="3">
@@ -161,11 +153,7 @@
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="1" column="0">
@@ -204,11 +192,7 @@
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="1" column="2">
@@ -225,11 +209,7 @@
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="1" column="3">
@@ -246,11 +226,7 @@
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="0" column="0">

@@ -25,10 +25,10 @@ public:
 public:
   RobotBase(QObject *parent = nullptr) : QObject(parent) {}
 
-  ~RobotBase(){}
+  virtual ~RobotBase(){}
 
   /****************  Called from outside  ****************/
-  void init(int numberOfActuator, int numberOfEndEffector);
+  virtual void init(int numberOfActuator, int numberOfEndEffector);
   
   void setTopWidget(QWidget *topWidget);
 

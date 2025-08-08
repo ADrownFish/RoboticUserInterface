@@ -1,5 +1,9 @@
 #include "robotic_user_interface/form/SettingsDisplay.h"
 
+#include "qwool/qwdropwidget.h"
+#include "FluControls/FluMenu.h"
+#include "FluControls/FluAction.h"
+
 #include <QSvgRenderer>
 
 #include "BuildInfo.h"
@@ -49,10 +53,14 @@ void SettingsDisplay::setupWidgetsControls(){
   ui.widget_font->addUnit(tr("NotoSansSC"));
   ui.widget_font->setBackgroundColor(QColor(100, 100, 100, 50));
 
+  ui.widget_font_point_size->addUnit(tr("8"));
+  ui.widget_font_point_size->addUnit(tr("9"));
   ui.widget_font_point_size->addUnit(tr("10"));
   ui.widget_font_point_size->addUnit(tr("11"));
   ui.widget_font_point_size->addUnit(tr("12"));
   ui.widget_font_point_size->addUnit(tr("13"));
+  ui.widget_font_point_size->addUnit(tr("14"));
+  ui.widget_font_point_size->addUnit(tr("15"));
   ui.widget_font_point_size->setBackgroundColor(QColor(100, 100, 100, 50));
 
   ui.widget_antiAliasing->addUnit(tr("False"));
@@ -64,6 +72,23 @@ void SettingsDisplay::setupWidgetsControls(){
   ui.textEdit->setOpenExternalLinks(true);      // 启用外部超链接
   ui.textEdit->setTextInteractionFlags(Qt::TextBrowserInteraction);
   ui.textEdit->setHtml(BuildInfo::getBriefInfo());  // 设置HTML内容
+
+  QWDropWidget *drop_plugin = new QWDropWidget();
+  drop_plugin->setDropIcon(QIcon(":/svg/svg/arrow-right2.svg"));
+  drop_plugin->setFixedSize(200 + 24, 50);
+  ui.gridLayout_app->replaceWidget(ui.lineEdit_pluginName, drop_plugin);
+  drop_plugin->setWidget(ui.lineEdit_pluginName);
+  FluMenu *menu = new FluMenu();
+  // 暂定有这些
+  QStringList plugins = {"DefaultRobot","SevnceRobot"};
+  for(auto & plugin : plugins){
+    FluAction *action = new FluAction(plugin);
+    menu->addAction(action);
+    QObject::connect(action, &FluAction::triggered, [this, action]() {
+      ui.lineEdit_pluginName->setText(action->text());
+    });
+  }
+  drop_plugin->setMenu(menu);
 
   QSvgRenderer renderer(QString(":/log/logo/main.svg"));
   QPixmap pixmap(ui.label_icon->size());
@@ -102,27 +127,43 @@ void SettingsDisplay::pullParameters(){
 int SettingsDisplay::toFontPointSize(int value){
   switch (value) {
     case 0:
-      return 10;
+      return 8;
     case 1:
-      return 11;
+      return 9;
     case 2:
-      return 12;
+      return 10;
     case 3:
+      return 11;
+    case 4:
+      return 12;
+    case 5:
       return 13;
+    case 6:
+      return 14;
+    case 7:
+      return 15;
   }
 
   return 10;
 }
 int SettingsDisplay::toFontUnitIndex(int value){
   switch (value) {
-    case 10:
+    case 8:
       return 0;
-    case 11:
+    case 9:
       return 1;
-    case 12:
+    case 10:
       return 2;
-    case 13:
+    case 11:
       return 3;
+    case 12:
+      return 4;
+    case 13:
+      return 5;
+    case 14:
+      return 6;
+    case 15:
+      return 7;
   }
 
   return 0;
@@ -135,6 +176,8 @@ int SettingsDisplay::toLanguageIndex(const QString& value){
   } else if(value == "en_US"){
     return 1;
   }
+
+  return 0;
 }
 
 QString SettingsDisplay::toLanguageString(int value){

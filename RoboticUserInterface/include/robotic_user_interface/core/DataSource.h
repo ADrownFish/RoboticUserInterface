@@ -169,6 +169,23 @@ public:
 		return false;
 	}
 
+	bool exists(const ObjectData* od) const {
+		for(auto p : data){
+			if(p.get() == od){
+				return true;
+			}
+		}
+
+		for (auto& d : children) {
+			if (d->exists(od)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
 	void setAllStatic() {
     for (auto& d : data) {
       d->type = ObjectData::DataType::Static;

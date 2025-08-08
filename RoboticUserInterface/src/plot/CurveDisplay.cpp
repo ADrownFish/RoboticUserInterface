@@ -133,12 +133,29 @@ void CurveDisplay::setupSignalConnection() {
 }
 
 void CurveDisplay::setupWidgetsControls() {
+    QString css = "QMenu{"
+  "background:rgba(255,255,255,1);"
+  "border:none;"
+  "}"
+  "QMenu::item{"
+  "padding:11px 10px;"
+  "color:rgba(51,51,51,1);"
+  // "font-size:12px;"
+  "}"
+  "QMenu::item:hover{"
+  "background-color:#409CE1;"
+  "}"
+  "QMenu::item:selected{"
+  "background-color:#409CE1;"
+  "}";
+
+  this->setStyleSheet(css);
 
   dataSourceViewer_ = new DataSourceViewer(this);
   dataSourceViewer_->setConfiguration(config_);
   dataSourceViewer_->setSteamSolver(dataStreamSolver_);
   dataSourceViewer_->init();
-  dataSourceViewer_->updateDataSource(dataSource_);
+  dataSourceViewer_->setDataSource(dataSource_);
 
   QSplitter* splitter = new QSplitter(Qt::Horizontal);
   splitter->addWidget(dataSourceViewer_);
@@ -157,48 +174,49 @@ void CurveDisplay::setupWidgetsControls() {
   ui.curve_pauseResume->setBorderRadius(5);
   ui.curve_pauseResume->appendState({ true, tr("Continue"), offColor , QString(":/svg/svg/continue.svg") });
   ui.curve_pauseResume->appendState({ true, tr("Pause"), onColor , QString(":/svg/svg/stop.svg") });
+  ui.curve_pauseResume->setSelectState(config_->plot.isPaused);
 
   ui.curve_moreLess->setBorder(false);
   ui.curve_moreLess->setBorderRadius(5);
   ui.curve_moreLess->appendState({ true, tr("Collapse"), offColor , QString(":/svg/svg/less.svg") });
   ui.curve_moreLess->appendState({ true, tr("Expand"), onColor , QString(":/svg/svg/more.svg") });
-  //ui.curve_gridLine->setSelectState(1);
+  ui.curve_moreLess->setSelectState(0);
 
   ui.curve_gridLine->setBorder(false);
   ui.curve_gridLine->setBorderRadius(5);
   ui.curve_gridLine->appendState({ true, tr("Grid"), offColor , QString(":/svg/svg/hide.svg") });
-  ui.curve_gridLine->appendState({ true, tr("Grid"), onColor , QString(":/svg/svg/show.svg") });
-  ui.curve_gridLine->setSelectState(1);
+  ui.curve_gridLine->appendState({ true, tr("Grid"), onColor , QString(":/svg/svg/grid.svg") });
+  ui.curve_gridLine->setSelectState(config_->plot.gridLine);
 
   ui.AutoScaleAxisX->setBorder(false);
   ui.AutoScaleAxisX->setBorderRadius(5);
   ui.AutoScaleAxisX->appendState({ true, tr("Manual Scaling X"), offColor , QString(":/svg/svg/manual.svg") });
   ui.AutoScaleAxisX->appendState({ true, tr("Auto Scaling X"), onColor , QString(":/svg/svg/auto.svg") });
-  ui.AutoScaleAxisX->setSelectState(1);
+  ui.AutoScaleAxisX->setSelectState(config_->plot.xAutoScale);
 
   ui.AutoScaleAxisY->setBorder(false);
   ui.AutoScaleAxisY->setBorderRadius(5);
   ui.AutoScaleAxisY->appendState({ true, tr("Manual Scaling Y"), offColor , QString(":/svg/svg/manual.svg") });
   ui.AutoScaleAxisY->appendState({ true, tr("Auto Scaling Y"), onColor , QString(":/svg/svg/auto.svg") });
-  ui.AutoScaleAxisY->setSelectState(1);
+  ui.AutoScaleAxisY->setSelectState(config_->plot.yAutoScale);
 
   ui.curve_legend->setBorder(false);
   ui.curve_legend->setBorderRadius(5);
-  ui.curve_legend->appendState({ true, tr("Legend"), offColor , QString(":/svg/svg/manual.svg") });
-  ui.curve_legend->appendState({ true, tr("Legend"), onColor , QString(":/svg/svg/auto.svg") });
-  ui.curve_legend->setSelectState(1);
+  ui.curve_legend->appendState({ true, tr("Legend"), offColor , QString(":/svg/svg/hide.svg") });
+  ui.curve_legend->appendState({ true, tr("Legend"), onColor , QString(":/svg/svg/legend.svg") });
+  ui.curve_legend->setSelectState(config_->plot.legend);
 
   ui.curve_link->setBorder(false);
   ui.curve_link->setBorderRadius(5);
-  ui.curve_link->appendState({ true, tr("Link"), offColor , QString(":/svg/svg/manual.svg") });
-  ui.curve_link->appendState({ true, tr("Link"), onColor , QString(":/svg/svg/auto.svg") });
-  ui.curve_link->setSelectState(1);
+  ui.curve_link->appendState({ true, tr("Link"), offColor , QString(":/svg/svg/disconnect.svg") });
+  ui.curve_link->appendState({ true, tr("Link"), onColor , QString(":/svg/svg/connect.svg") });
+  ui.curve_link->setSelectState(config_->plot.link);
 
   ui.curve_dataTraker->setBorder(false);
   ui.curve_dataTraker->setBorderRadius(5);
-  ui.curve_dataTraker->appendState({ true, tr("Data Tracker"), offColor , QString(":/svg/svg/manual.svg") });
-  ui.curve_dataTraker->appendState({ true, tr("Data Tracker"), onColor , QString(":/svg/svg/auto.svg") });
-  ui.curve_dataTraker->setSelectState(1);
+  ui.curve_dataTraker->appendState({ true, tr("Data Tracker"), offColor , QString(":/svg/svg/hide.svg") });
+  ui.curve_dataTraker->appendState({ true, tr("Data Tracker"), onColor , QString(":/svg/svg/Cross.svg") });
+  ui.curve_dataTraker->setSelectState(config_->plot.tracker);
 
   QTabBar* tabBar = ui.tabWidget_curve->tabBar();
   tabBar->setElideMode(Qt::ElideNone);
@@ -219,6 +237,7 @@ void CurveDisplay::setupWidgetsControls() {
 
   QtMaterialRaisedButton* button;
   button = new QtMaterialRaisedButton();
+  button->setFont(font());
   button->setText(tr("Add Map"));
   button->setFixedHeight(25);
   button->setBackgroundColor(QColor(63, 63, 70, 50));
@@ -236,8 +255,12 @@ void CurveDisplay::setupWidgetsControls() {
 void CurveDisplay::appendCustomPlot(){
   CustomPlotMap *obj = new CustomPlotMap();
   obj->setConfiguration(config_);
+  obj->setDataSource(dataSource_);
   obj->init();
+
   QObject::connect(obj, &CustomPlotMap::publishNotify, this, &CurveDisplay::publishNotify);
+  QObject::connect(obj, &CustomPlotMap::dragAccepted, dataSourceViewer_->getTreeWidget(), &QTreeWidget::clearSelection);
+  QObject::connect(dataSourceViewer_, &DataSourceViewer::checkObjectData, obj, &CustomPlotMap::checkObjectData);
 
   QString tabName = tr("plot map ") + QString::number(ui.tabWidget_curve->count() + 1);
   ui.tabWidget_curve->addTab(obj, tabName);
@@ -282,8 +305,38 @@ void CurveDisplay::clearData()
 
 void CurveDisplay::exportDataImage()
 {
+  if(!currentPlotMap){
+    return;
+  }
+
+  QString defaultName = QDir::homePath() + "/Data_Capture.png";
+  QString selectedFilter;
+  QString path = QFileDialog::getSaveFileName(
+      this, tr("Save Widget Screenshot"), defaultName,
+      tr("PNG Image (*.png);;JPEG Image (*.jpg *.jpeg);;Bitmap Image (*.bmp)"),
+      &selectedFilter);
+
+  if (path.isEmpty())
+    return;
+
+  QPixmap pixmap(currentPlotMap->size());
+  currentPlotMap->render(&pixmap);
+
+  bool success = false;
+  if (path.endsWith(".jpg", Qt::CaseInsensitive) || path.endsWith(".jpeg", Qt::CaseInsensitive)) {
+    success = pixmap.save(path, "JPEG", 100);  // 高质量
+  } else {
+    success = pixmap.save(path);  // 其他格式默认
+  }
+
+  if (!success) {
+    publishNotify(GCW::NotifyType::Error, tr("Warn"), tr("Failed to save the screenshot."));
+  } else {
+    publishNotify(GCW::NotifyType::Success, tr("Success"), tr("Screenshot saved to: %1").arg(path));
+  }
 }
 
 void CurveDisplay::exportDataFile()
 {
+
 }

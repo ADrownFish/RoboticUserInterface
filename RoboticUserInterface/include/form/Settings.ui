@@ -68,11 +68,11 @@ QGroupBox::title {
     <number>20</number>
    </property>
    <item row="2" column="1">
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="groupBox_other">
      <property name="title">
       <string>Other</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
+     <layout class="QGridLayout" name="gridLayout_other">
       <property name="horizontalSpacing">
        <number>30</number>
       </property>
@@ -120,7 +120,7 @@ background-color: rgba(255, 255, 255, 0);</string>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QGroupBox" name="groupBox_OPeration">
+    <widget class="QGroupBox" name="groupBox_Operation">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -133,7 +133,7 @@ background-color: rgba(255, 255, 255, 0);</string>
      <property name="title">
       <string>Display</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
+     <layout class="QGridLayout" name="gridLayout_display">
       <item row="2" column="1">
        <widget class="QWWindowButton" name="widget_degRad" native="true">
         <property name="minimumSize">
@@ -147,11 +147,6 @@ background-color: rgba(255, 255, 255, 0);</string>
           <width>200</width>
           <height>40</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -168,11 +163,6 @@ background-color: rgba(255, 255, 255, 0);</string>
           <width>300</width>
           <height>16777215</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
         <property name="text">
          <string>angleuUnit</string>
@@ -209,11 +199,6 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
         <property name="text">
          <string>numerical precision</string>
         </property>
@@ -226,20 +211,15 @@ background-color: rgba(255, 255, 255, 0);</string>
        <widget class="QtMaterialTextField" name="lineEdit_farmRate" native="true">
         <property name="minimumSize">
          <size>
-          <width>200</width>
+          <width>100</width>
           <height>50</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>200</width>
+          <width>100</width>
           <height>50</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -247,20 +227,15 @@ background-color: rgba(255, 255, 255, 0);</string>
        <widget class="QtMaterialTextField" name="lineEdit_precision" native="true">
         <property name="minimumSize">
          <size>
-          <width>200</width>
+          <width>100</width>
           <height>50</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>200</width>
+          <width>100</width>
           <height>50</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -278,11 +253,6 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
         <property name="text">
          <string>Refresh frame rate</string>
         </property>
@@ -295,11 +265,11 @@ background-color: rgba(255, 255, 255, 0);</string>
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBox_app">
      <property name="title">
       <string>Application</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4">
+     <layout class="QGridLayout" name="gridLayout_app">
       <item row="5" column="0">
        <widget class="QLabel" name="title_7">
         <property name="minimumSize">
@@ -313,11 +283,6 @@ background-color: rgba(255, 255, 255, 0);</string>
           <width>300</width>
           <height>16777215</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
         <property name="text">
          <string>language</string>
@@ -341,11 +306,6 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -361,11 +321,6 @@ background-color: rgba(255, 255, 255, 0);</string>
           <width>200</width>
           <height>50</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -383,11 +338,6 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
        </widget>
       </item>
       <item row="3" column="0">
@@ -404,11 +354,7 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
         <property name="text">
          <string>font</string>
         </property>
@@ -421,21 +367,17 @@ background-color: rgba(255, 255, 255, 0);</string>
        <widget class="QWWindowButton" name="widget_font_point_size" native="true">
         <property name="minimumSize">
          <size>
-          <width>200</width>
+          <width>400</width>
           <height>40</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>200</width>
+          <width>400</width>
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="3" column="2">
@@ -465,11 +407,7 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
         <property name="text">
          <string>plugin name</string>
         </property>
@@ -492,11 +430,7 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
         <property name="text">
          <string>app name</string>
         </property>
@@ -519,11 +453,7 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
         <property name="text">
          <string>font point size</string>
         </property>
@@ -546,11 +476,7 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>16777215</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
         <property name="text">
          <string>anti-aliasing</string>
         </property>
@@ -573,11 +499,7 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="2" column="1">
@@ -594,11 +516,7 @@ background-color: rgba(255, 255, 255, 0);</string>
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
      </layout>

@@ -86,71 +86,75 @@ void DefaultRobot::unpackData(const Data &data) {
   const uint8_t *rawData = data.data;
 
   scalar_t timestamp =  dataSource_->time();
+  scalar_t packTimestamp = NAN;
 
   switch (id) {
   case ODOM: {
-    // 解析 Odom (position + velocity, 各 3 个 float)
-    if (length != 6 * sizeof(float)) {
+    // 解析 Odom
+    if (length != 7 * sizeof(float)) {
       return;
     }
     const float *ptr = reinterpret_cast<const float *>(rawData);
-    observations_->odom.position = {ptr[0], ptr[1], ptr[2]};
-    observations_->odom.velocity = {ptr[3], ptr[4], ptr[5]};
+    packTimestamp = ptr[0];
+    observations_->odom.position = {ptr[1], ptr[2], ptr[3]};
+    observations_->odom.velocity = {ptr[4], ptr[5], ptr[6]};
 
-    if(!std::isnan(observations_->imu.timestamp))
-      timestamp = observations_->imu.timestamp;
+    if(!std::isnan(packTimestamp))
+      timestamp = packTimestamp;
     break;
   }
 
   case BATTERY: {
-    // 解析 Battery (int32_t cycle, int32_t status, 4 个 float)
-    if (length != 2 * sizeof(int32_t) + 4 * sizeof(float)) {
+    // 解析 Battery
+    if (length != 7 * sizeof(float)) {
       return;
     }
-    const int32_t *iptr = reinterpret_cast<const int32_t *>(rawData);
-    const float *dptr = reinterpret_cast<const float *>(iptr + 2);
-    observations_->battery.cycle = iptr[0];
-    observations_->battery.status = iptr[1];
-    observations_->battery.soc = dptr[0];
-    observations_->battery.temp = dptr[1];
-    observations_->battery.current = dptr[2];
-    observations_->battery.voltage = dptr[3];
+    const float *dptr = reinterpret_cast<const float *>(rawData);
+    packTimestamp = dptr[0];
+    observations_->battery.cycle = dptr[1];
+    observations_->battery.status = dptr[2];
+    observations_->battery.soc = dptr[3];
+    observations_->battery.temp = dptr[4];
+    observations_->battery.current = dptr[5];
+    observations_->battery.voltage = dptr[6];
 
-    if(!std::isnan(observations_->imu.timestamp))
-      timestamp = observations_->imu.timestamp;
+    if(!std::isnan(packTimestamp))
+      timestamp = packTimestamp;
     break;
   }
 
   case SYSTEM: {
-    // 解析 System (int32_t status, 5 个 float)
+    // 解析 System 
     if (length != sizeof(int32_t) + 5 * sizeof(float)) {
       return;
     }
-    const int32_t *iptr = reinterpret_cast<const int32_t *>(rawData);
-    const float *dptr = reinterpret_cast<const float *>(iptr + 1);
-    observations_->system.status = iptr[0];
-    observations_->system.cpuUsage = dptr[0];
-    observations_->system.memoryUsage = dptr[1];
-    observations_->system.diskUsage = dptr[2];
-    observations_->system.cpuCoreMaxTemp = dptr[3];
-    observations_->system.cpuPackageTemp = dptr[4];
+    const float *dptr = reinterpret_cast<const float *>(rawData);
+    packTimestamp = dptr[0];
+  
+    observations_->system.status = dptr[1];
+    observations_->system.cpuUsage = dptr[2];
+    observations_->system.memoryUsage = dptr[3];
+    observations_->system.diskUsage = dptr[4];
+    observations_->system.cpuCoreMaxTemp = dptr[5];
+    observations_->system.cpuPackageTemp = dptr[6];
 
-    if(!std::isnan(observations_->imu.timestamp))
-      timestamp = observations_->imu.timestamp;
+    if(!std::isnan(packTimestamp))
+      timestamp = packTimestamp;
     break;
   }
 
   case SENSOR: {
-    // 解析 Sensor (2 个 float: temp, humidity)
+    // 解析 Sensor
     if (length != 2 * sizeof(float)) {
       return;
     }
     const float *dptr = reinterpret_cast<const float *>(rawData);
-    observations_->sensor.temp = dptr[0];
-    observations_->sensor.humidity = dptr[1];
+    packTimestamp = dptr[0];
+    observations_->sensor.temp = dptr[1];
+    observations_->sensor.humidity = dptr[2];
 
-    if(!std::isnan(observations_->imu.timestamp))
-      timestamp = observations_->imu.timestamp;
+    if(!std::isnan(packTimestamp))
+      timestamp = packTimestamp;
     break;
   }
 
@@ -175,19 +179,19 @@ void DefaultRobot::unpackData(const Data &data) {
           bptr[observations_->numberOfEndEffector_ + i];
     }
 
-    if(!std::isnan(observations_->imu.timestamp))
-      timestamp = observations_->imu.timestamp;
+    if(!std::isnan(packTimestamp))
+      timestamp = packTimestamp;
     break;
   }
 
   case IMU: {
     // 解析完整 IMU 数据 (timestamp + quat + euler + acc + angularVel +
     // angularAcc + mag)
-    if (length != (1 + 4 + 3 * 4) * sizeof(float)) {
+    if (length !=  17 * sizeof(float)) {
       return;
     }
     const float *dptr = reinterpret_cast<const float *>(rawData);
-    observations_->imu.timestamp = dptr[0];
+    packTimestamp = dptr[0];
     observations_->imu.quat = {dptr[1], dptr[2], dptr[3], dptr[4]};
     observations_->imu.angularVelocity = {dptr[5], dptr[6], dptr[7]};
     observations_->imu.acceleration = {dptr[8], dptr[9], dptr[10]};
@@ -195,38 +199,39 @@ void DefaultRobot::unpackData(const Data &data) {
 
     observations_->imu.eulerAngles = {dptr[14], dptr[15], dptr[16]};
 
-    if(!std::isnan(observations_->imu.timestamp))
-      timestamp = observations_->imu.timestamp;
+    if(!std::isnan(packTimestamp))
+      timestamp = packTimestamp;
     break;
   }
 
   case IMU_QUAT: {
     // 仅解析四元数 (4 个 float)
-    if (length != 4 * sizeof(float)) {
+    if (length != 5 * sizeof(float)) {
       return;
     }
     const float *dptr = reinterpret_cast<const float *>(rawData);
-    observations_->imu.quat = {dptr[0], dptr[1], dptr[2], dptr[3]};
+    packTimestamp = dptr[0];
+    observations_->imu.quat = {dptr[1], dptr[2], dptr[3], dptr[4]};
 
-    if(!std::isnan(observations_->imu.timestamp))
-      timestamp = observations_->imu.timestamp;
+    if(!std::isnan(packTimestamp))
+      timestamp = packTimestamp;
     break;
   }
 
   case IMU_RAW: {
     // 解析 IMU 原始数据 (timestamp + quat + acc + mag + angularVel)
-    if (length != (1 + 4 + 3 * 3) * sizeof(float)) {
+    if (length != 14 * sizeof(float)) {
       return;
     }
     const float *dptr = reinterpret_cast<const float *>(rawData);
-    observations_->imu.timestamp = dptr[0];
+    packTimestamp = dptr[0];
     observations_->imu.quat = {dptr[1], dptr[2], dptr[3], dptr[4]};
     observations_->imu.angularVelocity = {dptr[5], dptr[6], dptr[7]};
     observations_->imu.acceleration = {dptr[8], dptr[9], dptr[10]};
     observations_->imu.Magnetometer = {dptr[11], dptr[12], dptr[13]};
 
-    if(!std::isnan(observations_->imu.timestamp))
-      timestamp = observations_->imu.timestamp;
+    if(!std::isnan(packTimestamp))
+      timestamp = packTimestamp;
     break;
   }
 
@@ -254,8 +259,8 @@ void DefaultRobot::unpackData(const Data &data) {
       act.temperature = fptr[6];
       act.driverTemperature = fptr[7];
 
-      if(!std::isnan(observations_->imu.timestamp))
-        timestamp = observations_->imu.timestamp;
+      if(!std::isnan(packTimestamp))
+        timestamp = packTimestamp;
     } else {
       // 什么也没有
       return;

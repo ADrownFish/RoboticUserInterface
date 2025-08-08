@@ -90,11 +90,11 @@ void CsvLoadDialog::setupWidgetsControls() {
 	ui.widget_DelimiterType->addItem("Space");
 
 	ui.button_cancel->setText(tr("Cancel"));
-	ui.button_cancel->setIcon(QIcon(":/svg/svg/return.svg"));
+	ui.button_cancel->setIcon(QIcon(":/svg/svg/back.svg"));
 	ui.button_cancel->setBackgroundColor(onColor);
 
 	ui.button_loadit->setText(tr("Load It"));
-	ui.button_loadit->setIcon(QIcon(":/svg/svg/return.svg"));
+	ui.button_loadit->setIcon(QIcon(":/svg/svg/load.svg"));
 	ui.button_loadit->setBackgroundColor(onColor);
 
 	switchType(1);

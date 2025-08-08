@@ -109,8 +109,16 @@
     "ranges": "cpp",
     "slist": "cpp",
     "qstring": "cpp",
-    "qfileinfo": "cpp"
+    "qfileinfo": "cpp",
+    "qdatetime": "cpp",
+    "qscopedpointer": "cpp",
+    "charconv": "cpp"
   },
   "svg.preview.background": "editor",
-  "commentTranslate.source": "Bing"
+  "commentTranslate.source": "Bing",
+  "cmake.configureEnvironment": {
+    "Qt6_DIR": "/home/adf/Qt/6.9.0/qt6.9.0-static/lib/cmake/Qt6",
+    "CMAKE_PREFIX_PATH": "/home/adf/Qt/6.9.0/qt6.9.0-static"
+  },
+  "commentTranslate.hover.enabled": true
 }

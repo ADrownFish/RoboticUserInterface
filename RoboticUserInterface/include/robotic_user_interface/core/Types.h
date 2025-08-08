@@ -88,8 +88,6 @@ public:
     double voltage;
   };
   struct Imu {
-    scalar_t timestamp;
-
     quaternion quat;
     vector_t eulerAngles;
     vector_t acceleration;
@@ -131,7 +129,6 @@ public:
     odom.velocity.resize(3, 0.0);
 
     // imu
-    imu.timestamp = 0.0;
 
     imu.quat = quaternion{1.0,0.0,0.0,0.0};
     imu.acceleration.resize(3, 0.0);
