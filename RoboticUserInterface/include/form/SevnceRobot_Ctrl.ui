@@ -68,11 +68,7 @@
        <height>0</height>
       </size>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
+     
      <property name="text">
       <string>Robot - Control</string>
      </property>
@@ -116,11 +112,7 @@
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="1" column="3">
@@ -137,11 +129,7 @@
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="2" column="2">
@@ -224,11 +212,7 @@
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="2" column="6">
@@ -289,11 +273,7 @@
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="2" column="3">
@@ -310,11 +290,7 @@
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="1" column="2">
@@ -353,11 +329,7 @@
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
       <item row="2" column="4">
@@ -396,11 +368,7 @@
           <height>40</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
      </layout>

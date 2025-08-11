@@ -5,6 +5,7 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include <QPointer>
+#include <QMap>
 #include <QDrag>
 #include <QMimeData>
 
@@ -46,115 +47,64 @@ public:
   QTreeWidgetItem* item;
   QVector<ObjectDataViewer::Ptr> data;
   QVector<ObjectNodeViewer::Ptr> children;
+  bool dynamic = true;
 
 public:
-	ObjectNodeViewer() {
+	ObjectNodeViewer();
 
-	}
+  ~ObjectNodeViewer();
 
-  ~ObjectNodeViewer() {
-    for (auto& d : children) {
-      d.reset();
-    }
+  void addNode(ObjectNodeViewer::Ptr d);
 
-    for (auto& d : data) {
-      d.reset();
-    }
-  }
+  void addObject(ObjectDataViewer::Ptr d);
 
-  void addNode(ObjectNodeViewer::Ptr d) { children.append(d); }
+  void updateViewer();
 
-  void addObject(ObjectDataViewer::Ptr d) { data.append(d); }
+  void clear();
 
-  void updateViewer() {
-    for (auto& d : data) {
-      if (d->data->data.count()) {
-        scalar_t value = d->data->data.back();
-        d->item->setText(1, QString::number(value, 'f', 2));
-      } else {
-        d->item->setText(1, QString::number(0, 'f', 2));
-      }
-    }
+  void clearData();
 
-    for (auto& d : children) {
-      d->updateViewer();
-    }
-  }
+  ObjectDataViewer::Ptr findObjectDataViewer(const  QTreeWidgetItem* item) const;
 
-  ObjectDataViewer::Ptr findObjectDataViewer(const  QTreeWidgetItem* item) const {
-    for (auto& d : data) {
-      if (d->item == item) {
-        return d;
-      }
-    }
-
-    for (auto& d : children) {
-      ObjectDataViewer::Ptr result = d->findObjectDataViewer(item);
-      if (result) {
-        return result;
-      }
-    }
-
-    return nullptr;
-  }
-
-  void clear() {
-    for (auto& d : data) {
-      d.reset();
-    }
-    data.clear();
-
-    for (auto& d : children) {
-      d->clear();
-    }
-    children.clear();
-  }
-
-  void populateTree(QTreeWidgetItem* parentItem, ObjectNode::Ptr node) {
-    item = parentItem;
-    item->setText(0, node->name);
-
-    for (const auto& dataObj : node->data) {
-      auto dataViewer = std::make_shared<ObjectDataViewer>(dataObj);
-      QTreeWidgetItem* dataItem = new QTreeWidgetItem(item, QStringList(dataObj->name));
-      dataViewer->item = dataItem;
-
-      addObject(dataViewer);
-    }
-
-    for (const auto& childNode : node->children) {
-      auto childViewer = std::make_shared<ObjectNodeViewer>();
-      QTreeWidgetItem * newItem = new QTreeWidgetItem(parentItem);
-      childViewer->populateTree(newItem, childNode);
-
-      addNode(childViewer);
-    }
-  }
+  void populateTree(QTreeWidgetItem* parentItem, ObjectNode::Ptr node);
 };
+
+
 
 class DataSourceViewerTreeWidget : public QTreeWidget {
   Q_OBJECT
 public:
-  explicit DataSourceViewerTreeWidget(QWidget* parent = nullptr) : QTreeWidget(parent) {
-    setDragEnabled(true);
-    setSelectionMode(QAbstractItemView::SingleSelection);
-    connect(this, &QTreeWidget::itemExpanded, this, &DataSourceViewerTreeWidget::onitemExpanded);  }
+  explicit DataSourceViewerTreeWidget(QWidget* parent = nullptr);
+
+  void setTopNode(const ObjectNode::Ptr& p);
 
 protected:
-  void startDrag(Qt::DropActions supportedActions) override {
-    QTreeWidgetItem* item = currentItem();
-		if (!item) 
-      return;
-    
-    readyDrag(item);
-  }
+  void startDrag(Qt::DropActions supportedActions) override;
 
-  void onitemExpanded(QTreeWidgetItem* item) {
-    this->resizeColumnToContents(0);  // 自动调整列宽
-  }
+  void onItemExpanded(QTreeWidgetItem* item);
+
+  // menu 
+  void clearItem();
+    
+  void deleteItem();
+
+  void mousePressEvent(QMouseEvent* event);
 
 signals:
-  void readyDrag(QTreeWidgetItem* item);
+  void readyDrag(QList<QTreeWidgetItem*> item);
+
+  void checkObjectData();
+
+private:
+  ObjectNode::Ptr topNode_;
+  ObjectNode::Ptr selectedNode;
+  QTreeWidgetItem* selectedItem = nullptr;
+
+  QSharedPointer<FluMenu> menu;
+
+  FluAction* action_eliminate_selection;
+  FluAction* action_clear_item_data;
+  FluAction* action_delete_item;
 };
 
 class DataSourceViewer : public QWidget {
@@ -163,7 +113,7 @@ public:
   DataSourceViewer(QWidget *parent = nullptr);
   ~DataSourceViewer();
 
-  void updateDataSource (const DataSource::Ptr &ds);
+  void setDataSource(const DataSource::Ptr &ds);
 
   void setConfiguration(std::shared_ptr<Configuration> config);
 
@@ -177,20 +127,20 @@ public:
 
   void updateNodeValue();
 
+  void flushTreeItem(const QString& node );
+
+  QPointer<DataSourceViewerTreeWidget> getTreeWidget();
   
 signals:
   void publishNotify(GCW::NotifyType type, const QString &title, const QString &text);
   
   void readyLoad(const QString& path);
 
-  void updateObjectData();
+  void checkObjectData();
   
 private:
-  void makeImage();
-  
-  void readyDrag(QTreeWidgetItem* item);
-  
-  void flushItem();
+
+  void readyDrag(QList<QTreeWidgetItem*> item);
   
   void clearAllData();
 
@@ -214,15 +164,17 @@ private:
   QPointer<DataSourceViewerTreeWidget> treeWidget;
   DataSource::Ptr dataSource_;
 
-  ObjectNodeViewer::Ptr viewer_plugin;
-  ObjectNodeViewer::Ptr viewer_csv;
-  ObjectNodeViewer::Ptr viewer_float;
-  ObjectNodeViewer::Ptr viewer_json;
+  QMap<QString, ObjectNodeViewer::Ptr> viewers;
 
-  QTreeWidgetItem* item_csv;
-  QTreeWidgetItem* item_plugin;
-  QTreeWidgetItem* item_float;
-  QTreeWidgetItem* item_json;
+  //ObjectNodeViewer::Ptr viewer_plugin;
+  //ObjectNodeViewer::Ptr viewer_csv;
+  //ObjectNodeViewer::Ptr viewer_float;
+  //ObjectNodeViewer::Ptr viewer_json;
+
+  //QTreeWidgetItem* item_csv;
+  //QTreeWidgetItem* item_plugin;
+  //QTreeWidgetItem* item_float;
+  //QTreeWidgetItem* item_json;
 
   //防止刷新过快
   QElapsedTimer elapsedTimer;

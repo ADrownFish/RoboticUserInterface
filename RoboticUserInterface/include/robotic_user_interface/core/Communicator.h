@@ -60,7 +60,11 @@ public:
         return open_udp_;
       }break;
       case CCType::TCP:{
-        return open_tcp_;
+        if (config_.tcp.server) {
+          return open_tcp_server_;
+        } else {
+          return open_tcp_;
+        }
       }break;
       case CCType::SERIAL:{
         return open_serial_;
@@ -140,7 +144,32 @@ private:
     QObject::connect(socket_udp_, &QUdpSocket::disconnected, [this]() {  open_udp_ = false; });
 
     QObject::connect(socket_tcp_, &QTcpSocket::readyRead, this,     &Communicator::readyReadTcp);
-    QObject::connect(socket_tcp_, &QUdpSocket::disconnected, [this]() {   open_tcp_ = false;  });
+    QObject::connect(socket_tcp_, &QTcpSocket::stateChanged, this, [this](QAbstractSocket::SocketState state) {
+      switch (state)      {
+      case QAbstractSocket::ConnectedState:
+        open_tcp_ = true;
+        emit CommStatusChanged(true);
+        emit publishNotify(GCW::NotifyType::Success, "TCP Client", tr("Successfully connected to the server"));
+        break;
+      case QAbstractSocket::UnconnectedState:
+        open_tcp_ = false;
+        emit CommStatusChanged(false);
+        emit publishNotify(GCW::NotifyType::Success, "TCP Client", tr("The remote connection is disconnected"));
+        break;
+        // 其他状态可以忽略
+      default:
+        break;
+      }
+      });
+    QObject::connect(socket_tcp_, QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::errorOccurred),
+      this, [this](QAbstractSocket::SocketError socketError) {
+        open_tcp_ = false;
+        socket_tcp_->disconnectFromHost();
+        emit publishNotify(GCW::NotifyType::Warning, "TCP Client", tr("An error occurred: ") + socket_tcp_->errorString());
+      });
+
+
+    QObject::connect(server_tcp_, &QTcpServer::newConnection, this, &Communicator::tcpNewConnection);
 
     QObject::connect(socket_serial, &QSerialPort::readyRead, this,     &Communicator::readyReadSerial);
     QObject::connect(socket_serial, &QSerialPort::aboutToClose, [this]() {   open_serial_ = false;  });
@@ -165,6 +194,36 @@ private:
     QObject::connect(this,             &Communicator::requestClose, this,        &Communicator::close_threadImpl);
   }
 
+  void tcpNewConnection() {
+    // 获取客户端socket
+    QTcpSocket* clientSocket = server_tcp_->nextPendingConnection();
+    server_tcp_client_count++;
+
+    // 连接socket的信号
+    connect(clientSocket, &QTcpSocket::readyRead, this, [this, clientSocket]() {
+      readyReadServerTcp(clientSocket);
+      });
+    connect(clientSocket, &QTcpSocket::disconnected, this, [this, clientSocket]() {
+      qDebug() << "Client disconnected:" << clientSocket->peerAddress().toString();
+      clientSocket->deleteLater();  // 安全删除
+      server_tcp_client_count--;
+      if (server_tcp_client_count == 0) {
+        emit publishFocusStatus(QString());
+      } else {
+        emit publishFocusStatus(QString("Client %1").arg(server_tcp_client_count));
+      }
+      });
+    connect(clientSocket, QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::errorOccurred),
+      this, [this, clientSocket](QAbstractSocket::SocketError) {
+        QString errStr = clientSocket->errorString();
+        emit publishNotify(GCW::NotifyType::Warning, "TCP", tr("An error occurred: ") + errStr);
+        clientSocket->disconnectFromHost();
+      });
+
+    emit publishFocusStatus(QString("Client %1").arg(server_tcp_client_count));
+    qDebug() << "New client connected:" << clientSocket->peerAddress().toString() << ":" << clientSocket->peerPort();
+  }
+
   void readyReadUdp(){
     // on obj thread
     while (socket_udp_->hasPendingDatagrams()) {
@@ -185,6 +244,11 @@ private:
     QByteArray buffer = socket_tcp_->readAll();
     sendSignal_readyread(buffer);
   }
+  void readyReadServerTcp(QTcpSocket* socket) {
+    // on obj thread
+    QByteArray buffer = socket->readAll();
+    sendSignal_readyread(buffer);
+  }
 
   void readyReadSerial(){
     // on obj thread
@@ -193,19 +257,8 @@ private:
   }
 
   void sendSignal_readyread(const QByteArray& buffer){
-      // using namespace std::chrono;
-
-      // auto now = steady_clock::now();
-      // auto ms = duration_cast<milliseconds>(now.time_since_epoch()).count();
-
-      // if((ms - timestamp) > 100){
-      //     timestamp = ms;
-      //     readyRead();
-      // }
-      //qDebug() << "push" << buffer.size();
       rx_buffer.WriteBatch((uint8_t*)buffer.data(), buffer.size());
       
-
       // If the data has not been taken, no signal is sent. maybe wrong ?
       if(dataTaken_){
         dataTaken_ = false;
@@ -223,14 +276,22 @@ private:
     switch (config_.commType){
       case CCType::UDP:{
         if(open_udp_){
-          //socket_udp_tx_->writeDatagram(buffer,QHostAddress(config_.udp.ip),config_.udp.port);
           socket_udp_tx_->write(buffer);
         }
       }break;
       case CCType::TCP:{
-        if(open_tcp_){
-          socket_tcp_->write(buffer);
-        }        
+        if (config_.tcp.server) {
+          if (open_tcp_server_) {
+            QList<QTcpSocket*> clients = server_tcp_->findChildren<QTcpSocket*>();
+            for (QTcpSocket* client : clients) {
+              client->write(buffer);
+            }
+          }
+        } else {
+          if (open_tcp_) {
+            socket_tcp_->write(buffer);
+          }
+        }
       }break;
       case CCType::SERIAL:{
         if(open_serial_){
@@ -257,11 +318,28 @@ private:
         emit closed();
       }break;
       case CCType::TCP:{
-        emit publishNotify(GCW::NotifyType::Info, "TCP", tr("closed"));
-        socket_tcp_->close();
-        open_tcp_ = false;
+        if (config_.tcp.server) {
+          server_tcp_->close();
+          open_tcp_server_ = false;
+          QList<QTcpSocket*> clients = server_tcp_->findChildren<QTcpSocket*>();
+          for (QTcpSocket* client : clients) {
+            client->disconnectFromHost();
+            client->deleteLater();
+          }
 
-        emit closed();
+          emit publishNotify(GCW::NotifyType::Info, "TCP Server", tr("closed"));
+          emit closed();
+        } else {
+          socket_tcp_->disconnectFromHost();
+          socket_tcp_->abort();          // 立即关闭并重置socket
+          socket_tcp_->readAll();       // 清除缓冲区
+          socket_tcp_->close();
+          server_tcp_client_count = 0;
+
+          open_tcp_ = false;
+          emit publishNotify(GCW::NotifyType::Info, "TCP Client", tr("closed"));
+          emit closed();
+        }
       }break;
       case CCType::SERIAL:{
         emit publishNotify(GCW::NotifyType::Info, "Serial", tr("closed"));
@@ -311,16 +389,35 @@ private:
       }
     } break;
     case CCType::TCP:{
+      // 清理socket
       if (socket_tcp_->isOpen()) {
         socket_tcp_->disconnectFromHost();
+        socket_tcp_->abort();          // 立即关闭并重置socket
+        socket_tcp_->readAll();       // 清除缓冲区
         socket_tcp_->close();
       }
-      result = false;
-      if(result){
-        open_tcp_ = true;
-        emit publishNotify(GCW::NotifyType::Success, "TCP", tr("started"));
+      //  清理所有客户端连接
+      server_tcp_->close();
+      QList<QTcpSocket*> clients = server_tcp_->findChildren<QTcpSocket*>();
+      for (QTcpSocket* client : clients) {
+        client->disconnectFromHost();
+        client->deleteLater();
+      }
+      server_tcp_client_count = 0;
+
+      if (config_.tcp.server) {
+        result &= server_tcp_->listen(QHostAddress::Any, config_.tcp.listen);
+        if (result) {
+          open_tcp_server_ = true;
+          emit publishNotify(GCW::NotifyType::Success, "TCP Server", tr("Port monitoring has been started"));
+        } else{
+          error_msg = server_tcp_->errorString();
+        }
       } else {
-        error_msg = socket_tcp_->errorString();
+        emit CommStatusChanged(false);
+        socket_tcp_->connectToHost(config_.tcp.ip, config_.tcp.port);
+        emit publishNotify(GCW::NotifyType::Success, "TCP Client", tr("Connecting to server . . ."));
+        return;
       }
     } break;
     case CCType::SERIAL:{
@@ -361,21 +458,23 @@ private:
     if(!result){
       emit publishNotify(GCW::NotifyType::Warning, tr("Communicator"), tr("%1 startup error: %2").arg(toString(config_.commType),error_msg));
     }
-    emit openResult(result);
+    emit CommStatusChanged(result);
   }
 
 signals:
-  void openResult(bool result);
 
-  void closed();
+  void CommStatusChanged(bool);
+
+  // for private
+  void closed();    
   
+  void publishFocusStatus(const QString& status);
+
   void publishNotify(GCW::NotifyType type,const QString &title, const QString& text);
 
   void readyRead();
 
   void readySend();
-
-  void finnished();
 
   void requestOpen();
 
@@ -464,6 +563,7 @@ private:
 
   std::atomic_bool open_udp_ = false;
   std::atomic_bool open_tcp_ = false;
+  std::atomic_bool open_tcp_server_ = false;
   std::atomic_bool open_serial_ = false;
   std::atomic_bool open_bluetooth_ = false;
 
@@ -475,4 +575,6 @@ private:
 
   uint64_t writeBytesLength = 0;
   uint64_t readBytesLength = 0;
+
+  int64_t server_tcp_client_count = 0;
 };

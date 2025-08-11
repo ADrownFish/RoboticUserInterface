@@ -7,12 +7,8 @@ DataSource::DataSource(int num_actuator){
 	topNode_->name = "_Top_Node";
   topNode_->id = 0;
 	topNode_->addNode(createBaseNode(num_actuator));
-  //topNode_->addNode(createTestNode());
-
   topNode_->resetID(topNode_->id);
 
-	//std::cout << topNode_->toString().toLocal8Bit().data() << std::endl;
-  
   resetTime();
 }
 
@@ -106,6 +102,7 @@ ObjectNode::Ptr DataSource::createBaseNode(int num_actuator){
 
 void DataSource::clearData(){
 	topNode_->clearData();
+  resetTime();
 }
 
 void DataSource::resetTime(){

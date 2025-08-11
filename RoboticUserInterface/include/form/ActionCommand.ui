@@ -151,11 +151,6 @@ background-color: rgba(80, 80, 80,100);
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
        </widget>
       </item>
       <item row="0" column="0">
@@ -193,11 +188,6 @@ background-color: rgba(80, 80, 80,100);
           <width>80</width>
           <height>50</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -266,11 +256,6 @@ background-color: rgba(80, 80, 80,100);
           <width>80</width>
           <height>50</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -346,7 +331,7 @@ background-color: rgba(80, 80, 80,100);
              <string>S</string>
             </property>
             <property name="icon">
-             <iconset resource="../../RUI.qrc">
+             <iconset>
               <normaloff>:/svg/svg/arrow-down.svg</normaloff>:/svg/svg/arrow-down.svg</iconset>
             </property>
            </widget>
@@ -434,7 +419,7 @@ background-color: rgba(80, 80, 80,100);
              <string>W</string>
             </property>
             <property name="icon">
-             <iconset resource="../../RUI.qrc">
+             <iconset>
               <normaloff>:/svg/svg/arrow-up.svg</normaloff>:/svg/svg/arrow-up.svg</iconset>
             </property>
             <property name="iconSize">
@@ -544,7 +529,7 @@ background-color: rgba(80, 80, 80,100);
              <string>I</string>
             </property>
             <property name="icon">
-             <iconset resource="../../RUI.qrc">
+             <iconset>
               <normaloff>:/svg/svg/arrow-up.svg</normaloff>:/svg/svg/arrow-up.svg</iconset>
             </property>
            </widget>
@@ -576,7 +561,7 @@ background-color: rgba(80, 80, 80,100);
              <string>K</string>
             </property>
             <property name="icon">
-             <iconset resource="../../RUI.qrc">
+             <iconset>
               <normaloff>:/svg/svg/arrow-down.svg</normaloff>:/svg/svg/arrow-down.svg</iconset>
             </property>
            </widget>
@@ -652,11 +637,6 @@ input speed</string>
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
        </widget>
       </item>
       <item row="0" column="3">
@@ -672,11 +652,6 @@ input speed</string>
           <width>80</width>
           <height>50</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -695,7 +670,7 @@ input speed</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: #283149;</string>
+         <string notr="true">background-color: rgb(128, 170, 180);</string>
         </property>
         <property name="lineWidth">
          <number>2</number>
@@ -718,11 +693,6 @@ input speed</string>
           <width>80</width>
           <height>50</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
         </property>
        </widget>
       </item>
@@ -763,15 +733,15 @@ input speed</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QWSwitcher</class>
-   <extends>QWidget</extends>
-   <header>qwool/qwswitcher.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>QtMaterialTextField</class>
    <extends>QWidget</extends>
    <header>qt_material_widgets/qtmaterialtextfield.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QWSwitcher</class>
+   <extends>QWidget</extends>
+   <header>qwool/qwswitcher.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

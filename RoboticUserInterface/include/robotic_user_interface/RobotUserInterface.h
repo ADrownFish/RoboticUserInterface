@@ -41,6 +41,15 @@ class RobotUserInterface : public FluWindowKitWidget
 {
   Q_OBJECT
 
+enum class PageName {
+  Operation = 0,
+  Info,
+  Curve,
+  Terminal,
+  Tools,
+  Settings
+};
+
 public:
   RobotUserInterface(int argc, char **argv,QWidget *parent = nullptr);
   ~RobotUserInterface();
@@ -75,6 +84,9 @@ private:
   void onPage_Tools();
 
   void onPage_Settings();
+
+  // flush
+  void flushConfiguration();
 
 signals:
 
@@ -124,6 +136,9 @@ private:
 
   // thread
   std::mutex net_mutex;
+
+  // page item
+  QMap<PageName, NavigationItem*> pageItem;
   
 private:
   int argc = 0;

@@ -54,11 +54,10 @@ private:
 	std::shared_ptr<Configuration> config_;
 
 	QPointer<DataAllocator> dataAllocator_;
+	QValidator* hexValidator;
 
 	QByteArray recviveBuffer_;
 	QTimer timer_;
+	QMutex readMutex;
 
-    QValidator* hexValidator;
-
-    QMutex readMutex;
 };

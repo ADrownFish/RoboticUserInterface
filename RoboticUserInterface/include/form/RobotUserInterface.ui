@@ -135,7 +135,7 @@ height: 0px;
    <item row="0" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="page_operation">
       <layout class="QGridLayout" name="layout_operation">
@@ -221,8 +221,8 @@ height: 0px;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>1000</width>
+            <height>380</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="layout_obj_settings"/>
@@ -254,10 +254,10 @@ height: 0px;
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>5</number>
           </property>
           <property name="bottomMargin">
-           <number>0</number>
+           <number>5</number>
           </property>
           <item>
            <spacer name="horizontalSpacer">

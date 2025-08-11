@@ -52,8 +52,6 @@ public:
 		}
 
 		// 如果数据是重复的，则更改标志位，防止后续axis缩放问题 TODO
-
-
 		time.append(time_);
 		data.append(data_);
 
@@ -66,8 +64,6 @@ public:
 		}
 
 		while (!time.isEmpty() && time.first() < time_ - timeWindow) {
-
-
 
 			time.removeFirst();
 			data.removeFirst();
@@ -107,12 +103,20 @@ public:
 	ObjectNode() {
 
 	}
+	ObjectNode(const QString& nodeName) : name(nodeName) {
+
+	}
 	ObjectNode(const QString &nodeName, const QVector<ObjectData::Ptr>& nodeData)
 			: name(nodeName), data(nodeData) {}
 
-	void addNode(ObjectNode::Ptr d) { 		children.append(d); 	}
+	void addNode(ObjectNode::Ptr d) {
+		children.append(d); 	
+	}
 
-	void addObject(ObjectData::Ptr d) { data.append(d); }
+	void addObject(ObjectData::Ptr d) {
+		data.append(d);
+		//qDebug() << "addObject:" << d->name << "  " << QString(d->type == ObjectData::Static ? "Static" : "Dynamic");
+	}
 
 	ObjectData::Ptr findObjectData(const QString &name) const {
 		for(auto &d : data){
@@ -169,6 +173,23 @@ public:
 		return false;
 	}
 
+	bool exists(const ObjectData* od) const {
+		for(auto p : data){
+			if(p.get() == od){
+				return true;
+			}
+		}
+
+		for (auto& d : children) {
+			if (d->exists(od)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
 	void setAllStatic() {
     for (auto& d : data) {
       d->type = ObjectData::DataType::Static;
@@ -183,7 +204,7 @@ public:
 			d->refreshOnceFlag = true;
 		}
 		for (auto& d : children) {
-			d->setAllStatic();
+			d->setrefreshOnce();
 		}
 	}
 
@@ -193,7 +214,7 @@ public:
 
 		QString dataResult;
 		for (const auto& d : data) {
-			dataResult += QString("  %1(%2) ").arg(d->name).arg(d->data.size());
+			dataResult += QString("  %1(%2)(%3) ").arg(d->name).arg(d->data.size()).arg(d->type == ObjectData::Static ? "Static" : "Dynamic");
 		}
 		if (!dataResult.isEmpty()) {
 			result += indent + dataResult + "\r\n";

@@ -32,7 +32,6 @@ void CommTerminal::setDataAllocator(const QPointer<DataAllocator>& p)
 	QObject::connect(dataAllocator_, &DataAllocator::readyRead, [this]() {
 
     // on signal thread
-
 		if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::Raw) {
 			QByteArray buffer;
 			dataAllocator_->read(CommunicationConfiguration::CommProtocol::Raw, buffer);
@@ -85,7 +84,7 @@ void CommTerminal::setupWidgetsControls()
 	ui.widget_send->setIcon(QIcon(":/svg/svg/return.svg"));
   ui.widget_send->setBackgroundColor(onColor);
 
-	timer_.setInterval(30);
+	timer_.setInterval(50);
 
   QRegularExpression regex("^(?:[0-9A-Fa-f]{2}\\s?)*$");
   hexValidator = new QRegularExpressionValidator(regex, this);
@@ -148,22 +147,22 @@ void CommTerminal::appendColoredText(int status, const QString& text) {
 
 void CommTerminal::processData()
 {
-  readMutex.lock();
+  QByteArray buffer;
 
+  readMutex.lock();
   if (recviveBuffer_.isEmpty()) {
     readMutex.unlock();
     return;
   }
+  buffer = std::move(recviveBuffer_);
+  readMutex.unlock();
 
   if (config_->terminal.outputType == EncodingType::Hex) {
-    QString hexStr = recviveBuffer_.toHex(' ');
+    QString hexStr = buffer.toHex(' ');
     appendColoredText(0, hexStr);
   } else {
-    appendColoredText(0, recviveBuffer_);
+    appendColoredText(0, QString::fromLocal8Bit(buffer));
   }
-
-  recviveBuffer_.clear();
-  readMutex.unlock();
 }
 
 void CommTerminal::sendData()

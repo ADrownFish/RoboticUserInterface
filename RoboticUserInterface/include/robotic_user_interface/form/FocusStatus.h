@@ -69,6 +69,7 @@ public:
   enum StatusItemEnum{
     batterySoc,
     netType,
+    otherType,
     protocolType,
     netSpeed,
     tempDriver,
@@ -97,13 +98,15 @@ public:
 
   void flushConfiguration();
 
-  void setCommStatus(bool status);
-
   QWidget* getStatusItemsWidget();
 
   void start();
 
   void stop();
+
+  void setCommStatus(bool status);
+
+  void setOtherStatus(const QString& status);
 
 private:
   void flush();

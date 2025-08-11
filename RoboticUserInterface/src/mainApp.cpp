@@ -64,9 +64,9 @@ int main(int argc, char *argv[]){
 
   /*********** 加载翻译 ***********/
   QTranslator translator;
-  QString locale = QLocale::system().name(); // 如 zh_CN
-  // QString qmPath = QString(":/translations/%1.qm").arg(locale);
-  QString qmPath = QString(":/translations/zh_CN.qm");
+  //QString locale = QLocale::system().name(); // 如 zh_CN
+   QString qmPath = QString(":/translations/%1.qm").arg(initCfg.language);
+  //QString qmPath = QString(":/translations/zh_CN.qm");
   if (translator.load(qmPath)) {
     a.installTranslator(&translator);
   }

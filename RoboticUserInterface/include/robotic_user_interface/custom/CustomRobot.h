@@ -11,7 +11,7 @@ class CustomRobot : public RobotBase{
 public:
   CustomRobot(QObject *parent = nullptr);
 
-  ~CustomRobot();
+  ~CustomRobot() override;
 
   void init(int numberOfActuator, int numberOfEndEffector);
 

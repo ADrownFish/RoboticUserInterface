@@ -12,11 +12,6 @@ RobotUserInterface::RobotUserInterface(int argc_, char **argv_, QWidget *parent 
   ui.setupUi(desktopWidget);
   m_contentLayout->addWidget(desktopWidget);
 
-
- 
-  QFont titleLabelFont = m_titleLabel->font();
-  titleLabelFont.setPointSize(24);
-  m_titleLabel->setFont(titleLabelFont);
   m_titleLabel->setText(tr("Robot User Interface"));
   m_iconButton->setIcon(QIcon(":/log/logo/main.svg"));
 
@@ -77,20 +72,22 @@ void RobotUserInterface::setupSignalConnection() {
 
   // 设置
   QObject::connect(ui.widget_settings_apply, &QPushButton::clicked, [this](){
-    publishNotify(GCW::Info, tr("Settings"), tr("configuration has been updated"));
+    publishNotify(GCW::Info, tr("Settings"), tr("configuration has been updated, Some settings require a reboot to take effect."));
     
     settingsDisplay_->pullParameters();
-    topStatus_->flushConfiguration();
-    dashboard_base_->flushConfiguration();
-    commSelector_->flushConfiguration();
-    robotBase_->flushConfiguration();
+    flushConfiguration();
   });
   QObject::connect(ui.widget_settings_reset, &QPushButton::clicked, [this](){
     settingsDisplay_->pushParameters();
   });
 
-  QObject::connect(commSelector_, &CommSelector::ok, commSelectorDialog_, &QtMaterialDialog::hideDialog);
+  QObject::connect(commSelector_, &CommSelector::ok, this, [this]() {
+    commSelectorDialog_->hideDialog();
+    flushConfiguration();
+    });
   QObject::connect(commSelector_, &CommSelector::cancel, commSelectorDialog_, &QtMaterialDialog::hideDialog);
+
+  QObject::connect(communicator_, &Communicator::publishFocusStatus, topStatus_, &FocusStatus::setOtherStatus);
 }
 
 void RobotUserInterface::setupWidgetsControls() {
@@ -115,16 +112,22 @@ void RobotUserInterface::setupWidgetsControls() {
   auto &pageName = config_->app.pageName;
   if(pageName == "Operation"){
     onPage_Operation();
+    navView_->setClicked(pageItem[PageName::Operation]);
   } else if(pageName == "Info"){
     onPage_Info();
+    navView_->setClicked(pageItem[PageName::Info]);
   } else if(pageName == "Curve"){
     onPage_Curve();
+    navView_->setClicked(pageItem[PageName::Curve]);
   } else if(pageName == "Terminal"){
     onPage_Terminal();
+    navView_->setClicked(pageItem[PageName::Terminal]);
   } else if(pageName == "Tools"){
     onPage_Tools();
+    navView_->setClicked(pageItem[PageName::Tools]);
   } else if(pageName == "Settings"){
     onPage_Settings();
+    navView_->setClicked(pageItem[PageName::Settings]);
   } 
 }
 
@@ -138,6 +141,7 @@ void RobotUserInterface::makeNav(){
   item->setIcon(QIcon(":/svg/svg/operation.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Operation);
   navView_->addItemToCenter(item);
+  pageItem[PageName::Operation] = item;
 
   item = new NavigationItem();
   item->setText(tr("Info"));
@@ -145,24 +149,28 @@ void RobotUserInterface::makeNav(){
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Info);
   navView_->addItemToCenter(item);
   navView_->setClicked(item);
+  pageItem[PageName::Info] = item;
 
   item = new NavigationItem();
   item->setText(tr("Curve"));
   item->setIcon(QIcon(":/svg/svg/line.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Curve);
   navView_->addItemToCenter(item);
+  pageItem[PageName::Curve] = item;
 
   item = new NavigationItem();
   item->setText(tr("Terminal"));
   item->setIcon(QIcon(":/svg/svg/DataStudio.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Terminal);
   navView_->addItemToCenter(item);
+  pageItem[PageName::Terminal] = item;
 
   item = new NavigationItem();
   item->setText(tr("Tools"));
   item->setIcon(QIcon(":/svg/svg/tools.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Tools);
   navView_->addItemToCenter(item);
+  pageItem[PageName::Tools] = item;
 
   item = new NavigationItem();
   item->setText(tr("Comm"));
@@ -176,6 +184,7 @@ void RobotUserInterface::makeNav(){
   item->setIcon(QIcon(":/svg/svg/settings.svg"));
   QObject::connect(item, &NavigationItem::clicked, this, &RobotUserInterface::onPage_Settings);
   navView_->addItemToBottom(item);
+  pageItem[PageName::Settings] = item;
 
   NavigationSwitcher* switcher = nullptr;
   QWSwitcher* toggle = nullptr;
@@ -201,11 +210,11 @@ void RobotUserInterface::makeNav(){
 		});
   navView_->addItemToTop(switcher);
 
-  QObject::connect(communicator_, &Communicator::openResult, [this, toggle](bool ok) {
-  toggle->setToggle(ok);
+  QObject::connect(communicator_, &Communicator::CommStatusChanged, this, [this, toggle](bool ok) {
+    toggle->setToggle(ok);
     topStatus_->setCommStatus(ok);
     robotBase_->commStatusChanged(ok);
-  });
+  }, Qt::ConnectionType::QueuedConnection);
 
   // recording
   switcher = new NavigationSwitcher();
@@ -296,7 +305,7 @@ void RobotUserInterface::init(){
   settingsDisplay_->init();
   settingsDisplay_->pushParameters();
   ui.layout_obj_settings->addWidget(settingsDisplay_);
- 
+
   // nav
   navView_ = new NavigationView();
   ui.LayoutMain->addWidget(navView_, 0, 1);
@@ -342,9 +351,18 @@ void RobotUserInterface::init(){
 
   navView_-> toggleExpandRetract();
 
-  if(config_->app.appName.isNull()){
-    this->setWindowTitle(config_->app.appName);
+  if (!config_->app.appName.isEmpty()) {
+    m_titleLabel->setText(config_->app.appName);
   }
+  m_titleLabel->setStyleSheet(
+    R"(FluLabel{
+      font-size: 16pt;
+      color: #ffffff;
+    })"
+  );
+
+  flushConfiguration();
+
 }
 
 void RobotUserInterface::onPage_Operation() {
@@ -412,4 +430,22 @@ void RobotUserInterface::onPage_Settings() {
 
   auto &pageName = config_->app.pageName;
   pageName = "Settings";
+}
+
+
+void RobotUserInterface::flushConfiguration() {
+  using CCC = CommunicationConfiguration::CommProtocol;
+
+  topStatus_->flushConfiguration();
+  dashboard_base_->flushConfiguration();
+  commSelector_->flushConfiguration();
+  robotBase_->flushConfiguration();
+
+  if (config_->comm.commProtocol == CCC::Float ||
+    config_->comm.commProtocol == CCC::JSON) {
+    dataStreamSolver_->setActivate(true);
+  }
+  else {
+    dataStreamSolver_->setActivate(false);
+  }
 }

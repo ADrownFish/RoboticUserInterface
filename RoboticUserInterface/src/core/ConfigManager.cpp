@@ -1,5 +1,3 @@
-#pragma once
-
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QFile>
@@ -52,6 +50,12 @@ void ConfigManager::readConfig() {
   config_->app.fontFamily = appObj.value("fontFamily").toString(config_->app.fontFamily);
   config_->app.pluginName = appObj.value("pluginName").toString(config_->app.pluginName);
   config_->app.pageName = appObj.value("pageName").toString(config_->app.pageName);
+  config_->app.language = appObj.value("language").toString(config_->app.language);
+
+  QJsonObject streamObj = json.value("Stream").toObject();
+  config_->stream.timestampEnable_float = streamObj.value("timestampEnable_float").toBool(config_->stream.timestampEnable_float);
+  config_->stream.timestampEnable_json = streamObj.value("timestampEnable_json").toBool(config_->stream.timestampEnable_json);
+  config_->stream.timestampString_json = streamObj.value("timestampString_json").toString(config_->stream.timestampString_json);
 
   // 读取 DisplayConfiguration
   QJsonObject displayObj = json.value("Display").toObject();
@@ -62,6 +66,21 @@ void ConfigManager::readConfig() {
   config_->display.precision = displayObj.value("precision").toInt(config_->display.precision);
   config_->display.contentsMargins = displayObj.value("contentsMargins").toInt(config_->display.contentsMargins);
   config_->display.setAngleUnit(static_cast<AngleUnit>(displayObj.value("angleUnit").toInt(static_cast<int>(config_->display.angleUnit))));
+
+  // 读取 PlotConfiguration
+  QJsonObject plotObj = json.value("Plot").toObject();
+  config_->plot.yAutoScale = plotObj.value("yAutoScale").toBool(config_->plot.yAutoScale);
+  config_->plot.xAutoScale = plotObj.value("xAutoScale").toBool(config_->plot.xAutoScale);
+  config_->plot.settingsVisible = plotObj.value("settingsVisible").toBool(config_->plot.settingsVisible);
+  config_->plot.legend = plotObj.value("legend").toBool(config_->plot.legend);
+  config_->plot.link = plotObj.value("link").toBool(config_->plot.link);
+  config_->plot.tracker = plotObj.value("tracker").toBool(config_->plot.tracker);
+  config_->plot.isPaused = plotObj.value("isPaused").toBool(config_->plot.isPaused);
+  config_->plot.gridLine = plotObj.value("gridLine").toBool(config_->plot.gridLine);
+  config_->plot.plotLine = (PlotLineType)plotObj.value("plotLine").toInt((int)config_->plot.plotLine);
+  config_->plot.cacheDuration = plotObj.value("cacheDuration").toInt(config_->plot.cacheDuration);
+  config_->plot.plotSamplingRate = plotObj.value("plotSamplingRate").toInt(config_->plot.plotSamplingRate);
+  config_->plot.plotFlushRate = plotObj.value("plotFlushRate").toInt(config_->plot.plotFlushRate);
 
   // 读取 CardConfiguration
   QJsonObject cardObj = json.value("Card").toObject();
@@ -189,8 +208,14 @@ void ConfigManager::writeConfig() {
   appObj["fontFamily"] = config_->app.fontFamily;
   appObj["pluginName"] = config_->app.pluginName;
   appObj["pageName"] = config_->app.pageName;
+  appObj["language"] = config_->app.language;
   json["App"] = appObj;
 
+  QJsonObject streamObj;
+  streamObj["timestampEnable_float"] = config_->stream.timestampEnable_float;
+  streamObj["timestampEnable_json"] = config_->stream.timestampEnable_json;
+  streamObj["timestampString_json"] = config_->stream.timestampString_json;
+  json["Stream"] = streamObj;
 
   // 写入 DisplayConfiguration
   QJsonObject displayObj;
@@ -200,6 +225,23 @@ void ConfigManager::writeConfig() {
   displayObj["contentsMargins"] = config_->display.contentsMargins;
   displayObj["angleUnit"] = static_cast<int>(config_->display.angleUnit);
   json["Display"] = displayObj;
+
+  // 写入 plot
+  QJsonObject plotObj;
+  plotObj["yAutoScale"] = config_->plot.yAutoScale;
+  plotObj["xAutoScale"] = config_->plot.xAutoScale;
+  plotObj["settingsVisible"] = config_->plot.settingsVisible;
+  plotObj["legend"] = config_->plot.legend;
+  plotObj["link"] = config_->plot.link;
+  plotObj["tracker"] = config_->plot.tracker;
+  plotObj["isPaused"] = config_->plot.isPaused;
+  plotObj["gridLine"] = config_->plot.gridLine;
+  plotObj["plotLine"] = (int)config_->plot.plotLine;
+  plotObj["cacheDuration"] = config_->plot.cacheDuration;
+  plotObj["plotSamplingRate"] = config_->plot.plotSamplingRate;
+  plotObj["plotFlushRate"] = config_->plot.plotFlushRate;
+  json["Plot"] = plotObj;
+
 
   // 写入 CardConfiguration
   QJsonObject cardObj;
@@ -369,6 +411,7 @@ InitialConfiguration ConfigManager::getInitialConfiguration() {
       QJsonObject appObj = json.value("App").toObject();
       cfg.pluginName = appObj.value("pluginName").toString("DefaultRobot");
       cfg.fontSize = appObj.value("fontPointSize").toInt(10);
+      cfg.language = appObj.value("language").toString("zh_CN");
     }
   }
 

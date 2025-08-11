@@ -12,32 +12,40 @@ CustomPlotLayer::~CustomPlotLayer() {
 
 void CustomPlotLayer::contextMenuEvent(QContextMenuEvent* event) {
   emit rightClicked();
+  QCustomPlot::contextMenuEvent(event);
 }
 
 void CustomPlotLayer::dragEnterEvent(QDragEnterEvent * event) {
   // 如果拖动的事件中有Text，则允许drop。如果没有Text则不允许放下
-  if (event->mimeData()->hasFormat("application-robotuserinterface-objectdata")) {
+  if (event->mimeData()->hasFormat("application/robotuserinterface-objectdata-list")) {
     event->acceptProposedAction();
   }
+  QCustomPlot::dragEnterEvent(event);
 }
 void CustomPlotLayer::dropEvent(QDropEvent *event) {
-  if (!event->mimeData()->hasFormat("application-robotuserinterface-objectdata")) return;
-  QByteArray data = event->mimeData()->data("application-robotuserinterface-objectdata");
-  QString name = event->mimeData()->data("application-robotuserinterface-objectname");
- 
-  quintptr ptrValue;
-  if (data.size() == sizeof(ptrValue)) {
-    memcpy(&ptrValue, data.data(), sizeof(ptrValue));
-  }
-  else {
-    return;
-  }
+  const QMimeData* mimeData = event->mimeData();
 
-  ObjectData* ptr = reinterpret_cast<ObjectData*>(ptrValue);
-  appedObjectData(ptr, name);
+  QByteArray ptrData = mimeData->data("application/robotuserinterface-objectdata-list");
+  QJsonDocument doc  = QJsonDocument::fromJson(ptrData);
+  QJsonArray array   = doc.array();
 
+  QStringList names =
+      QString::fromUtf8(
+          mimeData->data("application/robotuserinterface-objectname-list"))
+          .split(";");
+
+  for (int i = 0; i < array.size(); ++i) {
+    quintptr ptrValue = static_cast<quintptr>(array[i].toInteger());
+    ObjectData *data = reinterpret_cast<ObjectData *>(ptrValue);
+    QString name = names[i];
+
+    appedObjectData(data, name);
+  }
+  
   event->acceptProposedAction();
   QCustomPlot::dropEvent(event);
+
+  emit dragAccepted();
 }
 
 void CustomPlotLayer::setupSignalConnection() {
@@ -54,6 +62,7 @@ void CustomPlotLayer::updatePlot() {
   // 格子线
   xAxis->grid()->setVisible(config_->plot.gridLine);
   yAxis->grid()->setVisible(config_->plot.gridLine);
+  this->legend->setVisible(config_->plot.legend);
 
   if (!config_->plot.isPaused) {
     // 给每个数据源更新
@@ -75,28 +84,39 @@ void CustomPlotLayer::updatePlot() {
       bind.fullUpdate();
     }
 
-    // 如果是静态数据，则不进行缩放
-    bool notUpdateAxis = true;
+    // 如果是静态数据、全是没启用的数据，则不进行缩放
+    bool updateAxis = true;
+    bool isAllStatic = true;
+    bool isAllDisable = true;
+
     for (auto &bind : bindList_) {
-      notUpdateAxis &= bind.data->type == ObjectData::DataType::Static;
+      isAllStatic &= bind.data->type == ObjectData::DataType::Static;
+      isAllDisable &= !bind.data->enable;
 
       // 如果需要刷新一次数据的时候
       if (bind.data->refreshOnceFlag) {
-        notUpdateAxis = false;
+        isAllStatic = false;
         bind.data->refreshOnceFlag = false;
       }
+    }
 
-      if (!notUpdateAxis) {
-        break;
+    if(isAllStatic){
+      updateAxis = false;
+    } else {
+      if(isAllDisable){
+        updateAxis = false;
+      } else {
+        updateAxis = true;
       }
     }
+
     // 自动缩放 x
-    if (!notUpdateAxis && config_->plot.xAutoScale) {
+    if (updateAxis && config_->plot.xAutoScale) {
       updateAxisX();
     }
 
     // 自动缩放 y
-    if (!notUpdateAxis && config_->plot.yAutoScale && allowScale) {
+    if (updateAxis && config_->plot.yAutoScale && allowScale) {
       updateAxisY();
     }
   }
@@ -121,7 +141,7 @@ void CustomPlotLayer::updatePlot() {
   }
 
   updateLineAndText();
-  QApplication::processEvents();
+  // QApplication::processEvents();
   this->replot();
 }
 
@@ -214,12 +234,18 @@ void CustomPlotLayer::updateLineAndText(bool replot)
   }
   if (markLineVertical) {
     for (auto bind : bindList_) {
-      auto label = coordLabels[bind.graph].itemText;
-      auto tracer = coordLabels[bind.graph].itemTracer;
+      auto label  = bind.itemText;
+      auto tracer = bind.itemTracer;
 
-      label->setVisible(true);
+      if(bind.data->enable){
+        label->setVisible(true);
+        tracer->setVisible(true);
+      } else {
+        label->setVisible(false);
+        tracer->setVisible(false);
+        continue;
+      }
       label->setColor(bind.color);
-      tracer->setVisible(true);
       tracer->setBrush(bind.color);
 
       auto data = bind.graph->data();
@@ -238,8 +264,8 @@ void CustomPlotLayer::updateLineAndText(bool replot)
   }
   else {
     for (auto bind : bindList_) {
-      auto label = coordLabels[bind.graph].itemText;
-      auto tracer = coordLabels[bind.graph].itemTracer;
+      auto label  = bind.itemText;
+      auto tracer = bind.itemTracer;
 
       label->setVisible(false);
       tracer->setVisible(false);
@@ -337,8 +363,18 @@ void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
   customPlot->setPlottingHints(QCP::phFastPolylines);
 
   // 设置基本坐标轴（左侧Y轴和下方X轴）可拖动、可缩放、曲线可选、legend可选、设置伸缩比例，使所有图例可见
-  customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom /*| QCP::iSelectAxes | QCP::iSelectLegend | QCP::iSelectItems */);
+  customPlot->setInteractions(
+      QCP::iRangeDrag
+    | QCP::iRangeZoom 
+    | QCP::iSelectLegend 
+    // | QCP::iSelectPlottables 
+    // | QCP::iSelectOther 
+    // | QCP::iSelectItems 
+    // | QCP::iSelectAxes 
+    // | QCP::iSelectItems 
+  );
   customPlot->legend->setVisible(true);
+  customPlot->legend->setSelectableParts(QCPLegend::spItems);
 
   // 设置字体
   QFont font;
@@ -347,16 +383,20 @@ void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
   customPlot->xAxis->setTickLabelFont(font);  // 设置刻度值字体
   customPlot->xAxis->setLabelFont(font);      // 设置轴标题字体
   customPlot->xAxis->setRangeReversed(false); // 避免反转范围的计算开销
+  customPlot->xAxis->grid()->setPen(QPen(QColor(100, 100, 100),1, Qt::DotLine));
+
   customPlot->yAxis->setTickLabelFont(font);
   customPlot->yAxis->setLabelFont(font);
   customPlot->yAxis->setRangeReversed(false); // 避免反转范围的计算开销
+  customPlot->yAxis->grid()->setPen(QPen(QColor(100, 100, 100),1, Qt::DotLine));
+
   customPlot->legend->setFont(font);
   customPlot->legend->setSelectedFont(font);
-
   customPlot->legend->setBrush(QColor(40, 40, 40, 200));
   customPlot->legend->setBorderPen(QColor(40, 100, 150));
   customPlot->legend->setTextColor(QColor(200, 200, 200));
   customPlot->legend->setSelectedTextColor(QColor(255, 255, 255));
+  
   customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop | Qt::AlignLeft); // 设置图例的位置为右上角
 
   customPlot->setNoAntialiasingOnDrag(true); // 禁用抗锯齿（拖拽时优化）
@@ -413,6 +453,31 @@ void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
     }
     });
 
+  connect(customPlot, &QCustomPlot::selectionChangedByUser, this, [this, customPlot]() {
+    auto selItems = customPlot->legend->selectedItems(); // QList<QCPAbstractLegendItem*>
+    for (auto *item : selItems) {
+      if (auto *pli = qobject_cast<QCPPlottableLegendItem*>(item)) {
+        pli->setSelected(false);
+
+        // 2. 获取对应的 plottable
+        if (auto *graph = qobject_cast<QCPGraph*>(pli->plottable())) {
+          for (auto &it : bindList_) {
+            if (it.graph == graph) {
+              it.data->enable = !it.data->enable;
+              //如果不启用 就变灰色
+              if(!it.data->enable){
+                it.graph->setPen(QColor(100,100,100,100));
+              } else {
+                it.graph->setPen(QPen(it.color));
+              }
+              return;
+            }
+          }
+        }
+      }
+    }
+  });
+
   initAxisRect(customPlot->axisRect());
 }
 
@@ -432,17 +497,13 @@ void CustomPlotLayer::appedObjectData(ObjectData* data, const QString& name) {
   bind.graph->setName(name);
   bind.graph->setAdaptiveSampling(true);  // 启用自适应采样
   bind.graph->setPen(QPen(bind.color));
+  bind.itemText = new QCPItemText(this);
+  bind.itemTracer = new QCPItemTracer(this);
+
+  initItemText(bind.itemText);
+  initItemTracer(bind.itemTracer);
 
   bindList_.append(bind);
-
-  if(!coordLabels.contains(bind.graph)){
-    auto& coordLabel = coordLabels[bind.graph];
-    coordLabel.itemText = new QCPItemText(this);
-    coordLabel.itemTracer = new QCPItemTracer(this);
-
-    initItemText(coordLabel.itemText);
-    initItemTracer(coordLabel.itemTracer);
-  }
   
   bind.graph->setData(data->time, data->data, true);
   updateAxis(true);
@@ -468,8 +529,10 @@ CustomPlotMap::CustomPlotMap::CustomPlotMap(QWidget* parent)
 }
 
 CustomPlotMap::~CustomPlotMap() {
-
-
+  for (CustomPlotLayer* obj : layerList) {
+    delete obj;
+  }
+  layerList.clear();
 }
 
 void CustomPlotMap::init() {
@@ -483,10 +546,14 @@ void CustomPlotMap::setConfiguration(std::shared_ptr<Configuration> config) {
   config_ = config;
 }
 
+void CustomPlotMap::setDataSource(const std::shared_ptr<DataSource>& ds){
+  dataSource_ = ds;
+}
+
 void CustomPlotMap::updatePlot() {
-  for (const auto & obj : layerList) {
+  // qDebug() << "updatePlot() " << QThread::currentThreadId();
+  for (CustomPlotLayer* obj : layerList) {
     obj->updatePlot();
-    obj->legend->setVisible(config_->plot.legend);
   }
 
 }
@@ -567,11 +634,10 @@ void CustomPlotMap::setupSignalConnection() {
         clickedLayer->removeGraph(bind.graph);
 
         // 删除对应坐标标签
-        auto label_p = clickedLayer->coordLabels[bind.graph].itemText;
-        auto tracer_p = clickedLayer->coordLabels[bind.graph].itemTracer;
+        auto label_p = bind.itemText;
+        auto tracer_p = bind.itemTracer;
         clickedLayer->removeItem(label_p);
         clickedLayer->removeItem(tracer_p);
-        clickedLayer->coordLabels.remove(bind.graph);
       }
       binds.clear();
     }
@@ -590,18 +656,13 @@ void CustomPlotMap::setupSignalConnection() {
 
         QObject::connect(it, &QAction::triggered, [this, clickedLayer, graph = bind.graph, bind_it = &bind , &binds]() {
           // 删除对应坐标标签
-          if (!clickedLayer->coordLabels.contains(graph)) {
-            publishNotify(GCW::NotifyType::Warning, "Warning", "Can not delete the coordinate label");
-            return;
-          }
-          auto label_p = clickedLayer->coordLabels[graph].itemText;
-          auto tracer_p = clickedLayer->coordLabels[graph].itemTracer;
+          auto label_p = bind_it->itemText;
+          auto tracer_p = bind_it->itemTracer;
           clickedLayer->removeItem(label_p);
           clickedLayer->removeItem(tracer_p);
-          clickedLayer->coordLabels.remove(graph);
+          clickedLayer->removeGraph(graph);
 
           binds.removeOne(*bind_it);
-          clickedLayer->removeGraph(graph);
           });
       }
     }
@@ -617,26 +678,6 @@ void CustomPlotMap::setupWidgetsControls() {
   setLayout(layout);
 
   this->setContextMenuPolicy(Qt::CustomContextMenu);
-
-  QString css = "QMenu{"
-    "background:rgba(255,255,255,1);"
-    "border:none;"
-    "}"
-    "QMenu::item{"
-    "padding:11px 10px;"
-    "color:rgba(51,51,51,1);"
-    // "font-size:12px;"
-    "}"
-    "QMenu::item:hover{"
-    "background-color:#409CE1;"
-    "}"
-    "QMenu::item:selected{"
-    "background-color:#409CE1;"
-    "}";
-
-  menu.setStyleSheet(css);
-
-
 }
 
 CustomPlotLayer* CustomPlotMap::getCustomPlotLayer(const QPoint& point)
@@ -674,15 +715,18 @@ void CustomPlotMap::layerAxisScalingChanged(CustomPlotLayer* p, const QCPRange& 
 }
 
 void CustomPlotMap::addCustomPlotLayer() {
+  // qDebug() << "addCustomPlotLayer() " << QThread::currentThreadId();
+
   CustomPlotLayer* layer = new CustomPlotLayer();
+  splitter->addWidget(layer);
   layer->setConfiguration(config_);
   layer->init();
 
-  connect(layer, &CustomPlotLayer::rightClicked, [this]() {
+  QObject::connect(layer, &CustomPlotLayer::rightClicked, [this]() {
     menuActivatePos = QCursor::pos();
     menu.exec(menuActivatePos);
   });
-  connect(layer->xAxis, qOverload<const QCPRange&>(&QCPAxis::rangeChanged),
+  QObject::connect(layer->xAxis, qOverload<const QCPRange&>(&QCPAxis::rangeChanged),
     [this, layer](const QCPRange& range) {
       layerAxisScalingChanged(layer, range);
     });
@@ -701,10 +745,10 @@ void CustomPlotMap::addCustomPlotLayer() {
     }
     });
 
-  splitter->addWidget(layer);
-  splitter->setContentsMargins(0, 0, 0, 0);
+  QObject::connect(layer, &CustomPlotLayer::dragAccepted, this, &CustomPlotMap::dragAccepted);
+  
+    
   layerList.append(layer);
-
   resetSplitterLayout();
 }
 
@@ -733,4 +777,23 @@ void CustomPlotMap::resetSplitterLayout() {
     sizes.append(1);  // 每个控件分配相同的比例
   }
   splitter->setSizes(sizes);
+}
+
+void CustomPlotMap::checkObjectData(){
+
+  auto topNode = dataSource_->topNode();
+
+  for(auto &p : layerList)
+  {
+    auto& list = p->bindList();
+    for(auto &bind : list){
+      //如果不存在 就删除
+      if(!topNode->exists(bind.data)){
+        p->removeGraph(bind.graph);
+        p->removeItem(bind.itemText);
+        p->removeItem(bind.itemTracer);
+        list.removeOne(bind);
+      }
+    }
+  }
 }

@@ -83,17 +83,9 @@ void CommSelector::setupWidgetsControls(){
   ui.widget_protocol->setSelectUnitIndex(static_cast<int>(config_->comm.commProtocol));
   ui.widget_protocol->setBackgroundColor(QColor(100,100,100,120));
 
-  QString key = ui.widget_CommType->getUnitName(ui.widget_CommType->getCurrentUnitIndex());
-  if (key == "TCP") {
-    ui.stackedWidget->setCurrentWidget(ui.page_tcp);
-  } else if (key == "UDP") {
-    ui.stackedWidget->setCurrentWidget(ui.page_udp);
-  } else if (key == tr("Bluetooth")) {
-    ui.stackedWidget->setCurrentWidget(ui.page_bluetooth);
-  } else if (key == tr("Serial")) {
-    ui.stackedWidget->setCurrentWidget(ui.page_serial);
-  }
-
+  switchPageType(static_cast<int>(config_->comm.commType));
+  switchPageProtocol(static_cast<int>(config_->comm.commProtocol));
+  ui.lineEdit_json_timestamp->setVisible(config_->stream.timestampEnable_json);
 }
 
 void CommSelector::setupSignalConnection(){
@@ -130,21 +122,11 @@ void CommSelector::setupSignalConnection(){
     flyout->show();
   });
 
-  QObject::connect(ui.widget_CommType, &QWWindowButton::selectUnitIndexChanged, [this](unsigned int index) {
-    QString key = ui.widget_CommType->getUnitName(index);
-    if (key == "TCP") {
-      ui.stackedWidget->setCurrentWidget(ui.page_tcp);
-    }
-    else if (key == "UDP") {
-      ui.stackedWidget->setCurrentWidget(ui.page_udp);
-    }
-    else if (key == tr("Bluetooth")) {
-      ui.stackedWidget->setCurrentWidget(ui.page_bluetooth);
-    }
-    else if (key == tr("Serial")) {
-      ui.stackedWidget->setCurrentWidget(ui.page_serial);
-    }
-    });
+  QObject::connect(ui.widget_CommType, &QWWindowButton::selectUnitIndexChanged, this, &CommSelector::switchPageType);
+
+  QObject::connect(ui.widget_protocol, &QWWindowButton::selectUnitIndexChanged, this, &CommSelector::switchPageProtocol);
+
+  QObject::connect(ui.button_json_timestamp, &QWSwitcher::toggled, ui.lineEdit_json_timestamp, &QLineEdit::setVisible);
   
   QList<int> baudrates = {
       4800, 9600, 14400, 19200,
@@ -346,6 +328,11 @@ void CommSelector::pushParameters(){
 
   ui.widget_CommType->setSelectUnitIndex((int)config_->comm.commType);
   ui.widget_protocol->setSelectUnitIndex((int)(config_->comm.commProtocol));
+  ui.widget_TCPType->setSelectUnitIndex((int)config_->comm.tcp.server);
+
+  ui.button_float_timestamp->setToggle(config_->stream.timestampEnable_float);
+  ui.button_json_timestamp->setToggle(config_->stream.timestampEnable_json);
+  ui.lineEdit_json_timestamp->setText(config_->stream.timestampString_json);
 }
 
 template<typename T>
@@ -385,6 +372,10 @@ void CommSelector::pullParameters(){
   InsertHistory(config_->comm.tcp.ipHistory,            config_->comm.tcp.ip,                   count);
   InsertHistory(config_->comm.tcp.portHistory,        config_->comm.tcp.port,                count);
   InsertHistory(config_->comm.tcp.listenHistory,      config_->comm.tcp.listen,               count);
+
+  config_->stream.timestampEnable_float = ui.button_float_timestamp->isToggled();
+  config_->stream.timestampEnable_json = ui.button_json_timestamp->isToggled();
+  config_->stream.timestampString_json = ui.lineEdit_json_timestamp->text();
 
   //qDebug() << " *********************************************";
   //qDebug() << " udp ip" << config_->comm.udp.ipHistory;
@@ -426,6 +417,44 @@ void CommSelector::scanSerialPort()
     connect(action, &QAction::triggered, [=]() {
       ui.lineEdit_serial_name->setText(portName);  // 填入纯粹的串口名
       });
+  }
+}
+
+void CommSelector::switchPageType(unsigned int index) {
+
+  QString key = ui.widget_CommType->getUnitName(index);
+  if (key == "TCP") {
+    ui.stackedWidget_type->setCurrentWidget(ui.page_tcp);
+  }
+  else if (key == "UDP") {
+    ui.stackedWidget_type->setCurrentWidget(ui.page_udp);
+  }
+  else if (key == tr("Bluetooth")) {
+    ui.stackedWidget_type->setCurrentWidget(ui.page_bluetooth);
+  }
+  else if (key == tr("Serial")) {
+    ui.stackedWidget_type->setCurrentWidget(ui.page_serial);
+  }
+}
+
+void CommSelector::switchPageProtocol(unsigned int index) {
+
+  QString key = ui.widget_protocol->getUnitName(index);
+  if (key == "Plugin") {
+    ui.stackedWidget_protocol->hide();
+    ui.stackedWidget_protocol->setCurrentWidget(ui.page_plugin);
+  }
+  else if (key == "JSON") {
+    ui.stackedWidget_protocol->show();
+    ui.stackedWidget_protocol->setCurrentWidget(ui.page_Json);
+  }
+  else if (key == tr("Float")) {
+    ui.stackedWidget_protocol->show();
+    ui.stackedWidget_protocol->setCurrentWidget(ui.page_Float);
+  }
+  else if (key == tr("Raw")) {
+    ui.stackedWidget_protocol->hide();
+    ui.stackedWidget_protocol->setCurrentWidget(ui.page_Raw);
   }
 }
 

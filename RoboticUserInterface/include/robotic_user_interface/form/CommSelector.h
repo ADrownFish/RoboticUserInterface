@@ -39,9 +39,14 @@ private:
   void setupWidgetsControls();
 
   void pushParameters();
+
   void pullParameters();
 
   void scanSerialPort();
+
+  void switchPageType(unsigned int index);
+
+  void switchPageProtocol(unsigned int index);
 
 private:
   std::shared_ptr<Configuration> config_;

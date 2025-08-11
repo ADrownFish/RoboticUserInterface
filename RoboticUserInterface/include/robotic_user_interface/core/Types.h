@@ -88,8 +88,6 @@ public:
     double voltage;
   };
   struct Imu {
-    scalar_t timestamp;
-
     quaternion quat;
     vector_t eulerAngles;
     vector_t acceleration;
@@ -131,7 +129,6 @@ public:
     odom.velocity.resize(3, 0.0);
 
     // imu
-    imu.timestamp = 0.0;
 
     imu.quat = quaternion{1.0,0.0,0.0,0.0};
     imu.acceleration.resize(3, 0.0);
@@ -456,6 +453,14 @@ public:
   QString pageName = "Info";
 };
 
+class StreamSolverConfiguration {
+public:
+  bool timestampEnable_float = true;
+
+  bool timestampEnable_json = true;
+  QString timestampString_json = "timestamp";
+};
+
 class Configuration {
 public:
   DisplayConfiguration display;
@@ -465,6 +470,7 @@ public:
   PlotConfiguration plot;
   TerminalConfiguaration terminal;
   MainAppConfiguration app;
+  StreamSolverConfiguration stream;
   Runtime runtime;
 
   QVector<std::shared_ptr<FilePathConfiguration>> filePaths;

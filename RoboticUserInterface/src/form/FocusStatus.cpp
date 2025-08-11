@@ -216,9 +216,11 @@ void FocusStatus::createStatusItems() {
   layout->setContentsMargins(20, 0, 20, 0);
   itemsWidget->setLayout(layout);
 
-  StatusItem *batterySoc = new StatusItem();
   StatusItem *netType = new StatusItem();
   StatusItem* protocolType = new StatusItem();
+  StatusItem* otherType = new StatusItem();
+
+  StatusItem *batterySoc = new StatusItem();
   StatusItem *netSpeed = new StatusItem();
   StatusItem *tempDriver = new StatusItem();
   StatusItem *tempMotor = new StatusItem();
@@ -233,6 +235,8 @@ void FocusStatus::createStatusItems() {
 
   initStatusItem(netType);
   initStatusItem(netSpeed);
+  initStatusItem(otherType);
+
   initStatusItem(protocolType);
   initStatusItem(tempDriver);
   initStatusItem(tempMotor);
@@ -240,7 +244,6 @@ void FocusStatus::createStatusItems() {
 
   batterySoc->setSvg(0, ":/svg/svg/battery.svg");
   batterySoc->setDescribe(0, "0 %");
-
 
   netType->setSvg(0, ":/svg/svg/network.svg");
   netType->setDescribe(0, "None");
@@ -253,6 +256,11 @@ void FocusStatus::createStatusItems() {
   netSpeed->setDescribe(0, formatByteRateUnit(0));
   netSpeed->setSvg(1, ":/svg/svg/arrow-down.svg");
   netSpeed->setDescribe(1, formatByteRateUnit(0));
+
+  otherType->setSvg(0, ":/svg/svg/other.svg");
+  otherType->setDescribe(0, "");
+  otherType->setBackgroundColor(0, QColor(170, 80, 60));
+  otherType->setVisible(false);
 
   protocolType->setSvg(0, ":/svg/svg/dot.svg");
   protocolType->setDescribe(0, CommunicationConfiguration::commProtocolToQString((CommunicationConfiguration::CommProtocol)0));
@@ -275,6 +283,7 @@ void FocusStatus::createStatusItems() {
 
   items[StatusItemEnum::batterySoc] = batterySoc;
   items[StatusItemEnum::netType] = netType;
+  items[StatusItemEnum::otherType] = otherType;
   items[StatusItemEnum::protocolType] = protocolType;
   items[StatusItemEnum::netSpeed] = netSpeed;
   items[StatusItemEnum::tempDriver] = tempDriver;
@@ -371,6 +380,15 @@ void FocusStatus::setCommStatus(bool status) {
     items[netType]->setDescribe(0, tr("None"));
     items[netType]->setBackgroundColor(0);
   }
+}
+
+void FocusStatus::setOtherStatus(const QString& status) {
+  if (status.isEmpty()) {
+    items[StatusItemEnum::otherType]->setVisible(false);
+    return;
+  }
+  items[StatusItemEnum::otherType]->setVisible(true);
+  items[StatusItemEnum::otherType]->setDescribe(0, status);
 }
 
 QWidget* FocusStatus::getStatusItemsWidget()

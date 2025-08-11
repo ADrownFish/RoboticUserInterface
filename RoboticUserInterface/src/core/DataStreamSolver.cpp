@@ -25,7 +25,6 @@ DataStreamSolver::~DataStreamSolver() {
 void DataStreamSolver::init() {
 
 	setupSignalConnection();
-
 }
 
 void DataStreamSolver::setConfiguration(std::shared_ptr<Configuration> config) {
@@ -59,20 +58,55 @@ void DataStreamSolver::setDataAllocator(const QPointer<DataAllocator>& p) {
 	dataAllocator_ = p;
 }
 
+void DataStreamSolver::setActivate(bool ok)
+{
+  if (ok) {
+    timer_.start();
+  }
+  else {
+    timer_.stop();
+  }
+}
+
 void DataStreamSolver::setupSignalConnection() {
+  using CCC = CommunicationConfiguration::CommProtocol;
 
+  // 数据传递
+  QObject::connect(dataAllocator_, &DataAllocator::readyRead, [this]() {
+    // on signal thread
+    if (config_->comm.commProtocol == CCC::JSON ||
+      config_->comm.commProtocol == CCC::Float
+      ) {
+      QByteArray buffer;
+      dataAllocator_->read(config_->comm.commProtocol, buffer);
 
+      readMutex.lock();
+      recviveBuffer_.append(buffer);
+      readMutex.unlock();
+    }
+    });
 
+  QObject::connect(&timer_, &QTimer::timeout, this, &DataStreamSolver::processData);
 }
 
 
-void DataStreamSolver::appendData(const QByteArray& newData) {
+void DataStreamSolver::processData() {
+  QByteArray buffer;
+
+  readMutex.lock();
+  if (recviveBuffer_.isEmpty()) {
+    readMutex.unlock();
+    return;
+  }
+  buffer = std::move(recviveBuffer_);
+  readMutex.unlock();
+
   if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::JSON){
-    jsonParser_.buffer.append(newData);
+    jsonParser_.buffer.append(buffer);
     parseJsonBuffer();
   } else if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::Float) {
-    floatParser_.buffer.append(newData);
-    //parseJsonBuffer();
+    floatParser_.buffer.append(buffer);
+    parseFloatData();
   }
 }
 
@@ -292,73 +326,82 @@ void DataStreamSolver::parseJsonObject(const QByteArray& jsonData) {
   QJsonDocument doc = QJsonDocument::fromJson(jsonData, &error);
 
   if (error.error != QJsonParseError::NoError || !doc.isObject()) {
-    qWarning() << "JSON parse error:" << error.errorString();
     return;
   }
 
+  scalar_t timestamp = 0;
   QJsonObject rootObj = doc.object();
-  if (!rootObj.contains("time") || !rootObj["time"].isDouble()) {
-    qWarning() << "Missing or invalid time field";
-    return;
+  if (config_->stream.timestampEnable_json && rootObj.contains(config_->stream.timestampString_json)) {
+    timestamp = rootObj.value(config_->stream.timestampString_json).toDouble();
+  }  else{
+    timestamp = dataSource_->time();
   }
 
-  const scalar_t timestamp = rootObj["time"].toDouble();
+  bool emitSignal = false;
+
   for (auto it = rootObj.constBegin(); it != rootObj.constEnd(); ++it) {
-    if (it.key() == "time") continue;
-    parseJsonValue(it.key(), it.value(), timestamp, jsonParser_.root);
+    parseJsonValue(it.key(), it.value(), timestamp, jsonParser_.root, emitSignal);
+  }
+
+  if (emitSignal) {
+    emit updateTree("Json");
+    std::cerr << jsonParser_.root->toString().toLocal8Bit().data();
+    jsonParser_.root->resetID(1);
+    jsonParser_.root->setTimeWindow(config_->plot.cacheDuration);
   }
 }
 
-void DataStreamSolver::parseJsonValue(const QString& key, const QJsonValue& value, scalar_t timestamp, ObjectNode::Ptr parentNode) {
-  if (value.isObject()) {
-    ObjectNode::Ptr node = parentNode->findObjectNode(key);
-    if (!node) {
-      node = std::make_shared<ObjectNode>(key, QVector<ObjectData::Ptr>());
-      parentNode->addNode(node);
-    }
+void DataStreamSolver::parseJsonValue(const QString& key, const QJsonValue& value, scalar_t timestamp, ObjectNode::Ptr parentNode, bool& hasNew) {
+	if (value.isDouble() || value.isBool()) {
+		scalar_t val = value.toDouble();
+		if (value.isBool()) {
+			val = value.toBool() ? 1.0 : 0.0;
+		}
 
-    QJsonObject obj = value.toObject();
-    for (auto it = obj.constBegin(); it != obj.constEnd(); ++it) {
-      parseJsonValue(it.key(), it.value(), timestamp, node);
-    }
-  }
-  else if (value.isArray()) {
-    QJsonArray arr = value.toArray();
-    for (int i = 0; i < arr.size(); ++i) {
-      QString indexedKey = QString("%1[%2]").arg(key).arg(i);
-      parseJsonValue(indexedKey, arr[i], timestamp, parentNode);
-    }
-  }
-  else if (value.isDouble() || value.isBool()) {
-    scalar_t val = value.toDouble();
-    if (value.isBool()) {
-      val = value.toBool() ? 1.0 : 0.0;
-    }
+		ObjectData::Ptr data = parentNode->findObjectData(key);
+		if (!data) {
+			data = std::make_shared<ObjectData>(key);
+			data->type = ObjectData::DataType::Dynamic;
+			parentNode->addObject(data);
 
-    ObjectData::Ptr data = parentNode->findObjectData(key);
-    if (!data) {
-      data = std::make_shared<ObjectData>(key);
-      parentNode->addObject(data);
-    }
-    data->appendData(timestamp, val);
-  }
+			hasNew = true;
+		}
+		data->appendData(timestamp, val);
+	}
+	else if (value.isObject()) {
+		ObjectNode::Ptr node = parentNode->findObjectNode(key);
+		if (!node) {
+			node = std::make_shared<ObjectNode>(key);
+			parentNode->addNode(node);
+		}
+
+		QJsonObject obj = value.toObject();
+		for (auto it = obj.constBegin(); it != obj.constEnd(); ++it) {
+			parseJsonValue(it.key(), it.value(), timestamp, node, hasNew);
+		}
+	}
+	else if (value.isArray()) {
+		QJsonArray arr = value.toArray();
+		for (int i = 0; i < arr.size(); ++i) {
+			QString indexedKey = QString("%1[%2]").arg(key).arg(i);
+			parseJsonValue(indexedKey, arr[i], timestamp, parentNode, hasNew);
+		}
+	}
+
   // 忽略其他类型（字符串等）
 }
-void DataStreamSolver::processFloatData(const QByteArray& floatData) {
 
-  // 添加到缓冲区
-  floatParser_.buffer.append(floatData);
 
-  // 处理缓冲区中的数据
+void DataStreamSolver::parseFloatData() {
+
+  bool emitSignal = false;
+
   while (true) {
-    // 查找帧尾位置
+    // 查找帧尾
     int tailPos = floatParser_.buffer.indexOf(floatParser_.frameTail);
-
-    // 没有找到完整帧尾
     if (tailPos == -1) {
       // 如果缓冲区过大，丢弃部分数据防止内存溢出
       if (floatParser_.buffer.size() > floatParser_.MAX_PACKET_SIZE * 2) {
-        qWarning() << "Float buffer overflow, truncating...";
         // 保留最后可能包含不完整帧尾的部分
         floatParser_.buffer = floatParser_.buffer.right(floatParser_.MAX_PACKET_SIZE);
       }
@@ -368,7 +411,7 @@ void DataStreamSolver::processFloatData(const QByteArray& floatData) {
     // 检查数据包长度是否合法
     int packetSize = tailPos + 4;
     if (packetSize > floatParser_.MAX_PACKET_SIZE) {
-      qWarning() << "Float packet too large (" << packetSize << "bytes), discarding...";
+      //qWarning() << "Float packet too large (" << packetSize << "bytes), discarding...";
       floatParser_.buffer.remove(0, packetSize);
       continue;
     }
@@ -380,29 +423,56 @@ void DataStreamSolver::processFloatData(const QByteArray& floatData) {
     // 解析数据包
     QVector<float> floatData;
     if (parseFloatPacket(packet, floatData)) {
-      scalar_t timestamp = QDateTime::currentDateTime().toMSecsSinceEpoch() / 1000.0;
-      dispatchFloatData(floatData, timestamp);
+      
+      if (floatData.isEmpty()) {
+        return;
+      }
+
+      scalar_t timestamp = 0.0;
+      if (config_->stream.timestampEnable_float) {
+        timestamp = floatData.front();
+      } else {
+        timestamp = dataSource_->time();
+      }
+
+      // 如果存在直接给值
+      for (int i = 0; i < floatData.size(); ++i) {
+        QString dataName = QString("Data %1").arg(i + 1);
+        auto objData = floatParser_.root->findObjectData(dataName);
+        if (!objData) {
+          objData = std::make_shared<ObjectData>(dataName);
+          objData->type = ObjectData::DataType::Dynamic;
+          floatParser_.root->addObject(objData);
+          
+          emitSignal = true;
+        }
+        objData->appendData(timestamp, floatData[i]);
+      }
     }
+  }
+
+  if (emitSignal) {
+    emit updateTree("Float");
+    qDebug() << floatParser_.root->toString();
+    floatParser_.root->resetID(1);
+    floatParser_.root->setTimeWindow(config_->plot.cacheDuration);
   }
 }
 
 bool DataStreamSolver::parseFloatPacket(const QByteArray& packet, QVector<float>& result) {
   // 检查最小长度和格式
   if (packet.size() < 8 || (packet.size() - 4) % 4 != 0) {
-    qWarning() << "Invalid float packet size:" << packet.size();
     return false;
   }
 
   // 检查帧尾
   if (packet.right(4) != floatParser_.frameTail) {
-    qWarning() << "Frame tail mismatch";
     return false;
   }
 
   // 计算float数量
   int floatCount = (packet.size() - 4) / 4;
   if (floatCount > floatParser_.MAX_FLOAT_COUNT) {
-    qWarning() << "Float count exceeds maximum limit:" << floatCount;
     return false;
   }
 
@@ -415,43 +485,4 @@ bool DataStreamSolver::parseFloatPacket(const QByteArray& packet, QVector<float>
   }
 
   return true;
-}
-
-void DataStreamSolver::dispatchFloatData(const QVector<float>& floatData, scalar_t timestamp) {
-  if (!dataAllocator_ || floatData.isEmpty()) {
-    return;
-  }
-
-  // 初始化float数据节点树
-  if (!floatParser_.root) {
-    //floatParser_.root = std::make_shared<ObjectNode>("FloatStream"); // ？？？？？
-
-    // 根据第一个数据包创建数据节点
-    for (int i = 0; i < floatData.size(); ++i) {
-      QString dataName = QString("Channel_%1").arg(i + 1);
-      auto objData = std::make_shared<ObjectData>(dataName);
-      //objData->setTimeWindow(config_->getDataTimeWindow());
-      floatParser_.root->addObject(objData);
-    }
-
-    //dataAllocator_->addNode(floatParser_.floatRoot_);
-  }
-
-  // 更新数据
-  for (int i = 0; i < floatData.size(); ++i) {
-    if (i < floatParser_.root->data.size()) {
-      floatParser_.root->data[i]->appendData(timestamp, floatData[i]);
-    }
-  }
-
-  // 如果数据量增加，动态扩展节点
-  if (floatData.size() > floatParser_.root->data.size()) {
-    for (int i = floatParser_.root->data.size(); i < floatData.size(); ++i) {
-      QString dataName = QString("Channel_%1").arg(i + 1);
-      auto objData = std::make_shared<ObjectData>(dataName);
-      //objData->setTimeWindow(config_->getDataTimeWindow());
-      floatParser_.root->addObject(objData);
-      floatParser_.root->data[i]->appendData(timestamp, floatData[i]);
-    }
-  }
 }

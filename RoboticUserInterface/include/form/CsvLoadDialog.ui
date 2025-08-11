@@ -311,11 +311,6 @@ height: 0px;
           <height>200</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
         <property name="text">
          <string>Select the delimiter</string>
         </property>
@@ -337,11 +332,6 @@ height: 0px;
           <width>16777215</width>
           <height>20</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
         </property>
         <property name="text">
          <string>Select X-axis</string>
@@ -476,11 +466,6 @@ height: 0px;
        <height>30</height>
       </size>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>8</pointsize>
-      </font>
-     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgba(255, 255, 255, 0);
 border: 0;</string>
@@ -496,6 +481,12 @@ border: 0;</string>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QtMaterialRaisedButton</class>
+   <extends>QWidget</extends>
+   <header>qt_material_widgets/qtmaterialraisedbutton.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>FluComboBox</class>
    <extends>QWidget</extends>
@@ -518,12 +509,6 @@ border: 0;</string>
    <class>FluBusyProgressRing</class>
    <extends>QWidget</extends>
    <header>FluControls/FluBusyProgressRing.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>QtMaterialRaisedButton</class>
-   <extends>QWidget</extends>
-   <header>qt_material_widgets/qtmaterialraisedbutton.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

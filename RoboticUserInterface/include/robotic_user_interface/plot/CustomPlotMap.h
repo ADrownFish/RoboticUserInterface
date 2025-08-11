@@ -4,6 +4,10 @@
 #include "qt_gcw/QSnackbarManager.h"
 #include "FluControls/FluMenu.h"
 
+#include "filter/LiteKalmanFilter.h"
+#include "filter/MovingAverageFilter.h"
+#include "filter/IIRFilter.h"
+
 #include "robotic_user_interface/core/DataSource.h"
 
 #include <QList>
@@ -12,59 +16,107 @@
 
 #define QCUSTOMPLOT_USE_OPENGL
 
-struct CustomPlotMapBind {
-  QCPGraph* graph;
-  QColor color;
-  ObjectData* data;
-  scalar_t lastTime = 0.;
-  // int lastIndex = 0; // 新增：记录上次更新的索引位置
+class FilterData{
 
-  void optimizedUpdate() {
-    if (!graph || !data || data->time.isEmpty()) return;
+public:
+  enum class FilterType{
+    LowPass,
+    HighPass,
+    BandPass,
+    BandStop,
+    LowShelf,
+    HighShelf,
 
-    /**
-     if
-     Graph Time   | x    ……   x    ……    x            |
-     Data  Time   |           x    ……    x    ……    x |
-                  -------------------------------
-    */
+    MovingAverage,
+    Kalman,
+  };
 
-    // inefficiency: debug 10~30ms
-    
-   auto graphData = graph->data();
-   Q_ASSERT(data->time.size() == data->data.size());
-   
-   if(!graphData->isEmpty()){
-      // Remove old data
-      graphData->removeBefore(data->time.first());
-
-      // Add new data (only points after the last existing point)
-      auto key = graphData->end()->key;
-      auto it = std::upper_bound(data->time.begin(), data->time.end(), key);
-      if (it != data->time.end()){
-        int index = std::distance(data->time.begin(), it);
-        int newSize = data->time.size() - index;
-
-        QVector<QCPGraphData> result(newSize);
-        for (int i = 0; i < newSize; ++i){
-          result[i].key = data->time[index + i];
-          result[i].value = data->data[index + i];
-        }
-
-        graphData->add(result,true);
-      }
-    } else {
-      int count = data->time.size();
-      QVector<QCPGraphData> result(count);
-      for (int i = 0; i < count; ++i){
-        result[i].key = data->time[i];
-        result[i].value = data->data[i];
-      }
-      graphData->add(result, true);
+  union FilterParm{
+    FilterParm(){}
+    FilterParm(robot::IIRFilterParm _value){
+      IIR = _value;
+    }
+    FilterParm(robot::LiteKalmanFilterParm _lowHighPass){
+      Kalman = _lowHighPass;
+    }
+    FilterParm(robot::MovingAverageFilterParm _bandStopPass){
+      MovingAverage = _bandStopPass;
     }
 
+    robot::IIRFilterParm IIR;
+    robot::LiteKalmanFilterParm Kalman;
+    robot::MovingAverageFilterParm MovingAverage;
+  };
+
+  void setType(FilterType d, const FilterParm& p){
+    type = d;
+    parm = p;
   }
 
+  void setEnable(bool e){
+    enable = e;
+    if(!enable){
+      filter.reset();
+      data.reset();
+      return;
+    }
+
+    switch(type){
+    case FilterType::LowPass:
+    case FilterType::HighPass:
+    case FilterType::BandPass:
+    case FilterType::BandStop:
+    case FilterType::LowShelf:
+    case FilterType::HighShelf:
+      filter = std::make_shared<robot::IIRFilter>(static_cast<robot::IIRFilterType>(type), parm.IIR);
+      break;
+    case FilterType::Kalman:
+      filter = std::make_shared<robot::LiteKalmanFilter>(parm.Kalman);
+      break;
+    case FilterType::MovingAverage:
+      filter = std::make_shared<robot::MovingAverageFilter>(parm.MovingAverage);
+      break;
+    default:
+      filter = std::make_shared<robot::BaseFilter>();
+      std::cout << "[FilterData] Wrong filter type, reset to default" << std::endl;
+      break;
+    }
+  }
+
+  ObjectData::Ptr &update(const ObjectData::Ptr& d){
+    if(!enable){
+      return data;
+    }
+
+    
+  }
+
+  ObjectData::Ptr &result()  {
+    return data;
+  }
+
+private:
+
+  bool enable = false;
+  FilterType type = FilterType::MovingAverage;
+  FilterParm parm;
+
+  robot::BaseFilter::Ptr filter;
+  ObjectData::Ptr data;
+};
+
+class CustomPlotMapBind {
+public:
+  QCPGraph* graph;
+  QCPItemText *itemText = nullptr;
+  QCPItemTracer *itemTracer = nullptr;
+  FilterData filterData;
+
+  ObjectData* data;
+  QColor color;
+
+
+public:
   // 全量更新（重置时使用）
   void fullUpdate() {
     // debug 0.7~1ms
@@ -90,10 +142,7 @@ class CustomPlotLayer : public QCustomPlot {
   Q_OBJECT
   friend class CustomPlotMap;
 public:
-  struct QCPItemTextEllipse{
-    QCPItemText *itemText = nullptr;
-    QCPItemTracer *itemTracer = nullptr;
-  };
+
 public:
   CustomPlotLayer(QWidget *parent = nullptr);
   ~CustomPlotLayer();
@@ -131,6 +180,8 @@ signals:
 
   void rightClicked();  // 自定义右键点击信号
 
+  void dragAccepted();
+
 private:
   void setupSignalConnection();
 
@@ -139,8 +190,8 @@ private:
 protected:
   // 重写拖放事件处理函数
   void dropEvent(QDropEvent *event) override;
-  void dragEnterEvent(QDragEnterEvent *a_event);
-  void contextMenuEvent(QContextMenuEvent* event);
+  void dragEnterEvent(QDragEnterEvent *a_event) override;
+  void contextMenuEvent(QContextMenuEvent* event) override;
 
 private:
   QList<CustomPlotMapBind> bindList_;
@@ -149,7 +200,6 @@ private:
   // operation
   QCPItemStraightLine* verticalLine;
   QCPItemStraightLine* horizontalLine;
-  QMap<QCPGraph*, QCPItemTextEllipse> coordLabels;
   QCPItemText* coordLabels_X;
   QCPItemText* coordLabels_Y;
 
@@ -174,6 +224,8 @@ public:
 
   void setConfiguration(std::shared_ptr<Configuration> config);
 
+  void setDataSource(const std::shared_ptr<DataSource>& ds);
+
   void updatePlot();
 
   void addCustomPlotLayer();
@@ -182,8 +234,12 @@ public:
 
   void resetSplitterLayout();
 
+  void checkObjectData();
+
 signals:
   void publishNotify(GCW::NotifyType type, const QString& title, const QString& text);
+
+  void dragAccepted();
 
 private:
   void setupSignalConnection();
@@ -196,6 +252,7 @@ private:
 
 private:
   std::shared_ptr<Configuration> config_;
+  std::shared_ptr<DataSource>    dataSource_;
 
   FluMenu menu;
   QPoint menuActivatePos;

@@ -64,11 +64,6 @@
        <height>30</height>
       </size>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>IMU Ellipsoid Fit</string>
      </property>
@@ -180,11 +175,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="1" column="2">
@@ -200,11 +190,6 @@ QGroupBox::title {
                  <width>150</width>
                  <height>50</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
                </property>
               </widget>
              </item>
@@ -238,11 +223,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="2" column="2">
@@ -258,11 +238,6 @@ QGroupBox::title {
                  <width>150</width>
                  <height>50</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
                </property>
               </widget>
              </item>
@@ -280,11 +255,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="2" column="3">
@@ -301,11 +271,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="5" column="2">
@@ -321,11 +286,6 @@ QGroupBox::title {
                  <width>150</width>
                  <height>50</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
                </property>
               </widget>
              </item>
@@ -425,11 +385,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="0" column="2">
@@ -446,11 +401,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="5" column="4">
@@ -466,11 +416,6 @@ QGroupBox::title {
                  <width>150</width>
                  <height>50</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
                </property>
               </widget>
              </item>
@@ -523,11 +468,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="2" column="1">
@@ -565,11 +505,6 @@ QGroupBox::title {
                  <width>150</width>
                  <height>50</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
                </property>
               </widget>
              </item>
@@ -632,11 +567,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="6" column="2" colspan="4">
@@ -668,11 +598,6 @@ QGroupBox::title {
                  <width>150</width>
                  <height>50</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
                </property>
               </widget>
              </item>
@@ -706,11 +631,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="1" column="4">
@@ -726,11 +646,6 @@ QGroupBox::title {
                  <width>150</width>
                  <height>50</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
                </property>
               </widget>
              </item>
@@ -748,11 +663,6 @@ QGroupBox::title {
                  <height>50</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
               </widget>
              </item>
              <item row="1" column="3">
@@ -768,11 +678,6 @@ QGroupBox::title {
                  <width>150</width>
                  <height>50</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
                </property>
               </widget>
              </item>
@@ -944,11 +849,7 @@ QGroupBox::title {
           <height>50</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
+        
        </widget>
       </item>
      </layout>
@@ -1045,11 +946,6 @@ QGroupBox::title {
               <height>50</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <pointsize>14</pointsize>
-             </font>
-            </property>
            </widget>
           </item>
           <item row="0" column="3">
@@ -1066,11 +962,6 @@ QGroupBox::title {
               <height>50</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <pointsize>14</pointsize>
-             </font>
-            </property>
            </widget>
           </item>
           <item row="0" column="1">
@@ -1086,11 +977,6 @@ QGroupBox::title {
               <width>150</width>
               <height>50</height>
              </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>14</pointsize>
-             </font>
             </property>
            </widget>
           </item>
@@ -1137,11 +1023,6 @@ QGroupBox::title {
               <height>50</height>
              </size>
             </property>
-            <property name="font">
-             <font>
-              <pointsize>14</pointsize>
-             </font>
-            </property>
            </widget>
           </item>
           <item row="0" column="4">
@@ -1157,11 +1038,6 @@ QGroupBox::title {
               <width>100</width>
               <height>50</height>
              </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>14</pointsize>
-             </font>
             </property>
            </widget>
           </item>
@@ -1200,11 +1076,6 @@ QGroupBox::title {
               <width>100</width>
               <height>50</height>
              </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>14</pointsize>
-             </font>
             </property>
            </widget>
           </item>

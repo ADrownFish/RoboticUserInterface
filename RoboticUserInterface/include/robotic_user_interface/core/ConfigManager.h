@@ -13,6 +13,7 @@ struct InitialConfiguration {
   QString configDir;
   QString configFile;
   QString pluginName = "DefaultRobot";
+  QString language = "zh_CN";
 };
 
 class ConfigManager {

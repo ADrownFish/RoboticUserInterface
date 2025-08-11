@@ -12,7 +12,7 @@ class SevnceRobot : public RobotBase{
 public:
   SevnceRobot(QObject *parent = nullptr);
 
-  ~SevnceRobot();
+  ~SevnceRobot() override;
 
   void init(int numberOfActuator, int numberOfEndEffector);
 

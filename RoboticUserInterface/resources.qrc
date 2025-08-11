@@ -10,7 +10,7 @@
     <file>svg/arrow-up.svg</file>
     <file>svg/arrow-left.svg</file>
     <file>svg/arrow-right.svg</file>
-	<file>svg/arrow-down2.svg</file>
+	  <file>svg/arrow-down2.svg</file>
     <file>svg/arrow-up2.svg</file>
     <file>svg/arrow-left2.svg</file>
     <file>svg/arrow-right2.svg</file>
@@ -38,9 +38,17 @@
     <file>svg/info2.svg</file>
     <file>svg/debug.svg</file>
     <file>svg/DataStudio.svg</file>    
-	<file>svg/return.svg</file>    
-	<file>svg/string.svg</file>    
-	<file>svg/hex.svg</file>
+    <file>svg/return.svg</file>    
+    <file>svg/string.svg</file>    
+    <file>svg/hex.svg</file>
+    <file>svg/load.svg</file>
+    <file>svg/back.svg</file>
+    <file>svg/Cross.svg</file>
+    <file>svg/legend.svg</file>    
+    <file>svg/disconnect.svg</file>    
+    <file>svg/connect.svg</file>    
+    <file>svg/grid.svg</file>
+	<file>svg/other.svg</file>
   </qresource>
   <qresource prefix="log">
     <file>logo/main.svg</file>

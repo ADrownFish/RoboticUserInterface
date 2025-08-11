@@ -30,7 +30,7 @@ public:
 
 	void setDataAllocator(const QPointer<DataAllocator>& p);
 
-	void appendData(const QByteArray& newData);
+	void setActivate(bool ok);
 
 	QStringList extractCSVHeaders(const QString& filePath, bool hasHeader);
 
@@ -42,8 +42,12 @@ public:
 signals:
 	void publishNotify(GCW::NotifyType type, const QString& title, const QString& text);
 
+	void updateTree(const QString& name);
+
 private:
 	void setupSignalConnection();
+
+	void processData();
 
 private:
 
@@ -57,17 +61,17 @@ private:
 
 	QTimer timer_;
 	QMutex readMutex;
+	QByteArray recviveBuffer_;
 
 	// float
 private:
 
-	void processFloatData(const QByteArray& floatData);
+	void parseFloatData();
 	bool parseFloatPacket(const QByteArray& packet, QVector<float>& result);
-	void dispatchFloatData(const QVector<float>& floatData, scalar_t timestamp);
 
 	// Float字节流解析相关
 	struct {
-		QByteArray frameTail = QByteArray::fromHex("FFFFFFFF");
+		QByteArray frameTail = QByteArray::fromHex("55AAAA55");
 		QByteArray buffer;
 		ObjectNode::Ptr root;
 		const int MAX_FLOAT_COUNT = 200;  // 限制最大float数量
@@ -88,5 +92,5 @@ private:
 	
 	void parseJsonBuffer();
 	void parseJsonObject(const QByteArray& jsonData);
-	void parseJsonValue(const QString& key, const QJsonValue& value, scalar_t timestamp, ObjectNode::Ptr parentNode);
+	void parseJsonValue(const QString& key, const QJsonValue& value, scalar_t timestamp, ObjectNode::Ptr parentNode, bool &hasNew);
 };

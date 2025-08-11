@@ -47,7 +47,6 @@ void RobotBase::init(int numberOfActuator, int numberOfEndEffector){
   configManager_ = std::make_shared<ConfigManager>(configFilePath,config_);
 
   dataSource_ = std::make_shared<DataSource>(numberOfActuator);
-
   observations_ = std::make_unique<ObservationsBase>(numberOfActuator_, numberOfEndEffector_);
   command_ = std::make_unique<CommandBase>();
   
@@ -56,11 +55,10 @@ void RobotBase::init(int numberOfActuator, int numberOfEndEffector){
     displayData();
   });
 
-  QObject::connect(this, &RobotBase::dataReaches, 
-                   this, &RobotBase::readyRead,
-                   Qt::QueuedConnection);
+  QObject::connect(this, &RobotBase::dataReaches, this, &RobotBase::readyRead, Qt::QueuedConnection);
 
   timer_flush.start(config_->display.getDt());
+  dataSource_->topNode()->setTimeWindow(config_->plot.cacheDuration);
 }
 
 void RobotBase::saveConfiguration() const{
@@ -250,15 +248,12 @@ void RobotBase::writeData(const QByteArray& data){
 }
 
 void RobotBase::readData(QByteArray& data){
-  if(recvbuffer_.isEmpty()){
-    return;
-  }
 
   recvMutex_.lock();
-  data = std::move(recvbuffer_);
+  if (!recvbuffer_.isEmpty()) {
+    data = std::move(recvbuffer_);
+  }
   recvMutex_.unlock();
-
-  recvbuffer_.clear();
 }
 
 void RobotBase::setTopWidget(QWidget *topWidget){

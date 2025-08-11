@@ -58,8 +58,8 @@ option(EIGEN_BUILD_DOC "Enable creation of Eigen documentation" OFF)
 option(EIGEN_BUILD_BTL "Build benchmark suite" OFF)
 option(EIGEN_BUILD_PKGCONFIG "Build pkg-config .pc file for Eigen" OFF)
 option(EIGEN_TEST_CXX11 "Enable testing with C++11 and C++11 features (e.g. Tensor module)." OFF)
-option(EIGEN_TEST_NO_EXPLICIT_VECTORIZATION "Disable explicit vectorization in tests/examples" ON)
-option(EIGEN_TEST_NO_EXPLICIT_ALIGNMENT "Disable explicit alignment (hence vectorization) in tests/examples" ON)
+option(EIGEN_TEST_NO_EXPLICIT_VECTORIZATION "Disable explicit vectorization in tests/examples" OFF)
+option(EIGEN_TEST_NO_EXPLICIT_ALIGNMENT "Disable explicit alignment (hence vectorization) in tests/examples" OFF)
 option(EIGEN_TEST_SYCL "Add Sycl support." OFF)
 option(EIGEN_SPLIT_LARGE_TESTS "Split large tests into smaller executables" OFF)
 
@@ -72,6 +72,7 @@ add_subdirectory(libraries/qt_gcw)
 add_subdirectory(libraries/qcustomplot)
 add_subdirectory(libraries/FluentUI)
 add_subdirectory(libraries/taskflow)
+add_subdirectory(libraries/filter)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -80,6 +81,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/libraries/FluentUI
   ${CMAKE_CURRENT_SOURCE_DIR}/libraries/eigen
   ${CMAKE_CURRENT_SOURCE_DIR}/libraries/ellipsoid-fit/include/ellipsoid_fit
+  ${CMAKE_CURRENT_SOURCE_DIR}/libraries/filter/include
 )
 
 # UI 文件
@@ -156,6 +158,7 @@ target_link_libraries(${PROJECT_NAME}
   FluUtils
   ellipsoid-fit
   Taskflow
+  filter
 
   Qt6::Core
   Qt6::Gui

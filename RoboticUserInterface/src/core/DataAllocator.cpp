@@ -35,8 +35,5 @@ void DataAllocator::read(CommunicationConfiguration::CommProtocol protocol, QByt
 }
 
 void DataAllocator::init(){
-
-	QObject::connect(comm_, &Communicator::readyRead, [this]() {
-		this->readyRead();
-	});
+	QObject::connect(comm_, &Communicator::readyRead, this, &DataAllocator::readyRead);
 }
