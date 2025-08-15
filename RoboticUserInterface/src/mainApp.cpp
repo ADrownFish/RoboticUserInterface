@@ -5,8 +5,8 @@
 #include <iostream>
 
 #include "robotic_user_interface/RobotUserInterface.h"
-#include "robotic_user_interface/custom/SevnceRobot.h"
 #include "robotic_user_interface/custom/DefaultRobot.h"
+#include "robotic_user_interface/custom/SevnceRobot.h"
 
 #include "../test/QWidgetPrototypeTester.h"
 
@@ -92,18 +92,17 @@ int main(int argc, char *argv[]){
 #else
   RobotUserInterface w(argc, argv);
 
-  QPointer<RobotBase> robot;
-  // 暂时先没实现插件加载器 TODO
-  {
-    if(initCfg.pluginName == "SevnceRobot"){
-      robot = new sevnce::SevnceRobot();
-      robot->init(12, 4);
-    } else {
-      robot = new robot::DefaultRobot();
-      robot->init(20, 10);
-    }
+  /*********** 加载插件 ***********/
+  QSharedPointer<RobotBase> robot;
+  if(initCfg.pluginName == "SevnceRobot"){
+    robot = QSharedPointer<sevnce::SevnceRobot>::create();
+    robot->init();
+  } else {
+    robot = QSharedPointer<robot::DefaultRobot>::create();
+    robot->init();
   }
-  w.setRobotBase(robot);
+
+  w.setRobotBase(robot.get());
   w.init();
   w.show();
 

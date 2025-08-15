@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QCoreApplication>
+#include <QDirIterator>
 
 #include "robotic_user_interface/core/ConfigManager.h"
 

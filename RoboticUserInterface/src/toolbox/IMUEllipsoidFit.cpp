@@ -10,7 +10,7 @@
 
 #include <FluControls/FluConfirmFlyout.h>
 
-IMUEllipsoidFit::IMUEllipsoidFit(QWidget *parent) : QWidget(parent) {
+IMUEllipsoidFit::IMUEllipsoidFit(QWidget *parent) : PluginBase(parent) {
   ui.setupUi(this);
 }
 
@@ -18,27 +18,15 @@ IMUEllipsoidFit::~IMUEllipsoidFit() {
   container_->deleteLater();
 }
 
-void IMUEllipsoidFit::init() {
-  setupWidgetsControls();
-  setupSignalConnection();
-
-  lastAccel.setZero();
-
-  timer_.setInterval(10);
-}
-
 void IMUEllipsoidFit::setConfiguration(const std::shared_ptr<Configuration> &config) {
   config_ = config;
 }
 
 void IMUEllipsoidFit::setObservations(const std::shared_ptr<ObservationsBase> &obs) {
-  observations_ = obs;
+  obs_ = obs;
 }
 
 void IMUEllipsoidFit::setupSignalConnection() {
-  QObject::connect(ui.back, &QPushButton::clicked, [this](){
-    emit back();
-  });
 
   QObject::connect(&timer_, &QTimer::timeout, this, &IMUEllipsoidFit::cachedData);
   QObject::connect(ui.button_clear, &QPushButton::clicked, this, &IMUEllipsoidFit::clearData);
@@ -97,7 +85,6 @@ void IMUEllipsoidFit::setupSignalConnection() {
 
 void IMUEllipsoidFit::setupWidgetsControls() {
 
-  ui.back->setText(tr("Back"));
   ui.HowToUse->setIcon(QIcon(":/svg/svg/question.svg"));
 
   ui.button_clear->setIcon(QIcon(":/svg/svg/clear.svg"));
@@ -259,15 +246,15 @@ void IMUEllipsoidFit::clearData(){
 }
 
 void IMUEllipsoidFit::cachedData(){
-  ui.lineEdit_linear_acc_x->setText(QString::number(observations_->imu.acceleration[0], 'f', config_->display.precision));
-  ui.lineEdit_linear_acc_y->setText(QString::number(observations_->imu.acceleration[1], 'f', config_->display.precision));
-  ui.lineEdit_linear_acc_z->setText(QString::number(observations_->imu.acceleration[2], 'f', config_->display.precision));
+  ui.lineEdit_linear_acc_x->setText(QString::number(obs_->imu.acceleration[0], 'f', config_->display.precision));
+  ui.lineEdit_linear_acc_y->setText(QString::number(obs_->imu.acceleration[1], 'f', config_->display.precision));
+  ui.lineEdit_linear_acc_z->setText(QString::number(obs_->imu.acceleration[2], 'f', config_->display.precision));
 
   if(ui.toggle->isToggled()){
-    vector3_t data;
-    data[0] = observations_->imu.acceleration[0];
-    data[1] = observations_->imu.acceleration[1];
-    data[2] = observations_->imu.acceleration[2];
+    Eigen::Matrix<scalar_t, 3, 1> data;
+    data[0] = obs_->imu.acceleration[0];
+    data[1] = obs_->imu.acceleration[1];
+    data[2] = obs_->imu.acceleration[2];
 
     if(lastAccel == data){
       return;
@@ -280,6 +267,7 @@ void IMUEllipsoidFit::cachedData(){
 }
 
 void IMUEllipsoidFit::setActivate(bool ok) {
+  activate_ = ok;
   if(ok){
     timer_.start();
   } else {
@@ -287,12 +275,38 @@ void IMUEllipsoidFit::setActivate(bool ok) {
   }
 }
 
+bool IMUEllipsoidFit::initialize(){
+  setupWidgetsControls();
+  setupSignalConnection();
+
+  lastAccel.setZero();
+  timer_.setInterval(10);
+
+  return true;
+}
+
+QIcon IMUEllipsoidFit::pluginIcon() const {
+  return QIcon(":/svg/svg/fit.svg");
+}
+
+QString IMUEllipsoidFit::pluginName() const {
+  return tr("IMU Ellipsoid Fit");
+}
+
+QString IMUEllipsoidFit::pluginVersion() const {
+  return "1.0.0";
+}
+
+QString IMUEllipsoidFit::pluginDescription() const {
+  return tr("Fit the center point of the ellipsoid through the data set.");
+}
+
 void IMUEllipsoidFit::load() {
   QStringList filenames = QFileDialog::getOpenFileNames(
       nullptr, tr("Select CSV Files"), "", "CSV Files (*.csv);;All Files (*)");
 
   if (filenames.isEmpty()) {
-    emit publishNotify(GCW::NotifyType::Warning, tr("No File Selected"),
+    notifyCallback_(NotifyType::Warning, tr("No File Selected"),
                        tr("No file was selected for loading."));
     return;
   }
@@ -301,13 +315,13 @@ void IMUEllipsoidFit::load() {
   QString ay_name = ui.lineEdit_linear_loadName_y->text();
   QString az_name = ui.lineEdit_linear_loadName_z->text();
 
-  std::vector<vector3_t> newAccelData;
+  std::vector<Eigen::Matrix<scalar_t, 3, 1>> newAccelData;
   int totalValidSamples = 0;
 
   for (const QString &filename : filenames) {
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-      emit publishNotify(GCW::NotifyType::Warning, tr("File Open Error"),
+      notifyCallback_(NotifyType::Warning, tr("File Open Error"),
                          QString(tr("Failed to open file: %1")).arg(filename));
       continue;
     }
@@ -333,8 +347,8 @@ void IMUEllipsoidFit::load() {
     }
 
     if (axIdx == -1 || ayIdx == -1 || azIdx == -1) {
-      emit publishNotify(
-          GCW::NotifyType::Warning, tr("Invalid Header"),
+      notifyCallback_(
+          NotifyType::Warning, tr("Invalid Header"),
           QString(tr("File '%1' is missing required columns: %2, %3, %4. Skipped."))
               .arg(filename,ax_name,ay_name,az_name));
       continue;
@@ -351,8 +365,8 @@ void IMUEllipsoidFit::load() {
       QStringList parts =
           line.split(QRegularExpression("[,;\\s]"), Qt::SkipEmptyParts);
       if (parts.size() <= std::max({axIdx, ayIdx, azIdx})) {
-        emit publishNotify(
-            GCW::NotifyType::Warning, tr("Incomplete Line"),
+        notifyCallback_(
+            NotifyType::Warning, tr("Incomplete Line"),
             QString(tr("File '%1', line %2 has insufficient columns. Skipped."))
                 .arg(filename)
                 .arg(lineNum));
@@ -365,8 +379,8 @@ void IMUEllipsoidFit::load() {
       double az = parts[azIdx].toDouble(&okZ);
 
       if (!okX || !okY || !okZ) {
-        emit publishNotify(
-            GCW::NotifyType::Warning, tr("Parse Error"),
+        notifyCallback_(
+            NotifyType::Warning, tr("Parse Error"),
             QString(
                 tr("File '%1', line %2 contains invalid float values. Skipped."))
                 .arg(filename)
@@ -381,8 +395,8 @@ void IMUEllipsoidFit::load() {
   }
 
   if (newAccelData.empty()) {
-    emit publishNotify(
-        GCW::NotifyType::Error, tr("No Valid Data"),
+    notifyCallback_(
+        NotifyType::Error, tr("No Valid Data"),
         tr("No valid IMU acceleration data found in the selected files."));
     return;
   }
@@ -390,8 +404,8 @@ void IMUEllipsoidFit::load() {
   dataVector.insert(dataVector.end(), newAccelData.begin(),
                      newAccelData.end());
 
-  emit publishNotify(
-      GCW::NotifyType::Success, tr("Data Loaded"),
+  notifyCallback_(
+      NotifyType::Success, tr("Data Loaded"),
       QString(
           tr("Successfully loaded %1 accelerometer data samples from %2 files."))
           .arg(newAccelData.size())
@@ -421,8 +435,8 @@ void IMUEllipsoidFit::display3D(){
 void IMUEllipsoidFit::exportData()
 {
     if (dataVector.empty()) {
-        emit publishNotify(
-            GCW::NotifyType::Error,
+        notifyCallback_(
+            NotifyType::Error,
             tr("No Valid Data"),
             tr("There is no data in the cache."));
         return;
@@ -448,8 +462,8 @@ void IMUEllipsoidFit::exportData()
 
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        emit publishNotify(
-            GCW::NotifyType::Error,
+        notifyCallback_(
+            NotifyType::Error,
             tr("File Write Error"),
             tr("Failed to write to the selected file."));
         return;
@@ -467,8 +481,8 @@ void IMUEllipsoidFit::exportData()
     }
 
     file.close();
-    emit publishNotify(
-            GCW::NotifyType::Info,
+    notifyCallback_(
+            NotifyType::Info,
             "Data written",
             fileName);
         return;

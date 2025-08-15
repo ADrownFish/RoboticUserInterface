@@ -155,7 +155,7 @@ public:
 
   void initCustomPlot(QCustomPlot *customPlot);
 
-  void appedObjectData(ObjectData* data, const QString &name);
+  void appedObjectData(ObjectData* data, const QString &name, const QString colorString);
 
   void init();
 
@@ -187,6 +187,8 @@ private:
 
   void setupWidgetsControls();
 
+  void DoubleClickDataPoint(const QPointF &pos);
+
 protected:
   // 重写拖放事件处理函数
   void dropEvent(QDropEvent *event) override;
@@ -197,18 +199,31 @@ private:
   QList<CustomPlotMapBind> bindList_;
   std::shared_ptr<Configuration> config_;
 
-  // operation
+  // 数据追踪器
   QCPItemStraightLine* verticalLine;
   QCPItemStraightLine* horizontalLine;
   QCPItemText* coordLabels_X;
   QCPItemText* coordLabels_Y;
+
+  // 数据对比
+  bool displayDelta = false;
+  QCPItemLine* markLineA;
+  QCPItemLine* markLineB;
+  QCPItemTracer* markTracerA;
+  QCPItemTracer* markTracerB;
+  QList<QPointF> markPoints;
+  QCPItemText *deltaText;
+
+  // 鼠标单击判断
+  QTimer clickTimer;
+  bool clickedFlag = false;
 
   QPoint mousePos;
   bool markLineVertical = false;
   bool markLineHorizontal = false;
   bool isMidMousePressed = false;
 
-  QColor markColor = QColor(255, 80, 80);
+  QColor markColor = QColor(255, 220, 200);
 };
 
 
@@ -228,13 +243,17 @@ public:
 
   void updatePlot();
 
-  void addCustomPlotLayer();
+  CustomPlotLayer* addCustomPlotLayer();
 
-  void delCustomPlotLayer();
+  void delCustomPlotLayer(bool keepOne = true);
 
   void resetSplitterLayout();
 
   void checkObjectData();
+
+  QSplitter* getSplitter();
+
+  QList<CustomPlotLayer*>& getLayerList();
 
 signals:
   void publishNotify(GCW::NotifyType type, const QString& title, const QString& text);

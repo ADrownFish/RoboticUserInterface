@@ -445,7 +445,7 @@ void DataSourceViewer::readyDrag(QList<QTreeWidgetItem *> items) {
     quintptr ptrValue = reinterpret_cast<quintptr>(viewer->data.get());
     objectDataArray.append(static_cast<qint64>(ptrValue));
     objectNames.append(
-        dataSource_->topNode()->findObjectDataPath(viewer->data));
+        dataSource_->topNode()->findPathFromObjectData(viewer->data));
   }
 
   QJsonDocument doc(objectDataArray);
@@ -477,7 +477,7 @@ void DataSourceViewer::flushTreeItem(const QString& nodeName){
     item->setHidden(false);
   }
  
-  node->setrefreshOnce();
+  node->setRefreshOnce();
   publishNotify(GCW::NotifyType::Info, tr("Data loading completed"), tr("Data updated"));
 }
 

@@ -5,10 +5,12 @@
 
 #include "qt_gcw/QSnackbarManager.h"
 #include "qt_gcw/QFlowLayout.h"
+#include "qt_material_widgets/qtmaterialraisedbutton.h"
 
 #include "robotic_user_interface/core/Types.h"
 
-class ToolsBox : public QStackedWidget
+
+class ToolsBox : public QWidget
 {
   Q_OBJECT
     friend class RobotUserInterface;
@@ -34,12 +36,15 @@ private:
   void makeCard();
 
 private:
+  QMap<QString, QWidget*> card_;
+
   std::shared_ptr<Configuration> config_;
 
   std::shared_ptr<ObservationsBase> observations_;
 
   QFlowLayout *layout;
 
+  QStackedWidget *stackwidget;
   QWidget *mainPage;
-
+  QtMaterialRaisedButton* homeButton;
 };

@@ -3,16 +3,27 @@
 #include "robotic_user_interface/toolbox/IMUEllipsoidFit.h"
 
 ToolsBox::ToolsBox(QWidget *parent)
-: QStackedWidget(parent){
+: QWidget(parent){
+
+  homeButton = new QtMaterialRaisedButton();
+  homeButton->setFixedSize(40,30);
+  homeButton->setIcon(QIcon(":/svg/svg/back.svg"));
+  QHBoxLayout* buttonLayout = new QHBoxLayout();
+  buttonLayout->addWidget(homeButton);
+  buttonLayout->addStretch();
+  
+  stackwidget = new QStackedWidget();
+  
+  QVBoxLayout* mainLayout = new QVBoxLayout(this);
+  mainLayout->addLayout(buttonLayout);
+  mainLayout->addWidget(stackwidget);
 
   mainPage = new QWidget();
-  this->addWidget(mainPage);
+  stackwidget->addWidget(mainPage);
 
   layout = new QFlowLayout(mainPage);
   layout->setSpacing(10);
   layout->setContentsMargins(5, 5, 5, 5);
-
-
 }
 
 ToolsBox::~ToolsBox(){
@@ -37,7 +48,9 @@ void ToolsBox::setObservations(std::shared_ptr<ObservationsBase> obs){
 }
 
 void ToolsBox::ToolsBox::setupSignalConnection(){
-
+  QObject::connect(homeButton, &QtMaterialRaisedButton::clicked, [this](){
+    stackwidget->setCurrentWidget(mainPage);
+  });
 }
 
 
@@ -49,38 +62,32 @@ void ToolsBox::makeCard()
 {
   FunctionCard* card = nullptr;
 
-  // Ellipsoid Fitting
-  card = new FunctionCard(QIcon(":/svg/svg/fit.svg"), tr("IMU Ellipsoid Fitting"), tr("Fit the center point of the ellipsoid through the data set"));
-  layout->addWidget(card);
-  IMUEllipsoidFit *ief = new IMUEllipsoidFit(this);
-  ief->setConfiguration(config_);
-  ief->setObservations(observations_);
-  ief->init();
-  this->addWidget(ief);
-  QObject::connect(card, &FunctionCard::clicked, [this,ief](){
-    this->setCurrentWidget(ief);
-    ief->setActivate(true);
-  });
-  QObject::connect(ief, &IMUEllipsoidFit::back, [this,ief](){
-    this->setCurrentWidget(mainPage);
-    ief->setActivate(false);
-  });
-  QObject::connect(ief,     &IMUEllipsoidFit::publishNotify, this, &ToolsBox::publishNotify);
+  auto initWidget = [](PluginBase *plugin,  ToolsBox *this_) -> PluginBase*{
+    plugin->setConfiguration(this_->config_);
+    plugin->setObservations(this_->observations_);
+    plugin->setNotifyCallback([this_](PluginBase::NotifyType type, const QString& title, const QString& text) -> void{
+      this_->publishNotify((GCW::NotifyType)type, title, text);
+    });
+    plugin->initialize();
 
-  card = new FunctionCard(QIcon(":/svg/svg/operation.svg"), tr(""), tr("wait .. "));
-  layout->addWidget(card);
-  QObject::connect(card, &FunctionCard::clicked, [this](){
-    publishNotify(GCW::NotifyType::Info,tr("Wait a minute"),tr("wait wait wait . . ."));
-  });
+    this_->stackwidget->addWidget(plugin);
 
-  // Any more
-  card = new FunctionCard(QIcon(":/svg/svg/dot.svg"), tr("any more ?"), tr("wait .. "));
-  layout->addWidget(card);
-  QObject::connect(card, &FunctionCard::clicked, [this](){
-    publishNotify(GCW::NotifyType::Info,tr("Wait a minute"),tr("wait wait wait . . ."));
-  });
+    FunctionCard *card = new FunctionCard(
+      QIcon(plugin->pluginIcon()),
+      plugin->pluginName(),
+      plugin->pluginDescription()
+    );
+    this_->layout->addWidget(card);    
+
+    QObject::connect(card, &FunctionCard::clicked, [this_,plugin](){
+      this_->stackwidget->setCurrentWidget(plugin);
+      plugin->setActivate(true);
+    });
+
+    return plugin;
+  };
 
 
-
+  PluginBase *plugin = initWidget(new IMUEllipsoidFit(this), this);
 }
 

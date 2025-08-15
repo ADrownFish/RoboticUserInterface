@@ -39,7 +39,7 @@ void CustomPlotLayer::dropEvent(QDropEvent *event) {
     ObjectData *data = reinterpret_cast<ObjectData *>(ptrValue);
     QString name = names[i];
 
-    appedObjectData(data, name);
+    appedObjectData(data, name, "");
   }
   
   event->acceptProposedAction();
@@ -66,12 +66,8 @@ void CustomPlotLayer::updatePlot() {
 
   if (!config_->plot.isPaused) {
     // 给每个数据源更新
-    bool allowScale = false;
     for (size_t i = 0; i < dataSourceCount; i++) {
       auto& bind = bindList_[i];
-
-      // 如果有一个有数据变化，都允许刷新
-      allowScale |= !bind.data->isZeroData();
 
       // 不启用
       bind.graph->setVisible(bind.data->enable);
@@ -116,11 +112,12 @@ void CustomPlotLayer::updatePlot() {
     }
 
     // 自动缩放 y
-    if (updateAxis && config_->plot.yAutoScale && allowScale) {
+    if (updateAxis && config_->plot.yAutoScale) {
       updateAxisY();
     }
   }
 
+  // 设置线形状
   for (size_t i = 0; i < dataSourceCount; i++) {
     // 线形
     auto& bind = bindList_[i];
@@ -141,13 +138,12 @@ void CustomPlotLayer::updatePlot() {
   }
 
   updateLineAndText();
-  // QApplication::processEvents();
-  this->replot();
+  this->replot(QCustomPlot::rpQueuedReplot);
 }
 
 void CustomPlotLayer::updateAxisX(bool replot)
 {
-  xAxis->rescale(true);
+  xAxis->rescale(true, 0.001);
 
   if (replot) {
     this->replot(QCustomPlot::rpQueuedReplot);
@@ -157,7 +153,7 @@ void CustomPlotLayer::updateAxisX(bool replot)
 void CustomPlotLayer::updateAxisY(bool replot)
 {
   yAxis->rescale(true);
-  yAxis->scaleRange(1.1);
+  // yAxis->scaleRange(1.1);
 
   if (replot) {
     this->replot(QCustomPlot::rpQueuedReplot);
@@ -166,9 +162,9 @@ void CustomPlotLayer::updateAxisY(bool replot)
 
 void CustomPlotLayer::updateAxis(bool replot)
 {
-  xAxis->rescale(true);
+  xAxis->rescale(true, 0.001);
   yAxis->rescale(true);
-  yAxis->scaleRange(1.1);
+  // yAxis->scaleRange(1.1);
 
   if (replot) {
     this->replot(QCustomPlot::rpQueuedReplot);
@@ -404,15 +400,11 @@ void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
   // 垂直线（跟随X坐标）
   verticalLine = new QCPItemStraightLine(customPlot);
   verticalLine->setPen(QPen(markColor, 1, Qt::DashLine));  // 红色虚线
-  verticalLine->point1->setCoords(0, 0);  // 起点 (x, y轴下限)
-  verticalLine->point2->setCoords(0, 1);  // 终点 (x, y轴上限)
   verticalLine->setVisible(false);        // 初始隐藏
 
   // 水平线（跟随Y坐标）
   horizontalLine = new QCPItemStraightLine(customPlot);
   horizontalLine->setPen(QPen(markColor, 1, Qt::DashLine));
-  horizontalLine->point1->setCoords(0, 0);  // 起点 (x轴下限, y)
-  horizontalLine->point2->setCoords(1, 0);  // 终点 (x轴上限, y)
   horizontalLine->setVisible(false);
 
   // 坐标标签（显示X,Y值）
@@ -432,9 +424,40 @@ void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
   horizontalLine->setSelectable(false);
   horizontalLine->setLayer("overlay");
 
+  markLineA = new QCPItemLine(customPlot);
+  markLineA->setPen(QPen(markColor, 1, Qt::DashLine));
+  markLineA->setVisible(false);
+
+  markLineB = new QCPItemLine(customPlot);
+  markLineB->setPen(QPen(markColor, 1, Qt::DashLine));
+  markLineB->setVisible(false);
+
+  markLineA->setSelectable(false);  
+  markLineA->setLayer("overlay");
+
+  markLineB->setSelectable(false);
+  markLineB->setLayer("overlay");
+
+  deltaText = new QCPItemText(customPlot);
+  deltaText->setClipToAxisRect(false);  // 允许绘制到轴区域
+  deltaText->setBrush(QBrush(QColor(60, 80, 80)));  // 背景画刷
+  deltaText->setPen(markColor);
+  initItemText(deltaText);
+
+  markTracerA = new QCPItemTracer(this);
+  initItemTracer(markTracerA);
+  markTracerA->setSize(16);
+  markTracerA->setPen(QPen(markColor,2,Qt::SolidLine));
+  
+  markTracerB = new QCPItemTracer(this);
+  initItemTracer(markTracerB);
+  markTracerB->setSize(16);
+  markTracerB->setPen(QPen(markColor,2,Qt::SolidLine));
+
   customPlot->xAxis->setSelectableParts(QCPAxis::spNone);  // 不可点击任何部分
   customPlot->yAxis->setSelectableParts(QCPAxis::spNone);
 
+  clickTimer.setSingleShot(true);
 
   // 鼠标按下事件（中键触发）
   connect(customPlot, &QCustomPlot::mousePress, this, [=](QMouseEvent* event) {
@@ -450,6 +473,12 @@ void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
   connect(customPlot, &QCustomPlot::mouseRelease, this, [=](QMouseEvent* event) {
     if (event->button() == Qt::MiddleButton) {
       isMidMousePressed = false;
+      
+    }
+    if(event->button() == Qt::LeftButton){
+      if(!clickTimer.isActive()){
+        clickTimer.start(500); 
+      }
     }
     });
 
@@ -478,10 +507,97 @@ void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
     }
   });
 
+  connect(customPlot, &QCustomPlot::mouseDoubleClick, this, [this,customPlot](QMouseEvent *event) {
+    clickedFlag = true;
+
+    // 获取鼠标点击的图中坐标
+    QPoint pos = event->pos();
+    DoubleClickDataPoint(pos);
+  });
+
+  clickTimer.callOnTimeout([this]() mutable {
+    if (!clickedFlag) {
+      if (displayDelta) {
+        markLineA->setVisible(false);
+        markLineB->setVisible(false);
+        markTracerA->setVisible(false);
+        markTracerB->setVisible(false);
+        deltaText->setVisible(false);
+      }
+    }
+
+    clickedFlag = false;
+  });
+
   initAxisRect(customPlot->axisRect());
 }
 
-void CustomPlotLayer::appedObjectData(ObjectData* data, const QString& name) {
+void CustomPlotLayer::DoubleClickDataPoint(const QPointF &pos){
+  scalar_t x = this->xAxis->pixelToCoord(pos.x());
+  scalar_t y = this->yAxis->pixelToCoord(pos.y());
+
+  scalar_t nearestValue = std::numeric_limits<scalar_t>::max();
+  QPointF clickedPoint;
+
+  for(auto& bind : bindList_){
+    auto data = bind.graph->data();
+    auto it = data->findBegin(x);
+    if (it != data->constEnd()) {
+      scalar_t value = it->value;
+      scalar_t time = it->key;
+
+      scalar_t dy = qAbs(y - value);
+      if(dy < nearestValue)
+      {
+        nearestValue = dy;
+        clickedPoint.setX(time);
+        clickedPoint.setY(value);
+      }
+    }
+  }
+  
+  markPoints.append(clickedPoint);
+
+  if (markPoints.size() == 2) {
+    auto& p1 = markPoints.first();
+    auto& p3 = markPoints.last();
+
+    // qDebug() << "  p1: " << p1 << "  p3: " << p3;
+
+    QPointF p2(p3.x(), p1.y());
+    if(p1 == p3){
+      return;
+    }
+    scalar_t average = (p1.y() + p3.y()) / 2;
+
+    displayDelta = true;
+    markLineA->setVisible(true);
+    markLineB->setVisible(true);
+    markTracerA->setVisible(true);
+    markTracerB->setVisible(true);
+    deltaText->setVisible(true);
+
+    scalar_t dx = qAbs(p1.x() - p3.x());
+    scalar_t dy = qAbs(p1.y() - p3.y());
+
+    markTracerA->position->setCoords(p1);
+    markTracerB->position->setCoords(p3);
+
+    markLineA->start->setCoords(p1);
+    markLineA->end->setCoords(p2);
+
+    markLineB->start->setCoords(p2);
+    markLineB->end->setCoords(p3);
+
+    deltaText->position->setCoords(p2);
+    deltaText->setText(QString("Δx = %1\nΔy = %2\nx̄ = %3").arg(dx).arg(dy).arg(average));
+
+    markPoints.clear();
+    this->layer("overlay")->replot();
+  }
+}
+
+void CustomPlotLayer::appedObjectData(ObjectData* data, const QString& name, const QString colorString) {
   // 确保没有添加
   for (int i = 0; i < bindList_.size(); i++) {
     if (bindList_[i].data == data) {
@@ -491,7 +607,12 @@ void CustomPlotLayer::appedObjectData(ObjectData* data, const QString& name) {
 
   CustomPlotMapBind bind;
   bind.data = data;
-  bind.color = ColorScheme::getColor(bindList_.size());
+
+  if(colorString.isEmpty()){
+    bind.color = ColorScheme::getColor(bindList_.size());
+  }else {
+    bind.color = QColor::fromString(colorString);
+  }
 
   bind.graph = this->addGraph();
   bind.graph->setName(name);
@@ -561,6 +682,7 @@ void CustomPlotMap::updatePlot() {
 void CustomPlotMap::setupSignalConnection() {
 
   // 主菜单
+  FluAction* ObtPlot_mark = new FluAction(tr("Marking Data Point"));                                 // 标记点
   FluAction* ObtPlot_add = new FluAction(tr("Add Subplot"));                                 // 添加子图
   FluAction* ObtPlot_rm = new FluAction(tr("Remove Subplot"));                            // 删除子图
   FluAction* ObtPlot_edit = new FluAction(tr("Edit Subplot"));                                 // 编辑子图
@@ -590,6 +712,9 @@ void CustomPlotMap::setupSignalConnection() {
   FluMenu* menu_rm_it = new FluMenu();
   menu_rm_it->setTitle(tr("Remove It"));
 
+  
+  menu.addAction(ObtPlot_mark);
+  menu.addSeparator();
   menu.addAction(ObtPlot_add);
   menu.addAction(ObtPlot_rm);
   menu.addAction(ObtPlot_edit);
@@ -602,6 +727,13 @@ void CustomPlotMap::setupSignalConnection() {
   menu.addSeparator();
   menu.addMenu(menu_lineShape);
 
+  connect(ObtPlot_mark, &QAction::triggered, [this](bool ok) {
+    QPoint pos_toggle = splitter->mapFromGlobal(menuActivatePos);
+    CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);
+    if (clickedLayer) {
+      clickedLayer->DoubleClickDataPoint(pos_toggle);
+    }
+  });
   connect(ObtPlot_add, &QAction::triggered, [this](bool ok) {
     addCustomPlotLayer();
   });
@@ -714,8 +846,7 @@ void CustomPlotMap::layerAxisScalingChanged(CustomPlotLayer* p, const QCPRange& 
   }
 }
 
-void CustomPlotMap::addCustomPlotLayer() {
-  // qDebug() << "addCustomPlotLayer() " << QThread::currentThreadId();
+CustomPlotLayer* CustomPlotMap::addCustomPlotLayer() {
 
   CustomPlotLayer* layer = new CustomPlotLayer();
   splitter->addWidget(layer);
@@ -733,6 +864,8 @@ void CustomPlotMap::addCustomPlotLayer() {
 
   // 鼠标移动事件（更新十字线位置）
   connect(layer, &QCustomPlot::mouseMove, [this, layer](QMouseEvent* e) {
+    layer->clickedFlag = true;
+
     QPoint pos = e->pos();
     double x = layer->xAxis->pixelToCoord(pos.x());
     double y = layer->yAxis->pixelToCoord(pos.y());
@@ -750,9 +883,11 @@ void CustomPlotMap::addCustomPlotLayer() {
     
   layerList.append(layer);
   resetSplitterLayout();
+
+  return layer;
 }
 
-void CustomPlotMap::delCustomPlotLayer() {
+void CustomPlotMap::delCustomPlotLayer(bool keepOne) {
   QPoint pos_toggle = splitter->mapFromGlobal(menuActivatePos);
   int customPlotLayerCount = splitter->count();
   CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);
@@ -762,7 +897,7 @@ void CustomPlotMap::delCustomPlotLayer() {
     clickedLayer->deleteLater();
 
     // 最低存留一个
-    if (customPlotLayerCount == 1) {
+    if (keepOne && customPlotLayerCount == 1) {
       addCustomPlotLayer();
     }
   }
@@ -796,4 +931,12 @@ void CustomPlotMap::checkObjectData(){
       }
     }
   }
+}
+
+QSplitter* CustomPlotMap::getSplitter(){
+  return splitter;
+}
+
+QList<CustomPlotLayer*>& CustomPlotMap::getLayerList(){
+  return layerList;
 }

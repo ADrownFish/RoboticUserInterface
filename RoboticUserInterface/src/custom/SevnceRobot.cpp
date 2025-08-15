@@ -1,5 +1,4 @@
 #include "robotic_user_interface/custom/SevnceRobot.h"
-#include "robotic_user_interface/custom/SevnceTypes.h"
 
 #include "ui_SevnceRobot_Ctrl.h"
 #include "ui_SevnceRobot_State.h"
@@ -9,15 +8,14 @@
 #include <QDebug>
 #include <QMessageBox>
 
-
 #include <stdint.h>
 #include <cstdint> 
 #include <string>
 #include <iostream>
 #include <iomanip> 
-#include <sstream> 
+#include <sstream>
 
-#include "robotic_user_interface/custom/SevnceRobot.h"
+
 
 namespace sevnce{
 
@@ -167,7 +165,10 @@ void SevnceRobot::readyRead() {
   }
 }
 
-void SevnceRobot::init(int numberOfActuator, int numberOfEndEffector){
+void SevnceRobot::init(){
+  int numberOfActuator = 12;
+  int numberOfEndEffector = 4;
+  
   RobotBase::init(numberOfActuator, numberOfEndEffector);
 
   setupWidgetsControls();
@@ -435,7 +436,7 @@ void SevnceRobot::setupSignalConnection() {
       break;
     }
     publishNotify(
-        GCW::NotifyType::Info, QString("Command"),
+        NotifyType::Info, QString("Command"),
         QString("Clicked: %1 %2 >> ")
                 .arg(index)
                 .arg(ui_Ctrl.widget_walkGait->getUnitName(index)) +
@@ -452,7 +453,7 @@ void SevnceRobot::setupSignalConnection() {
       break;
     }
     publishNotify(
-        GCW::NotifyType::Info, QString("Command"),
+        NotifyType::Info, QString("Command"),
         QString("Clicked: %1 %2 >> ")
                 .arg(index)
                 .arg(ui_Ctrl.widget_walkMode->getUnitName(index)) +
@@ -504,7 +505,7 @@ void SevnceRobot::switchRobotMode(const QString &str) {
     else if(str == "RL1")  {   sevnceData->cmd.switchCmd = sevnce::high::SwitchCmd::WalkRL1; }
     else if(str == "RL2")  {   sevnceData->cmd.switchCmd = sevnce::high::SwitchCmd::WalkRL2; }
 
-    publishNotify(GCW::NotifyType::Info, tr("Send to the robot"),
+    publishNotify(NotifyType::Info, tr("Send to the robot"),
     tr("robot to: %1 %2").arg((int)sevnceData->cmd.switchCmd).arg(str));
   }
 
@@ -534,7 +535,7 @@ void SevnceRobot::recordData(){
   const auto & bat = observations_->battery;
   const auto & act = observations_->actuator;
 
-  auto& quat_buffer = imu.quat.coeffs();
+  auto& quat_buffer = imu.quat;
 
   QVector<scalar_t> data;
   data 
@@ -609,4 +610,11 @@ void SevnceRobot::setEnabledRecord(bool enabled){
   }
 }
 
+}
+
+
+extern "C" {
+RobotBase *createRobot(QObject* parent) { return new sevnce::SevnceRobot(parent); }
+
+void destroyRobot(RobotBase *robot) { delete robot; }
 }

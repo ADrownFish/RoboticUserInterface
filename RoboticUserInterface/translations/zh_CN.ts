@@ -5,128 +5,94 @@
     <name>ActionCommand</name>
     <message>
         <location filename="../include/form/ActionCommand.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="323"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="323"/>
         <location filename="../build/ui_ActionCommand.h" line="317"/>
         <source>ActionCommand</source>
         <translation type="unfinished">行动指令</translation>
     </message>
     <message>
         <location filename="../include/form/ActionCommand.ui" line="55"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="324"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="324"/>
         <location filename="../build/ui_ActionCommand.h" line="318"/>
         <source>Action Command</source>
         <translation type="unfinished">行动指令</translation>
     </message>
     <message>
         <location filename="../include/form/ActionCommand.ui" line="136"/>
-        <location filename="../include/form/ActionCommand.ui" line="625"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="325"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="339"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="325"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="339"/>
+        <location filename="../include/form/ActionCommand.ui" line="622"/>
         <location filename="../build/ui_ActionCommand.h" line="319"/>
         <location filename="../build/ui_ActionCommand.h" line="333"/>
         <source>Reset</source>
         <translation type="unfinished">重置</translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="172"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="326"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="326"/>
+        <location filename="../include/form/ActionCommand.ui" line="171"/>
         <location filename="../build/ui_ActionCommand.h" line="320"/>
         <source>Input Position</source>
         <translation type="unfinished">输入位置坐标</translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="211"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="327"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="327"/>
+        <location filename="../include/form/ActionCommand.ui" line="209"/>
         <location filename="../build/ui_ActionCommand.h" line="321"/>
         <source>Key Velocity</source>
         <translation type="unfinished">按键速度</translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="244"/>
-        <location filename="../include/form/ActionCommand.ui" line="731"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="328"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="340"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="328"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="340"/>
+        <location filename="../include/form/ActionCommand.ui" line="242"/>
+        <location filename="../include/form/ActionCommand.ui" line="725"/>
         <location filename="../build/ui_ActionCommand.h" line="322"/>
         <location filename="../build/ui_ActionCommand.h" line="334"/>
         <source>Apply</source>
         <translation type="unfinished">应用</translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="334"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="329"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="329"/>
+        <location filename="../include/form/ActionCommand.ui" line="331"/>
         <location filename="../build/ui_ActionCommand.h" line="323"/>
         <source>S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="366"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="330"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="330"/>
+        <location filename="../include/form/ActionCommand.ui" line="363"/>
         <location filename="../build/ui_ActionCommand.h" line="324"/>
         <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="394"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="331"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="331"/>
+        <location filename="../include/form/ActionCommand.ui" line="391"/>
         <location filename="../build/ui_ActionCommand.h" line="325"/>
         <source>D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="422"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="332"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="332"/>
+        <location filename="../include/form/ActionCommand.ui" line="419"/>
         <location filename="../build/ui_ActionCommand.h" line="326"/>
         <source>W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="476"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="333"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="333"/>
+        <location filename="../include/form/ActionCommand.ui" line="473"/>
         <location filename="../build/ui_ActionCommand.h" line="327"/>
         <source>J</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="504"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="334"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="334"/>
+        <location filename="../include/form/ActionCommand.ui" line="501"/>
         <location filename="../build/ui_ActionCommand.h" line="328"/>
         <source>L</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="532"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="335"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="335"/>
+        <location filename="../include/form/ActionCommand.ui" line="529"/>
         <location filename="../build/ui_ActionCommand.h" line="329"/>
         <source>I</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="564"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="336"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="336"/>
+        <location filename="../include/form/ActionCommand.ui" line="561"/>
         <location filename="../build/ui_ActionCommand.h" line="330"/>
         <source>K</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/ActionCommand.ui" line="588"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActionCommand.h" line="337"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActionCommand.h" line="337"/>
+        <location filename="../include/form/ActionCommand.ui" line="585"/>
         <location filename="../build/ui_ActionCommand.h" line="331"/>
         <source>Keyboard
 input speed</source>
@@ -138,8 +104,6 @@ input speed</source>
     <message>
         <location filename="../include/form/Actuator.ui" line="26"/>
         <location filename="../include/form/Actuator.ui" line="55"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Actuator.h" line="128"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Actuator.h" line="129"/>
         <location filename="../build/ui_Actuator.h" line="122"/>
         <location filename="../build/ui_Actuator.h" line="123"/>
         <source>Actuator</source>
@@ -150,16 +114,12 @@ input speed</source>
     <name>ActuatorDisplay</name>
     <message>
         <location filename="../include/form/ActuatorDisplay.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActuatorDisplay.h" line="66"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActuatorDisplay.h" line="66"/>
         <location filename="../build/ui_ActuatorDisplay.h" line="66"/>
         <source>ActuatorDisplay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/ActuatorDisplay.ui" line="50"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ActuatorDisplay.h" line="67"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ActuatorDisplay.h" line="67"/>
         <location filename="../build/ui_ActuatorDisplay.h" line="67"/>
         <source>Actuators</source>
         <translation type="unfinished">执行器</translation>
@@ -211,10 +171,6 @@ input speed</source>
     <message>
         <location filename="../include/form/BMS.ui" line="26"/>
         <location filename="../include/form/BMS.ui" line="55"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_BMS.h" line="146"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_BMS.h" line="147"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_BMS.h" line="146"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_BMS.h" line="147"/>
         <location filename="../build/ui_BMS.h" line="139"/>
         <location filename="../build/ui_BMS.h" line="140"/>
         <source>BMS</source>
@@ -225,87 +181,79 @@ input speed</source>
     <name>CommSelector</name>
     <message>
         <location filename="../include/form/CommSelector.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="405"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="405"/>
-        <location filename="../build/ui_CommSelector.h" line="405"/>
+        <location filename="../build/ui_CommSelector.h" line="477"/>
         <source>CommSelector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="81"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="406"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="406"/>
-        <location filename="../build/ui_CommSelector.h" line="406"/>
+        <location filename="../include/form/CommSelector.ui" line="673"/>
+        <location filename="../build/ui_CommSelector.h" line="485"/>
+        <source>Use the data of the first channel as the time axis</source>
+        <translation type="unfinished">使用第一个通道的数据作为时间轴</translation>
+    </message>
+    <message>
+        <location filename="../include/form/CommSelector.ui" line="703"/>
+        <location filename="../build/ui_CommSelector.h" line="486"/>
+        <source>Specifies the timeline, if any</source>
+        <translation type="unfinished">指定时间线，如果存在</translation>
+    </message>
+    <message>
+        <location filename="../include/form/CommSelector.ui" line="825"/>
+        <location filename="../build/ui_CommSelector.h" line="487"/>
         <source>Protocol</source>
         <translation type="unfinished">协议</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="161"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="407"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="407"/>
-        <location filename="../build/ui_CommSelector.h" line="407"/>
+        <location filename="../include/form/CommSelector.ui" line="65"/>
+        <location filename="../build/ui_CommSelector.h" line="478"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="349"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="408"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="408"/>
-        <location filename="../build/ui_CommSelector.h" line="408"/>
+        <location filename="../include/form/CommSelector.ui" line="250"/>
+        <location filename="../build/ui_CommSelector.h" line="479"/>
         <source>TCP Type</source>
         <translation type="unfinished">TCP 类型</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="491"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="409"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="409"/>
-        <location filename="../build/ui_CommSelector.h" line="409"/>
+        <location filename="../include/form/CommSelector.ui" line="397"/>
+        <location filename="../build/ui_CommSelector.h" line="480"/>
         <source>Coming Soon</source>
         <translation type="unfinished">即将支持</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="597"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="411"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="411"/>
-        <location filename="../build/ui_CommSelector.h" line="411"/>
+        <location filename="../include/form/CommSelector.ui" line="503"/>
+        <location filename="../build/ui_CommSelector.h" line="482"/>
         <source>FlowControl</source>
         <translation>流控</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="658"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="413"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="413"/>
-        <location filename="../build/ui_CommSelector.h" line="413"/>
+        <location filename="../include/form/CommSelector.ui" line="564"/>
+        <location filename="../build/ui_CommSelector.h" line="484"/>
         <source>Parity</source>
         <translation>校验</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="609"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="412"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="412"/>
-        <location filename="../build/ui_CommSelector.h" line="412"/>
+        <location filename="../include/form/CommSelector.ui" line="515"/>
+        <location filename="../build/ui_CommSelector.h" line="483"/>
         <source>DataBits</source>
         <translation>数据位</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="543"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommSelector.h" line="410"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommSelector.h" line="410"/>
-        <location filename="../build/ui_CommSelector.h" line="410"/>
+        <location filename="../include/form/CommSelector.ui" line="449"/>
+        <location filename="../build/ui_CommSelector.h" line="481"/>
         <source>StopBits</source>
         <translation>停止位</translation>
     </message>
     <message>
         <location filename="../src/form/CommSelector.cpp" line="36"/>
-        <location filename="../src/form/CommSelector.cpp" line="91"/>
-        <location filename="../src/form/CommSelector.cpp" line="141"/>
+        <location filename="../src/form/CommSelector.cpp" line="432"/>
         <source>Bluetooth</source>
         <translation type="unfinished">蓝牙</translation>
     </message>
     <message>
         <location filename="../src/form/CommSelector.cpp" line="37"/>
-        <location filename="../src/form/CommSelector.cpp" line="93"/>
-        <location filename="../src/form/CommSelector.cpp" line="144"/>
+        <location filename="../src/form/CommSelector.cpp" line="435"/>
         <source>Serial</source>
         <translation type="unfinished">串口</translation>
     </message>
@@ -321,23 +269,25 @@ input speed</source>
     </message>
     <message>
         <location filename="../src/form/CommSelector.cpp" line="41"/>
+        <location filename="../src/form/CommSelector.cpp" line="451"/>
         <source>Float</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/form/CommSelector.cpp" line="42"/>
+        <location filename="../src/form/CommSelector.cpp" line="455"/>
         <source>Raw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/form/CommSelector.cpp" line="44"/>
-        <location filename="../src/form/CommSelector.cpp" line="118"/>
+        <location filename="../src/form/CommSelector.cpp" line="110"/>
         <source>Client</source>
         <translation type="unfinished">客户端</translation>
     </message>
     <message>
         <location filename="../src/form/CommSelector.cpp" line="45"/>
-        <location filename="../src/form/CommSelector.cpp" line="115"/>
+        <location filename="../src/form/CommSelector.cpp" line="107"/>
         <source>Server</source>
         <translation type="unfinished">服务端</translation>
     </message>
@@ -400,34 +350,34 @@ input speed</source>
         <translation type="unfinished">硬流控</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="125"/>
+        <location filename="../src/form/CommSelector.cpp" line="117"/>
         <source>Communication Configurator</source>
         <translation type="unfinished">通信配置器</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="126"/>
+        <location filename="../src/form/CommSelector.cpp" line="118"/>
         <source>Protocol: Select the method for data parsing.
 Type: Select the communication method to use.
 </source>
         <translation type="unfinished">协议: 选择方法用于协议解析.类型: 选择通信方式.</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="220"/>
-        <location filename="../src/form/CommSelector.cpp" line="235"/>
-        <location filename="../src/form/CommSelector.cpp" line="250"/>
-        <location filename="../src/form/CommSelector.cpp" line="267"/>
-        <location filename="../src/form/CommSelector.cpp" line="282"/>
-        <location filename="../src/form/CommSelector.cpp" line="297"/>
+        <location filename="../src/form/CommSelector.cpp" line="202"/>
+        <location filename="../src/form/CommSelector.cpp" line="217"/>
+        <location filename="../src/form/CommSelector.cpp" line="232"/>
+        <location filename="../src/form/CommSelector.cpp" line="249"/>
+        <location filename="../src/form/CommSelector.cpp" line="264"/>
+        <location filename="../src/form/CommSelector.cpp" line="279"/>
         <source>No History</source>
         <translation type="unfinished">没有历史</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="407"/>
+        <location filename="../src/form/CommSelector.cpp" line="398"/>
         <source>Serial port not detected</source>
         <translation type="unfinished">没有检测到串口</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="418"/>
+        <location filename="../src/form/CommSelector.cpp" line="409"/>
         <source>Unknown device</source>
         <translation type="unfinished">未知设备</translation>
     </message>
@@ -436,20 +386,18 @@ Type: Select the communication method to use.
     <name>CommTerminal</name>
     <message>
         <location filename="../include/form/CommTerminal.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CommTerminal.h" line="133"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CommTerminal.h" line="133"/>
         <location filename="../build/ui_CommTerminal.h" line="133"/>
         <source>Curve</source>
         <translation type="unfinished">曲线</translation>
     </message>
     <message>
-        <location filename="../src/form/CommTerminal.cpp" line="76"/>
-        <location filename="../src/form/CommTerminal.cpp" line="80"/>
+        <location filename="../src/form/CommTerminal.cpp" line="75"/>
+        <location filename="../src/form/CommTerminal.cpp" line="79"/>
         <source>Clear</source>
         <translation type="unfinished">清除</translation>
     </message>
     <message>
-        <location filename="../src/form/CommTerminal.cpp" line="84"/>
+        <location filename="../src/form/CommTerminal.cpp" line="83"/>
         <source>Send</source>
         <translation type="unfinished">发送</translation>
     </message>
@@ -457,45 +405,67 @@ Type: Select the communication method to use.
 <context>
     <name>Communicator</name>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="156"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="152"/>
+        <source>Successfully connected to the server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="157"/>
+        <source>The remote connection is disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="168"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="185"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="219"/>
         <source>An error occurred: </source>
         <translation type="unfinished">有一个错误产生: </translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="253"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="260"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="267"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="274"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="314"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="330"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="340"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="345"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="352"/>
         <source>closed</source>
         <translation type="unfinished">关闭了</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="280"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="357"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="362"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="358"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="454"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="459"/>
         <source>Communicator</source>
         <translation type="unfinished">通讯器</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="280"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="357"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="358"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="454"/>
         <source>Unsupported communication type</source>
         <translation type="unfinished">不支持的通讯类型</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="305"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="383"/>
         <source>started! listen: %1, ip: %2, port: %3</source>
         <translation type="unfinished">已启动! 监听: %1, ip: %2, port: %3</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="321"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="344"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="353"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="412"/>
+        <source>Port monitoring has been started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="419"/>
+        <source>Connecting to server . . .</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="441"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="450"/>
         <source>started</source>
         <translation type="unfinished">已启动</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="362"/>
+        <location filename="../include/robotic_user_interface/core/Communicator.h" line="459"/>
         <source>%1 startup error: %2</source>
         <translation type="unfinished">%1 配置出错: %2</translation>
     </message>
@@ -508,41 +478,31 @@ Type: Select the communication method to use.
     <name>CsvLoadDialog</name>
     <message>
         <location filename="../include/form/CsvLoadDialog.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CsvLoadDialog.h" line="333"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CsvLoadDialog.h" line="333"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="323"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="326"/>
         <source>CsvLoadDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/CsvLoadDialog.ui" line="312"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CsvLoadDialog.h" line="336"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CsvLoadDialog.h" line="336"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="326"/>
+        <location filename="../include/form/CsvLoadDialog.ui" line="315"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="329"/>
         <source>Select the delimiter</source>
         <translation type="unfinished">选择分隔符</translation>
     </message>
     <message>
-        <location filename="../include/form/CsvLoadDialog.ui" line="335"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CsvLoadDialog.h" line="337"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CsvLoadDialog.h" line="337"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="327"/>
+        <location filename="../include/form/CsvLoadDialog.ui" line="337"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="330"/>
         <source>Select X-axis</source>
         <translation type="unfinished">选择 X-轴</translation>
     </message>
     <message>
-        <location filename="../include/form/CsvLoadDialog.ui" line="254"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CsvLoadDialog.h" line="335"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CsvLoadDialog.h" line="335"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="325"/>
+        <location filename="../include/form/CsvLoadDialog.ui" line="258"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="328"/>
         <source>There&apos;s nothing here</source>
         <translation type="unfinished">这里什么也没有</translation>
     </message>
     <message>
-        <location filename="../include/form/CsvLoadDialog.ui" line="63"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_CsvLoadDialog.h" line="334"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_CsvLoadDialog.h" line="334"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="324"/>
+        <location filename="../include/form/CsvLoadDialog.ui" line="67"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="327"/>
         <source>How do you want to load the file?</source>
         <translation type="unfinished">您想如何加载这个文件?</translation>
     </message>
@@ -581,8 +541,6 @@ Type: Select the communication method to use.
     <name>Curve</name>
     <message>
         <location filename="../include/form/Curve.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Curve.h" line="288"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Curve.h" line="288"/>
         <location filename="../build/ui_Curve.h" line="273"/>
         <source>Curve</source>
         <translation type="unfinished">曲线</translation>
@@ -609,12 +567,12 @@ Type: Select the communication method to use.
         <translation type="obsolete">新的画布名称:</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="176"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="178"/>
         <source>Pause</source>
         <translation type="unfinished">暂停</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="175"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="177"/>
         <source>Continue</source>
         <translation type="unfinished">继续</translation>
     </message>
@@ -631,12 +589,12 @@ Type: Select the communication method to use.
         <translation type="obsolete">线和点</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="181"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="184"/>
         <source>Expand</source>
         <translation type="unfinished">展开</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="180"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="183"/>
         <source>Collapse</source>
         <translation type="unfinished">收起</translation>
     </message>
@@ -659,48 +617,104 @@ Type: Select the communication method to use.
         <translation type="unfinished">新图名称:</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="186"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="187"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="189"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="190"/>
         <source>Grid</source>
         <translation type="unfinished">网格</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="192"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="195"/>
         <source>Manual Scaling X</source>
         <translation type="unfinished">手动缩放 X</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="193"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="196"/>
         <source>Auto Scaling X</source>
         <translation type="unfinished">自动缩放 X</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="198"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="201"/>
         <source>Manual Scaling Y</source>
         <translation type="unfinished">手动缩放 Y</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="199"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="202"/>
         <source>Auto Scaling Y</source>
         <translation type="unfinished">自动缩放 Y</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="204"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="205"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="207"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="208"/>
         <source>Legend</source>
         <translation type="unfinished">图例</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="210"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="211"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="213"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="214"/>
         <source>Link</source>
         <translation type="unfinished">链接</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="216"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="217"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="219"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="220"/>
         <source>Data Tracker</source>
         <translation type="unfinished">数据跟踪器</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="317"/>
+        <source>Save Widget Screenshot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="318"/>
+        <source>PNG Image (*.png);;JPEG Image (*.jpg *.jpeg);;Bitmap Image (*.bmp)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="335"/>
+        <source>Warn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="335"/>
+        <source>Failed to save the screenshot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="337"/>
+        <source>Success</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="337"/>
+        <source>Screenshot saved to: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="413"/>
+        <source>Save Data File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="415"/>
+        <source>CSV File (*.csv)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="424"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="427"/>
+        <source>Export</source>
+        <translation type="unfinished">导出</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="424"/>
+        <source>successful:%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="427"/>
+        <source>failed: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add map</source>
@@ -711,7 +725,7 @@ Type: Select the communication method to use.
         <translation type="obsolete">清除数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="223"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="226"/>
         <source>Cache Duration (s)</source>
         <translation type="unfinished">缓存池时间(s)</translation>
     </message>
@@ -720,22 +734,22 @@ Type: Select the communication method to use.
         <translation type="obsolete">清空数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="229"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="232"/>
         <source>Export As Image</source>
         <translation type="unfinished">导出为图像</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="232"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="235"/>
         <source>Export As File</source>
         <translation type="unfinished">导出为文件</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="240"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="243"/>
         <source>Add Map</source>
         <translation type="unfinished">添加图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="263"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="267"/>
         <source>plot map </source>
         <translation type="unfinished">画布 </translation>
     </message>
@@ -743,57 +757,57 @@ Type: Select the communication method to use.
 <context>
     <name>CustomPlotMap</name>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="539"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="564"/>
         <source>Add Subplot</source>
         <translation type="unfinished">添加子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="540"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="565"/>
         <source>Remove Subplot</source>
         <translation type="unfinished">移除子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="541"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="566"/>
         <source>Edit Subplot</source>
         <translation type="unfinished">编辑子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="542"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="567"/>
         <source>Remove All Curves</source>
         <translation type="unfinished">移除所有曲线</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="543"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="568"/>
         <source>Zoom Subplot</source>
         <translation type="unfinished">缩放子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="544"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="569"/>
         <source>Zoom All Subplot</source>
         <translation type="unfinished">缩放所有子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="548"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="573"/>
         <source>Line Shape</source>
         <translation type="unfinished">线型</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="549"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="574"/>
         <source>Line</source>
         <translation type="unfinished">线</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="550"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="575"/>
         <source>Point</source>
         <translation type="unfinished">点</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="551"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="576"/>
         <source>Point &amp; Line</source>
         <translation type="unfinished">点 &amp; 线</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="566"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="591"/>
         <source>Remove It</source>
         <translation type="unfinished">移除它</translation>
     </message>
@@ -814,80 +828,80 @@ Type: Select the communication method to use.
 <context>
     <name>DataSourceViewer</name>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="220"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="218"/>
         <source>ObjectNode Tree</source>
         <translation type="unfinished">对象树</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="220"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="218"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="314"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="321"/>
         <source>Clear all data</source>
         <translation type="unfinished">清空所有数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="319"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="326"/>
         <source>Clear item data</source>
         <translation type="unfinished">清空Item数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="327"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="334"/>
         <source>Remove item</source>
         <translation type="unfinished">移除Item</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="333"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="340"/>
         <source>Reset tree</source>
         <translation type="unfinished">重置对象树</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="341"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="348"/>
         <source>Importing File</source>
         <translation type="unfinished">导入文件</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="346"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="353"/>
         <source>Select File</source>
         <translation type="unfinished">选择文件</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="346"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="353"/>
         <source>CSV files (*.csv);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="467"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="481"/>
         <source>Data loading completed</source>
         <translation type="unfinished">数据加载完成</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="467"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="481"/>
         <source>Data updated</source>
         <translation type="unfinished">数据已更新</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="479"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="498"/>
         <source>Plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="489"/>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="525"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="508"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="548"/>
         <source>Csv</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="499"/>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="536"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="518"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="559"/>
         <source>Json</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="508"/>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="546"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="527"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="569"/>
         <source>Float</source>
         <translation></translation>
     </message>
@@ -895,17 +909,17 @@ Type: Select the communication method to use.
 <context>
     <name>DataSourceViewerTreeWidget</name>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="116"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="114"/>
         <source>Eliminate selection</source>
         <translation type="unfinished">消除选中</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="117"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="115"/>
         <source>Clear item data</source>
         <translation type="unfinished">清空Item数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="118"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="116"/>
         <source>Delete item</source>
         <translation type="unfinished">删除Item</translation>
     </message>
@@ -5513,7 +5527,7 @@ Determinate - shows how much progress has been made on a known amount of work.</
 <context>
     <name>FocusStatus</name>
     <message>
-        <location filename="../src/form/FocusStatus.cpp" line="371"/>
+        <location filename="../src/form/FocusStatus.cpp" line="380"/>
         <source>None</source>
         <translation type="unfinished">无</translation>
     </message>
@@ -5522,16 +5536,12 @@ Determinate - shows how much progress has been made on a known amount of work.</
     <name>Form</name>
     <message>
         <location filename="../include/form/ItemButton.ui" line="14"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ItemButton.h" line="78"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ItemButton.h" line="78"/>
         <location filename="../build/ui_ItemButton.h" line="78"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/ItemButton.ui" line="77"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ItemButton.h" line="79"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ItemButton.h" line="79"/>
         <location filename="../build/ui_ItemButton.h" line="79"/>
         <source>example</source>
         <translation type="unfinished"></translation>
@@ -5541,16 +5551,12 @@ Determinate - shows how much progress has been made on a known amount of work.</
     <name>From</name>
     <message>
         <location filename="../include/form/ItemValue.ui" line="14"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ItemValue.h" line="58"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ItemValue.h" line="58"/>
         <location filename="../build/ui_ItemValue.h" line="58"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/ItemValue.ui" line="47"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_ItemValue.h" line="59"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_ItemValue.h" line="59"/>
         <location filename="../build/ui_ItemValue.h" line="59"/>
         <source>example</source>
         <translation type="unfinished"></translation>
@@ -5560,16 +5566,12 @@ Determinate - shows how much progress has been made on a known amount of work.</
     <name>Host</name>
     <message>
         <location filename="../include/form/Host.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Host.h" line="140"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Host.h" line="140"/>
         <location filename="../build/ui_Host.h" line="133"/>
         <source>Host</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/Host.ui" line="61"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Host.h" line="141"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Host.h" line="141"/>
         <location filename="../build/ui_Host.h" line="134"/>
         <source>System</source>
         <translation type="unfinished"></translation>
@@ -5580,10 +5582,6 @@ Determinate - shows how much progress has been made on a known amount of work.</
     <message>
         <location filename="../include/form/IMU.ui" line="26"/>
         <location filename="../include/form/IMU.ui" line="55"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMU.h" line="184"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMU.h" line="185"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMU.h" line="184"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMU.h" line="185"/>
         <location filename="../build/ui_IMU.h" line="175"/>
         <location filename="../build/ui_IMU.h" line="176"/>
         <source>IMU</source>
@@ -5594,16 +5592,12 @@ Determinate - shows how much progress has been made on a known amount of work.</
     <name>IMUEllipsoidFit</name>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="651"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="651"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="623"/>
         <source>IMUEllipsoidFit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="68"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="652"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="652"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="624"/>
         <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="56"/>
         <source>IMU Ellipsoid Fit</source>
@@ -5611,80 +5605,60 @@ Determinate - shows how much progress has been made on a known amount of work.</
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="101"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="653"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="653"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="625"/>
         <source>Result</source>
         <translation type="unfinished">结果</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="307"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="654"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="654"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="626"/>
         <source>center</source>
         <translation type="unfinished">椭球中心</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="329"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="655"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="655"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="627"/>
         <source>radii</source>
         <translation type="unfinished">椭球半轴长度</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="351"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="656"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="656"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="628"/>
         <source>eval</source>
         <translation type="unfinished">椭球特征值</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="450"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="657"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="657"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="629"/>
         <source>coefficients</source>
         <translation type="unfinished">椭球代数方程系数</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="488"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="658"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="658"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="630"/>
         <source>evec column</source>
         <translation type="unfinished">主轴方向旋转矩阵</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="758"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="659"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="659"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="631"/>
         <source>Operation</source>
         <translation type="unfinished">操作</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="896"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="660"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="660"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="632"/>
         <source>Data Source</source>
         <translation type="unfinished">数据源</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="1005"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="661"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="661"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="633"/>
         <source>Current</source>
         <translation type="unfinished">当前</translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="1059"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_IMUEllipsoidFit.h" line="662"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_IMUEllipsoidFit.h" line="662"/>
         <location filename="../build/ui_IMUEllipsoidFit.h" line="634"/>
         <source>Online caching</source>
         <translation type="unfinished">在线缓存</translation>
@@ -6330,10 +6304,6 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../include/form/Odom.ui" line="26"/>
         <location filename="../include/form/Odom.ui" line="67"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Odom.h" line="150"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Odom.h" line="151"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Odom.h" line="150"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Odom.h" line="151"/>
         <location filename="../build/ui_Odom.h" line="144"/>
         <location filename="../build/ui_Odom.h" line="145"/>
         <source>Odom</source>
@@ -10591,16 +10561,12 @@ Do you want to save your changes?</source>
     <name>RemoteSession</name>
     <message>
         <location filename="../include/form/RemoteSession.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RemoteSession.h" line="82"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RemoteSession.h" line="82"/>
         <location filename="../build/ui_RemoteSession.h" line="82"/>
         <source>RemoteSession</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/RemoteSession.ui" line="75"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RemoteSession.h" line="83"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RemoteSession.h" line="83"/>
         <location filename="../build/ui_RemoteSession.h" line="83"/>
         <source>Please add a session in the tree on the left</source>
         <translation type="unfinished"></translation>
@@ -10610,16 +10576,12 @@ Do you want to save your changes?</source>
     <name>RemoteSessionDialog</name>
     <message>
         <location filename="../include/form/RemoteSessionDialog.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RemoteSessionDialog.h" line="135"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RemoteSessionDialog.h" line="135"/>
         <location filename="../build/ui_RemoteSessionDialog.h" line="135"/>
         <source>RemoteSessionDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/RemoteSessionDialog.ui" line="50"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RemoteSessionDialog.h" line="136"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RemoteSessionDialog.h" line="136"/>
         <location filename="../build/ui_RemoteSessionDialog.h" line="136"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -10636,16 +10598,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>RemoteSessionHostEdit</name>
     <message>
         <location filename="../include/form/RemoteSessionHostEdit.ui" line="29"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RemoteSessionHostEdit.h" line="129"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RemoteSessionHostEdit.h" line="129"/>
         <location filename="../build/ui_RemoteSessionHostEdit.h" line="129"/>
         <source>RemoteSessionHostEdit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/RemoteSessionHostEdit.ui" line="216"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RemoteSessionHostEdit.h" line="130"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RemoteSessionHostEdit.h" line="130"/>
         <location filename="../build/ui_RemoteSessionHostEdit.h" line="130"/>
         <source>Edit Remote Session</source>
         <translation type="unfinished"></translation>
@@ -10655,16 +10613,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>RemoteSessionLog</name>
     <message>
         <location filename="../include/form/RemoteSessionLog.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RemoteSessionLog.h" line="135"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RemoteSessionLog.h" line="135"/>
         <location filename="../build/ui_RemoteSessionLog.h" line="135"/>
         <source>RemoteSessionLog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/RemoteSessionLog.ui" line="50"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RemoteSessionLog.h" line="136"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RemoteSessionLog.h" line="136"/>
         <location filename="../build/ui_RemoteSessionLog.h" line="136"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -10681,15 +10635,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>RobotUserInterface</name>
     <message>
         <location filename="../include/form/RobotUserInterface.ui" line="20"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_RobotUserInterface.h" line="255"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_RobotUserInterface.h" line="255"/>
-        <location filename="../build/ui_RobotUserInterface.h" line="255"/>
+        <location filename="../build/ui_RobotUserInterface.h" line="263"/>
         <source>RobotUserInterface</source>
         <translation type="unfinished">机器人用户交互界面</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="20"/>
-        <location filename="../src/RobotUserInterface.cpp" line="23"/>
+        <location filename="../src/RobotUserInterface.cpp" line="15"/>
+        <location filename="../src/RobotUserInterface.cpp" line="18"/>
         <source>Robot User Interface</source>
         <translation type="unfinished">机器人用户交互界面</translation>
     </message>
@@ -10698,59 +10650,74 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="obsolete">配置已更新</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="144"/>
+        <location filename="../src/RobotUserInterface.cpp" line="145"/>
         <source>Operation</source>
         <translation type="unfinished">操作</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="151"/>
+        <location filename="../src/RobotUserInterface.cpp" line="152"/>
         <source>Info</source>
         <translation type="unfinished">信息</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="159"/>
+        <location filename="../src/RobotUserInterface.cpp" line="160"/>
         <source>Curve</source>
         <translation type="unfinished">曲线</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="166"/>
+        <location filename="../src/RobotUserInterface.cpp" line="167"/>
         <source>Terminal</source>
         <translation type="unfinished">通信终端</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="398"/>
+        <location filename="../src/RobotUserInterface.cpp" line="408"/>
         <source>Attention</source>
         <translation type="unfinished">注意</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="399"/>
+        <location filename="../src/RobotUserInterface.cpp" line="409"/>
         <source>The communication terminal can only send and receive data when the communication protocol is [Raw].</source>
         <translation type="unfinished">通讯终端只有当通讯协议为[Raw]时才能发送和接收数据.</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="173"/>
+        <location filename="../src/RobotUserInterface.cpp" line="174"/>
         <source>Tools</source>
         <translation type="unfinished">工具</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="80"/>
+        <location filename="../src/RobotUserInterface.cpp" line="75"/>
         <source>configuration has been updated, Some settings require a reboot to take effect.</source>
         <translation type="unfinished">配置已更新, 某些设置需要重启生效.</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="180"/>
-        <location filename="../src/RobotUserInterface.cpp" line="200"/>
+        <location filename="../src/RobotUserInterface.cpp" line="110"/>
+        <source>Apply</source>
+        <translation type="unfinished">应用</translation>
+    </message>
+    <message>
+        <location filename="../src/RobotUserInterface.cpp" line="111"/>
+        <source>Reset</source>
+        <translation type="unfinished">重置</translation>
+    </message>
+    <message>
+        <location filename="../src/RobotUserInterface.cpp" line="112"/>
+        <source>Restart</source>
+        <translation type="unfinished">重启</translation>
+    </message>
+    <message>
+        <location filename="../src/RobotUserInterface.cpp" line="181"/>
+        <location filename="../src/RobotUserInterface.cpp" line="201"/>
         <source>Comm</source>
         <translation type="unfinished">通讯</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="80"/>
-        <location filename="../src/RobotUserInterface.cpp" line="187"/>
+        <location filename="../src/RobotUserInterface.cpp" line="75"/>
+        <location filename="../src/RobotUserInterface.cpp" line="188"/>
         <source>Settings</source>
         <translation type="unfinished">设置</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="227"/>
+        <location filename="../src/RobotUserInterface.cpp" line="228"/>
         <source>Record</source>
         <translation type="unfinished">录制</translation>
     </message>
@@ -10759,175 +10726,149 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>SettingsDisplay</name>
     <message>
         <location filename="../include/form/Settings.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="305"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="305"/>
         <location filename="../build/ui_Settings.h" line="285"/>
         <source>SettingsDisplay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="203"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="310"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="310"/>
         <location filename="../build/ui_Settings.h" line="290"/>
         <source>numerical precision</source>
         <translation type="unfinished">数字精度</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="270"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="312"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="312"/>
         <location filename="../build/ui_Settings.h" line="292"/>
         <source>Application</source>
         <translation type="unfinished">应用内</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="412"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="315"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="315"/>
         <location filename="../build/ui_Settings.h" line="295"/>
         <source>plugin name</source>
         <translation type="unfinished">插件名称</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="435"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="316"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="316"/>
         <location filename="../build/ui_Settings.h" line="296"/>
         <source>app name</source>
         <translation type="unfinished">软件名称</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="458"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="317"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="317"/>
         <location filename="../build/ui_Settings.h" line="297"/>
         <source>font point size</source>
         <translation type="unfinished">字体点大小</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="481"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="318"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="318"/>
         <location filename="../build/ui_Settings.h" line="298"/>
         <source>anti-aliasing</source>
         <translation type="unfinished">抗锯齿</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="359"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="314"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="314"/>
         <location filename="../build/ui_Settings.h" line="294"/>
         <source>font</source>
         <translation type="unfinished">字体</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="257"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="311"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="311"/>
         <location filename="../build/ui_Settings.h" line="291"/>
         <source>Refresh frame rate</source>
         <translation type="unfinished">刷新率</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="73"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="306"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="306"/>
         <location filename="../build/ui_Settings.h" line="286"/>
         <source>Other</source>
         <translation type="unfinished">其它</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="168"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="309"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="309"/>
         <location filename="../build/ui_Settings.h" line="289"/>
         <source>angleuUnit</source>
         <translation type="unfinished">角度单位</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="288"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="313"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="313"/>
         <location filename="../build/ui_Settings.h" line="293"/>
         <source>language</source>
         <translation type="unfinished">语言</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="134"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_Settings.h" line="308"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_Settings.h" line="308"/>
         <location filename="../build/ui_Settings.h" line="288"/>
         <source>Display</source>
         <translation type="unfinished">显示部分</translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="45"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="56"/>
         <source>Deg</source>
         <translation type="unfinished">度</translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="46"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="57"/>
         <source>Rad</source>
         <translation type="unfinished">弧度</translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="49"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="60"/>
         <source>Chinese</source>
         <translation type="unfinished">中文</translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="53"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="64"/>
         <source>NotoSansSC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="56"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="67"/>
         <source>8</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="57"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="68"/>
         <source>9</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="58"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="69"/>
         <source>10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="59"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="70"/>
         <source>11</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="60"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="71"/>
         <source>12</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="61"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="72"/>
         <source>13</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="62"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="73"/>
         <source>14</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="63"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="74"/>
         <source>15</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="66"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="77"/>
         <source>False</source>
         <translation type="unfinished">否</translation>
     </message>
     <message>
-        <location filename="../src/form/SettingsDisplay.cpp" line="67"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="78"/>
         <source>True</source>
         <translation type="unfinished">是</translation>
     </message>
@@ -10936,72 +10877,54 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>SevnceRobot_Ctrl</name>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="204"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="204"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="194"/>
         <source>SevnceRobot_Ctrl</source>
         <translation type="unfinished">七腾机器人 控制卡片</translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="73"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="205"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="205"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="195"/>
         <source>Robot - Control</source>
         <translation type="unfinished">七腾机器人 控制卡片</translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="150"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="206"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="206"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="196"/>
         <source>锁定地形</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="172"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="207"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="207"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="197"/>
         <source>机器人模式</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="194"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="208"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="208"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="198"/>
         <source>行走模式</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="233"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="209"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="209"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="199"/>
         <source>行走步态</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="255"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="210"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="210"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="200"/>
         <source>感知</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="311"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="211"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="211"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="201"/>
         <source>持续行走</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_Ctrl.ui" line="350"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_Ctrl.h" line="212"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_Ctrl.h" line="212"/>
         <location filename="../build/ui_SevnceRobot_Ctrl.h" line="202"/>
         <source>接管控制权</source>
         <translation type="unfinished"></translation>
@@ -11011,64 +10934,48 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>SevnceRobot_State</name>
     <message>
         <location filename="../include/form/SevnceRobot_State.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_State.h" line="208"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_State.h" line="208"/>
         <location filename="../build/ui_SevnceRobot_State.h" line="199"/>
         <source>SevnceRobot_State</source>
         <translation type="unfinished">七腾机器人 状态卡片</translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_State.ui" line="72"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_State.h" line="209"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_State.h" line="209"/>
         <location filename="../build/ui_SevnceRobot_State.h" line="200"/>
         <source>Robot - State</source>
         <translation type="unfinished">七腾机器人 状态卡片</translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_State.ui" line="115"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_State.h" line="210"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_State.h" line="210"/>
         <location filename="../build/ui_SevnceRobot_State.h" line="201"/>
         <source>站立</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_State.ui" line="154"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_State.h" line="211"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_State.h" line="211"/>
         <location filename="../build/ui_SevnceRobot_State.h" line="202"/>
         <source>机体高度</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_State.ui" line="293"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_State.h" line="212"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_State.h" line="212"/>
         <location filename="../build/ui_SevnceRobot_State.h" line="203"/>
         <source>控制模式</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_State.ui" line="315"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_State.h" line="213"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_State.h" line="213"/>
         <location filename="../build/ui_SevnceRobot_State.h" line="204"/>
         <source>抬腿高度</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_State.ui" line="354"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_State.h" line="214"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_State.h" line="214"/>
         <location filename="../build/ui_SevnceRobot_State.h" line="205"/>
         <source>告警状态</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/SevnceRobot_State.ui" line="373"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_SevnceRobot_State.h" line="215"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_SevnceRobot_State.h" line="215"/>
         <location filename="../build/ui_SevnceRobot_State.h" line="206"/>
         <source>状态切换</source>
         <translation type="unfinished"></translation>
@@ -11144,24 +11051,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>TopStatus</name>
     <message>
         <location filename="../include/form/TopStatus.ui" line="26"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_TopStatus.h" line="101"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_TopStatus.h" line="101"/>
         <location filename="../build/ui_TopStatus.h" line="101"/>
         <source>TopStatus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/TopStatus.ui" line="94"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_TopStatus.h" line="102"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_TopStatus.h" line="102"/>
         <location filename="../build/ui_TopStatus.h" line="102"/>
         <source>Com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/TopStatus.ui" line="129"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_TopStatus.h" line="103"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_TopStatus.h" line="103"/>
         <location filename="../build/ui_TopStatus.h" line="103"/>
         <source>Record</source>
         <translation type="unfinished">录制</translation>
@@ -11170,777 +11071,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>UserInterface</name>
     <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3114"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3114"/>
         <source>Robot User Interface</source>
-        <translation type="unfinished">机器人用户交互界面</translation>
+        <translation type="obsolete">机器人用户交互界面</translation>
     </message>
     <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3115"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3115"/>
-        <source>ADrownFish    a.drownfish@qq.com</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3116"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3204"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3116"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3204"/>
-        <source>IMU</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3117"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3139"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3156"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3158"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3174"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3177"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3117"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3139"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3156"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3158"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3174"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3177"/>
-        <source>x</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3118"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3130"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3153"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3154"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3167"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3169"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3118"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3130"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3153"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3154"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3167"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3169"/>
-        <source>z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3120"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3120"/>
-        <source>gyro</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3121"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3125"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3128"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3152"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3160"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3175"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3176"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3121"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3125"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3128"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3152"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3160"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3175"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3176"/>
-        <source>y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3122"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3122"/>
-        <source>p</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3123"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3123"/>
-        <source>r</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3124"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3124"/>
-        <source>accel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3127"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3127"/>
-        <source>rpy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3137"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3137"/>
-        <source>timestamp</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3140"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3214"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3140"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3214"/>
-        <source>System</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3142"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3142"/>
-        <source>CPU temp 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3143"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3143"/>
-        <source>CPU</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3144"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3144"/>
-        <source>Disk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3145"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3145"/>
-        <source>CPU temp 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3146"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3146"/>
-        <source>Mem</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3151"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3202"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3151"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3202"/>
-        <source>Odom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3155"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3162"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3155"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3162"/>
-        <source>Velocity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3164"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3178"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3164"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3178"/>
-        <source>Position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3165"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3172"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3173"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3165"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3172"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3173"/>
-        <source>0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3170"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3179"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3170"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3179"/>
-        <source>0.5</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3171"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3171"/>
-        <source>0.25</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3180"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3180"/>
-        <source>Stete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3181"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3181"/>
-        <source>Command</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3182"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3182"/>
-        <source>⇩ S</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3183"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3183"/>
-        <source>⇦ A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3184"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3184"/>
-        <source>D ⇨</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3185"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3185"/>
-        <source>⇧ W</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3186"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3186"/>
-        <source>平移</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3187"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3187"/>
-        <source>⇦ J</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3188"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3188"/>
-        <source>L ⇨</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3189"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3189"/>
-        <source>旋转</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3190"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3190"/>
-        <source>⇧ I</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3191"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3191"/>
-        <source>⇩ K</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3192"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3192"/>
-        <source>键盘按键控制
-速度命令</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3194"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3194"/>
-        <source>Base</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3195"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3196"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3195"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3196"/>
-        <source>监听 port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3197"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3197"/>
-        <source>数据转发</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3198"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3198"/>
-        <source>26666</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3199"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3199"/>
-        <source>Joint Temp</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3200"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3209"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3200"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3209"/>
-        <source>机器人 port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3201"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3208"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3201"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3208"/>
-        <source>127.0.0.1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3203"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3205"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3203"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3205"/>
-        <source>机器人 IP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3206"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3301"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3206"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3301"/>
-        <source>Joint Position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3207"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3235"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3207"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3235"/>
-        <source>BMS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3210"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3210"/>
-        <source>显示面板</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3211"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3351"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3211"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3351"/>
-        <source>Joint Torque</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3212"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3212"/>
-        <source>26667</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3213"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3220"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3213"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3220"/>
-        <source>Robot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3215"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3215"/>
-        <source>连接机器人</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3216"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3216"/>
-        <source>26668</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3217"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3217"/>
-        <source>Joint Velocity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3218"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3218"/>
-        <source>25555</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3219"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3219"/>
-        <source>Joint Driver Temp</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3221"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3221"/>
-        <source>锁定地形</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3222"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3222"/>
-        <source>感知</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3223"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3223"/>
-        <source>持续行走</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3224"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3224"/>
-        <source>机体高度</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3225"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3225"/>
-        <source>控制模式</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3226"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3226"/>
-        <source>行走步态</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3227"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3227"/>
-        <source>告警状态</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3228"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3228"/>
-        <source>站立</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3229"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3229"/>
-        <source>行走模式</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3230"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3230"/>
-        <source>状态切换</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3231"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3231"/>
-        <source>抬腿高度</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3232"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3232"/>
-        <source>机器人模式</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3239"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3239"/>
-        <source>soc</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3241"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3241"/>
-        <source>状态</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3242"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3242"/>
-        <source>voltage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3243"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3243"/>
-        <source>cycel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3244"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3244"/>
-        <source>temp</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3246"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3246"/>
-        <source>current</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3248"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3248"/>
-        <source>Power</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3250"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3250"/>
-        <source>Joint</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3251"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3251"/>
-        <source>Joint Temperature</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3256"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3281"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3310"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3328"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3369"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3256"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3281"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3310"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3328"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3369"/>
-        <source>Joint 5</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3257"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3282"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3308"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3339"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3364"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3257"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3282"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3308"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3339"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3364"/>
-        <source>Joint 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3258"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3283"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3302"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3330"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3353"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3258"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3283"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3302"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3330"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3353"/>
-        <source>Joint 0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3260"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3285"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3321"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3341"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3375"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3260"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3285"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3321"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3341"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3375"/>
-        <source>Joint 4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3261"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3286"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3317"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3349"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3359"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3261"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3286"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3317"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3349"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3359"/>
-        <source>Joint 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3262"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3287"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3304"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3344"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3373"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3262"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3287"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3304"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3344"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3373"/>
-        <source>Joint 3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3264"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3289"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3312"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3342"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3370"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3264"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3289"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3312"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3342"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3370"/>
-        <source>Joint 6</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3266"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3291"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3306"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3340"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3371"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3266"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3291"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3306"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3340"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3371"/>
-        <source>Joint 7</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3268"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3293"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3318"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3345"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3361"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3268"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3293"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3318"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3345"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3361"/>
-        <source>Joint 8</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3270"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3295"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3305"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3350"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3355"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3270"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3295"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3305"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3350"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3355"/>
-        <source>Joint 9</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3272"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3297"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3324"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3338"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3366"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3272"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3297"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3324"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3338"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3366"/>
-        <source>Joint 10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3274"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3299"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3307"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3348"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3365"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3274"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3299"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3307"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3348"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3365"/>
-        <source>Joint 11</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3276"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3276"/>
-        <source>Joint Driver Temperature</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3326"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3326"/>
-        <source>Joint Vel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3376"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3376"/>
-        <source>Settings and Input</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3377"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3377"/>
-        <source>角度单位</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3378"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3378"/>
-        <source>显示小数位数</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3379"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3379"/>
         <source>Apply</source>
-        <translation type="unfinished">应用</translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3380"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3380"/>
-        <source>2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3381"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3381"/>
-        <source>10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3382"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3382"/>
-        <source>界面 刷新率 FPS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3383"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3383"/>
-        <source>View</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3384"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3384"/>
-        <source>暂停</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3385"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3385"/>
-        <source>Robot Visualization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_UserInterface.h" line="3386"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_UserInterface.h" line="3386"/>
-        <source>xx</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">应用</translation>
     </message>
 </context>
 <context>
@@ -11963,72 +11099,54 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>display</name>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="14"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="106"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="106"/>
         <location filename="../build/ui_DataItemDisplay.h" line="106"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="53"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="107"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="107"/>
         <location filename="../build/ui_DataItemDisplay.h" line="107"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="95"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="109"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="109"/>
         <location filename="../build/ui_DataItemDisplay.h" line="109"/>
         <source>Index</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="100"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="111"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="111"/>
         <location filename="../build/ui_DataItemDisplay.h" line="111"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="105"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="113"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="113"/>
         <location filename="../build/ui_DataItemDisplay.h" line="113"/>
         <source>Motor Temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="110"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="115"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="115"/>
         <location filename="../build/ui_DataItemDisplay.h" line="115"/>
         <source>Driver Temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="115"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="117"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="117"/>
         <location filename="../build/ui_DataItemDisplay.h" line="117"/>
         <source>Joint Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="120"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="119"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="119"/>
         <location filename="../build/ui_DataItemDisplay.h" line="119"/>
         <source>Joint Velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/DataItemDisplay.ui" line="125"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Debug/ui_DataItemDisplay.h" line="121"/>
-        <location filename="../build/Desktop_Qt_6_9_0_Static-Release/ui_DataItemDisplay.h" line="121"/>
         <location filename="../build/ui_DataItemDisplay.h" line="121"/>
         <source>Joint Torque</source>
         <translation type="unfinished"></translation>

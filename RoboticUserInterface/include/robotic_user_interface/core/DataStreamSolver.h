@@ -5,11 +5,11 @@
 
 #include "robotic_user_interface/core/Types.h"
 #include "robotic_user_interface/core/DataAllocator.h"
+#include "robotic_user_interface/core/DataSource.h"
 
 #include <QTimer>
 #include <QMutex>
 
-#include "robotic_user_interface/core/DataSource.h"
 
 class DataStreamSolver : public QWWindowWidget {
 

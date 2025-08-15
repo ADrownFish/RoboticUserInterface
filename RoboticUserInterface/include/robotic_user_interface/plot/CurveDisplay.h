@@ -41,7 +41,7 @@ private:
 
   void setupWidgetsControls();
 
-  void appendCustomPlot();
+  CustomPlotMap* appendCustomPlot(const QString& name);
 
   void clearAllDataSource();
 
@@ -58,6 +58,10 @@ private:
   void exportDataImage();
 
   void exportDataFile();
+
+  void SaveLayout();
+  
+  void loadLayout();
 
 private:
   Ui::Curve ui;

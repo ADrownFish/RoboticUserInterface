@@ -1,8 +1,8 @@
 #pragma once
 
-#include "taskflow/taskflow/taskflow.hpp"
+// #include "taskflow/taskflow/taskflow.hpp"
 
-#include "Eigen/Dense"
+// #include "Eigen/Dense"
 
 #include <memory>
 #include <vector>
@@ -20,16 +20,16 @@
 
 // ****************************************************************
 using scalar_t = double;
-// using quaternion     = std::array<scalar_t, 4>;
-using quaternion     = Eigen::Quaternion<scalar_t>;
+using quaternion     = std::array<scalar_t, 4>;
+// using quaternion     = Eigen::Quaternion<scalar_t>;
 
 using vector_t       = std::vector<scalar_t>;
 using vector_bool_t  = std::vector<bool>;
-// using vector3_t      = std::array<scalar_t, 3>;
+using vector3_t      = std::array<scalar_t, 3>;
 
 // using vector_t       = Eigen::Matrix<scalar_t, -1, 1>;
 // using vector_bool_t  = std::vector<bool>;
-using vector3_t      = Eigen::Matrix<scalar_t, 3, 1>;
+// using vector3_t      = Eigen::Matrix<scalar_t, 3, 1>;
 
 // using matrix_t      = Eigen::Matrix<scalar_t, -1, -1>;
 // using matrix3_t      = Eigen::Matrix<scalar_t, 3, 3>;
@@ -427,16 +427,16 @@ public:
 //运行中的全局暂存配置，不保存到配置文件
 class Runtime {
 public:
-  struct Worker{
-    Worker(int num_threads = 4)
-    : executor(num_threads){
-    }
-    tf::Executor executor;  // 固定4个线程
-    tf::Taskflow taskflow;
-  };
+  // struct Worker{
+  //   Worker(int num_threads = 4)
+  //   : executor(num_threads){
+  //   }
+  //   tf::Executor executor;  // 固定4个线程
+  //   tf::Taskflow taskflow;
+  // };
 
-  scalar_t currentPlotFrameRate;
-  std::shared_ptr<Worker> worker;
+  // scalar_t currentPlotFrameRate;
+  // std::shared_ptr<Worker> worker;
   
 };
 

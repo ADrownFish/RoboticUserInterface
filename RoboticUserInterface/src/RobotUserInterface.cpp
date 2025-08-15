@@ -63,10 +63,13 @@ void RobotUserInterface::keyReleaseEvent(QKeyEvent *event) {
 void RobotUserInterface::setupSignalConnection() {
 
   // 消息传递
+  QObject::connect(robotBase_,    &RobotBase::publishNotify, this, [this](RobotBase::NotifyType type,const QString &title, const QString& text){
+    this->publishNotify(static_cast<GCW::NotifyType>(type),title,text);
+  });
+
   QObject::connect(commSelector_, &CommSelector::publishNotify, this, &RobotUserInterface::publishNotify);
   QObject::connect(communicator_, &Communicator::publishNotify, this, &RobotUserInterface::publishNotify);
   QObject::connect(topStatus_,    &FocusStatus::publishNotify, this,    &RobotUserInterface::publishNotify);
-  QObject::connect(robotBase_,    &RobotBase::publishNotify, this,    &RobotUserInterface::publishNotify);
   QObject::connect(curveDisplay_, &CurveDisplay::publishNotify, this, &RobotUserInterface::publishNotify);
   QObject::connect(toolsBox_,     &ToolsBox::publishNotify, this, &RobotUserInterface::publishNotify);
 
@@ -79,6 +82,10 @@ void RobotUserInterface::setupSignalConnection() {
   });
   QObject::connect(ui.widget_settings_reset, &QPushButton::clicked, [this](){
     settingsDisplay_->pushParameters();
+  });
+  QObject::connect(ui.widget_settings_restart, &QPushButton::clicked, [this](){
+    robotBase_->saveConfiguration();
+    QCoreApplication::exit(666);
   });
 
   QObject::connect(commSelector_, &CommSelector::ok, this, [this]() {
@@ -104,10 +111,12 @@ void RobotUserInterface::setupWidgetsControls() {
   makeNav();
 
   QColor onColor = QColor(83, 109, 145);
-  ui.widget_settings_apply->setText("Apply");
-  ui.widget_settings_reset->setText("Reset");
+  ui.widget_settings_apply->setText(tr("Apply"));
+  ui.widget_settings_reset->setText(tr("Reset"));
+  ui.widget_settings_restart->setText(tr("Restart"));
   ui.widget_settings_apply->setBackgroundColor(onColor);
   ui.widget_settings_reset->setBackgroundColor(onColor);
+  ui.widget_settings_restart->setBackgroundColor(onColor);
 
   auto &pageName = config_->app.pageName;
   if(pageName == "Operation"){
@@ -210,21 +219,21 @@ void RobotUserInterface::makeNav(){
 		});
   navView_->addItemToTop(switcher);
 
-  QObject::connect(communicator_, &Communicator::CommStatusChanged, this, [this, toggle](bool ok) {
-    toggle->setToggle(ok);
-    topStatus_->setCommStatus(ok);
-    robotBase_->commStatusChanged(ok);
-  }, Qt::ConnectionType::QueuedConnection);
+  // QObject::connect(communicator_, &Communicator::CommStatusChanged, this, [this, toggle](bool ok) {
+  //   toggle->setToggle(ok);
+  //   topStatus_->setCommStatus(ok);
+  //   robotBase_->commStatusChanged(ok);
+  // }, Qt::ConnectionType::QueuedConnection);
 
-  // recording
-  switcher = new NavigationSwitcher();
-  toggle = switcher->getSwitcher();
-  toggle->setToggle(false);
-  switcher->setText(tr("Record"));
-  navView_->addItemToTop(switcher);
-  QObject::connect(toggle, &QWSwitcher::toggled, [this](bool ok) {
-    robotBase_->setEnabledRecord(ok);
-  });
+  // // recording
+  // switcher = new NavigationSwitcher();
+  // toggle = switcher->getSwitcher();
+  // toggle->setToggle(false);
+  // switcher->setText(tr("Record"));
+  // navView_->addItemToTop(switcher);
+  // QObject::connect(toggle, &QWSwitcher::toggled, [this](bool ok) {
+  //   robotBase_->setEnabledRecord(ok);
+  // });
 }
 
 void RobotUserInterface::shutdown()
@@ -242,7 +251,7 @@ void RobotUserInterface::setRobotBase(RobotBase *robotBase){
 void RobotUserInterface::init(){
 
   config_ = robotBase_->configuration();
-  config_->runtime.worker = std::make_shared<Runtime::Worker>(config_->app.maxWorkerThread);
+  // config_->runtime.worker = std::make_shared<Runtime::Worker>(config_->app.maxWorkerThread);
 
   // communicator
   communicator_ = new Communicator(this);

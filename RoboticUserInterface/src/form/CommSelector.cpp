@@ -134,14 +134,14 @@ void CommSelector::setupSignalConnection(){
       460800, 500000, 576000, 921600, 1000000, 1152000
   };
 
-  menu_baudRate  = new FluMenu(this);
-  menu_serialPort  = new FluMenu(this);
-  menu_udp_ip      = new FluMenu(this);
-  menu_udp_listen = new FluMenu(this);
-  menu_udp_port  = new FluMenu(this);
-  menu_tcp_ip       = new FluMenu(this);
-  menu_tcp_listen = new FluMenu(this);
-  menu_tcp_port = new FluMenu(this);
+  menu_baudRate   = new FluMenu();
+  menu_serialPort = new FluMenu();
+  menu_udp_ip     = new FluMenu();
+  menu_udp_listen = new FluMenu();
+  menu_udp_port   = new FluMenu();
+  menu_tcp_ip     = new FluMenu();
+  menu_tcp_listen = new FluMenu();
+  menu_tcp_port   = new FluMenu();
 
   for (int baud : baudrates) {
     FluAction* action = new FluAction(QString::number(baud));
@@ -151,14 +151,14 @@ void CommSelector::setupSignalConnection(){
       });
   }
 
-  QWDropWidget *drop_baudRate = new QWDropWidget();
+  QWDropWidget *drop_baudRate   = new QWDropWidget();
   QWDropWidget* drop_serialPort = new QWDropWidget();
 
   QWDropWidget* drop_udp_ip     = new QWDropWidget();
   QWDropWidget* drop_udp_listen = new QWDropWidget();
-  QWDropWidget* drop_udp_port  = new QWDropWidget();
+  QWDropWidget* drop_udp_port   = new QWDropWidget();
 
-  QWDropWidget* drop_tcp_ip       = new QWDropWidget();
+  QWDropWidget* drop_tcp_ip     = new QWDropWidget();
   QWDropWidget* drop_tcp_listen = new QWDropWidget();
   QWDropWidget* drop_tcp_port   = new QWDropWidget();
 

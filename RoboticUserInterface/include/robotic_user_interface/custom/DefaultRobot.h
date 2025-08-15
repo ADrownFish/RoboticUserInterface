@@ -28,7 +28,7 @@ public:
 
   ~DefaultRobot() override;
 
-  void init(int numberOfActuator, int numberOfEndEffector);
+  void init() override;
 
   /****************  virtual  ****************/
   QList<QWidget *> createCustomInfoWidgets() override;
@@ -41,8 +41,6 @@ public:
 
   void flushConfiguration() override;
 
-  void setEnabledRecord(bool enabled) override;
-  
   void commStatusChanged(bool enable) override;
 
 protected:

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "PluginBase.h"
+
+#include "Eigen/Dense"
+
 #include <QPointer>
 #include <QWidget>
 #include <QSplitter>
@@ -13,14 +17,13 @@
 class Q3DScatter;
 class QScatterDataProxy;
 
-class IMUEllipsoidFit : public QWidget {
+class IMUEllipsoidFit : public PluginBase {
 
   Q_OBJECT
 public:
   IMUEllipsoidFit(QWidget *parent = nullptr);
+  
   ~IMUEllipsoidFit();
-
-  void init();
 
   void setConfiguration(const std::shared_ptr<Configuration>& config);
 
@@ -28,9 +31,15 @@ public:
 
   void setActivate(bool ok);
 
-signals:
-  void publishNotify(GCW::NotifyType type, const QString &title, const QString &text);
-  void back();
+  bool initialize();
+
+  QIcon pluginIcon() const override;
+
+  QString pluginName() const override;
+
+  QString pluginVersion() const override;
+
+  QString pluginDescription() const override;
 
 private:
   void setupSignalConnection();
@@ -52,12 +61,9 @@ private:
 private:
   Ui::IMUEllipsoidFit ui;
 
-  std::shared_ptr<Configuration> config_;
-  std::shared_ptr<ObservationsBase> observations_;
-
   QTimer timer_;
-  std::vector<vector3_t> dataVector;
-  vector3_t lastAccel;
+  std::vector<Eigen::Matrix<scalar_t, 3, 1>> dataVector;
+  Eigen::Matrix<scalar_t, 3, 1> lastAccel;
 
   Q3DScatter *scatter_;
   QScatterDataProxy *proxy_;

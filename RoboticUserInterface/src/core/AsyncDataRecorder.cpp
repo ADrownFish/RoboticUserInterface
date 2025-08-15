@@ -56,7 +56,8 @@ bool AsyncDataRecorder::insertMultipleRecords(const recordData *records,
                                               int size) {
     QFile file(_filePath);
     if (!file.open(QIODevice::WriteOnly  | QIODevice::Append | QIODevice::Text)) {
-      publishNotify(GCW::Warning, "AsyncDataRecorder" ,QString("File open: ") + file.errorString());
+      // publishNotify(GCW::Warning, "AsyncDataRecorder" ,QString("File open: ") + file.errorString());
+      qDebug() << "[AsyncDataRecorder] File open:" << file.errorString();
       return false;
     }
  
@@ -76,7 +77,8 @@ bool AsyncDataRecorder::insertMultipleRecords(const recordData *records,
             stream << "\n";
         }
     } catch (const std::exception& e) {
-      publishNotify(GCW::Warning, "AsyncDataRecorder" ,QString("File write: ") + e.what());
+      // publishNotify(GCW::Warning, "AsyncDataRecorder" ,QString("File write: ") + e.what());
+      qDebug() << "[AsyncDataRecorder] File write:" << e.what();
       file.close(); 
       return false;
     }
@@ -111,7 +113,8 @@ void AsyncDataRecorder::setBufferSize(uint32_t bufferSize) {
 void AsyncDataRecorder::init(int bufferSize,
                              const QStringList &columns) {
   if (_init) {
-    publishNotify(GCW::Warning, "AsyncDataRecorder" ,"Already initialized");
+    // publishNotify(GCW::Warning, "AsyncDataRecorder" ,"Already initialized");
+    qDebug() << "[AsyncDataRecorder] Already initialized";
     return;
   }
   // 重置缓冲区
@@ -133,12 +136,14 @@ void AsyncDataRecorder::init(int bufferSize,
 }
 void AsyncDataRecorder::submitRecord(const QVector<scalar_t> &data) {
   if (!_init) {
-    publishNotify(GCW::Warning, "AsyncDataRecorder" ,"You must first call init() to initialize .");
+    // publishNotify(GCW::Warning, "AsyncDataRecorder" ,"You must first call init() to initialize .");
+    qDebug() << "[AsyncDataRecorder] You must first call init() to initialize .";
     return;
   }
 
   if (data.size() != _tableLength) {
-    publishNotify(GCW::Warning, "AsyncDataRecorder" ,"The number of elements and header is inconsistent.");
+    // publishNotify(GCW::Warning, "AsyncDataRecorder" ,"The number of elements and header is inconsistent.");
+    qDebug() << "[AsyncDataRecorder] The number of elements and header is inconsistent.";
   }
 
   auto &_new_data = _dataBuffer[_currentChannelIndex].at(
@@ -189,7 +194,8 @@ void AsyncDataRecorder::wakeUpObjThread() {
 bool AsyncDataRecorder::createTable(const QStringList &columns) {
     QFile file(_filePath);
     if (!file.open(QIODevice::WriteOnly  | QIODevice::Text)) {
-      publishNotify(GCW::Warning, "AsyncDataRecorder" ,QString("create file error: ") + file.errorString());
+      // publishNotify(GCW::Warning, "AsyncDataRecorder" ,QString("create file error: ") + file.errorString());
+      qDebug() << "[AsyncDataRecorder] create file error: " << file.errorString();
       return false;
     }
  
@@ -211,7 +217,8 @@ bool AsyncDataRecorder::createTable(const QStringList &columns) {
         _tableLength = static_cast<int>(columns.size())  + 1; // timestamp计入列数 
         
     } catch (const std::exception& e) {
-      publishNotify(GCW::Warning, "AsyncDataRecorder" ,QString("create tab header error: ") + e.what());
+      // publishNotify(GCW::Warning, "AsyncDataRecorder" ,QString("create tab header error: ") + e.what());
+      qDebug() << "[AsyncDataRecorder] create tab header error: " << e.what();
       file.close(); 
       return false;
     }

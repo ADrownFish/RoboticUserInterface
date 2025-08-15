@@ -37,7 +37,10 @@ QStringList DefaultRobot::getActuators() {
     << "Joint 9" << "Joint 10" << "Joint 11"
     << "Joint 12" << "Joint 13" << "Joint 14"
     << "Joint 15" << "Joint 16" << "Joint 17"
-    << "Joint 18" << "Joint 19";
+    << "Joint 18" << "Joint 19" << "Joint 20"
+    << "Joint 21" << "Joint 22" << "Joint 23"
+    << "Joint 24" << "Joint 25" << "Joint 26"
+    << "Joint 27" << "Joint 28" << "Joint 29";
 
   return list; 
 }
@@ -72,12 +75,14 @@ void DefaultRobot::readyRead() {
   }
 }
 
-void DefaultRobot::init(int numberOfActuator, int numberOfEndEffector){
+void DefaultRobot::init(){
+  int numberOfActuator = 30;
+  int numberOfEndEffector = 4;
+  
   RobotBase::init(numberOfActuator, numberOfEndEffector);
 
   setupWidgetsControls();
   setupSignalConnection();
-
 }
 
 void DefaultRobot::unpackData(const Data &data) {
@@ -313,10 +318,6 @@ void DefaultRobot::flushConfiguration(){
 
 }
 
-void DefaultRobot::setEnabledRecord(bool enabled) {
-
-
-}
 void DefaultRobot::commStatusChanged(bool status) {
 
 

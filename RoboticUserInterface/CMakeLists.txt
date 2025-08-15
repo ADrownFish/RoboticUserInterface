@@ -8,11 +8,11 @@ project(robotic_user_interface  VERSION 1.0.0)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-# set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
+
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_Fortran_COMPILER FALSE CACHE FILEPATH "Disable Fortran")
+
 set(CMAKE_AUTOMOC ON)
-# set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
@@ -28,6 +28,7 @@ configure_file(
     "${CMAKE_CURRENT_BINARY_DIR}/BuildInfo.h"
 )
 
+# find_package(realsense2 REQUIRED)
 
 find_package(Qt6 REQUIRED COMPONENTS
   Core
@@ -45,6 +46,8 @@ find_package(Qt6 REQUIRED COMPONENTS
   Concurrent
 )
 
+# find_package(OpenGL REQUIRED)
+
 ###########
 ## Build ##
 ###########
@@ -53,17 +56,22 @@ find_package(Qt6 REQUIRED COMPONENTS
 # 在原有CMakeLists.txt中添加/修改以下选项
 
 # 禁用测试
-option(BUILD_TESTING "Enable creation of Eigen tests." OFF)
-option(EIGEN_BUILD_DOC "Enable creation of Eigen documentation" OFF)
-option(EIGEN_BUILD_BTL "Build benchmark suite" OFF)
-option(EIGEN_BUILD_PKGCONFIG "Build pkg-config .pc file for Eigen" OFF)
-option(EIGEN_TEST_CXX11 "Enable testing with C++11 and C++11 features (e.g. Tensor module)." OFF)
-option(EIGEN_TEST_NO_EXPLICIT_VECTORIZATION "Disable explicit vectorization in tests/examples" OFF)
-option(EIGEN_TEST_NO_EXPLICIT_ALIGNMENT "Disable explicit alignment (hence vectorization) in tests/examples" OFF)
-option(EIGEN_TEST_SYCL "Add Sycl support." OFF)
-option(EIGEN_SPLIT_LARGE_TESTS "Split large tests into smaller executables" OFF)
+# option(BUILD_TESTING "Enable creation of Eigen tests." OFF)
+# option(EIGEN_BUILD_DOC "Enable creation of Eigen documentation" OFF)
+# option(EIGEN_BUILD_BTL "Build benchmark suite" OFF)
+# option(EIGEN_BUILD_PKGCONFIG "Build pkg-config .pc file for Eigen" OFF)
+# option(EIGEN_TEST_CXX11 "Enable testing with C++11 and C++11 features (e.g. Tensor module)." OFF)
+# option(EIGEN_TEST_NO_EXPLICIT_VECTORIZATION "Disable explicit vectorization in tests/examples" OFF)
+# option(EIGEN_TEST_NO_EXPLICIT_ALIGNMENT "Disable explicit alignment (hence vectorization) in tests/examples" OFF)
+# option(EIGEN_TEST_SYCL "Add Sycl support." OFF)
+# option(EIGEN_SPLIT_LARGE_TESTS "Split large tests into smaller executables" OFF)
 
-add_subdirectory(libraries/eigen)
+
+set(BUILD_GRAPHICAL_EXAMPLES OFF CACHE BOOL "")
+set(BUILD_GLSL_EXTENSIONS OFF CACHE BOOL "")
+set(BUILD_TOOLS OFF CACHE BOOL "")
+
+# add_subdirectory(libraries/eigen)
 add_subdirectory(libraries/ellipsoid-fit)
 # add_subdirectory(libraries/QSsh)
 add_subdirectory(libraries/qwool)
@@ -73,6 +81,7 @@ add_subdirectory(libraries/qcustomplot)
 add_subdirectory(libraries/FluentUI)
 add_subdirectory(libraries/taskflow)
 add_subdirectory(libraries/filter)
+
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -159,6 +168,7 @@ target_link_libraries(${PROJECT_NAME}
   ellipsoid-fit
   Taskflow
   filter
+  # realsense2::realsense2
 
   Qt6::Core
   Qt6::Gui

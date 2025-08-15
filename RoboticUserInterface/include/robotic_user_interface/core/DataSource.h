@@ -17,7 +17,7 @@ public:
 	using Ptr = std::shared_ptr<ObjectData>;
 	enum DataType {
 		Dynamic,    // 动态数据，不断新增的
-		Static,         // 静态数据，数据量不变
+		Static,     // 静态数据，数据量不变
 	};
 
 public:
@@ -26,17 +26,16 @@ public:
 	
 	QString name;
 
-	DataType type = DataType::Dynamic;
 	bool enable = true;
 	bool refreshOnceFlag = false;
+	DataType type = DataType::Dynamic;
 	scalar_t timeWindow = 10.0;
 
-private:
-	bool zeroData = true;
-	bool commonValue = false;
-
-
 public:
+	explicit ObjectData(){
+		name = "No Name";
+	}
+
 	ObjectData(const QString &dataName){
 		name = dataName;
 	}
@@ -51,14 +50,9 @@ public:
 			}
 		}
 
-		// 如果数据是重复的，则更改标志位，防止后续axis缩放问题 TODO
 		time.append(time_);
 		data.append(data_);
 
-		// 如果传进来的值 不为0，避免绘图出现缩放问题
-		if (zeroData && data_ != 0.0) {
-			zeroData = false;
-		}
 		if (type == ObjectData::Static) {
 			return;
 		}
@@ -74,18 +68,9 @@ public:
 		timeWindow = time;
 	}
 
-	bool isZeroData() const {
-		return zeroData;
-	}
-
-	bool isCommonValue() const {
-		return commonValue;
-	}
-
 	void clear() {
 		time.clear();
 		data.clear();
-		zeroData = true;
 	}
 };
 
@@ -138,7 +123,7 @@ public:
 		return nullptr;
 	}
 
-	QString findObjectDataPath(const ObjectData::Ptr od) const {
+	QString findPathFromObjectData(const ObjectData::Ptr& od) const {
 		QString path;
 		if (this->id != 0) {
 			path = this->name + "/";
@@ -150,7 +135,7 @@ public:
 		}
 
 		for (auto& d : children) {
-			QString result = d->findObjectDataPath(od);
+			QString result = d->findPathFromObjectData(od);
 			if (!result.isEmpty()) {
 				return path + result;
 			}
@@ -159,7 +144,90 @@ public:
 		return QString();
 	}
 
-	bool exists(const ObjectData::Ptr od) const {
+	QString findPathFromObjectData(const ObjectData* od) const {
+		QString path;
+		if (this->id != 0) {
+			path = this->name + "/";
+		}
+		for (auto& d : data) {
+			if (d.get() == od) {
+				return path + d->name;
+			}
+		}
+
+		for (auto& d : children) {
+			QString result = d->findPathFromObjectData(od);
+			if (!result.isEmpty()) {
+				return path + result;
+			}
+		}
+
+		return QString();
+	}
+
+	/**
+     * @brief 查找或创建对象数据
+     * @param path 数据路径，如 "robot/imu/acc/x"
+     * @param createIfNotExist 如果为true，路径不存在时自动创建
+     * @return 找到或创建的对象数据指针，找不到返回nullptr
+     */
+  ObjectData::Ptr findObjectDataFromPath(const QString &path,
+                                         bool createIfNotExist = false) {
+    QStringList parts = path.split('/', Qt::SkipEmptyParts);
+    if (parts.isEmpty()) {
+      return nullptr;
+    }
+
+    ObjectNode *currentNode = this; // 从当前节点开始
+
+    // 遍历路径中的节点部分（除最后一部分）
+    for (int i = 0; i < parts.size() - 1; ++i) {
+      const QString &part = parts[i];
+      bool found = false;
+
+      // 在当前节点的子节点中查找
+      for (const auto &child : currentNode->children) {
+        if (child->name == part) {
+          currentNode = child.get();
+          found = true;
+          break;
+        }
+      }
+
+      // 没找到且需要创建
+      if (!found) {
+        if (createIfNotExist) {
+          auto newNode = std::make_shared<ObjectNode>(part);
+          newNode->name = part;
+          newNode->id = i;
+          currentNode->children.push_back(newNode);
+          currentNode = newNode.get();
+        } else {
+          return nullptr;
+        }
+      }
+    }
+
+    // 查找最后一部分的数据
+    const QString &dataName = parts.last();
+    for (const auto &data : currentNode->data) {
+      if (data->name == dataName) {
+        return data;
+      }
+    }
+
+    // 没找到且要创建
+    if (createIfNotExist) {
+      auto newData = std::make_shared<ObjectData>();
+      newData->name = dataName;
+      currentNode->data.push_back(newData);
+      return newData;
+    }
+
+    return nullptr;
+  }
+
+  bool exists(const ObjectData::Ptr od) const {
 		if(data.contains(od)){
 			return true;
 		}
@@ -199,12 +267,12 @@ public:
     }
 	}
 
-	void setrefreshOnce() {
+	void setRefreshOnce() {
 		for (auto& d : data) {
 			d->refreshOnceFlag = true;
 		}
 		for (auto& d : children) {
-			d->setrefreshOnce();
+			d->setRefreshOnce();
 		}
 	}
 

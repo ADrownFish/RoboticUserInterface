@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Types.h"
-#include "Communicator.h"
 
 #include <QByteArray>
 #include <QPointer>
+
+class Communicator;
 
 class DataAllocator :public QObject{
   Q_OBJECT

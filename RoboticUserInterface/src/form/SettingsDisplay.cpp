@@ -31,7 +31,18 @@ void SettingsDisplay::setConfiguration(std::shared_ptr<Configuration> config){
 
 
 void SettingsDisplay::SettingsDisplay::setupSignalConnection(){
-
+  connect(ui.lineEdit_farmRate, &QLineEdit::editingFinished, this, [=]() {
+      int value = ui.lineEdit_farmRate->text().toInt();
+      if (value < 1) value = 1;
+      if (value > 60) value = 60;
+      ui.lineEdit_farmRate->setText(QString::number(value));
+  });
+  connect(ui.lineEdit_precision, &QLineEdit::editingFinished, this, [=]() {
+      int value = ui.lineEdit_precision->text().toInt();
+      if (value < 1) value = 1;
+      if (value > 6) value = 6;
+      ui.lineEdit_precision->setText(QString::number(value));
+  });
 }
 
 
@@ -72,6 +83,11 @@ void SettingsDisplay::setupWidgetsControls(){
   ui.textEdit->setOpenExternalLinks(true);      // 启用外部超链接
   ui.textEdit->setTextInteractionFlags(Qt::TextBrowserInteraction);
   ui.textEdit->setHtml(BuildInfo::getBriefInfo());  // 设置HTML内容
+
+  ui.lineEdit_farmRate->setValidator(new QIntValidator(1, 60, this));
+  ui.lineEdit_precision->setValidator(new QIntValidator(1, 6, this));
+
+  ui.lineEdit_pluginName->setReadOnly(true);
 
   QWDropWidget *drop_plugin = new QWDropWidget();
   drop_plugin->setDropIcon(QIcon(":/svg/svg/arrow-right2.svg"));

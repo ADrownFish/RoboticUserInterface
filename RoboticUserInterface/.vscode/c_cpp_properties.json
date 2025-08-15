@@ -14,7 +14,8 @@
                 "${workspaceFolder}/build/Desktop_Qt_6_9_0_Static-Release",
                 "${workspaceFolder}/libraries",
                 "/home/adf/Qt/6.9.0/qt6.9.0-static/include/QtWidgets",
-                "${workspaceFolder}/libraries/filter/include"
+                "${workspaceFolder}/libraries/filter/include",
+                "${workspaceFolder}/build"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

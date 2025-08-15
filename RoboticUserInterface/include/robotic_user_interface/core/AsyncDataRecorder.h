@@ -5,9 +5,6 @@
 #include <condition_variable>
 
 #include <QObject>
-
-#include "../../../libraries/qt_gcw/QSnackbarManager.h"
-
 namespace robot
 {
   class AsyncDataRecorder : public QObject {
@@ -89,9 +86,6 @@ namespace robot
 
     // 提交一条数据记录
     void submitRecord(const QVector<scalar_t> &data);
-
-  signals:
-    void publishNotify(GCW::NotifyType type,const QString &title, const QString& text);
 
   private:
     void objThreadFun();

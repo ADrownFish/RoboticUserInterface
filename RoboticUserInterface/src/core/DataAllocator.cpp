@@ -1,4 +1,5 @@
 #include "robotic_user_interface/core/DataAllocator.h"
+#include "robotic_user_interface/core/Communicator.h"
 
 DataAllocator::DataAllocator(QObject* parent) 
 	: QObject(parent)

@@ -2,6 +2,9 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QDate>
+#include <QPluginLoader>
+
+#include <dlfcn.h>
 
 #include "FluControls/FluMessageBox.h"
 
@@ -162,7 +165,7 @@ void RobotBase::updateDataSource(scalar_t time) {
   // 获取观测值
   auto& obs_imu = observations_->imu;
 
-  auto& quat_buffer = obs_imu.quat.coeffs();
+  auto& quat_buffer = obs_imu.quat;
 
   // 直接使用缓存的节点引用进行数据追加
   quat_w->appendData(time, quat_buffer[3]);
@@ -259,4 +262,3 @@ void RobotBase::readData(QByteArray& data){
 void RobotBase::setTopWidget(QWidget *topWidget){
   topWidget_ = topWidget;
 }
-

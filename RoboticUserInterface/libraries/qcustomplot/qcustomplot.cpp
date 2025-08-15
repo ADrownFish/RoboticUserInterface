@@ -9216,7 +9216,7 @@ void QCPAxis::setScaleRatio(const QCPAxis *otherAxis, double ratio)
   
   \see QCPAbstractPlottable::rescaleAxes, QCustomPlot::rescaleAxes
 */
-void QCPAxis::rescale(bool onlyVisiblePlottables)
+void QCPAxis::rescale(bool onlyVisiblePlottables, double marginRatio)
 {
   QCPRange newRange;
   bool haveRange = false;
@@ -9257,6 +9257,24 @@ void QCPAxis::rescale(bool onlyVisiblePlottables)
         newRange.upper = center*qSqrt(mRange.upper/mRange.lower);
       }
     }
+
+    // new from adrownfish
+    if (newRange.lower == mRange.lower && newRange.upper == mRange.upper) {
+      return; // The data has not changed, exit directly
+    }
+
+    if (marginRatio > 0) {
+      double margin = newRange.size() * marginRatio;
+      newRange.lower -= margin;
+      newRange.upper += margin;
+
+      // In logarithmic coordinates, ensure that the boundary values are valid (avoid <= 0)
+      if (mScaleType == stLogarithmic) {
+        if (newRange.lower <= 0)
+          newRange.lower = newRange.upper * 1e-3; // Set to a small positive value
+      }
+    }
+
     setRange(newRange);
   }
 }

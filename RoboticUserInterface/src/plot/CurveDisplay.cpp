@@ -15,7 +15,7 @@ void CurveDisplay::init() {
   flushTimer_.start(1000 / config_->plot.plotFlushRate);
 
   // 最少一个画布
-  appendCustomPlot();
+  appendCustomPlot("");
 }
 
 void CurveDisplay::setActivate(bool ok) {
@@ -122,7 +122,7 @@ void CurveDisplay::setupSignalConnection() {
     ptr->deleteLater();
 
     if (tabCount <= 1) {
-      appendCustomPlot();
+      appendCustomPlot("");
     }
    });
   QObject::connect(ui.tabWidget_curve, &QTabWidget::currentChanged, [this](int index) {
@@ -135,24 +135,6 @@ void CurveDisplay::setupSignalConnection() {
 }
 
 void CurveDisplay::setupWidgetsControls() {
-    QString css = "QMenu{"
-  "background:rgba(255,255,255,1);"
-  "border:none;"
-  "}"
-  "QMenu::item{"
-  "padding:11px 10px;"
-  "color:rgba(51,51,51,1);"
-  // "font-size:12px;"
-  "}"
-  "QMenu::item:hover{"
-  "background-color:#409CE1;"
-  "}"
-  "QMenu::item:selected{"
-  "background-color:#409CE1;"
-  "}";
-
-  this->setStyleSheet(css);
-
   dataSourceViewer_ = new DataSourceViewer(this);
   dataSourceViewer_->setConfiguration(config_);
   dataSourceViewer_->setSteamSolver(dataStreamSolver_);
@@ -228,13 +210,26 @@ void CurveDisplay::setupWidgetsControls() {
 
   // =========== 添加的菜单按钮 ===========
   dropButton_ = new QWDropWidget(this);
-  FluMenu* menu = new FluMenu(this);
+  FluMenu* menu = new FluMenu();
   FluAction* action_export_image = new FluAction(tr("Export As Image"));
   QObject::connect(action_export_image, &QAction::triggered, this, &CurveDisplay::exportDataImage);
   menu->addAction(action_export_image);
+
   FluAction* action_export_file = new FluAction(tr("Export As File"));
   QObject::connect(action_export_file, &QAction::triggered, this, &CurveDisplay::exportDataFile);
   menu->addAction(action_export_file);
+
+  menu->addSeparator();
+
+  FluAction* action_save_layout = new FluAction(tr("Save layout"));
+  QObject::connect(action_save_layout, &QAction::triggered, this, &CurveDisplay::SaveLayout);
+  menu->addAction(action_save_layout);
+
+  FluAction* action_load_layout = new FluAction(tr("Load layout"));
+  QObject::connect(action_load_layout, &QAction::triggered, this, &CurveDisplay::loadLayout);
+  menu->addAction(action_load_layout);
+
+
   dropButton_->setMenu(menu);
 
   QtMaterialRaisedButton* button;
@@ -243,7 +238,9 @@ void CurveDisplay::setupWidgetsControls() {
   button->setText(tr("Add Map"));
   button->setFixedHeight(25);
   button->setBackgroundColor(QColor(63, 63, 70, 50));
-  QObject::connect(button, &QPushButton::clicked, this, &CurveDisplay::appendCustomPlot);
+  QObject::connect(button, &QPushButton::clicked, this, [this](){
+    appendCustomPlot("");
+  });
   dropButton_->setWidget(button);
 
   dropButton_->setDropDirection(QWDropWidget::DropDirection::Up);
@@ -254,7 +251,7 @@ void CurveDisplay::setupWidgetsControls() {
 
   settingsVisible(false);
 }
-void CurveDisplay::appendCustomPlot(){
+CustomPlotMap* CurveDisplay::appendCustomPlot(const QString& name ){
   CustomPlotMap *obj = new CustomPlotMap();
   obj->setConfiguration(config_);
   obj->setDataSource(dataSource_);
@@ -264,11 +261,18 @@ void CurveDisplay::appendCustomPlot(){
   QObject::connect(obj, &CustomPlotMap::dragAccepted, dataSourceViewer_->getTreeWidget(), &QTreeWidget::clearSelection);
   QObject::connect(dataSourceViewer_, &DataSourceViewer::checkObjectData, obj, &CustomPlotMap::checkObjectData);
 
-  QString tabName = tr("plot map ") + QString::number(ui.tabWidget_curve->count() + 1);
+  QString tabName;
+  if(name.isEmpty()){
+    QString tabName = tr("plot map ") + QString::number(ui.tabWidget_curve->count() + 1);
+  } else {
+    tabName = name;
+  }
   ui.tabWidget_curve->addTab(obj, tabName);
   ui.tabWidget_curve->setTabToolTip(ui.tabWidget_curve->count() - 1, tabName);
 
   currentPlotMap = qobject_cast<CustomPlotMap*>(ui.tabWidget_curve->currentWidget());
+
+  return obj;
 }
 void CurveDisplay::clearAllDataSource(){
 //    core->getCommunicationPtr()->getDataSource()->clearData();
@@ -407,7 +411,6 @@ void CurveDisplay::exportDataFile()
   QString defaultName = QDir::homePath() + "/Data_Packet.csv";
   QString selectedFilter;
 
-  // 改成 CSV 文件类型
   QString path = QFileDialog::getSaveFileName(
     this,
     tr("Save Data File"),
@@ -425,5 +428,169 @@ void CurveDisplay::exportDataFile()
   }
   else {
     publishNotify(GCW::NotifyType::Warning, tr("Export"), tr("failed: %1").arg(path));
+  }
+}
+
+void CurveDisplay::SaveLayout() {
+  QString defaultName = QDir::homePath() + "/layout_main.json";
+  QString selectedFilter;
+
+  QString path = QFileDialog::getSaveFileName(
+    this,
+    tr("Save Layout File"),
+    defaultName,
+    tr("Json File (*.json)"),
+    &selectedFilter
+  );
+
+  if (path.isEmpty())
+    return;
+
+  QJsonObject root;
+  auto& tabWidget = ui.tabWidget_curve;
+
+  // 保存tabWidget信息
+  QJsonArray tabsArray;
+  for (int i = 0; i < tabWidget->count(); ++i) {
+    QJsonObject tabObj;
+    CustomPlotMap *cpm = qobject_cast<CustomPlotMap *>(tabWidget->widget(i));
+    
+    if (!cpm){
+      continue;
+    }
+      
+    auto splitter = cpm->getSplitter();
+
+    tabObj["name"] = tabWidget->tabText(i);
+
+    if (splitter) {
+      QVariantList variantList;
+      QList<int> intList = splitter->sizes();
+      std::transform(intList.begin(), intList.end(), 
+                  std::back_inserter(variantList),
+                  [](int val) { return QVariant(val); });
+      tabObj["splitter"] = QJsonArray::fromVariantList(variantList);
+    }
+
+    // 保存图层信息
+    QJsonArray layersArray;
+    auto& layerList = cpm->getLayerList();
+    for (CustomPlotLayer *layer : layerList) {
+      QJsonObject layerObj;
+
+      // 保存绑定信息
+      QJsonArray bindsArray;
+      for (const CustomPlotMapBind &bind : layer->bindList()) {
+        QJsonObject bindObj;
+        bindObj["color"] = bind.color.name(QColor::HexArgb);
+        bindObj["data"]  = dataSource_->topNode()->findPathFromObjectData(bind.data);
+        bindObj["name"]  = bind.data->type;
+        bindObj["type"]  = bind.data->enable;
+        bindsArray.append(bindObj);
+      }
+
+      layerObj["binds"] = bindsArray;
+      layersArray.append(layerObj);
+    }
+
+    tabObj["layers"] = layersArray;
+    tabsArray.append(tabObj);
+  }
+
+  root["tabs"] = tabsArray;
+
+  // 写入文件
+  QFile file(path);
+  if (!file.open(QIODevice::WriteOnly)) {
+    return;
+  }
+
+  file.write(QJsonDocument(root).toJson());
+  file.close();
+  return;
+}
+
+void CurveDisplay::loadLayout() {
+  QString defaultName = QDir::homePath() + "/layout_main.json";
+  QString selectedFilter;
+
+  QString path = QFileDialog::getOpenFileName(
+      this,
+      tr("Open Layout File"),
+      defaultName,
+      tr("Json File (*.json)"),
+      &selectedFilter);
+
+  if (path.isEmpty())
+    return;
+
+  QFile file(path);
+  if (!file.open(QIODevice::ReadOnly)) {
+    return;
+  }
+
+  QByteArray data = file.readAll();
+  file.close();
+
+  QJsonDocument doc = QJsonDocument::fromJson(data);
+  if (doc.isNull()) {
+    return;
+  }
+
+  auto topNode = dataSource_->topNode();
+
+  QJsonObject root = doc.object();
+  QJsonArray tabsArray = root["tabs"].toArray();
+
+  auto& tabWidget = ui.tabWidget_curve;
+  while (tabWidget->count() > 0) {
+    QWidget *widget = tabWidget->widget(0);
+    tabWidget->removeTab(0);
+    widget->deleteLater();
+  }
+
+  // 加载每个tab
+  for (const QJsonValue &tabValue : tabsArray) {
+    QJsonObject tabObj = tabValue.toObject();
+
+    // 创建新的CustomPlotMap
+    QString tabName = tabObj["name"].toString();
+    CustomPlotMap *cpm = appendCustomPlot(tabName);
+    auto splitter = cpm->getSplitter();
+
+    // 恢复splitter状态
+    if (splitter && tabObj.contains("splitter")) {
+      QJsonArray splitterArray = tabObj["splitter"].toArray();
+      QList<int> sizes;
+      for (const QJsonValue &sizeValue : splitterArray) {
+        sizes.append(sizeValue.toInt());
+      }
+      splitter->setSizes(sizes);
+    }
+
+    // 恢复图层信息
+    auto &layerList = cpm->getLayerList();
+    for(auto& layer : layerList){
+      layer->deleteLater();
+    }
+    layerList.clear();
+
+    QJsonArray layersArray = tabObj["layers"].toArray();
+    for (const QJsonValue &layerValue : layersArray) {
+      QJsonObject layerObj = layerValue.toObject();
+      CustomPlotLayer *layer = cpm->addCustomPlotLayer();
+
+      // 恢复绑定信息
+      QJsonArray bindsArray = layerObj["binds"].toArray();
+      for (const QJsonValue &bindValue : bindsArray) {
+        QJsonObject bindObj = bindValue.toObject();
+
+        QString colorString(bindObj["color"].toString());
+        QString name = bindObj["data"].toString();
+
+        auto itNode = topNode->findObjectDataFromPath(name, true);
+        layer->appedObjectData(itNode.get(), name, colorString);
+      }
+    }
   }
 }

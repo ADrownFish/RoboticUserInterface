@@ -1,0 +1,3 @@
+[submodule "RoboticUserInterface/libraries/libraries/realsense2"]
+	path = RoboticUserInterface/libraries/libraries/realsense2
+	url = https://github.com/IntelRealSense/librealsense.git
