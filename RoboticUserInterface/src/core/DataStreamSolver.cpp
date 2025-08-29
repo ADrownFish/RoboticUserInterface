@@ -139,13 +139,14 @@ QStringList DataStreamSolver::extractCSVHeaders(const QString& filePath, bool ha
 
 
 void DataStreamSolver::loadCSV(const QString& filePath,
-                                                     const QString& timeKey,
-                                                     bool hasHeader,
-                                                     const QString& pathSeparator)
+                               const QString& timeKey,
+                               bool hasHeader,
+                               const QString& pathSeparator,
+                               std::function<void(int&)> progress)
 {
   // 清理数据
   //csvNode->clear();
-  const int timeout = 10;
+  const int timeout = 50;
   QElapsedTimer timer;
   timer.start();
 
@@ -154,6 +155,10 @@ void DataStreamSolver::loadCSV(const QString& filePath,
     qDebug() << "Failed to open file:" << filePath;
     return;
   }
+
+  qint64 totalSize = file.size();
+  qint64 bytesRead = 0;
+  bool callback = progress != nullptr;
 
   QTextStream in(&file);
   QStringList headers;
@@ -226,6 +231,12 @@ void DataStreamSolver::loadCSV(const QString& filePath,
     if (timer.elapsed() > timeout) {
       QCoreApplication::processEvents();
       timer.restart();
+
+      if(callback){
+        bytesRead = file.pos();
+        int percent = static_cast<int>(static_cast<scalar_t>(bytesRead) / static_cast<scalar_t>(totalSize) * 100.);
+        progress(percent);  
+      }
     }
 
     QString line = in.readLine();
@@ -257,7 +268,7 @@ void DataStreamSolver::loadCSV(const QString& filePath,
   }
 
   file.close();
-  csvNode->resetID(1);  // 重置节点ID
+  csvNode->resetID();
 
   std::cout  << csvNode->toString().toLocal8Bit().data() << std::endl;
 }
@@ -346,7 +357,7 @@ void DataStreamSolver::parseJsonObject(const QByteArray& jsonData) {
   if (emitSignal) {
     emit updateTree("Json");
     std::cerr << jsonParser_.root->toString().toLocal8Bit().data();
-    jsonParser_.root->resetID(1);
+    jsonParser_.root->resetID();
     jsonParser_.root->setTimeWindow(config_->plot.cacheDuration);
   }
 }
@@ -454,7 +465,7 @@ void DataStreamSolver::parseFloatData() {
   if (emitSignal) {
     emit updateTree("Float");
     qDebug() << floatParser_.root->toString();
-    floatParser_.root->resetID(1);
+    floatParser_.root->resetID();
     floatParser_.root->setTimeWindow(config_->plot.cacheDuration);
   }
 }

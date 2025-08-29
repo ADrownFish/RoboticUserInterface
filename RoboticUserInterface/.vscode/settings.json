@@ -112,7 +112,10 @@
     "qfileinfo": "cpp",
     "qdatetime": "cpp",
     "qscopedpointer": "cpp",
-    "charconv": "cpp"
+    "charconv": "cpp",
+    "qdebug": "cpp",
+    "coroutine": "cpp",
+    "qbluetoothserviceinfo": "cpp"
   },
   "svg.preview.background": "editor",
   "commentTranslate.source": "Bing",

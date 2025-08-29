@@ -54,7 +54,6 @@ ObjectDataViewer::Ptr ObjectNodeViewer::findObjectDataViewer(const  QTreeWidgetI
 
 void ObjectNodeViewer::clear() {
   for (auto& d : data) {
-    d->data->clear();
     d.reset();
   }
   data.clear();
@@ -140,6 +139,28 @@ void DataSourceViewerTreeWidget::startDrag(Qt::DropActions supportedActions) {
 
 void DataSourceViewerTreeWidget::onItemExpanded(QTreeWidgetItem* item) {
   this->resizeColumnToContents(0);  // 自动调整列宽
+}
+
+void DataSourceViewerTreeWidget::paintEvent(QPaintEvent* event) {
+  QTreeWidget::paintEvent(event);
+
+  QPainter painter(viewport());
+
+  // Set hint text style
+  QFont font = painter.font();
+  font.setPointSize(font.pointSize());
+  painter.setFont(font);
+  painter.setPen(QColor(150,150,150, 30));
+
+  // Calculate text rectangle with margins
+  QRect rect = viewport()->rect().adjusted(10, 10, -10, -10);
+
+  // Draw the hint text (auto-wrapped)
+  painter.drawText(
+    rect,
+    Qt::AlignCenter | Qt::TextWordWrap,
+    tr("Drag and drop CSV file here")
+  );
 }
 
 void DataSourceViewerTreeWidget::mousePressEvent(QMouseEvent* event) {
@@ -441,11 +462,15 @@ void DataSourceViewer::readyDrag(QList<QTreeWidgetItem *> items) {
   QJsonArray objectDataArray;
   QStringList objectNames;
 
+  bool ContainsTopLevelNode = config_->plot.leggedTopNode;
+  auto topNode = dataSource_->topNode();
+
   for (const auto &viewer : validViewers) {
     quintptr ptrValue = reinterpret_cast<quintptr>(viewer->data.get());
     objectDataArray.append(static_cast<qint64>(ptrValue));
-    objectNames.append(
-        dataSource_->topNode()->findPathFromObjectData(viewer->data));
+    QString name = topNode->findPathFromObjectData(viewer->data, ContainsTopLevelNode);
+
+    objectNames.append(name);
   }
 
   QJsonDocument doc(objectDataArray);
@@ -582,18 +607,7 @@ void DataSourceViewer::removeItem(QMenu *subMenu) {
 
 void DataSourceViewer::resetTree()
 {
-  auto p = dataSource_->topNode()->findObjectNode("Csv");
-  if(p){
-    p->clear();
-  }
-  p = dataSource_->topNode()->findObjectNode("Float");
-  if(p){
-    p->clear();
-  }
-  p = dataSource_->topNode()->findObjectNode("Json");
-  if(p){
-    p->clear();
-  }
+  dataSource_->resetDataSource();
 
   auto& viewer_csv = viewers["Csv"];
   auto& viewer_float = viewers["Float"];

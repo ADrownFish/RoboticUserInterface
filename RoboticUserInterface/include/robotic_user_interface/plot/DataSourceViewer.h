@@ -88,7 +88,9 @@ protected:
     
   void deleteItem();
 
-  void mousePressEvent(QMouseEvent* event);
+  void mousePressEvent(QMouseEvent* event) override;
+
+  void paintEvent(QPaintEvent* event) override;
 
 signals:
   void readyDrag(QList<QTreeWidgetItem*> item);

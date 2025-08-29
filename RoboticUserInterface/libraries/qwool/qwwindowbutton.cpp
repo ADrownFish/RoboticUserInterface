@@ -2,8 +2,8 @@
 
 QWWindowButton::QWWindowButton(QWidget* m_mainPage) : QWidget(m_mainPage) {
   TextColor = QColor(240, 240, 240);
-  backgroundColor = QColor(150, 150, 150);
-  backgroundBorderColor = QColor(150, 150, 150);
+  backgroundColor = QColor(51, 55, 61);
+  backgroundBorderColor = QColor(80, 80, 90);
   selectdBorderColor = QColor(255, 255, 255);
   selectdBorderHighLightColor = QColor(255, 255, 255);
   notSelectdColor = QColor(0, 0, 0, 0);
@@ -68,14 +68,14 @@ void QWWindowButton::paintEvent(QPaintEvent* event) {
   // 预先计算所有单元位置
   calculateUnitRects();
 
-  switch (showMode) {
-  case ShowMode::List: {
+  switch (viewMode) {
+  case ViewMode::List: {
     // 1. 先绘制所有未选中的单元
     for (int i = 0; i < UnitList.size(); i++) {
-      if (selectionMode == SelectionMode::SingleSelection && i == currentUnitIndex) {
+      if (selectionMode == SelectionMode::Single && i == currentUnitIndex) {
         continue; // 跳过当前选中的单元
       }
-      if (selectionMode == SelectionMode::MultiSelection && (currentMultiUnitIndex & (1 << i))) {
+      if (selectionMode == SelectionMode::Multiple && (currentMultiUnitIndex & (1 << i))) {
         continue; // 跳过选中的单元（多选模式）
       }
 
@@ -92,7 +92,7 @@ void QWWindowButton::paintEvent(QPaintEvent* event) {
     }
 
     // 2. 绘制选中单元（带动画效果）
-    if (selectionMode == SelectionMode::SingleSelection && currentUnitIndex >= 0) {
+    if (selectionMode == SelectionMode::Single && currentUnitIndex >= 0 && currentUnitIndex < UnitList.size()) {
       QRectF targetRect = unitRects[currentUnitIndex];
 
       if (animationStartIndex >= 0 && animationTargetIndex >= 0 && selectionProgress < 1.0) {
@@ -120,7 +120,7 @@ void QWWindowButton::paintEvent(QPaintEvent* event) {
     }
 
     // 3. 绘制多选模式下的选中单元
-    if (selectionMode == SelectionMode::MultiSelection) {
+    if (selectionMode == SelectionMode::Multiple) {
       for (int i = 0; i < UnitList.size(); i++) {
         if (currentMultiUnitIndex & (1 << i)) {
           QRectF rect = unitRects[i];
@@ -170,7 +170,7 @@ void QWWindowButton::paintEvent(QPaintEvent* event) {
     }
   } break;
 
-  case ShowMode::Single: {
+  case ViewMode::Single: {
     if (currentUnitIndex < 0 || currentUnitIndex >= UnitList.size())
       break;
 
@@ -234,13 +234,13 @@ void QWWindowButton::mouseReleaseEvent(QMouseEvent* event) {
         int unitIndexFromMouse = getMousePosInUnit();
         //qDebug() << "unitIndexFromMouse:" << (int)unitIndexFromMouse;
 
-        if (selectionMode == SelectionMode::SingleSelection) {
+        if (selectionMode == SelectionMode::Single) {
           if (unitIndexFromMouse != currentUnitIndex && unitIndexFromMouse >= 0) {
             updateSelectionAnimation(unitIndexFromMouse);
             emit selectUnitIndexChanged(unitIndexFromMouse);
           }
         }
-        else if (selectionMode == SelectionMode::MultiSelection) {
+        else if (selectionMode == SelectionMode::Multiple) {
           unsigned int newIndex = currentMultiUnitIndex | (1 << unitIndexFromMouse);
 
           if (newIndex != currentMultiUnitIndex) {
@@ -269,17 +269,49 @@ void QWWindowButton::enterEvent(QEnterEvent*) {
 
 void QWWindowButton::calculateUnitRects() {
   unitRects.clear();
-
   if (UnitList.isEmpty())
     return;
 
   int totalSize = UnitList.size();
   int interval = (unitBorderLineWidth + backgroundBorderLineWidth) / 2.0 + intervalDistance;
-  double unitWidth = (width() - 2 * interval) / static_cast<double>(totalSize);
 
-  for (int i = 0; i < totalSize; i++) {
-    double x = interval + unitWidth * i;
-    unitRects.append(QRectF(x, interval, unitWidth, height() - 2 * interval));
+  if (direction == Direction::Horizontal) {
+    double unitHeight = height() - 2 * interval;
+    double unitWidth = 0;
+
+    if (unitSizeMode == UnitSizeMode::Stretch) {
+      // 自适应宽度均分
+      unitWidth = (width() - (totalSize + 1) * interval) / static_cast<double>(totalSize);
+    }
+    else {
+      // 固定宽度
+      unitWidth = fixedUnitSize;
+    }
+
+    for (int i = 0; i < totalSize; i++) {
+      double x = interval + i * (unitWidth + interval);
+      double y = interval;
+      unitRects.append(QRectF(x, y, unitWidth, unitHeight));
+    }
+  }
+  else { // Vertical
+    double unitWidth = width() - 2 * interval;
+    double unitHeight = 0;
+
+    if (unitSizeMode == UnitSizeMode::Stretch) {
+      // 自适应高度均分
+      unitHeight = (height() - (totalSize + 1) * interval) / static_cast<double>(totalSize);
+    }
+    else {
+      // 固定高度
+      unitHeight = fixedUnitSize;
+    }
+
+    for (int i = 0; i < totalSize; i++) {
+      double x = interval;
+      double y = interval + i * (unitHeight + interval);
+      unitRects.append(QRectF(x, y, unitWidth, unitHeight));
+    }
   }
 }
 
@@ -357,7 +389,8 @@ void QWWindowButton::addUnit(QString UnitName) {
     selectionProgress = 1.0;
   }
 
-  UnitList << UnitName;
+  UnitList.append(UnitName);
+  adjustMinimumSize();
   calculateUnitRects();
   update();
 }
@@ -369,9 +402,19 @@ void QWWindowButton::delUnit(int index) {
     }
 
     UnitList.removeAt(index);
+    adjustMinimumSize();
     calculateUnitRects();
     update();
   }
+}
+
+void QWWindowButton::clearUnit() {
+  currentUnitIndex = -1;
+
+  UnitList.clear();
+  adjustMinimumSize();
+  calculateUnitRects();
+  update();
 }
 
 void QWWindowButton::setSelectUnit(const QString& name) {
@@ -380,10 +423,17 @@ void QWWindowButton::setSelectUnit(const QString& name) {
 
 void QWWindowButton::setSelectUnitIndex(int index) {
   if (UnitList.isEmpty()) {
+    currentUnitIndex = -1;
+    update();
     return;
   }
-  else if (index < 0) {
-    index = -1;
+  if (index < 0) {
+    // 清除选中状态
+    if (currentUnitIndex != -1) {
+      currentUnitIndex = -1;
+      update();
+    }
+    return;
   }
   else if (index >= UnitList.size()) {
     index = UnitList.size() - 1;
@@ -412,17 +462,71 @@ int QWWindowButton::getMultiCurrentUnitIndex() {
   return currentMultiUnitIndex;
 }
 
-void QWWindowButton::setAllowMouseClicked(bool ok) { allowMouseClicked = ok; }
+void QWWindowButton::setAllowMouseClicked(bool ok) {
+	allowMouseClicked = ok;
+}
 
-bool QWWindowButton::getAllowMouseClicked() { return allowMouseClicked; }
+bool QWWindowButton::getAllowMouseClicked() {
+	return allowMouseClicked;
+}
 
-void QWWindowButton::setShowMode(QWWindowButton::ShowMode sm) { showMode = sm; }
+void QWWindowButton::setAutoAdjustMinimumSize(bool ok) {
+  autoAdjustMinimumSize = ok;
+}
 
-QWWindowButton::ShowMode QWWindowButton::getShowMode() { return showMode; }
+bool QWWindowButton::getAutoAdjustMinimumSize() {
+  return autoAdjustMinimumSize;
+}
 
-void QWWindowButton::setSelectionMode(QWWindowButton::SelectionMode sm) { selectionMode = sm; }
+void QWWindowButton::setIntervalDistance(int distance) {
+  intervalDistance = distance;
+}
+int QWWindowButton::getIntervalDistance() {
+  return intervalDistance;
+}
 
-QWWindowButton::SelectionMode QWWindowButton::getSelectionMode() { return selectionMode; }
+void QWWindowButton::setFixedUnitSize(int size) {
+  fixedUnitSize = size;
+}
+int QWWindowButton::getFixedUnitSize() {
+  return fixedUnitSize;
+}
+
+void QWWindowButton::setViewMode(QWWindowButton::ViewMode d) {
+	viewMode = d;
+	update();
+}
+
+QWWindowButton::ViewMode QWWindowButton::getViewMode() {
+	return viewMode;
+}
+
+void QWWindowButton::setSelectionMode(QWWindowButton::SelectionMode d) {
+	selectionMode = d;
+	update();
+}
+
+QWWindowButton::SelectionMode QWWindowButton::getSelectionMode() {
+	return selectionMode;
+}
+
+void QWWindowButton::setDirection(QWWindowButton::Direction d) {
+	direction = d;
+	update();
+}
+
+QWWindowButton::Direction QWWindowButton::getDirection() {
+	return direction;
+}
+
+void QWWindowButton::setUnitSizeMode(QWWindowButton::UnitSizeMode d) {
+  unitSizeMode = d;
+  update();
+}
+
+QWWindowButton::UnitSizeMode QWWindowButton::getUnitSizeMode() {
+  return unitSizeMode;
+}
 
 void QWWindowButton::setSelectdColor(QColor c) {
   selectdColor = c;
@@ -451,10 +555,6 @@ QString QWWindowButton::getUnitName(int index) {
 }
 
 int QWWindowButton::getUnitSize() const { return UnitList.size(); }
-
-void QWWindowButton::setUnselectedVisible(bool ok) { unselectedVisible = ok; }
-
-bool QWWindowButton::getUnselectedVisible() { return unselectedVisible; }
 
 void QWWindowButton::setAnimationDuration(int duration) {
   if (duration > 0) {
@@ -497,6 +597,19 @@ void QWWindowButton::setHoverColor(QColor c) {
 
 QColor QWWindowButton::getHoverColor() const {
   return hoverColor;
+}
+
+void QWWindowButton::adjustMinimumSize() {
+  if (autoAdjustMinimumSize) {
+    int interval = (unitBorderLineWidth + backgroundBorderLineWidth) / 2.0 + intervalDistance;
+    int minSize = interval;
+    minSize += UnitList.size() * (fixedUnitSize + interval);
+    if (direction == Direction::Horizontal) {
+      setMinimumWidth(minSize);
+    }else {
+      setMinimumHeight(minSize);
+    }
+  }
 }
 
 // 其他成员函数保持不变（略）

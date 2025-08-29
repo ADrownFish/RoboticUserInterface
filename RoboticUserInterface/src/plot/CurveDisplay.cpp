@@ -1,4 +1,6 @@
 #include "robotic_user_interface/plot/CurveDisplay.h"
+#include "robotic_user_interface/form/ListChoiceDialog.h"
+#include "robotic_user_interface/core/TemplateMethod.h"
 
 #include "qt_material_widgets/qtmaterialraisedbutton.h"
 
@@ -263,7 +265,7 @@ CustomPlotMap* CurveDisplay::appendCustomPlot(const QString& name ){
 
   QString tabName;
   if(name.isEmpty()){
-    QString tabName = tr("plot map ") + QString::number(ui.tabWidget_curve->count() + 1);
+    tabName = tr("plot map ") + QString::number(ui.tabWidget_curve->count() + 1);
   } else {
     tabName = name;
   }
@@ -448,6 +450,8 @@ void CurveDisplay::SaveLayout() {
 
   QJsonObject root;
   auto& tabWidget = ui.tabWidget_curve;
+  bool ContainsTopLevelNode = config_->plot.leggedTopNode;
+  auto topNode = dataSource_->topNode();
 
   // 保存tabWidget信息
   QJsonArray tabsArray;
@@ -483,7 +487,7 @@ void CurveDisplay::SaveLayout() {
       for (const CustomPlotMapBind &bind : layer->bindList()) {
         QJsonObject bindObj;
         bindObj["color"] = bind.color.name(QColor::HexArgb);
-        bindObj["data"]  = dataSource_->topNode()->findPathFromObjectData(bind.data);
+        bindObj["data"]  = topNode->findPathFromObjectData(bind.data, ContainsTopLevelNode);
         bindObj["name"]  = bind.data->type;
         bindObj["type"]  = bind.data->enable;
         bindsArray.append(bindObj);
@@ -511,20 +515,56 @@ void CurveDisplay::SaveLayout() {
 }
 
 void CurveDisplay::loadLayout() {
-  QString defaultName = QDir::homePath() + "/layout_main.json";
-  QString selectedFilter;
 
-  QString path = QFileDialog::getOpenFileName(
+  QString filePath;
+  QString defaultName = QDir::homePath() + "/layout_main.json";
+
+  if(config_->plot.recentLayoutFiles.isEmpty()){
+
+    filePath = QFileDialog::getOpenFileName(
       this,
       tr("Open Layout File"),
       defaultName,
       tr("Json File (*.json)"),
-      &selectedFilter);
+      nullptr);
+    if (filePath.isEmpty())
+      return;
 
-  if (path.isEmpty())
-    return;
+  } else {
+    QStringList displayList = config_->plot.recentLayoutFiles;
+    QString &defaultChice = config_->plot.recentLayoutFile;
 
-  QFile file(path);
+    displayList.append(tr("I want to select a file"));
+
+    auto result = ListChoiceDialog::getChoice(
+      this->topLevelWidget(),
+      tr("Load Layout"),
+      tr("Some recent layouts"),
+      displayList,
+      defaultChice.isEmpty() ?  displayList.first() : defaultChice
+    );
+
+    if(result.first == -1 ){
+      return;
+    }
+    if(result.first == displayList.size() - 1 ){
+      filePath = QFileDialog::getOpenFileName(
+        this,
+        tr("Open Layout File"),
+        defaultName,
+        tr("Json File (*.json)"),
+        nullptr);
+    }
+
+    filePath = result.second;
+    if (filePath.isEmpty())
+      return;
+  }
+
+  config_->plot.recentLayoutFile = filePath;
+  InsertHistory(config_->plot.recentLayoutFiles, filePath, 5);
+
+  QFile file(filePath);
   if (!file.open(QIODevice::ReadOnly)) {
     return;
   }

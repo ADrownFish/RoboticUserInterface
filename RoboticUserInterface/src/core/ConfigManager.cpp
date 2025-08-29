@@ -7,6 +7,7 @@
 #include <QDirIterator>
 
 #include "robotic_user_interface/core/ConfigManager.h"
+#include "robotic_user_interface/core/TemplateMethod.h"
 
 ConfigManager::ConfigManager(const QString &configFile, std::shared_ptr<Configuration> configuration)
   : config_(configuration) {
@@ -45,7 +46,6 @@ void ConfigManager::readConfig() {
 
   // 读取 app configuration
   QJsonObject appObj = json.value("App").toObject();
-  config_->app.antiAliasing = appObj.value("antiAliasing").toBool(config_->app.antiAliasing);
   config_->app.fontPointSize = appObj.value("fontPointSize").toInt(config_->app.fontPointSize);
   config_->app.appName = appObj.value("appName").toString(config_->app.appName);
   config_->app.fontFamily = appObj.value("fontFamily").toString(config_->app.fontFamily);
@@ -78,10 +78,14 @@ void ConfigManager::readConfig() {
   config_->plot.tracker = plotObj.value("tracker").toBool(config_->plot.tracker);
   config_->plot.isPaused = plotObj.value("isPaused").toBool(config_->plot.isPaused);
   config_->plot.gridLine = plotObj.value("gridLine").toBool(config_->plot.gridLine);
+  config_->plot.antiAliasing = plotObj.value("antiAliasing").toBool(config_->plot.antiAliasing);
+  config_->plot.leggedTopNode = plotObj.value("leggedTopNode").toBool(config_->plot.leggedTopNode);
   config_->plot.plotLine = (PlotLineType)plotObj.value("plotLine").toInt((int)config_->plot.plotLine);
   config_->plot.cacheDuration = plotObj.value("cacheDuration").toInt(config_->plot.cacheDuration);
   config_->plot.plotSamplingRate = plotObj.value("plotSamplingRate").toInt(config_->plot.plotSamplingRate);
   config_->plot.plotFlushRate = plotObj.value("plotFlushRate").toInt(config_->plot.plotFlushRate);
+  config_->plot.recentLayoutFile = plotObj.value("recentLayoutFile").toString(config_->plot.recentLayoutFile);
+  config_->plot.recentLayoutFiles = toList<QString>(plotObj.value("recentLayoutFiles").toArray());
 
   // 读取 CardConfiguration
   QJsonObject cardObj = json.value("Card").toObject();
@@ -203,7 +207,6 @@ void ConfigManager::writeConfig() {
 
   // 写入app设置
   QJsonObject appObj;
-  appObj["antiAliasing"] = config_->app.antiAliasing;
   appObj["fontPointSize"] = config_->app.fontPointSize;
   appObj["appName"] = config_->app.appName;
   appObj["fontFamily"] = config_->app.fontFamily;
@@ -237,10 +240,14 @@ void ConfigManager::writeConfig() {
   plotObj["tracker"] = config_->plot.tracker;
   plotObj["isPaused"] = config_->plot.isPaused;
   plotObj["gridLine"] = config_->plot.gridLine;
+  plotObj["antiAliasing"] = config_->plot.antiAliasing;
+  plotObj["leggedTopNode"] = config_->plot.leggedTopNode;
   plotObj["plotLine"] = (int)config_->plot.plotLine;
   plotObj["cacheDuration"] = config_->plot.cacheDuration;
   plotObj["plotSamplingRate"] = config_->plot.plotSamplingRate;
   plotObj["plotFlushRate"] = config_->plot.plotFlushRate;
+  plotObj["recentLayoutFile"] = config_->plot.recentLayoutFile;
+  plotObj["recentLayoutFiles"] = toJsonArray<QString>(config_->plot.recentLayoutFiles);
   json["Plot"] = plotObj;
 
 

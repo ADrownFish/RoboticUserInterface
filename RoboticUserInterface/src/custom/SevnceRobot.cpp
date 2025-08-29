@@ -404,7 +404,7 @@ void SevnceRobot::setupWidgetsControls(){
   for(const QString &name : alarmStatusNameList){
     ui_State.widget_alarmStatus->addUnit(name);
   }
-  ui_State.widget_alarmStatus->setSelectionMode(QWWindowButton::SelectionMode::MultiSelection);
+  ui_State.widget_alarmStatus->setSelectionMode(QWWindowButton::SelectionMode::Multiple);
   ui_State.widget_alarmStatus->setMinimumWidth(ui_State.widget_alarmStatus->getUnitSize() * 120);
   ui_State.widget_alarmStatus->setAllowMouseClicked(true);
   ui_State.widget_alarmStatus->setBackgroundColor(QColor(100,100,100,50));

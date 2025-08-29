@@ -29,6 +29,10 @@ void CsvLoadDialog::setConfiguration(std::shared_ptr<Configuration> config) {
 
 void CsvLoadDialog::loadFile(const QString& path)
 {
+	ui.title->setText(tr("How do you want to load the file?"));
+	ui.stackedWidget_load_operation->setCurrentWidget(ui.page_operation);
+	ui.stackedWidget_load_item->setCurrentWidget(ui.page_type);
+
 	ui.lineEdit_file->setText(path);
 	ui.widget_loading->hide();
 
@@ -107,11 +111,17 @@ void CsvLoadDialog::loadit() {
 		return;
 	}
 
+	ui.title->setText(tr("Loading file, please wait"));
+	ui.stackedWidget_load_operation->setCurrentWidget(ui.page_loading);
+	ui.stackedWidget_load_item->setCurrentWidget(ui.page_progress);
+
 	ui.widget_loading->show();
 
 	bool isNullHeader = ui.widget_LoadingType->getCurrentUnitIndex() == 0;
 	if (isNullHeader)	{
-		dataStreamSolver_->loadCSV(filePath, "", false);
+		dataStreamSolver_->loadCSV(filePath, "", false, "/" , [this](int &progress){
+			ui.label_progress->setText(QString("%1 %").arg(progress));
+		});
 	} else {
 		QString selectedHeader;
 		for (auto it : radioButtons_) {
@@ -120,7 +130,9 @@ void CsvLoadDialog::loadit() {
 				break;
 			}
 		}
-		dataStreamSolver_->loadCSV(filePath, selectedHeader);
+		dataStreamSolver_->loadCSV(filePath, selectedHeader, true, "/" , [this](int &progress){
+			ui.label_progress->setText(QString("%1 %").arg(progress));
+		});
 	}
 
 	ui.widget_loading->hide();
@@ -130,9 +142,9 @@ void CsvLoadDialog::loadit() {
 void CsvLoadDialog::switchType(int index)
 {
 	if (index) {
-		ui.stackedWidget->setCurrentIndex(0);
+		ui.stackedWidget_load_item->setCurrentIndex(0);
 	}
 	else {
-		ui.stackedWidget->setCurrentIndex(1);
+		ui.stackedWidget_load_item->setCurrentIndex(1);
 	}
 }

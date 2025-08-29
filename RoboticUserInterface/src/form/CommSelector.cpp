@@ -1,17 +1,56 @@
 #include "robotic_user_interface/form/CommSelector.h"
+#include "robotic_user_interface/core/TemplateMethod.h"
+#include "robotic_user_interface/core//BluetoothManager.h"
 
 #include "FluControls/FluConfirmFlyout.h"
 #include "qwool/qwdropwidget.h"
 
 #include <QSerialPortInfo>
 #include <QObject>
-
+#include <QTreeWidgetItem>
+#include <QBluetoothLocalDevice>
+#include <QThread>
 
 CommSelector::CommSelector(QWidget *parent)
   : QWWindowWidget(parent) {
   ui.setupUi(this);
 
-  // setBorderRadius(0);
+  btc_ = std::make_unique<BluetoothConfigurator>(this);
+  // btld_ = std::make_unique<QBluetoothLocalDevice>(this);
+  
+  uuid_map_ = {
+    // ==== BLE GATT 标准服务 ====
+    {QUuid(QStringLiteral("00001800-0000-1000-8000-00805F9B34FB")), QObject::tr("Generic Access")},
+    {QUuid(QStringLiteral("00001801-0000-1000-8000-00805F9B34FB")), QObject::tr("Generic Attribute")},
+    {QUuid(QStringLiteral("0000180A-0000-1000-8000-00805F9B34FB")), QObject::tr("Device Information")},
+    {QUuid(QStringLiteral("0000180D-0000-1000-8000-00805F9B34FB")), QObject::tr("Heart Rate")},
+    {QUuid(QStringLiteral("0000180F-0000-1000-8000-00805F9B34FB")), QObject::tr("Battery Service")},
+    {QUuid(QStringLiteral("00001809-0000-1000-8000-00805F9B34FB")), QObject::tr("Health Thermometer")},
+    {QUuid(QStringLiteral("00001810-0000-1000-8000-00805F9B34FB")), QObject::tr("Blood Pressure")},
+    {QUuid(QStringLiteral("0000181A-0000-1000-8000-00805F9B34FB")), QObject::tr("Environmental Sensing")},
+    {QUuid(QStringLiteral("00001819-0000-1000-8000-00805F9B34FB")), QObject::tr("Location and Navigation")},
+    {QUuid(QStringLiteral("00001812-0000-1000-8000-00805F9B34FB")), QObject::tr("Human Interface Device (HID)")},
+
+    // ==== Classic Bluetooth Profiles ====
+    {QUuid(QStringLiteral("00001101-0000-1000-8000-00805F9B34FB")), QObject::tr("Serial Port Profile (SPP)")},
+    {QUuid(QStringLiteral("00001108-0000-1000-8000-00805F9B34FB")), QObject::tr("Headset")},
+    {QUuid(QStringLiteral("0000110B-0000-1000-8000-00805F9B34FB")), QObject::tr("Audio Sink (A2DP)")},
+    {QUuid(QStringLiteral("0000110A-0000-1000-8000-00805F9B34FB")), QObject::tr("Audio Source (A2DP)")},
+    {QUuid(QStringLiteral("0000110C-0000-1000-8000-00805F9B34FB")), QObject::tr("A/V Remote Control Target")},
+    {QUuid(QStringLiteral("0000110E-0000-1000-8000-00805F9B34FB")), QObject::tr("A/V Remote Control")},
+    {QUuid(QStringLiteral("0000111E-0000-1000-8000-00805F9B34FB")), QObject::tr("Hands-Free")},
+    {QUuid(QStringLiteral("00001124-0000-1000-8000-00805F9B34FB")), QObject::tr("Human Interface Device (HID)")},
+    {QUuid(QStringLiteral("00001105-0000-1000-8000-00805F9B34FB")), QObject::tr("OBEX Object Push")},
+    {QUuid(QStringLiteral("00001106-0000-1000-8000-00805F9B34FB")), QObject::tr("OBEX File Transfer")},
+    {QUuid(QStringLiteral("0000112D-0000-1000-8000-00805F9B34FB")), QObject::tr("Headset HS")},
+    {QUuid(QStringLiteral("0000112F-0000-1000-8000-00805F9B34FB")), QObject::tr("Hands-Free Audio Gateway")},
+    {QUuid(QStringLiteral("00001115-0000-1000-8000-00805F9B34FB")), QObject::tr("PAN User")},
+    {QUuid(QStringLiteral("00001116-0000-1000-8000-00805F9B34FB")), QObject::tr("NAP (Network Access Point)")},
+    {QUuid(QStringLiteral("00001117-0000-1000-8000-00805F9B34FB")), QObject::tr("GN (Group Ad-hoc Network)")},
+    {QUuid(QStringLiteral("0000111F-0000-1000-8000-00805F9B34FB")), QObject::tr("Hands-Free Audio Gateway")},
+    {QUuid(QStringLiteral("0000112E-0000-1000-8000-00805F9B34FB")), QObject::tr("Headset AG")}
+    // … 还可以继续加 SIG 公布的 0x1826 以后
+  };
 }
 CommSelector::~CommSelector(){
 
@@ -77,6 +116,33 @@ void CommSelector::setupWidgetsControls(){
   ui.lineEdit_serial_flowControl->addUnit(tr("Hardware"));
   ui.lineEdit_serial_flowControl->setBackgroundColor(QColor(100,110,110,50));
 
+  ui.button_bt_scan->setText(tr("Scan"));
+  ui.button_bt_scan->setFixedHeight(25);
+  ui.button_bt_scan->setBackgroundColor(onColor);
+
+  ui.widget_bt_device->setDirection(QWWindowButton::Direction::Vertical);
+  ui.widget_bt_device->setBackgroundColor(QColor(0x35,0x3a,0x42));
+  ui.widget_bt_device->setUnitSizeMode(QWWindowButton::UnitSizeMode::Fixed);
+  ui.widget_bt_device->setFixedUnitSize(30);
+  ui.widget_bt_device->setIntervalDistance(10);
+
+  ui.widget_bt_uuids->setDirection(QWWindowButton::Direction::Vertical);
+  ui.widget_bt_uuids->setBackgroundColor(QColor(0x35, 0x3a, 0x42));
+  ui.widget_bt_uuids->setUnitSizeMode(QWWindowButton::UnitSizeMode::Fixed);
+  ui.widget_bt_uuids->setFixedUnitSize(50);
+  ui.widget_bt_uuids->setIntervalDistance(10);
+  ui.widget_bt_uuids->setAllowMouseClicked(false);
+
+  ui.widget_BT_Type->addUnit(tr("Auto"));
+  ui.widget_BT_Type->addUnit(tr("Classic"));
+  ui.widget_BT_Type->addUnit(tr("BLE"));
+  ui.widget_BT_Type->setBackgroundColor(QColor(100,110,110,50));
+
+  ui.label_bt_device->setText(tr("Please select a device"));
+  ui.label_bt_service->setText(tr("Device information and services"));
+
+  updateBTServiceFromDevice(-1);
+
   ui.widget_CommType->setSelectUnitIndex(static_cast<int>(config_->comm.commType));
   ui.widget_CommType->setBackgroundColor(QColor(100,100,100,120));
 
@@ -85,6 +151,7 @@ void CommSelector::setupWidgetsControls(){
 
   switchPageType(static_cast<int>(config_->comm.commType));
   switchPageProtocol(static_cast<int>(config_->comm.commProtocol));
+  switchPageTcp(static_cast<int>(config_->comm.tcp.server));
   ui.lineEdit_json_timestamp->setVisible(config_->stream.timestampEnable_json);
 }
 
@@ -102,16 +169,8 @@ void CommSelector::setupSignalConnection(){
     emit cancel();
   });
   // page switch
-  QObject::connect(ui.widget_TCPType, &QWWindowButton::selectUnitIndexChanged, [this](unsigned int index){
-    QString key = ui.widget_TCPType->getUnitName(index);
-    if (key == tr("Server")) {
-      ui.stackedWidget_tcp->setCurrentWidget(ui.page_server);
-    }
-    else if (key == tr("Client")) {
-      ui.stackedWidget_tcp->setCurrentWidget(ui.page_client);
-    } 
+  QObject::connect(ui.widget_TCPType, &QWWindowButton::selectUnitIndexChanged, this, &CommSelector::switchPageTcp);
 
-  });
   QObject::connect(ui.HowToUse, &QPushButton::clicked, [this](bool clicked){
     auto flyout = new FluConfirmFlyout(ui.HowToUse, FluFlyoutPosition::Right);
     flyout->setTitle(tr("Communication Configurator"));
@@ -121,6 +180,15 @@ void CommSelector::setupSignalConnection(){
     ));
     flyout->show();
   });
+
+  QObject::connect(ui.button_bt_scan, &QPushButton::clicked, this, &CommSelector::scanBluetoothDevice);
+
+  QObject::connect(ui.widget_bt_device, &QWWindowButton::selectUnitIndexChanged, this, &CommSelector::updateBTServiceFromDevice);
+
+  QObject::connect(btc_.get(), &BluetoothConfigurator::deviceFound, this, &CommSelector::BluetoothDeviceFound);
+
+  QObject::connect(btc_.get(), &BluetoothConfigurator::serviceFound, this, &CommSelector::BluetoothServiceFound);
+
 
   QObject::connect(ui.widget_CommType, &QWWindowButton::selectUnitIndexChanged, this, &CommSelector::switchPageType);
 
@@ -328,65 +396,84 @@ void CommSelector::pushParameters(){
 
   ui.widget_CommType->setSelectUnitIndex((int)config_->comm.commType);
   ui.widget_protocol->setSelectUnitIndex((int)(config_->comm.commProtocol));
-  ui.widget_TCPType->setSelectUnitIndex((int)config_->comm.tcp.server);
 
   ui.button_float_timestamp->setToggle(config_->stream.timestampEnable_float);
   ui.button_json_timestamp->setToggle(config_->stream.timestampEnable_json);
   ui.lineEdit_json_timestamp->setText(config_->stream.timestampString_json);
 }
 
-template<typename T>
-void InsertHistory(QList<T> &list, const T& value, int count = 5) {
-  list.removeAll(value);
-  list.prepend(value);
-  while (list.size() > count) {
-    list.removeLast();
-  }
-}
-
 void CommSelector::pullParameters(){
-  config_->comm.udp.ip = ui.lineEdit_udp_ip->text();
-  config_->comm.udp.port = ui.lineEdit_udp_port->text().toInt();;
-  config_->comm.udp.listen = ui.lineEdit_udp_listen->text().toInt();
+  using CC = CommunicationConfiguration;
+  btc_->stopDeviceScan();
+  btc_->stopServiceScan();
 
-  config_->comm.tcp.ip = ui.lineEdit_tcp_ip->text();
-  config_->comm.tcp.port = ui.lineEdit_tcp_port->text().toInt();;
-  config_->comm.tcp.listen = ui.lineEdit_tcp_listen->text().toInt();
-  config_->comm.tcp.server = ui.widget_TCPType->getCurrentUnitIndex();
+  auto &comm = config_->comm;
 
-  config_->comm.serial.baudRate = ui.lineEdit_serial_baudrate->text().toInt();
-  config_->comm.serial.serialName = ui.lineEdit_serial_name->text();
-  config_->comm.serial.stopBits = (CommunicationConfiguration::StopBits)ui.lineEdit_serial_stopBits->getCurrentUnitIndex();
-  config_->comm.serial.dataBits = (CommunicationConfiguration::DataBits)ui.lineEdit_serial_dataBits->getCurrentUnitIndex();
-  config_->comm.serial.parity = (CommunicationConfiguration::Parity)ui.lineEdit_serial_parity->getCurrentUnitIndex();
-  config_->comm.serial.flowControl = (CommunicationConfiguration::FlowControl)ui.lineEdit_serial_flowControl->getCurrentUnitIndex();
+  comm.udp.ip = ui.lineEdit_udp_ip->text();
+  comm.udp.port = ui.lineEdit_udp_port->text().toInt();;
+  comm.udp.listen = ui.lineEdit_udp_listen->text().toInt();
 
-  config_->comm.commType = (CommunicationConfiguration::CommType)ui.widget_CommType->getCurrentUnitIndex();
-  config_->comm.commProtocol = (CommunicationConfiguration::CommProtocol)ui.widget_protocol->getCurrentUnitIndex();
+  comm.tcp.ip = ui.lineEdit_tcp_ip->text();
+  comm.tcp.port = ui.lineEdit_tcp_port->text().toInt();;
+  comm.tcp.listen = ui.lineEdit_tcp_listen->text().toInt();
+  comm.tcp.server = ui.widget_TCPType->getCurrentUnitIndex();
+
+  comm.serial.baudRate = ui.lineEdit_serial_baudrate->text().toInt();
+  comm.serial.serialName = ui.lineEdit_serial_name->text();
+  comm.serial.stopBits = (CC::StopBits)ui.lineEdit_serial_stopBits->getCurrentUnitIndex();
+  comm.serial.dataBits = (CC::DataBits)ui.lineEdit_serial_dataBits->getCurrentUnitIndex();
+  comm.serial.parity = (CC::Parity)ui.lineEdit_serial_parity->getCurrentUnitIndex();
+  comm.serial.flowControl = (CC::FlowControl)ui.lineEdit_serial_flowControl->getCurrentUnitIndex();
+
+  comm.commType = (CC::CommType)ui.widget_CommType->getCurrentUnitIndex();
+  comm.commProtocol = (CC::CommProtocol)ui.widget_protocol->getCurrentUnitIndex();
 
   constexpr int count = 5;
-  InsertHistory(config_->comm.udp.ipHistory,          config_->comm.udp.ip,                  count);
-  InsertHistory(config_->comm.udp.portHistory,       config_->comm.udp.port,              count);
-  InsertHistory(config_->comm.udp.listenHistory,     config_->comm.udp.listen ,            count);
+  InsertHistory(comm.udp.ipHistory,         comm.udp.ip,       count);
+  InsertHistory(comm.udp.portHistory,       comm.udp.port,     count);
+  InsertHistory(comm.udp.listenHistory,     comm.udp.listen ,  count);
 
-  InsertHistory(config_->comm.tcp.ipHistory,            config_->comm.tcp.ip,                   count);
-  InsertHistory(config_->comm.tcp.portHistory,        config_->comm.tcp.port,                count);
-  InsertHistory(config_->comm.tcp.listenHistory,      config_->comm.tcp.listen,               count);
+  InsertHistory(comm.tcp.ipHistory,         comm.tcp.ip,       count);
+  InsertHistory(comm.tcp.portHistory,       comm.tcp.port,     count);
+  InsertHistory(comm.tcp.listenHistory,     comm.tcp.listen,   count);
 
   config_->stream.timestampEnable_float = ui.button_float_timestamp->isToggled();
   config_->stream.timestampEnable_json = ui.button_json_timestamp->isToggled();
   config_->stream.timestampString_json = ui.lineEdit_json_timestamp->text();
 
-  //qDebug() << " *********************************************";
-  //qDebug() << " udp ip" << config_->comm.udp.ipHistory;
-  //qDebug() << " udp listen" << config_->comm.udp.listenHistory;
-  //qDebug() << " udp port" << config_->comm.udp.portHistory;
 
-  //qDebug() << " tcp ip" << config_->comm.tcp.ipHistory;
-  //qDebug() << " tcp listen" << config_->comm.tcp.listenHistory;
-  //qDebug() << " tcp port" << config_->comm.tcp.portHistory;
-  //qDebug() << " *********************************************";
+  // bluetooth
+  int index_bt_device = ui.widget_bt_device->getCurrentUnitIndex();
+  int index_bt_uuid = ui.widget_bt_uuids->getCurrentUnitIndex();
+  if (BTDeviceMap_.find(index_bt_device) != BTDeviceMap_.end()) {
+    auto& bt = BTDeviceMap_[index_bt_device];
+    auto& btCfg = comm.bluetooth;
+  
+    btCfg.address = bt.deviceInfo.address();
+    btCfg.uuid = QBluetoothUuid::ServiceClassUuid::SerialPort;
+    btCfg.deviceInfo = bt.deviceInfo;
+    
+    
+    int bt_type = ui.widget_BT_Type->getCurrentUnitIndex();
+    if(bt_type == 0){
+      btCfg.type = bt.type;
+    } else if(bt_type == 1){
+      btCfg.type = BluetoothDeviceType::Classic;
+    } else if(bt_type == 2){
+      btCfg.type = BluetoothDeviceType::BLE;
+    }
 
+  }
+  
+  if(comm.commType == CC::CommType::BLUETOOTH){
+    // BLE 没写好，有点问题，暂时不用
+    comm.bluetooth.type = BluetoothDeviceType::Classic;
+    publishNotify(GCW::NotifyType::Info,
+                  "Info 提示",
+                  "\"Bluetooth Low Energy\" is temporarily unavailable "
+                  "\"低功耗蓝牙\" 暂时不可用");
+    ui.widget_BT_Type->setSelectUnitIndex(1);
+  }
 }
 
 void CommSelector::scanSerialPort()
@@ -418,6 +505,73 @@ void CommSelector::scanSerialPort()
       ui.lineEdit_serial_name->setText(portName);  // 填入纯粹的串口名
       });
   }
+}
+
+void CommSelector::scanBluetoothDevice() {
+  ui.widget_bt_device->clearUnit();
+  BTDeviceMap_.clear();  
+  btc_->startDeviceScan();
+}
+
+void CommSelector::BluetoothDeviceFound(const QBluetoothDeviceInfo& info) {
+
+  int deviceIndex = BTDeviceMap_.size();
+
+  auto &dev = BTDeviceMap_[deviceIndex];
+  dev.deviceInfo = info;
+  // info.
+
+  qDebug() << deviceIndex << info.address() << info.rssi() << info.name();
+
+  auto configs = info.coreConfigurations();
+  if (configs.testFlag(QBluetoothDeviceInfo::LowEnergyCoreConfiguration)) {
+    // 包含BLE配置
+    if (configs.testFlag(QBluetoothDeviceInfo::BaseRateCoreConfiguration)) {
+      dev.type = BluetoothDeviceType::DualMode; // 双模设备
+    }
+    else {
+      dev.type = BluetoothDeviceType::BLE; // 纯BLE设备
+    }
+  }
+  else if (configs.testFlag(QBluetoothDeviceInfo::BaseRateCoreConfiguration)) {
+    dev.type = BluetoothDeviceType::Classic; // 经典蓝牙
+  }
+  else {
+    dev.type = BluetoothDeviceType::Unknown; // 未知类型
+  }
+
+  ui.widget_bt_device->addUnit(info.name());
+  if (deviceIndex == 0) {
+    updateBTServiceFromDevice(0);
+  }
+}
+
+void CommSelector::BluetoothServiceFound(const QBluetoothServiceInfo& info) {
+
+  auto address = info.device().address();
+  auto result = std::find_if(BTDeviceMap_.begin(), BTDeviceMap_.end(),
+    [&address](const auto& pair) {
+      return pair.second.deviceInfo.address() == address;
+    });
+
+  if (result == BTDeviceMap_.end()) {
+    return;
+  }
+
+  auto &dev = result->second;
+  auto uuid = info.serviceUuid();
+  dev.ServiceInfos.append(info);
+
+  ui.widget_bt_uuids->addUnit(info.serviceName() + "\n" + uuid.toString(QUuid::WithoutBraces));
+  ui.widget_bt_uuids->setSelectUnitIndex(-1);
+}
+
+QString CommSelector::resolveUuid(const QBluetoothUuid& uuid)
+{
+  if (uuid_map_.contains(uuid)) {
+    return uuid_map_.value(uuid);
+  }
+  return uuid.toString(QUuid::WithoutBraces);
 }
 
 void CommSelector::switchPageType(unsigned int index) {
@@ -457,6 +611,43 @@ void CommSelector::switchPageProtocol(unsigned int index) {
     ui.stackedWidget_protocol->setCurrentWidget(ui.page_Raw);
   }
 }
+
+void CommSelector::switchPageTcp(unsigned int index) {
+
+  QString key = ui.widget_TCPType->getUnitName(index);
+  if (key == tr("Client")) {
+    ui.stackedWidget_tcp->setCurrentWidget(ui.page_client);
+  }
+  else if (key == tr("Server")) {
+    ui.stackedWidget_tcp->setCurrentWidget(ui.page_server);
+  }
+}
+
+void CommSelector::updateBTServiceFromDevice(int serviceIndex) { 
+
+  auto it = BTDeviceMap_.find(serviceIndex);
+  if (it == BTDeviceMap_.end()) {
+    ui.label_RSSI->setText(tr("No"));
+    //ui.label_Paired->setText(tr("Device"));
+    ui.label_Type->setText(tr("Device"));
+    ui.label_address->setText(tr("Selected"));
+
+    return;
+  }
+  auto &dev = it->second;
+  //dev.paired = (btld_->pairingStatus(dev.deviceInfo.address()) == QBluetoothLocalDevice::Paired);
+
+  QString address = dev.deviceInfo.address().toString();
+
+  ui.label_RSSI->setText(QString("%1 dBm").arg(dev.deviceInfo.rssi()));
+  //ui.label_Paired->setText(dev.paired ? tr("Paired") : tr("Unpaired"));
+  ui.label_Type->setText(dev.typeString());
+  ui.label_address->setText(address);
+
+  ui.widget_bt_uuids->clearUnit();
+  btc_->startServiceScan(address);
+}
+
 
 void CommSelector::setConfiguration(std::shared_ptr<Configuration> config){
   config_ = config;

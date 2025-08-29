@@ -56,22 +56,22 @@ find_package(Qt6 REQUIRED COMPONENTS
 # 在原有CMakeLists.txt中添加/修改以下选项
 
 # 禁用测试
-# option(BUILD_TESTING "Enable creation of Eigen tests." OFF)
-# option(EIGEN_BUILD_DOC "Enable creation of Eigen documentation" OFF)
-# option(EIGEN_BUILD_BTL "Build benchmark suite" OFF)
-# option(EIGEN_BUILD_PKGCONFIG "Build pkg-config .pc file for Eigen" OFF)
-# option(EIGEN_TEST_CXX11 "Enable testing with C++11 and C++11 features (e.g. Tensor module)." OFF)
-# option(EIGEN_TEST_NO_EXPLICIT_VECTORIZATION "Disable explicit vectorization in tests/examples" OFF)
-# option(EIGEN_TEST_NO_EXPLICIT_ALIGNMENT "Disable explicit alignment (hence vectorization) in tests/examples" OFF)
-# option(EIGEN_TEST_SYCL "Add Sycl support." OFF)
-# option(EIGEN_SPLIT_LARGE_TESTS "Split large tests into smaller executables" OFF)
+option(BUILD_TESTING "Enable creation of Eigen tests." OFF)
+option(EIGEN_BUILD_DOC "Enable creation of Eigen documentation" OFF)
+option(EIGEN_BUILD_BTL "Build benchmark suite" OFF)
+option(EIGEN_BUILD_PKGCONFIG "Build pkg-config .pc file for Eigen" OFF)
+option(EIGEN_TEST_CXX11 "Enable testing with C++11 and C++11 features (e.g. Tensor module)." OFF)
+option(EIGEN_TEST_NO_EXPLICIT_VECTORIZATION "Disable explicit vectorization in tests/examples" OFF)
+option(EIGEN_TEST_NO_EXPLICIT_ALIGNMENT "Disable explicit alignment (hence vectorization) in tests/examples" OFF)
+option(EIGEN_TEST_SYCL "Add Sycl support." OFF)
+option(EIGEN_SPLIT_LARGE_TESTS "Split large tests into smaller executables" OFF)
 
 
 set(BUILD_GRAPHICAL_EXAMPLES OFF CACHE BOOL "")
 set(BUILD_GLSL_EXTENSIONS OFF CACHE BOOL "")
 set(BUILD_TOOLS OFF CACHE BOOL "")
 
-# add_subdirectory(libraries/eigen)
+add_subdirectory(libraries/eigen)
 add_subdirectory(libraries/ellipsoid-fit)
 # add_subdirectory(libraries/QSsh)
 add_subdirectory(libraries/qwool)
@@ -109,11 +109,15 @@ qt6_add_resources(QRC_SOURCES
 # 所有源文件（.cpp）
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS
   src/*.cpp
+
+  test/QWidgetPrototypeTester.cpp
 )
 
 # 头文件（.h）
 file(GLOB_RECURSE PROJECT_HEADERS CONFIGURE_DEPENDS
   include/robotic_user_interface/*.h
+
+  test/QWidgetPrototypeTester.h
 )
 
 # 添加翻译文件列表
@@ -131,7 +135,7 @@ qt6_add_translation(QM_FILES ${TS_FILES})
 link_directories(
 )
 
-# 构建可执行
+# 构建主要的可执行程序
 add_executable(${PROJECT_NAME}
   ${PROJECT_SOURCES}
   ${PROJECT_HEADERS}
@@ -188,6 +192,9 @@ target_link_libraries(${PROJECT_NAME}
 if (WIN32)
   target_link_libraries(${PROJECT_NAME} ws2_32 advapi32)
 endif()
+
+# 构建测试程序
+
 
 #############
 ## Install ##

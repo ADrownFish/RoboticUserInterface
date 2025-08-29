@@ -344,7 +344,7 @@ void CustomPlotLayer::initItemTracer(QCPItemTracer *itemTracer){
 
 void CustomPlotLayer::initCustomPlot(QCustomPlot* customPlot) {
 
-  if(!config_->app.antiAliasing){
+  if(!config_->plot.antiAliasing){
     customPlot->setNotAntialiasedElements(QCP::aeAll); // 禁用所有抗锯齿
   }
 
@@ -728,7 +728,7 @@ void CustomPlotMap::setupSignalConnection() {
   menu.addMenu(menu_lineShape);
 
   connect(ObtPlot_mark, &QAction::triggered, [this](bool ok) {
-    QPoint pos_toggle = splitter->mapFromGlobal(menuActivatePos);
+    QPoint pos_toggle = verticalSplitter->mapFromGlobal(menuActivatePos);
     CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);
     if (clickedLayer) {
       clickedLayer->DoubleClickDataPoint(pos_toggle);
@@ -743,7 +743,7 @@ void CustomPlotMap::setupSignalConnection() {
   });
 
   connect(ObtPlot_zoomSubplot, &QAction::triggered, [this](bool ok) {
-    QPoint pos_toggle = splitter->mapFromGlobal(menuActivatePos);
+    QPoint pos_toggle = verticalSplitter->mapFromGlobal(menuActivatePos);
     CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);
     if (clickedLayer) {
       clickedLayer->updateAxis(true);
@@ -757,7 +757,7 @@ void CustomPlotMap::setupSignalConnection() {
     });
 
   connect(ObtPlot_rmAllCurves, &QAction::triggered, [this](bool ok) {
-    QPoint pos_toggle = splitter->mapFromGlobal(menuActivatePos);
+    QPoint pos_toggle = verticalSplitter->mapFromGlobal(menuActivatePos);
     CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);
     if (clickedLayer) {
 
@@ -777,7 +777,7 @@ void CustomPlotMap::setupSignalConnection() {
 
   connect(menu_rm_it, &QMenu::aboutToShow, [this, menu_rm_it]() {
     menu_rm_it->clear();
-    QPoint pos_toggle = splitter->mapFromGlobal(menuActivatePos);
+    QPoint pos_toggle = verticalSplitter->mapFromGlobal(menuActivatePos);
     CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);
     if (clickedLayer) {
 
@@ -804,8 +804,8 @@ void CustomPlotMap::setupSignalConnection() {
 void CustomPlotMap::setupWidgetsControls() {
 
   QVBoxLayout* layout = new QVBoxLayout(this);
-  splitter = new QSplitter(Qt::Vertical, this);
-  layout->addWidget(splitter);
+  verticalSplitter = new QSplitter(Qt::Vertical, this);
+  layout->addWidget(verticalSplitter);
   layout->setContentsMargins(0, 0, 0, 0);
   setLayout(layout);
 
@@ -817,9 +817,9 @@ CustomPlotLayer* CustomPlotMap::getCustomPlotLayer(const QPoint& point)
   CustomPlotLayer* clickedLayer = nullptr;
 
   // 遍历 QSplitter 中的所有控件
-  int customPlotLayerCount = splitter->count();
+  int customPlotLayerCount = verticalSplitter->count();
   for (int i = 0; i < customPlotLayerCount; ++i) {
-    QWidget* widget = splitter->widget(i);
+    QWidget* widget = verticalSplitter->widget(i);
     if (widget->geometry().contains(point)) {
       clickedLayer = qobject_cast<CustomPlotLayer*>(widget);
       if(clickedLayer){
@@ -849,7 +849,7 @@ void CustomPlotMap::layerAxisScalingChanged(CustomPlotLayer* p, const QCPRange& 
 CustomPlotLayer* CustomPlotMap::addCustomPlotLayer() {
 
   CustomPlotLayer* layer = new CustomPlotLayer();
-  splitter->addWidget(layer);
+  verticalSplitter->addWidget(layer);
   layer->setConfiguration(config_);
   layer->init();
 
@@ -888,8 +888,8 @@ CustomPlotLayer* CustomPlotMap::addCustomPlotLayer() {
 }
 
 void CustomPlotMap::delCustomPlotLayer(bool keepOne) {
-  QPoint pos_toggle = splitter->mapFromGlobal(menuActivatePos);
-  int customPlotLayerCount = splitter->count();
+  QPoint pos_toggle = verticalSplitter->mapFromGlobal(menuActivatePos);
+  int customPlotLayerCount = verticalSplitter->count();
   CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);
 
   if (clickedLayer) {
@@ -908,10 +908,10 @@ void CustomPlotMap::delCustomPlotLayer(bool keepOne) {
 void CustomPlotMap::resetSplitterLayout() {
   // 重新设置大小
   QList<int> sizes;
-  for (int i = 0; i < splitter->count(); i++) {
+  for (int i = 0; i < verticalSplitter->count(); i++) {
     sizes.append(1);  // 每个控件分配相同的比例
   }
-  splitter->setSizes(sizes);
+  verticalSplitter->setSizes(sizes);
 }
 
 void CustomPlotMap::checkObjectData(){
@@ -934,7 +934,7 @@ void CustomPlotMap::checkObjectData(){
 }
 
 QSplitter* CustomPlotMap::getSplitter(){
-  return splitter;
+  return verticalSplitter;
 }
 
 QList<CustomPlotLayer*>& CustomPlotMap::getLayerList(){

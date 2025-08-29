@@ -219,11 +219,11 @@ void RobotUserInterface::makeNav(){
 		});
   navView_->addItemToTop(switcher);
 
-  // QObject::connect(communicator_, &Communicator::CommStatusChanged, this, [this, toggle](bool ok) {
-  //   toggle->setToggle(ok);
-  //   topStatus_->setCommStatus(ok);
-  //   robotBase_->commStatusChanged(ok);
-  // }, Qt::ConnectionType::QueuedConnection);
+   QObject::connect(communicator_, &Communicator::CommStatusChanged, this, [this, toggle](bool ok) {
+     toggle->setToggle(ok);
+     topStatus_->setCommStatus(ok);
+     robotBase_->commStatusChanged(ok);
+   }, Qt::ConnectionType::QueuedConnection);
 
   // // recording
   // switcher = new NavigationSwitcher();

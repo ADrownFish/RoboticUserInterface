@@ -277,5 +277,7 @@ private:
   QPoint menuActivatePos;
 
   QList<CustomPlotLayer*> layerList;
-  QSplitter* splitter = nullptr;
+
+  QSplitter* verticalSplitter = nullptr;
+  QVector<QSplitter*> horizontalLayouts;
 };

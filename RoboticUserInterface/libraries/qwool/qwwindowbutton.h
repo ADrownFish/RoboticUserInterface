@@ -14,10 +14,21 @@ class QWWindowButton : public QWidget {
   Q_OBJECT
 
 public:
-  enum class ShowMode { List, Single };
+  enum class ViewMode {
+    List, 
+    Single,
+  };
   enum class SelectionMode {
-    SingleSelection,
-    MultiSelection,
+    Single,
+    Multiple,
+  };
+  enum class Direction {
+    Horizontal,
+    Vertical,
+  };
+  enum class UnitSizeMode {
+    Fixed, 
+    Stretch,
   };
 
   QWWindowButton(QWidget* m_mainPage = nullptr);
@@ -25,6 +36,7 @@ public:
 
   void addUnit(QString UnitName);
   void delUnit(int index);
+  void clearUnit();
 
   void setSelectUnitIndex(int index);
   void setSelectUnit(const QString& name);
@@ -37,10 +49,26 @@ public:
   void setAllowMouseClicked(bool ok);
   bool getAllowMouseClicked();
 
-  void setShowMode(ShowMode sm);
-  ShowMode getShowMode();
-  void setSelectionMode(SelectionMode sm);
+  void setAutoAdjustMinimumSize(bool ok);
+  bool getAutoAdjustMinimumSize();
+
+  void setIntervalDistance(int distance);
+  int getIntervalDistance();
+
+  void setFixedUnitSize(int size);
+  int getFixedUnitSize();
+
+  void setViewMode(ViewMode d);
+  ViewMode getViewMode();
+
+  void setSelectionMode(SelectionMode d);
   SelectionMode getSelectionMode();
+
+  void setDirection(Direction d);
+  Direction getDirection();
+
+  void setUnitSizeMode(UnitSizeMode d);
+  UnitSizeMode getUnitSizeMode();
 
   void setBackgroundColor(QColor c);
   QColor getBackgroundColor();
@@ -52,9 +80,6 @@ public:
   QString getUnitName(int index);
 
   int getUnitSize() const;
-
-  void setUnselectedVisible(bool ok);
-  bool  getUnselectedVisible();
 
   void setAnimationDuration(int duration);
   int getAnimationDuration() const;
@@ -81,11 +106,12 @@ private:
   void calculateUnitRects();
   void startHoverAnimation(int index, double startValue, double endValue);
   void startSelectionAnimation(double startValue, double endValue);
+  void adjustMinimumSize();
 
 private:
   bool mouseClicked = false;
   bool allowMouseClicked = true;
-  bool unselectedVisible = true;
+  bool autoAdjustMinimumSize = true;
 
   QStringList UnitList;
   QList<QRectF> unitRects; // 存储每个单元的位置和大小
@@ -103,6 +129,7 @@ private:
 
   int intervalDistance = 5;
   int animationDuration = 200; // 动画持续时间(ms)
+  int fixedUnitSize = 50;
 
   bool drawBackground = true;
   bool drawBackgroundBorder = false;
@@ -122,8 +149,10 @@ private:
   QColor notSelectdBorderColor;
   QColor hoverColor;
 
-  ShowMode showMode = ShowMode::List;
-  SelectionMode selectionMode = SelectionMode::SingleSelection;
+  ViewMode viewMode = ViewMode::List;
+  SelectionMode selectionMode = SelectionMode::Single;
+  Direction direction = Direction::Horizontal;
+  UnitSizeMode unitSizeMode = UnitSizeMode::Stretch;
 
   // 动画相关
   QVariantAnimation* hoverAnimation;

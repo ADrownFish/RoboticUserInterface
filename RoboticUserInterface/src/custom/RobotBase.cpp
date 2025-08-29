@@ -4,8 +4,6 @@
 #include <QDate>
 #include <QPluginLoader>
 
-#include <dlfcn.h>
-
 #include "FluControls/FluMessageBox.h"
 
 void RobotBase::setDataAllocator(const QPointer<DataAllocator>& p)

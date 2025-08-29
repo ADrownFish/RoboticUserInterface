@@ -17,6 +17,8 @@
 #include <QString>
 #include <QRegularExpression>
 #include <QRandomGenerator>
+#include <QBluetoothServiceInfo>
+#include <QBluetoothDeviceInfo>
 
 // ****************************************************************
 using scalar_t = double;
@@ -252,7 +254,23 @@ public:
     Raw,
   };
 
-  struct UDP {
+  enum BTDeviceType {
+    Classic,   // 经典蓝牙 (SPP, A2DP, HFP...)
+    BLE,        // 低功耗蓝牙 (GATT)
+    DualMode,   // 双模蓝牙
+    Unknown,
+  };
+
+  struct BluetoothConfig {
+    // Classic
+    QBluetoothAddress address;
+    QBluetoothUuid uuid;
+
+    QBluetoothDeviceInfo deviceInfo;
+    BTDeviceType type = BTDeviceType::Unknown;
+  };
+
+  struct UDPConfig {
     QList<int> listenHistory = {};
     QList<QString> ipHistory = {};
     QList<int> portHistory = {};
@@ -261,7 +279,7 @@ public:
     QString ip = "127.0.0.1";
     int port = 25555;
   };
-  struct TCP {
+  struct TCPConfig {
     QList<int> listenHistory = {};
     QList<QString> ipHistory = {};
     QList<int> portHistory = {};
@@ -272,7 +290,7 @@ public:
     QString ip = "127.0.0.1";
     int port = 26666;
   };
-  struct Serial {
+  struct SerialConfig {
     QString serialName = "";
     int baudRate = 9600;
     Parity parity = Parity::NONE;
@@ -311,9 +329,10 @@ public:
     }
   }
 
-  UDP udp;
-  TCP tcp;
-  Serial serial;
+  UDPConfig udp;
+  TCPConfig tcp;
+  SerialConfig serial;
+  BluetoothConfig bluetooth;
   CommType commType = CommType::UDP;
   CommProtocol commProtocol = CommProtocol::Plugin;
 };
@@ -406,11 +425,16 @@ public:
   bool tracker = true;
   bool isPaused = false;
   bool gridLine = true;
+  bool antiAliasing = true;
+  bool leggedTopNode = true;
 
   PlotLineType plotLine = PlotLineType::Line;   // 绘图模式，可以是枚举或整数表示不同的模式
   int cacheDuration = 10;       // 数据量缓存窗口，以秒或其他时间单位表示
   int plotSamplingRate = 8;   // 采样率
   int plotFlushRate = 20;       // 绘图帧率（Frames Per Second）
+
+  QString recentLayoutFile;
+  QList<QString> recentLayoutFiles;
 };
 
 enum class EncodingType{
@@ -442,8 +466,6 @@ public:
 
 class MainAppConfiguration {
 public:
-
-  bool antiAliasing = true;
   int fontPointSize = 10;
   int maxWorkerThread = 4;
   QString appName = "Robotic User Interface";

@@ -10,6 +10,8 @@
 #include <QTimer>
 #include <QMutex>
 
+#include <functional>
+
 
 class DataStreamSolver : public QWWindowWidget {
 
@@ -35,9 +37,11 @@ public:
 	QStringList extractCSVHeaders(const QString& filePath, bool hasHeader);
 
 	void loadCSV(const QString& filePath,
-												const QString& timeKey,
-												bool hasHeader = true,
-												const QString& pathSeparator = "/");
+							 const QString& timeKey,
+							 bool hasHeader = true,
+							 const QString& pathSeparator = "/",
+							 std::function<void(int&)> progress = nullptr
+							);
 
 signals:
 	void publishNotify(GCW::NotifyType type, const QString& title, const QString& text);

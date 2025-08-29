@@ -74,9 +74,13 @@ void SettingsDisplay::setupWidgetsControls(){
   ui.widget_font_point_size->addUnit(tr("15"));
   ui.widget_font_point_size->setBackgroundColor(QColor(100, 100, 100, 50));
 
-  ui.widget_antiAliasing->addUnit(tr("False"));
-  ui.widget_antiAliasing->addUnit(tr("True"));
-  ui.widget_antiAliasing->setBackgroundColor(QColor(100,100,100,50));
+  ui.widget_PlotAntiAliasing->addUnit(tr("False"));
+  ui.widget_PlotAntiAliasing->addUnit(tr("True"));
+  ui.widget_PlotAntiAliasing->setBackgroundColor(QColor(100,100,100,50));
+
+  ui.widget_LeggedTopNodes->addUnit(tr("False"));
+  ui.widget_LeggedTopNodes->addUnit(tr("True"));
+  ui.widget_LeggedTopNodes->setBackgroundColor(QColor(100,100,100,50));
 
   ui.textEdit->setText(BuildInfo::getBriefInfo());
   ui.textEdit->setReadOnly(true);               // 设置只读
@@ -91,7 +95,7 @@ void SettingsDisplay::setupWidgetsControls(){
 
   QWDropWidget *drop_plugin = new QWDropWidget();
   drop_plugin->setDropIcon(QIcon(":/svg/svg/arrow-right2.svg"));
-  drop_plugin->setFixedSize(200 + 24, 50);
+  drop_plugin->setFixedSize(300 + 24, 50);
   ui.gridLayout_app->replaceWidget(ui.lineEdit_pluginName, drop_plugin);
   drop_plugin->setWidget(ui.lineEdit_pluginName);
   FluMenu *menu = new FluMenu();
@@ -123,9 +127,11 @@ void SettingsDisplay::pushParameters(){
 
   ui.lineEdit_appName->setText(config_->app.appName);
   ui.lineEdit_pluginName->setText(config_->app.pluginName);
-  ui.widget_antiAliasing->setSelectUnitIndex(config_->app.antiAliasing?1:0);
   ui.widget_font_point_size->setSelectUnitIndex(toFontUnitIndex(config_->app.fontPointSize));
   ui.widget_language->setSelectUnitIndex(toLanguageIndex(config_->app.language));
+
+  ui.widget_PlotAntiAliasing->setSelectUnitIndex(config_->plot.antiAliasing?1:0);
+  ui.widget_LeggedTopNodes->setSelectUnitIndex(config_->plot.leggedTopNode?1:0);
 }
 
 void SettingsDisplay::pullParameters(){
@@ -135,9 +141,11 @@ void SettingsDisplay::pullParameters(){
 
   config_->app.appName = ui.lineEdit_appName->text();
   config_->app.pluginName = ui.lineEdit_pluginName->text();
-  config_->app.antiAliasing = ui.widget_antiAliasing->getCurrentUnitIndex();
   config_->app.fontPointSize = toFontPointSize(ui.widget_font_point_size->getCurrentUnitIndex());
   config_->app.language = toLanguageString(ui.widget_language->getCurrentUnitIndex());
+  
+  config_->plot.antiAliasing = ui.widget_PlotAntiAliasing->getCurrentUnitIndex();
+  config_->plot.leggedTopNode = ui.widget_LeggedTopNodes->getCurrentUnitIndex();
 }
 
 int SettingsDisplay::toFontPointSize(int value){

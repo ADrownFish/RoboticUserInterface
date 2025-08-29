@@ -29,7 +29,7 @@ link_directories(
 )
 
 ## Declare a cpp library
-add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME}  STATIC 
   src/LiteKalmanFilter.cpp
   src/MovingAverageFilter.cpp
   src/IIRFilter.cpp

@@ -79,7 +79,7 @@ public:
 	using Ptr = std::shared_ptr<ObjectNode>;
 
 public:
-	uint32_t id = 1;    // 0 means top
+	int32_t id = 1;    // -1 means root, 0 means top, 1~n means child
 	QString name = "null";
 	QVector<ObjectData::Ptr> data;
 	QVector<ObjectNode::Ptr> children;
@@ -123,49 +123,60 @@ public:
 		return nullptr;
 	}
 
-	QString findPathFromObjectData(const ObjectData::Ptr& od) const {
-		QString path;
-		if (this->id != 0) {
-			path = this->name + "/";
-		}
-		for (auto& d : data) {
-			if (d.get() == od.get()) {
-				return path + d->name;
-			}
-		}
+  QString findPathFromObjectData(const ObjectData::Ptr &od,
+                                 bool ContainsTopLevelNode = true) const {
+    return findPathFromObjectData(od.get(), ContainsTopLevelNode);
+  }
 
-		for (auto& d : children) {
-			QString result = d->findPathFromObjectData(od);
-			if (!result.isEmpty()) {
-				return path + result;
-			}
-		}
+  QString findPathFromObjectData(const ObjectData *od,
+                                 bool ContainsTopLevelNode = true) const {
+    QString path;
 
-		return QString();
-	}
+    // 构建当前节点的路径部分
+    if (this->id != -1) {  // 不是根节点
+      if (this->id == 0) { // 顶层节点
+        if (ContainsTopLevelNode) {
+          path = this->name + "/";
+        } else {
+          path = ""; // 不包含顶层节点时，路径为空
+        }
+      } else { // 普通节点 (id > 0)
+        path = this->name + "/";
+      }
+    } else {     // 根节点
+      path = "";
+    }
 
-	QString findPathFromObjectData(const ObjectData* od) const {
-		QString path;
-		if (this->id != 0) {
-			path = this->name + "/";
-		}
-		for (auto& d : data) {
-			if (d.get() == od) {
-				return path + d->name;
-			}
-		}
+    // 在当前节点的直接子节点中查找
+    for (auto &d : data) {
+      if (d.get() == od) {
+        return path + d->name;
+      }
+    }
 
-		for (auto& d : children) {
-			QString result = d->findPathFromObjectData(od);
-			if (!result.isEmpty()) {
-				return path + result;
-			}
-		}
+    // 递归在子节点中查找
+    for (auto &d : children) {
+      QString result = d->findPathFromObjectData(od, ContainsTopLevelNode);
+      if (!result.isEmpty()) {
+        // 如果当前节点是根节点，直接返回子节点的结果（不添加任何前缀）
+        if (this->id == -1) {
+          return result;
+        }
+        // 如果当前节点是顶层节点且不包含顶层节点，直接返回子节点的结果
+        else if (this->id == 0 && !ContainsTopLevelNode) {
+          return result;
+        }
+        // 其他情况：拼接当前节点的路径和子节点的结果
+        else {
+          return path + result;
+        }
+      }
+    }
 
-		return QString();
-	}
+    return QString();
+  }
 
-	/**
+  /**
      * @brief 查找或创建对象数据
      * @param path 数据路径，如 "robot/imu/acc/x"
      * @param createIfNotExist 如果为true，路径不存在时自动创建
@@ -317,9 +328,18 @@ public:
 		}
 	}
 
-	void resetID(uint32_t topID = 0) {
+	void resetID(int32_t id_) {
+		this->id = id_;
+
 		for (auto& d : children) {
-			d->id = topID + 1;
+			d->id = id_ + 1;
+			d->resetID(d->id);
+		}
+	}
+	
+	void resetID() {
+		for (auto& d : children) {
+			d->id = this->id + 1;
 			d->resetID(d->id);
 		}
 	}
@@ -345,9 +365,11 @@ public:
 
 	ObjectNode::Ptr createTestNode();
 
-	ObjectNode::Ptr createBaseNode(int num_actuator);
+	ObjectNode::Ptr createPluginNode(int num_actuator);
 
-	void clearData();
+	void clearData();         // 清除所有数据
+
+	void resetDataSource();   // 重置，只剩Plugin
 
 	const ObjectNode::Ptr& topNode(){ return topNode_;}
 

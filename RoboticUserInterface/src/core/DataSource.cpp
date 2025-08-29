@@ -5,9 +5,8 @@ DataSource::DataSource(int num_actuator){
 
   topNode_ = std::make_shared<ObjectNode>();
 	topNode_->name = "_Top_Node";
-  topNode_->id = 0;
-	topNode_->addNode(createBaseNode(num_actuator));
-  topNode_->resetID(topNode_->id);
+	topNode_->addNode(createPluginNode(num_actuator));
+  topNode_->resetID(-1);
 
   resetTime();
 }
@@ -39,7 +38,7 @@ ObjectNode::Ptr DataSource::createTestNode() {
   return node;
 }
 
-ObjectNode::Ptr DataSource::createBaseNode(int num_actuator){
+ObjectNode::Ptr DataSource::createPluginNode(int num_actuator){
 	ObjectNode::Ptr node = std::make_shared<ObjectNode>();
 	node->name = "Plugin";
 
@@ -96,9 +95,21 @@ ObjectNode::Ptr DataSource::createBaseNode(int num_actuator){
   node->addNode(system);
   node->addNode(actuators);
 
+  node->resetID(0);
+
   return node;
 }
 
+void DataSource::resetDataSource(){
+  for(auto &it : topNode_->children){
+    if(it->name == "Plugin"){
+      it->clearData();
+      continue;
+    }
+
+    it->clear();
+  }
+}
 
 void DataSource::clearData(){
 	topNode_->clearData();

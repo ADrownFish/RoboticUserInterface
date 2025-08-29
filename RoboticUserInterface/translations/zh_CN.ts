@@ -178,208 +178,320 @@ input speed</source>
     </message>
 </context>
 <context>
+    <name>BluetoothConnectionManager</name>
+    <message>
+        <location filename="../src/core/BluetoothManager.cpp" line="71"/>
+        <location filename="../src/core/BluetoothManager.cpp" line="75"/>
+        <location filename="../src/core/BluetoothManager.cpp" line="79"/>
+        <location filename="../src/core/BluetoothManager.cpp" line="166"/>
+        <location filename="../src/core/BluetoothManager.cpp" line="264"/>
+        <location filename="../src/core/BluetoothManager.cpp" line="278"/>
+        <source>Bluetooth</source>
+        <translation type="unfinished">蓝牙</translation>
+    </message>
+    <message>
+        <location filename="../src/core/BluetoothManager.cpp" line="71"/>
+        <source>Please turn on Bluetooth</source>
+        <translation type="unfinished">请打开蓝牙</translation>
+    </message>
+    <message>
+        <location filename="../src/core/BluetoothManager.cpp" line="75"/>
+        <source>Please pair with the device</source>
+        <translation type="unfinished">请先配对这个设备</translation>
+    </message>
+    <message>
+        <location filename="../src/core/BluetoothManager.cpp" line="79"/>
+        <source>Please select a Bluetooth device</source>
+        <translation type="unfinished">请选择一个蓝牙设备</translation>
+    </message>
+    <message>
+        <location filename="../src/core/BluetoothManager.cpp" line="166"/>
+        <source>Classic socket error: %1</source>
+        <translation type="unfinished">经典蓝牙套接字错误: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/core/BluetoothManager.cpp" line="264"/>
+        <source>BLE error: %1</source>
+        <translation type="unfinished">低功耗蓝牙错误: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/core/BluetoothManager.cpp" line="278"/>
+        <source>BLE controller error: %1</source>
+        <translation type="unfinished">低功耗蓝牙控制器错误: %1</translation>
+    </message>
+</context>
+<context>
     <name>CommSelector</name>
     <message>
         <location filename="../include/form/CommSelector.ui" line="26"/>
-        <location filename="../build/ui_CommSelector.h" line="477"/>
+        <location filename="../build/ui_CommSelector.h" line="596"/>
         <source>CommSelector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="673"/>
-        <location filename="../build/ui_CommSelector.h" line="485"/>
+        <location filename="../include/form/CommSelector.ui" line="427"/>
+        <location filename="../include/form/CommSelector.ui" line="454"/>
+        <location filename="../build/ui_CommSelector.h" line="599"/>
+        <location filename="../build/ui_CommSelector.h" line="600"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/form/CommSelector.ui" line="566"/>
+        <location filename="../build/ui_CommSelector.h" line="601"/>
+        <source>No Address</source>
+        <translation type="unfinished">没有地址</translation>
+    </message>
+    <message>
+        <location filename="../include/form/CommSelector.ui" line="593"/>
+        <location filename="../build/ui_CommSelector.h" line="602"/>
+        <source>/ dBm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/form/CommSelector.ui" line="620"/>
+        <location filename="../build/ui_CommSelector.h" line="603"/>
+        <source>Unknown</source>
+        <translation type="unfinished">未知</translation>
+    </message>
+    <message>
+        <location filename="../include/form/CommSelector.ui" line="952"/>
+        <location filename="../build/ui_CommSelector.h" line="608"/>
         <source>Use the data of the first channel as the time axis</source>
         <translation type="unfinished">使用第一个通道的数据作为时间轴</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="703"/>
-        <location filename="../build/ui_CommSelector.h" line="486"/>
+        <location filename="../include/form/CommSelector.ui" line="982"/>
+        <location filename="../build/ui_CommSelector.h" line="609"/>
         <source>Specifies the timeline, if any</source>
         <translation type="unfinished">指定时间线，如果存在</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="825"/>
-        <location filename="../build/ui_CommSelector.h" line="487"/>
+        <location filename="../include/form/CommSelector.ui" line="1104"/>
+        <location filename="../build/ui_CommSelector.h" line="610"/>
         <source>Protocol</source>
         <translation type="unfinished">协议</translation>
     </message>
     <message>
         <location filename="../include/form/CommSelector.ui" line="65"/>
-        <location filename="../build/ui_CommSelector.h" line="478"/>
+        <location filename="../build/ui_CommSelector.h" line="597"/>
         <source>Type</source>
         <translation type="unfinished">类型</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="250"/>
-        <location filename="../build/ui_CommSelector.h" line="479"/>
+        <location filename="../include/form/CommSelector.ui" line="234"/>
+        <location filename="../build/ui_CommSelector.h" line="598"/>
         <source>TCP Type</source>
         <translation type="unfinished">TCP 类型</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="397"/>
-        <location filename="../build/ui_CommSelector.h" line="480"/>
         <source>Coming Soon</source>
-        <translation type="unfinished">即将支持</translation>
+        <translation type="obsolete">即将支持</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="503"/>
-        <location filename="../build/ui_CommSelector.h" line="482"/>
+        <location filename="../include/form/CommSelector.ui" line="782"/>
+        <location filename="../build/ui_CommSelector.h" line="605"/>
         <source>FlowControl</source>
         <translation>流控</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="564"/>
-        <location filename="../build/ui_CommSelector.h" line="484"/>
+        <location filename="../include/form/CommSelector.ui" line="843"/>
+        <location filename="../build/ui_CommSelector.h" line="607"/>
         <source>Parity</source>
         <translation>校验</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="515"/>
-        <location filename="../build/ui_CommSelector.h" line="483"/>
+        <location filename="../include/form/CommSelector.ui" line="794"/>
+        <location filename="../build/ui_CommSelector.h" line="606"/>
         <source>DataBits</source>
         <translation>数据位</translation>
     </message>
     <message>
-        <location filename="../include/form/CommSelector.ui" line="449"/>
-        <location filename="../build/ui_CommSelector.h" line="481"/>
+        <location filename="../include/form/CommSelector.ui" line="728"/>
+        <location filename="../build/ui_CommSelector.h" line="604"/>
         <source>StopBits</source>
         <translation>停止位</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="36"/>
-        <location filename="../src/form/CommSelector.cpp" line="432"/>
+        <location filename="../src/form/CommSelector.cpp" line="75"/>
+        <location filename="../src/form/CommSelector.cpp" line="586"/>
         <source>Bluetooth</source>
         <translation type="unfinished">蓝牙</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="37"/>
-        <location filename="../src/form/CommSelector.cpp" line="435"/>
+        <location filename="../src/form/CommSelector.cpp" line="76"/>
+        <location filename="../src/form/CommSelector.cpp" line="589"/>
         <source>Serial</source>
         <translation type="unfinished">串口</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="39"/>
+        <location filename="../src/form/CommSelector.cpp" line="78"/>
         <source>Plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="40"/>
+        <location filename="../src/form/CommSelector.cpp" line="79"/>
         <source>JSON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="41"/>
-        <location filename="../src/form/CommSelector.cpp" line="451"/>
+        <location filename="../src/form/CommSelector.cpp" line="80"/>
+        <location filename="../src/form/CommSelector.cpp" line="605"/>
         <source>Float</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="42"/>
-        <location filename="../src/form/CommSelector.cpp" line="455"/>
+        <location filename="../src/form/CommSelector.cpp" line="81"/>
+        <location filename="../src/form/CommSelector.cpp" line="609"/>
         <source>Raw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="44"/>
-        <location filename="../src/form/CommSelector.cpp" line="110"/>
+        <location filename="../src/form/CommSelector.cpp" line="83"/>
+        <location filename="../src/form/CommSelector.cpp" line="618"/>
         <source>Client</source>
         <translation type="unfinished">客户端</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="45"/>
-        <location filename="../src/form/CommSelector.cpp" line="107"/>
+        <location filename="../src/form/CommSelector.cpp" line="84"/>
+        <location filename="../src/form/CommSelector.cpp" line="621"/>
         <source>Server</source>
         <translation type="unfinished">服务端</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="49"/>
-        <location filename="../src/form/CommSelector.cpp" line="53"/>
+        <location filename="../src/form/CommSelector.cpp" line="88"/>
+        <location filename="../src/form/CommSelector.cpp" line="92"/>
         <source>Port</source>
         <translation type="unfinished">端口</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="50"/>
-        <location filename="../src/form/CommSelector.cpp" line="54"/>
+        <location filename="../src/form/CommSelector.cpp" line="89"/>
+        <location filename="../src/form/CommSelector.cpp" line="93"/>
         <source>Listen</source>
         <translation type="unfinished">监听</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="56"/>
+        <location filename="../src/form/CommSelector.cpp" line="95"/>
         <source>Baud Rate</source>
         <translation type="unfinished">波特率</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="57"/>
+        <location filename="../src/form/CommSelector.cpp" line="96"/>
         <source>SerialPort</source>
         <translation type="unfinished">串口设备</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="68"/>
-        <location filename="../src/form/CommSelector.cpp" line="75"/>
+        <location filename="../src/form/CommSelector.cpp" line="107"/>
+        <location filename="../src/form/CommSelector.cpp" line="114"/>
         <source>None</source>
         <translation type="unfinished">无</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="69"/>
+        <location filename="../src/form/CommSelector.cpp" line="108"/>
         <source>Odd</source>
         <translation type="unfinished">奇</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="70"/>
+        <location filename="../src/form/CommSelector.cpp" line="109"/>
         <source>Even</source>
         <translation type="unfinished">偶</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="71"/>
+        <location filename="../src/form/CommSelector.cpp" line="110"/>
         <source>Mark</source>
         <translation type="unfinished">为1</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="72"/>
+        <location filename="../src/form/CommSelector.cpp" line="111"/>
         <source>Space</source>
         <translation type="unfinished">为0</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="76"/>
+        <location filename="../src/form/CommSelector.cpp" line="115"/>
         <source>Software</source>
         <translation type="unfinished">软流控</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="77"/>
+        <location filename="../src/form/CommSelector.cpp" line="116"/>
         <source>Hardware</source>
         <translation type="unfinished">硬流控</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="117"/>
+        <location filename="../src/form/CommSelector.cpp" line="119"/>
+        <source>Scan</source>
+        <translation type="unfinished">扫描</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="136"/>
+        <source>Auto</source>
+        <translation type="unfinished">自动</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="137"/>
+        <source>Classic</source>
+        <translation type="unfinished">经典</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="138"/>
+        <source>BLE</source>
+        <translation type="unfinished">低功耗蓝牙</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="141"/>
+        <source>Please select a device</source>
+        <translation type="unfinished">请选择一个设备</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="142"/>
+        <source>Device information and services</source>
+        <translation type="unfinished">设备信息和服务</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="176"/>
         <source>Communication Configurator</source>
         <translation type="unfinished">通信配置器</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="118"/>
+        <location filename="../src/form/CommSelector.cpp" line="177"/>
         <source>Protocol: Select the method for data parsing.
 Type: Select the communication method to use.
 </source>
         <translation type="unfinished">协议: 选择方法用于协议解析.类型: 选择通信方式.</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="202"/>
-        <location filename="../src/form/CommSelector.cpp" line="217"/>
-        <location filename="../src/form/CommSelector.cpp" line="232"/>
-        <location filename="../src/form/CommSelector.cpp" line="249"/>
-        <location filename="../src/form/CommSelector.cpp" line="264"/>
-        <location filename="../src/form/CommSelector.cpp" line="279"/>
+        <location filename="../src/form/CommSelector.cpp" line="270"/>
+        <location filename="../src/form/CommSelector.cpp" line="285"/>
+        <location filename="../src/form/CommSelector.cpp" line="300"/>
+        <location filename="../src/form/CommSelector.cpp" line="317"/>
+        <location filename="../src/form/CommSelector.cpp" line="332"/>
+        <location filename="../src/form/CommSelector.cpp" line="347"/>
         <source>No History</source>
         <translation type="unfinished">没有历史</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="398"/>
+        <location filename="../src/form/CommSelector.cpp" line="485"/>
         <source>Serial port not detected</source>
         <translation type="unfinished">没有检测到串口</translation>
     </message>
     <message>
-        <location filename="../src/form/CommSelector.cpp" line="409"/>
+        <location filename="../src/form/CommSelector.cpp" line="496"/>
         <source>Unknown device</source>
         <translation type="unfinished">未知设备</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="630"/>
+        <source>No</source>
+        <translation type="unfinished">没有</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="632"/>
+        <source>Device</source>
+        <translation type="unfinished">设备</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="633"/>
+        <source>Selected</source>
+        <translation type="unfinished">被选中</translation>
     </message>
 </context>
 <context>
@@ -405,67 +517,81 @@ Type: Select the communication method to use.
 <context>
     <name>Communicator</name>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="152"/>
+        <location filename="../src/core/Communicator.cpp" line="131"/>
         <source>Successfully connected to the server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">成功连接到服务器</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="157"/>
+        <location filename="../src/core/Communicator.cpp" line="136"/>
         <source>The remote connection is disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">远程连接已断开</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="168"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="185"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="219"/>
+        <location filename="../src/core/Communicator.cpp" line="147"/>
+        <location filename="../src/core/Communicator.cpp" line="177"/>
+        <location filename="../src/core/Communicator.cpp" line="214"/>
         <source>An error occurred: </source>
         <translation type="unfinished">有一个错误产生: </translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="314"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="330"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="340"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="345"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="352"/>
+        <location filename="../src/core/Communicator.cpp" line="152"/>
+        <source>Successfully connected to the device</source>
+        <translation type="unfinished">成功连接到设备</translation>
+    </message>
+    <message>
+        <location filename="../src/core/Communicator.cpp" line="157"/>
+        <source>The device disconnected</source>
+        <translation type="unfinished">设备断开链接</translation>
+    </message>
+    <message>
+        <location filename="../src/core/Communicator.cpp" line="308"/>
+        <location filename="../src/core/Communicator.cpp" line="324"/>
+        <location filename="../src/core/Communicator.cpp" line="334"/>
+        <location filename="../src/core/Communicator.cpp" line="339"/>
+        <location filename="../src/core/Communicator.cpp" line="346"/>
         <source>closed</source>
         <translation type="unfinished">关闭了</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="358"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="454"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="459"/>
+        <location filename="../src/core/Communicator.cpp" line="352"/>
+        <location filename="../src/core/Communicator.cpp" line="448"/>
+        <location filename="../src/core/Communicator.cpp" line="453"/>
         <source>Communicator</source>
         <translation type="unfinished">通讯器</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="358"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="454"/>
+        <location filename="../src/core/Communicator.cpp" line="352"/>
+        <location filename="../src/core/Communicator.cpp" line="448"/>
         <source>Unsupported communication type</source>
         <translation type="unfinished">不支持的通讯类型</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="383"/>
+        <location filename="../src/core/Communicator.cpp" line="377"/>
         <source>started! listen: %1, ip: %2, port: %3</source>
         <translation type="unfinished">已启动! 监听: %1, ip: %2, port: %3</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="412"/>
+        <location filename="../src/core/Communicator.cpp" line="406"/>
         <source>Port monitoring has been started</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">端口监听已启动</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="419"/>
+        <location filename="../src/core/Communicator.cpp" line="413"/>
         <source>Connecting to server . . .</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">正在连接到服务器 . . .</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="441"/>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="450"/>
+        <location filename="../src/core/Communicator.cpp" line="435"/>
         <source>started</source>
         <translation type="unfinished">已启动</translation>
     </message>
     <message>
-        <location filename="../include/robotic_user_interface/core/Communicator.h" line="459"/>
+        <location filename="../src/core/Communicator.cpp" line="444"/>
+        <source>Connecting to device . . .</source>
+        <translation type="unfinished">链接到设备. . .</translation>
+    </message>
+    <message>
+        <location filename="../src/core/Communicator.cpp" line="453"/>
         <source>%1 startup error: %2</source>
         <translation type="unfinished">%1 配置出错: %2</translation>
     </message>
@@ -478,62 +604,113 @@ Type: Select the communication method to use.
     <name>CsvLoadDialog</name>
     <message>
         <location filename="../include/form/CsvLoadDialog.ui" line="26"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="326"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="353"/>
         <source>CsvLoadDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/CsvLoadDialog.ui" line="315"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="329"/>
+        <location filename="../include/form/CsvLoadDialog.ui" line="278"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="356"/>
+        <source>/</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/form/CsvLoadDialog.ui" line="381"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="359"/>
         <source>Select the delimiter</source>
         <translation type="unfinished">选择分隔符</translation>
     </message>
     <message>
-        <location filename="../include/form/CsvLoadDialog.ui" line="337"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="330"/>
+        <location filename="../include/form/CsvLoadDialog.ui" line="343"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="358"/>
         <source>Select X-axis</source>
         <translation type="unfinished">选择 X-轴</translation>
     </message>
     <message>
         <location filename="../include/form/CsvLoadDialog.ui" line="258"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="328"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="355"/>
         <source>There&apos;s nothing here</source>
         <translation type="unfinished">这里什么也没有</translation>
     </message>
     <message>
         <location filename="../include/form/CsvLoadDialog.ui" line="67"/>
-        <location filename="../build/ui_CsvLoadDialog.h" line="327"/>
+        <location filename="../build/ui_CsvLoadDialog.h" line="354"/>
+        <location filename="../src/form/CsvLoadDialog.cpp" line="32"/>
         <source>How do you want to load the file?</source>
         <translation type="unfinished">您想如何加载这个文件?</translation>
     </message>
     <message>
-        <location filename="../src/form/CsvLoadDialog.cpp" line="84"/>
+        <location filename="../src/form/CsvLoadDialog.cpp" line="88"/>
         <source>By Quantity</source>
         <translation type="unfinished">按数量</translation>
     </message>
     <message>
-        <location filename="../src/form/CsvLoadDialog.cpp" line="85"/>
+        <location filename="../src/form/CsvLoadDialog.cpp" line="89"/>
         <source>Select One</source>
         <translation type="unfinished">选择一个</translation>
     </message>
     <message>
-        <location filename="../src/form/CsvLoadDialog.cpp" line="92"/>
+        <location filename="../src/form/CsvLoadDialog.cpp" line="96"/>
         <source>Cancel</source>
         <translation type="unfinished">取消</translation>
     </message>
     <message>
-        <location filename="../src/form/CsvLoadDialog.cpp" line="96"/>
+        <location filename="../src/form/CsvLoadDialog.cpp" line="100"/>
         <source>Load It</source>
         <translation type="unfinished">加载它</translation>
     </message>
     <message>
-        <location filename="../src/form/CsvLoadDialog.cpp" line="106"/>
+        <location filename="../src/form/CsvLoadDialog.cpp" line="110"/>
         <source>Acttention</source>
+        <translation type="unfinished">注意</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CsvLoadDialog.cpp" line="110"/>
+        <source>You need to select a file</source>
+        <translation type="unfinished">你需要选择一个文件</translation>
+    </message>
+    <message>
+        <location filename="../src/form/CsvLoadDialog.cpp" line="114"/>
+        <source>Loading file, please wait</source>
+        <translation type="unfinished">加载文件中，请稍后</translation>
+    </message>
+</context>
+<context>
+    <name>CsvLoadExportDialog</name>
+    <message>
+        <location filename="../include/form/CsvLoadExportDialog.ui" line="26"/>
+        <location filename="../build/ui_CsvLoadExportDialog.h" line="346"/>
+        <source>CsvLoadDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/form/CsvLoadDialog.cpp" line="106"/>
-        <source>You need to select a file</source>
+        <location filename="../include/form/CsvLoadExportDialog.ui" line="70"/>
+        <location filename="../build/ui_CsvLoadExportDialog.h" line="347"/>
+        <source>FilePath</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/form/CsvLoadExportDialog.ui" line="130"/>
+        <location filename="../build/ui_CsvLoadExportDialog.h" line="348"/>
+        <source>Select the delimiter</source>
+        <translation type="unfinished">选择分隔符</translation>
+    </message>
+    <message>
+        <location filename="../include/form/CsvLoadExportDialog.ui" line="152"/>
+        <location filename="../build/ui_CsvLoadExportDialog.h" line="349"/>
+        <source>Select X-axis</source>
+        <translation type="unfinished">选择 X-轴</translation>
+    </message>
+    <message>
+        <location filename="../include/form/CsvLoadExportDialog.ui" line="454"/>
+        <location filename="../build/ui_CsvLoadExportDialog.h" line="350"/>
+        <source>There&apos;s nothing here</source>
+        <translation type="unfinished">这里什么也没有</translation>
+    </message>
+    <message>
+        <location filename="../include/form/CsvLoadExportDialog.ui" line="490"/>
+        <location filename="../build/ui_CsvLoadExportDialog.h" line="351"/>
+        <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -541,7 +718,7 @@ Type: Select the communication method to use.
     <name>Curve</name>
     <message>
         <location filename="../include/form/Curve.ui" line="26"/>
-        <location filename="../build/ui_Curve.h" line="273"/>
+        <location filename="../build/ui_Curve.h" line="261"/>
         <source>Curve</source>
         <translation type="unfinished">曲线</translation>
     </message>
@@ -549,12 +726,12 @@ Type: Select the communication method to use.
 <context>
     <name>CurveDisplay</name>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="102"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="104"/>
         <source>error</source>
         <translation type="unfinished">错误</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="102"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="104"/>
         <source>Failed to obtain the current Plot handle.</source>
         <translation type="unfinished">无法获取当前Plot句柄.</translation>
     </message>
@@ -567,12 +744,12 @@ Type: Select the communication method to use.
         <translation type="obsolete">新的画布名称:</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="178"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="162"/>
         <source>Pause</source>
         <translation type="unfinished">暂停</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="177"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="161"/>
         <source>Continue</source>
         <translation type="unfinished">继续</translation>
     </message>
@@ -589,12 +766,12 @@ Type: Select the communication method to use.
         <translation type="obsolete">线和点</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="184"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="168"/>
         <source>Expand</source>
         <translation type="unfinished">展开</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="183"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="167"/>
         <source>Collapse</source>
         <translation type="unfinished">收起</translation>
     </message>
@@ -607,114 +784,157 @@ Type: Select the communication method to use.
         <translation type="obsolete">隐藏网格</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="109"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="111"/>
         <source>Modify map name</source>
         <translation type="unfinished">变更图名称</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="110"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="112"/>
         <source>New map name:</source>
         <translation type="unfinished">新图名称:</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="189"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="190"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="173"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="174"/>
         <source>Grid</source>
         <translation type="unfinished">网格</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="195"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="179"/>
         <source>Manual Scaling X</source>
         <translation type="unfinished">手动缩放 X</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="196"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="180"/>
         <source>Auto Scaling X</source>
         <translation type="unfinished">自动缩放 X</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="201"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="185"/>
         <source>Manual Scaling Y</source>
         <translation type="unfinished">手动缩放 Y</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="202"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="186"/>
         <source>Auto Scaling Y</source>
         <translation type="unfinished">自动缩放 Y</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="207"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="208"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="191"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="192"/>
         <source>Legend</source>
         <translation type="unfinished">图例</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="213"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="214"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="197"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="198"/>
         <source>Link</source>
         <translation type="unfinished">链接</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="219"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="220"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="203"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="204"/>
         <source>Data Tracker</source>
         <translation type="unfinished">数据跟踪器</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="317"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="226"/>
+        <source>Save layout</source>
+        <translation type="unfinished">保存布局</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="230"/>
+        <source>Load layout</source>
+        <translation type="unfinished">加载布局</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="323"/>
         <source>Save Widget Screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存窗体截图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="318"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="324"/>
         <source>PNG Image (*.png);;JPEG Image (*.jpg *.jpeg);;Bitmap Image (*.bmp)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PNG 图像 (*.png);;JPEG 图像 (*.jpg *.jpeg);;位图 图像 (*.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="335"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="341"/>
         <source>Warn</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">提醒</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="335"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="341"/>
         <source>Failed to save the screenshot.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存截图失败.</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="337"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="343"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">成功</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="337"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="343"/>
         <source>Screenshot saved to: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">截图已保存至: %1</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="413"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="418"/>
         <source>Save Data File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存数据文件</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="415"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="420"/>
         <source>CSV File (*.csv)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="424"/>
-        <location filename="../src/plot/CurveDisplay.cpp" line="427"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="429"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="432"/>
         <source>Export</source>
         <translation type="unfinished">导出</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="424"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="429"/>
         <source>successful:%1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">成功: %1</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="427"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="432"/>
         <source>failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">失败: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="442"/>
+        <source>Save Layout File</source>
+        <translation type="unfinished">保存布局文件</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="444"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="528"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="555"/>
+        <source>Json File (*.json)</source>
+        <translation type="unfinished">Json 文件 (*.json)</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="526"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="553"/>
+        <source>Open Layout File</source>
+        <translation type="unfinished">打开布局文件</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="537"/>
+        <source>I want to select a file</source>
+        <translation type="unfinished">我想选择一个文件</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="541"/>
+        <source>Load Layout</source>
+        <translation type="unfinished">加载布局</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CurveDisplay.cpp" line="542"/>
+        <source>Some recent layouts</source>
+        <translation type="unfinished">最近的布局</translation>
     </message>
     <message>
         <source>Add map</source>
@@ -725,7 +945,7 @@ Type: Select the communication method to use.
         <translation type="obsolete">清除数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="226"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="210"/>
         <source>Cache Duration (s)</source>
         <translation type="unfinished">缓存池时间(s)</translation>
     </message>
@@ -734,22 +954,22 @@ Type: Select the communication method to use.
         <translation type="obsolete">清空数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="232"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="216"/>
         <source>Export As Image</source>
         <translation type="unfinished">导出为图像</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="235"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="220"/>
         <source>Export As File</source>
         <translation type="unfinished">导出为文件</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="243"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="240"/>
         <source>Add Map</source>
         <translation type="unfinished">添加图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CurveDisplay.cpp" line="267"/>
+        <location filename="../src/plot/CurveDisplay.cpp" line="268"/>
         <source>plot map </source>
         <translation type="unfinished">画布 </translation>
     </message>
@@ -757,57 +977,62 @@ Type: Select the communication method to use.
 <context>
     <name>CustomPlotMap</name>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="564"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="685"/>
+        <source>Marking Data Point</source>
+        <translation type="unfinished">标记数据点</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="686"/>
         <source>Add Subplot</source>
         <translation type="unfinished">添加子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="565"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="687"/>
         <source>Remove Subplot</source>
         <translation type="unfinished">移除子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="566"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="688"/>
         <source>Edit Subplot</source>
         <translation type="unfinished">编辑子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="567"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="689"/>
         <source>Remove All Curves</source>
         <translation type="unfinished">移除所有曲线</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="568"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="690"/>
         <source>Zoom Subplot</source>
         <translation type="unfinished">缩放子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="569"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="691"/>
         <source>Zoom All Subplot</source>
         <translation type="unfinished">缩放所有子图</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="573"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="695"/>
         <source>Line Shape</source>
         <translation type="unfinished">线型</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="574"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="696"/>
         <source>Line</source>
         <translation type="unfinished">线</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="575"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="697"/>
         <source>Point</source>
         <translation type="unfinished">点</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="576"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="698"/>
         <source>Point &amp; Line</source>
         <translation type="unfinished">点 &amp; 线</translation>
     </message>
     <message>
-        <location filename="../src/plot/CustomPlotMap.cpp" line="591"/>
+        <location filename="../src/plot/CustomPlotMap.cpp" line="713"/>
         <source>Remove It</source>
         <translation type="unfinished">移除它</translation>
     </message>
@@ -828,80 +1053,80 @@ Type: Select the communication method to use.
 <context>
     <name>DataSourceViewer</name>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="218"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="239"/>
         <source>ObjectNode Tree</source>
         <translation type="unfinished">对象树</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="218"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="239"/>
         <source>Value</source>
         <translation type="unfinished">值</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="321"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="342"/>
         <source>Clear all data</source>
         <translation type="unfinished">清空所有数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="326"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="347"/>
         <source>Clear item data</source>
         <translation type="unfinished">清空Item数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="334"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="355"/>
         <source>Remove item</source>
         <translation type="unfinished">移除Item</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="340"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="361"/>
         <source>Reset tree</source>
         <translation type="unfinished">重置对象树</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="348"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="369"/>
         <source>Importing File</source>
         <translation type="unfinished">导入文件</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="353"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="374"/>
         <source>Select File</source>
         <translation type="unfinished">选择文件</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="353"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="374"/>
         <source>CSV files (*.csv);;All files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="481"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="506"/>
         <source>Data loading completed</source>
         <translation type="unfinished">数据加载完成</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="481"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="506"/>
         <source>Data updated</source>
         <translation type="unfinished">数据已更新</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="498"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="523"/>
         <source>Plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="508"/>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="548"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="533"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="573"/>
         <source>Csv</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="518"/>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="559"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="543"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="584"/>
         <source>Json</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="527"/>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="569"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="552"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="594"/>
         <source>Float</source>
         <translation></translation>
     </message>
@@ -909,19 +1134,24 @@ Type: Select the communication method to use.
 <context>
     <name>DataSourceViewerTreeWidget</name>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="114"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="113"/>
         <source>Eliminate selection</source>
         <translation type="unfinished">消除选中</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="115"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="114"/>
         <source>Clear item data</source>
         <translation type="unfinished">清空Item数据</translation>
     </message>
     <message>
-        <location filename="../src/plot/DataSourceViewer.cpp" line="116"/>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="115"/>
         <source>Delete item</source>
         <translation type="unfinished">删除Item</translation>
+    </message>
+    <message>
+        <location filename="../src/plot/DataSourceViewer.cpp" line="162"/>
+        <source>Drag and drop CSV file here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3747,7 +3977,7 @@ All glyphs in Segoe Fluent Icons have the same fixed width with a consistent hei
         <location filename="../libraries/FluentUI/FluWinGallery/FluInfoBarPage.cpp" line="42"/>
         <location filename="../libraries/FluentUI/FluWinGallery/FluInfoBarPage.cpp" line="110"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">成功</translation>
     </message>
     <message>
         <location filename="../libraries/FluentUI/FluWinGallery/FluInfoBarPage.cpp" line="43"/>
@@ -5592,283 +5822,301 @@ Determinate - shows how much progress has been made on a known amount of work.</
     <name>IMUEllipsoidFit</name>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="26"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="623"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="615"/>
         <source>IMUEllipsoidFit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../include/form/IMUEllipsoidFit.ui" line="68"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="624"/>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="56"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="616"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="44"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="293"/>
         <source>IMU Ellipsoid Fit</source>
         <translation type="unfinished">IMU 椭球拟合</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="101"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="625"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="524"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="621"/>
         <source>Result</source>
         <translation type="unfinished">结果</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="307"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="626"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="730"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="622"/>
         <source>center</source>
         <translation type="unfinished">椭球中心</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="329"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="627"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="752"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="623"/>
         <source>radii</source>
         <translation type="unfinished">椭球半轴长度</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="351"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="628"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="774"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="624"/>
         <source>eval</source>
         <translation type="unfinished">椭球特征值</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="450"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="629"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="873"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="625"/>
         <source>coefficients</source>
         <translation type="unfinished">椭球代数方程系数</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="488"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="630"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="911"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="626"/>
         <source>evec column</source>
         <translation type="unfinished">主轴方向旋转矩阵</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="758"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="631"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="399"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="620"/>
         <source>Operation</source>
         <translation type="unfinished">操作</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="896"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="632"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="129"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="617"/>
         <source>Data Source</source>
         <translation type="unfinished">数据源</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="1005"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="633"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="238"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="618"/>
         <source>Current</source>
         <translation type="unfinished">当前</translation>
     </message>
     <message>
-        <location filename="../include/form/IMUEllipsoidFit.ui" line="1059"/>
-        <location filename="../build/ui_IMUEllipsoidFit.h" line="634"/>
+        <location filename="../include/form/IMUEllipsoidFit.ui" line="292"/>
+        <location filename="../build/ui_IMUEllipsoidFit.h" line="619"/>
         <source>Online caching</source>
         <translation type="unfinished">在线缓存</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="57"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="45"/>
         <source>IMU data ellipsoid fitting tool, of course, any ellipsoid fitting needs can be used</source>
         <translation type="unfinished">IMU数据椭球拟合工具，当然任何椭球拟合需求都可以使用</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="63"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="51"/>
         <source>Ellipsoid center</source>
         <translation type="unfinished">椭球中心</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="64"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="52"/>
         <source>also known as bias</source>
         <translation type="unfinished">即偏置（bias）</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="70"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="58"/>
         <source>Ellipsoid semi-axis length</source>
         <translation type="unfinished">椭球半轴长度</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="71"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="59"/>
         <source>i.e. scaling factor. Unitless (normalized quantity)</source>
         <translation type="unfinished">即比例因子。无单位（标准化量）</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="77"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="65"/>
         <source>Spindle direction rotation matrix</source>
         <translation type="unfinished">主轴方向旋转矩阵</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="78"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="66"/>
         <source>Transformation between ellipsoid and reference coordinates, unitless</source>
         <translation type="unfinished">椭球坐标与参考坐标之间的转换，无单位</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="84"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="72"/>
         <source>Ellipsoid eigenvalues</source>
         <translation type="unfinished">椭球特征值</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="85"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="73"/>
         <source>Related to the scaling factor</source>
         <translation type="unfinished">与缩放因子相关</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="92"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="80"/>
         <source>Show as formula</source>
         <translation type="unfinished">显示为公式</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="100"/>
         <source>Back</source>
-        <translation type="unfinished">返回</translation>
+        <translation type="obsolete">返回</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="108"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="95"/>
         <source>Clear</source>
         <translation type="unfinished">清除</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="109"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="96"/>
         <source>Fit</source>
         <translation type="unfinished">拟合</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="110"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="97"/>
         <source>Load</source>
         <translation type="unfinished">载入</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="111"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="98"/>
         <source>Display</source>
         <translation type="unfinished">3D显示</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="112"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="99"/>
         <source>Export</source>
         <translation type="unfinished">导出</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="124"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="111"/>
         <source>The current number of caches</source>
         <translation type="unfinished">当前缓存数量</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="292"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="301"/>
+        <source>Fit the center point of the ellipsoid through the data set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="306"/>
         <source>Select CSV Files</source>
         <translation type="unfinished">选择 CSV 文件</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="295"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="309"/>
         <source>No File Selected</source>
         <translation type="unfinished">无选择</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="296"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="310"/>
         <source>No file was selected for loading.</source>
         <translation type="unfinished">没有选择任何文件用于加载.</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="310"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="324"/>
         <source>File Open Error</source>
         <translation type="unfinished">文件打开出错</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="311"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="325"/>
         <source>Failed to open file: %1</source>
         <translation type="unfinished">无法打开文件: %1</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="337"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="351"/>
         <source>Invalid Header</source>
         <translation type="unfinished">无效标头</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="338"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="352"/>
         <source>File &apos;%1&apos; is missing required columns: %2, %3, %4. Skipped.</source>
         <translation type="unfinished">文件 &apos;%1&apos; 缺失所需要的列: %2, %3, %4. 已跳过.</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="355"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="369"/>
         <source>Incomplete Line</source>
         <translation type="unfinished">不完整的行</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="356"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="370"/>
         <source>File &apos;%1&apos;, line %2 has insufficient columns. Skipped.</source>
         <translation type="unfinished">文件 &apos;%1&apos;, 行 %2 列数不足。已跳过。</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="369"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="383"/>
         <source>Parse Error</source>
         <translation type="unfinished">解析错误</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="371"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="385"/>
         <source>File &apos;%1&apos;, line %2 contains invalid float values. Skipped.</source>
         <translation type="unfinished">文件 &apos;%1&apos;, 行 %2 包含无效浮点数，已跳过。</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="385"/>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="426"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="399"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="440"/>
         <source>No Valid Data</source>
         <translation type="unfinished">无效的数据</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="386"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="400"/>
         <source>No valid IMU acceleration data found in the selected files.</source>
         <translation type="unfinished">没有发现文件中存在有效的加速度数据.</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="394"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="408"/>
         <source>Data Loaded</source>
         <translation type="unfinished">数据已载入</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="396"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="410"/>
         <source>Successfully loaded %1 accelerometer data samples from %2 files.</source>
         <translation type="unfinished">成功加载 %1 个数据，来自 %2 个文件.</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="427"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="441"/>
         <source>There is no data in the cache.</source>
         <translation type="unfinished">缓存中没有任何数据.</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="453"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="467"/>
         <source>File Write Error</source>
         <translation type="unfinished">文件写入错误</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="454"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="468"/>
         <source>Failed to write to the selected file.</source>
         <translation type="unfinished">无法写入指定文件.</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="91"/>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="157"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="79"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="144"/>
         <source>Ellipsoid Algebraic Equation Coefficients</source>
         <translation type="unfinished">椭球代数方程系数</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="161"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="148"/>
         <source>Load File</source>
         <translation type="unfinished">载入文件</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="162"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="149"/>
         <source>Online Cache</source>
         <translation type="unfinished">在线缓存</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="183"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="170"/>
         <source>X Axis</source>
         <translation type="unfinished">X 轴</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="184"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="171"/>
         <source>Y Axis</source>
         <translation type="unfinished">Y 轴</translation>
     </message>
     <message>
-        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="185"/>
+        <location filename="../src/toolbox/IMUEllipsoidFit.cpp" line="172"/>
         <source>Z Axis</source>
         <translation type="unfinished">Z 轴</translation>
+    </message>
+</context>
+<context>
+    <name>ListChoiceDialog</name>
+    <message>
+        <location filename="../src/form/ListChoiceDialog.cpp" line="81"/>
+        <source>Confirm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/ListChoiceDialog.cpp" line="85"/>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
     </message>
 </context>
 <context>
@@ -6307,6 +6555,149 @@ Do you want to save your changes?</source>
         <location filename="../build/ui_Odom.h" line="144"/>
         <location filename="../build/ui_Odom.h" line="145"/>
         <source>Odom</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="23"/>
+        <source>Generic Access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="24"/>
+        <source>Generic Attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="25"/>
+        <source>Device Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="26"/>
+        <source>Heart Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="27"/>
+        <source>Battery Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="28"/>
+        <source>Health Thermometer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="29"/>
+        <source>Blood Pressure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="30"/>
+        <source>Environmental Sensing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="31"/>
+        <source>Location and Navigation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="32"/>
+        <location filename="../src/form/CommSelector.cpp" line="42"/>
+        <source>Human Interface Device (HID)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="35"/>
+        <source>Serial Port Profile (SPP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="36"/>
+        <source>Headset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="37"/>
+        <source>Audio Sink (A2DP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="38"/>
+        <source>Audio Source (A2DP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="39"/>
+        <source>A/V Remote Control Target</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="40"/>
+        <source>A/V Remote Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="41"/>
+        <source>Hands-Free</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="43"/>
+        <source>OBEX Object Push</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="44"/>
+        <source>OBEX File Transfer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="45"/>
+        <source>Headset HS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="46"/>
+        <location filename="../src/form/CommSelector.cpp" line="50"/>
+        <source>Hands-Free Audio Gateway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="47"/>
+        <source>PAN User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="48"/>
+        <source>NAP (Network Access Point)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="49"/>
+        <source>GN (Group Ad-hoc Network)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/form/CommSelector.cpp" line="51"/>
+        <source>Headset AG</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QWRangeSelector</name>
+    <message>
+        <location filename="../test/QWidgetPrototypeTester.cpp" line="33"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../test/QWidgetPrototypeTester.cpp" line="34"/>
+        <source>End</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10635,7 +11026,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>RobotUserInterface</name>
     <message>
         <location filename="../include/form/RobotUserInterface.ui" line="20"/>
-        <location filename="../build/ui_RobotUserInterface.h" line="263"/>
+        <location filename="../build/ui_RobotUserInterface.h" line="310"/>
         <source>RobotUserInterface</source>
         <translation type="unfinished">机器人用户交互界面</translation>
     </message>
@@ -10650,155 +11041,170 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="obsolete">配置已更新</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="145"/>
+        <location filename="../src/RobotUserInterface.cpp" line="149"/>
         <source>Operation</source>
         <translation type="unfinished">操作</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="152"/>
+        <location filename="../src/RobotUserInterface.cpp" line="156"/>
         <source>Info</source>
         <translation type="unfinished">信息</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="160"/>
+        <location filename="../src/RobotUserInterface.cpp" line="164"/>
         <source>Curve</source>
         <translation type="unfinished">曲线</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="167"/>
+        <location filename="../src/RobotUserInterface.cpp" line="171"/>
         <source>Terminal</source>
         <translation type="unfinished">通信终端</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="408"/>
+        <location filename="../src/RobotUserInterface.cpp" line="412"/>
         <source>Attention</source>
         <translation type="unfinished">注意</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="409"/>
+        <location filename="../src/RobotUserInterface.cpp" line="413"/>
         <source>The communication terminal can only send and receive data when the communication protocol is [Raw].</source>
         <translation type="unfinished">通讯终端只有当通讯协议为[Raw]时才能发送和接收数据.</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="174"/>
+        <location filename="../src/RobotUserInterface.cpp" line="178"/>
         <source>Tools</source>
         <translation type="unfinished">工具</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="75"/>
+        <location filename="../src/RobotUserInterface.cpp" line="78"/>
         <source>configuration has been updated, Some settings require a reboot to take effect.</source>
         <translation type="unfinished">配置已更新, 某些设置需要重启生效.</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="110"/>
+        <location filename="../src/RobotUserInterface.cpp" line="114"/>
         <source>Apply</source>
         <translation type="unfinished">应用</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="111"/>
+        <location filename="../src/RobotUserInterface.cpp" line="115"/>
         <source>Reset</source>
         <translation type="unfinished">重置</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="112"/>
+        <location filename="../src/RobotUserInterface.cpp" line="116"/>
         <source>Restart</source>
         <translation type="unfinished">重启</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="181"/>
-        <location filename="../src/RobotUserInterface.cpp" line="201"/>
+        <location filename="../src/RobotUserInterface.cpp" line="185"/>
+        <location filename="../src/RobotUserInterface.cpp" line="205"/>
         <source>Comm</source>
         <translation type="unfinished">通讯</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="75"/>
-        <location filename="../src/RobotUserInterface.cpp" line="188"/>
+        <location filename="../src/RobotUserInterface.cpp" line="78"/>
+        <location filename="../src/RobotUserInterface.cpp" line="192"/>
         <source>Settings</source>
         <translation type="unfinished">设置</translation>
     </message>
     <message>
-        <location filename="../src/RobotUserInterface.cpp" line="228"/>
         <source>Record</source>
-        <translation type="unfinished">录制</translation>
+        <translation type="obsolete">录制</translation>
     </message>
 </context>
 <context>
     <name>SettingsDisplay</name>
     <message>
         <location filename="../include/form/Settings.ui" line="26"/>
-        <location filename="../build/ui_Settings.h" line="285"/>
+        <location filename="../build/ui_Settings.h" line="317"/>
         <source>SettingsDisplay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="203"/>
-        <location filename="../build/ui_Settings.h" line="290"/>
+        <location filename="../include/form/Settings.ui" line="209"/>
+        <location filename="../build/ui_Settings.h" line="322"/>
         <source>numerical precision</source>
         <translation type="unfinished">数字精度</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="270"/>
-        <location filename="../build/ui_Settings.h" line="292"/>
+        <location filename="../include/form/Settings.ui" line="276"/>
+        <location filename="../build/ui_Settings.h" line="324"/>
         <source>Application</source>
         <translation type="unfinished">应用内</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="412"/>
-        <location filename="../build/ui_Settings.h" line="295"/>
+        <location filename="../include/form/Settings.ui" line="316"/>
+        <location filename="../build/ui_Settings.h" line="326"/>
         <source>plugin name</source>
         <translation type="unfinished">插件名称</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="435"/>
-        <location filename="../build/ui_Settings.h" line="296"/>
+        <location filename="../include/form/Settings.ui" line="488"/>
+        <location filename="../build/ui_Settings.h" line="330"/>
+        <source>Plot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/form/Settings.ui" line="535"/>
+        <location filename="../build/ui_Settings.h" line="331"/>
+        <source>plot anti-aliasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/form/Settings.ui" line="557"/>
+        <location filename="../build/ui_Settings.h" line="332"/>
+        <source>legend shows top-level nodes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../include/form/Settings.ui" line="294"/>
+        <location filename="../build/ui_Settings.h" line="325"/>
         <source>app name</source>
         <translation type="unfinished">软件名称</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="458"/>
-        <location filename="../build/ui_Settings.h" line="297"/>
+        <location filename="../include/form/Settings.ui" line="338"/>
+        <location filename="../build/ui_Settings.h" line="327"/>
         <source>font point size</source>
         <translation type="unfinished">字体点大小</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="481"/>
-        <location filename="../build/ui_Settings.h" line="298"/>
         <source>anti-aliasing</source>
-        <translation type="unfinished">抗锯齿</translation>
+        <translation type="obsolete">抗锯齿</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="359"/>
-        <location filename="../build/ui_Settings.h" line="294"/>
+        <location filename="../include/form/Settings.ui" line="453"/>
+        <location filename="../build/ui_Settings.h" line="328"/>
         <source>font</source>
         <translation type="unfinished">字体</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="257"/>
-        <location filename="../build/ui_Settings.h" line="291"/>
+        <location filename="../include/form/Settings.ui" line="263"/>
+        <location filename="../build/ui_Settings.h" line="323"/>
         <source>Refresh frame rate</source>
         <translation type="unfinished">刷新率</translation>
     </message>
     <message>
         <location filename="../include/form/Settings.ui" line="73"/>
-        <location filename="../build/ui_Settings.h" line="286"/>
+        <location filename="../build/ui_Settings.h" line="318"/>
         <source>Other</source>
         <translation type="unfinished">其它</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="168"/>
-        <location filename="../build/ui_Settings.h" line="289"/>
+        <location filename="../include/form/Settings.ui" line="174"/>
+        <location filename="../build/ui_Settings.h" line="321"/>
         <source>angleuUnit</source>
         <translation type="unfinished">角度单位</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="288"/>
-        <location filename="../build/ui_Settings.h" line="293"/>
+        <location filename="../include/form/Settings.ui" line="475"/>
+        <location filename="../build/ui_Settings.h" line="329"/>
         <source>language</source>
         <translation type="unfinished">语言</translation>
     </message>
     <message>
-        <location filename="../include/form/Settings.ui" line="134"/>
-        <location filename="../build/ui_Settings.h" line="288"/>
+        <location filename="../include/form/Settings.ui" line="140"/>
+        <location filename="../build/ui_Settings.h" line="320"/>
         <source>Display</source>
         <translation type="unfinished">显示部分</translation>
     </message>
@@ -10864,11 +11270,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
     <message>
         <location filename="../src/form/SettingsDisplay.cpp" line="77"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="81"/>
         <source>False</source>
         <translation type="unfinished">否</translation>
     </message>
     <message>
         <location filename="../src/form/SettingsDisplay.cpp" line="78"/>
+        <location filename="../src/form/SettingsDisplay.cpp" line="82"/>
         <source>True</source>
         <translation type="unfinished">是</translation>
     </message>
@@ -11009,42 +11417,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>ToolsBox</name>
     <message>
-        <location filename="../src/form/ToolsBox.cpp" line="53"/>
         <source>IMU Ellipsoid Fitting</source>
-        <translation type="unfinished">IMU 椭球拟合</translation>
+        <translation type="obsolete">IMU 椭球拟合</translation>
     </message>
     <message>
-        <location filename="../src/form/ToolsBox.cpp" line="53"/>
         <source>Fit the center point of the ellipsoid through the data set</source>
-        <translation type="unfinished">通过数据集拟合椭球，并找出中心点</translation>
-    </message>
-    <message>
-        <location filename="../src/form/ToolsBox.cpp" line="70"/>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/form/ToolsBox.cpp" line="77"/>
-        <source>any more ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/form/ToolsBox.cpp" line="70"/>
-        <location filename="../src/form/ToolsBox.cpp" line="77"/>
-        <source>wait .. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/form/ToolsBox.cpp" line="73"/>
-        <location filename="../src/form/ToolsBox.cpp" line="80"/>
-        <source>Wait a minute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/form/ToolsBox.cpp" line="73"/>
-        <location filename="../src/form/ToolsBox.cpp" line="80"/>
-        <source>wait wait wait . . .</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">通过数据集拟合椭球，并找出中心点</translation>
     </message>
 </context>
 <context>
@@ -11208,12 +11586,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>sevnce::SevnceRobot</name>
     <message>
-        <location filename="../src/custom/SevnceRobot.cpp" line="507"/>
+        <location filename="../src/custom/SevnceRobot.cpp" line="508"/>
         <source>Send to the robot</source>
         <translation type="unfinished">发送至机器人</translation>
     </message>
     <message>
-        <location filename="../src/custom/SevnceRobot.cpp" line="508"/>
+        <location filename="../src/custom/SevnceRobot.cpp" line="509"/>
         <source>robot to: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
