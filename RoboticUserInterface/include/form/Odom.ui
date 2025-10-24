@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
-    <height>180</height>
+    <width>365</width>
+    <height>198</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -41,10 +41,13 @@
    <property name="bottomMargin">
     <number>5</number>
    </property>
-   <property name="spacing">
+   <property name="horizontalSpacing">
+    <number>10</number>
+   </property>
+   <property name="verticalSpacing">
     <number>0</number>
    </property>
-   <item row="0" column="1">
+   <item row="0" column="2">
     <widget class="QLabel" name="title">
      <property name="minimumSize">
       <size>
@@ -67,7 +70,7 @@
       <string>Odom</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
    </item>
@@ -87,7 +90,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
+   <item row="1" column="0" colspan="3">
     <widget class="QWidget" name="widget" native="true">
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
@@ -105,57 +108,6 @@
       <property name="spacing">
        <number>5</number>
       </property>
-      <item row="0" column="1">
-       <widget class="QtMaterialTextField" name="lineEdit_linear_pos_x" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QtMaterialTextField" name="lineEdit_linear_pos_y" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QtMaterialTextField" name="lineEdit_linear_pos_z" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_linear_vel">
         <property name="minimumSize">
@@ -174,7 +126,23 @@
          <string/>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QtMaterialTextField" name="lineEdit_linear_vel_z" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -192,7 +160,6 @@
           <height>50</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="1" column="2">
@@ -209,11 +176,10 @@
           <height>50</height>
          </size>
         </property>
-        
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QtMaterialTextField" name="lineEdit_linear_vel_z" native="true">
+      <item row="0" column="3">
+       <widget class="QtMaterialTextField" name="lineEdit_linear_pos_z" native="true">
         <property name="minimumSize">
          <size>
           <width>80</width>
@@ -226,7 +192,38 @@
           <height>50</height>
          </size>
         </property>
-        
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QtMaterialTextField" name="lineEdit_linear_pos_x" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QtMaterialTextField" name="lineEdit_linear_pos_y" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
+        </property>
        </widget>
       </item>
       <item row="0" column="0">
@@ -247,11 +244,68 @@
          <string/>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_linear_mileage">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QtMaterialTextField" name="lineEdit_linear_mileage" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>50</height>
+         </size>
         </property>
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="label_res">
+     <property name="minimumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
     </widget>
    </item>
   </layout>

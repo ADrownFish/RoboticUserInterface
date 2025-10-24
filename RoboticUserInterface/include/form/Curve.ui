@@ -184,13 +184,13 @@ border-bottom:1.5 solid rgb(255,255,255)
           <widget class="QWSwitcherButton" name="AutoScaleAxisY" native="true">
            <property name="minimumSize">
             <size>
-             <width>140</width>
+             <width>100</width>
              <height>25</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>140</width>
+             <width>200</width>
              <height>25</height>
             </size>
            </property>
@@ -203,13 +203,13 @@ border-bottom:1.5 solid rgb(255,255,255)
           <widget class="QWSwitcherButton" name="AutoScaleAxisX" native="true">
            <property name="minimumSize">
             <size>
-             <width>140</width>
+             <width>100</width>
              <height>25</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>140</width>
+             <width>200</width>
              <height>25</height>
             </size>
            </property>
@@ -286,7 +286,7 @@ border-bottom:1.5 solid rgb(255,255,255)
          <item>
           <widget class="QWSwitcherButton" name="curve_pauseResume" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -299,7 +299,7 @@ border-bottom:1.5 solid rgb(255,255,255)
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
+             <width>150</width>
              <height>30</height>
             </size>
            </property>
@@ -330,7 +330,7 @@ border-bottom:1.5 solid rgb(255,255,255)
          <item>
           <widget class="QWSwitcherButton" name="curve_dataTraker" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -343,7 +343,7 @@ border-bottom:1.5 solid rgb(255,255,255)
            </property>
            <property name="maximumSize">
             <size>
-             <width>130</width>
+             <width>150</width>
              <height>30</height>
             </size>
            </property>
@@ -358,7 +358,7 @@ border-bottom:1.5 solid rgb(255,255,255)
          <item>
           <widget class="QWSwitcherButton" name="curve_legend" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -371,7 +371,7 @@ border-bottom:1.5 solid rgb(255,255,255)
            </property>
            <property name="maximumSize">
             <size>
-             <width>90</width>
+             <width>150</width>
              <height>30</height>
             </size>
            </property>
@@ -386,7 +386,7 @@ border-bottom:1.5 solid rgb(255,255,255)
          <item>
           <widget class="QWSwitcherButton" name="curve_link" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -399,7 +399,7 @@ border-bottom:1.5 solid rgb(255,255,255)
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
+             <width>150</width>
              <height>30</height>
             </size>
            </property>
@@ -414,7 +414,7 @@ border-bottom:1.5 solid rgb(255,255,255)
          <item>
           <widget class="QWSwitcherButton" name="curve_gridLine" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -427,7 +427,7 @@ border-bottom:1.5 solid rgb(255,255,255)
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
+             <width>150</width>
              <height>30</height>
             </size>
            </property>
@@ -442,7 +442,7 @@ border-bottom:1.5 solid rgb(255,255,255)
          <item>
           <widget class="QWSwitcherButton" name="curve_moreLess" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -455,7 +455,7 @@ border-bottom:1.5 solid rgb(255,255,255)
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
+             <width>150</width>
              <height>30</height>
             </size>
            </property>

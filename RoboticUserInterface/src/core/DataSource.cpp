@@ -1,4 +1,5 @@
 #include "robotic_user_interface/core/DataSource.h"
+#include "robotic_user_interface/core/FunctionUtils.h"
 
 DataSource::DataSource(int num_actuator){
 	qRegisterMetaType<ObjectNode::Ptr>("ObjectNode::Ptr");
@@ -67,8 +68,13 @@ ObjectNode::Ptr DataSource::createPluginNode(int num_actuator){
   system->addObject(std::make_shared<ObjectData>("cpuUsage"));
   system->addObject(std::make_shared<ObjectData>("memoryUsage"));
   system->addObject(std::make_shared<ObjectData>("diskUsage"));
-  system->addObject(std::make_shared<ObjectData>("cpuCoreTemp"));
-  system->addObject(std::make_shared<ObjectData>("cpuPackageTemp"));
+  system->addObject(std::make_shared<ObjectData>("cpuTemp"));
+  system->addObject(std::make_shared<ObjectData>("cpuFerq"));
+
+  auto sensor = std::make_shared<ObjectNode>();
+  sensor->name = "Sensor";
+  sensor->addObject(std::make_shared<ObjectData>("temp"));
+  sensor->addObject(std::make_shared<ObjectData>("humidity"));
 
   auto actuators = std::make_shared<ObjectNode>();
   actuators->name = "Actuators";
@@ -93,6 +99,7 @@ ObjectNode::Ptr DataSource::createPluginNode(int num_actuator){
   node->addNode(battery);
   node->addNode(imu);
   node->addNode(system);
+  node->addNode(sensor);
   node->addNode(actuators);
 
   node->resetID(0);
@@ -117,10 +124,14 @@ void DataSource::clearData(){
 }
 
 void DataSource::resetTime(){
-  startTime = timestamp_ns();
+  startTime_ = timestamp_ms_f();
 }
 
-scalar_t DataSource::time(){
-  uint64_t retTime = timestamp_ns() - startTime;
-  return scalar_t(retTime) / scalar_t(1000000000);
+scalar_t DataSource::time() const {
+  return  timestamp_ms_f() - startTime_;
+}
+
+scalar_t DataSource::startTime() const {
+
+  return  startTime_;
 }

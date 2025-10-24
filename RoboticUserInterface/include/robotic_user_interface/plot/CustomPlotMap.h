@@ -260,6 +260,8 @@ signals:
 
   void dragAccepted();
 
+  void requestEditPlotLayer(CustomPlotLayer *layer);
+
 private:
   void setupSignalConnection();
 

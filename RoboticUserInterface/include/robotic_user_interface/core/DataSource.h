@@ -2,8 +2,8 @@
 
 #include <memory>
 #include <iostream>
-#include <chrono>   
 #include <cstdint>  
+#include <chrono>
 
 #include <QString>
 #include <QObject>
@@ -375,24 +375,9 @@ public:
 
 	void resetTime();
 	
-	scalar_t time();
+	scalar_t time() const;
 
-public:
-
-	static inline uint64_t timestamp_ms() {
-		using namespace std::chrono;
-		return static_cast<uint64_t>(duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count());
-	}
-
-	static inline scalar_t timestamp_ms_f() {
-		using namespace std::chrono;
-        return static_cast<uint64_t>(duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count()) / 1000'000'000.;
-	}
-	
-	static inline uint64_t timestamp_ns() {
-		using namespace std::chrono;
-		return static_cast<uint64_t>(duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count());
-	}
+	scalar_t startTime() const;
 
 private:
 	ObjectNode::Ptr createAxis3Node(const QString& nodeName);
@@ -400,5 +385,5 @@ private:
 
 private:
 	ObjectNode::Ptr topNode_;
-	uint64_t startTime = 0;
+	scalar_t startTime_ = 0;
 };

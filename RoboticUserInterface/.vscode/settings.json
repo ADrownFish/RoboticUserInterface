@@ -115,7 +115,12 @@
     "charconv": "cpp",
     "qdebug": "cpp",
     "coroutine": "cpp",
-    "qbluetoothserviceinfo": "cpp"
+    "qbluetoothserviceinfo": "cpp",
+    "netfwd": "cpp",
+    "scoped_allocator": "cpp",
+    "qobject": "cpp",
+    "dense": "cpp",
+    "cholesky": "cpp"
   },
   "svg.preview.background": "editor",
   "commentTranslate.source": "Bing",

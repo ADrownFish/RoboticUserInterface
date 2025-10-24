@@ -292,16 +292,12 @@ void FocusStatus::createStatusItems() {
 
 void FocusStatus::flush(){
   using namespace std::chrono;
-  double currentTime =  static_cast<uint64_t>(duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count()) / 1000'000'000.;
-  scalar_t dt = currentTime - value_.time;
-  value_.time = currentTime;
-  if(value_.time == 0)  return; 
 
   value_.uploadBytes = communicator_->getWriteBytesLength();
   value_.downloadBytes = communicator_->getReadBytesLength();
 
-  scalar_t speed_up =   (value_.uploadBytes - value_.lastUploadBytes) / dt;
-  scalar_t speed_down = (value_.downloadBytes - value_.lastDownloadBytes) / dt;
+  scalar_t speed_up =   (value_.uploadBytes - value_.lastUploadBytes);
+  scalar_t speed_down = (value_.downloadBytes - value_.lastDownloadBytes);
   value_.lastUploadBytes   = value_.uploadBytes;
   value_.lastDownloadBytes = value_.downloadBytes;
   

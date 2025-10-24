@@ -49,6 +49,11 @@
     <file>svg/connect.svg</file>    
     <file>svg/grid.svg</file>
 	<file>svg/other.svg</file>
+	<file>svg/gyro.svg</file>    
+    <file>svg/servo.svg</file>    
+    <file>svg/joy.svg</file>    
+    <file>svg/odom.svg</file>
+	<file>svg/bms.svg</file>
   </qresource>
   <qresource prefix="log">
     <file>logo/main.svg</file>

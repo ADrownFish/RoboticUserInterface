@@ -21,20 +21,20 @@ void DataAllocator::setConfiguration(std::shared_ptr<Configuration> config)
 	config_ = config;
 }
 
-void DataAllocator::write(CommunicationConfiguration::CommProtocol protocol, const QByteArray& buffer) {
+bool DataAllocator::write(CommunicationConfiguration::CommProtocol protocol, const QByteArray& buffer) {
 	if (config_->comm.commProtocol != protocol) {
-		return;
+		return false;
 	}
-    comm_->write(buffer);
+  return comm_->write(buffer);
 }
 
-void DataAllocator::read(CommunicationConfiguration::CommProtocol protocol, QByteArray& buffer) {
+bool DataAllocator::read(CommunicationConfiguration::CommProtocol protocol, DataPktBufferTimePtrVec& vec) {
 	if (config_->comm.commProtocol != protocol) {
-		return;
+		return false;
 	}
-	comm_->read(buffer);
+	return comm_->read(vec);
 }
 
 void DataAllocator::init(){
-	QObject::connect(comm_, &Communicator::readyRead, this, &DataAllocator::readyRead);
+	//QObject::connect(comm_, &Communicator::readyRead, this, &DataAllocator::readyRead);
 }

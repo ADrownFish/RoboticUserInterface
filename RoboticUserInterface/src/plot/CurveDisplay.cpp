@@ -210,6 +210,13 @@ void CurveDisplay::setupWidgetsControls() {
   ui.lineEdit_cacheDuration->setLabel(tr("Cache Duration (s)"));
   ui.lineEdit_cacheDuration->setText(QString::number(config_->plot.cacheDuration));
 
+  curveEditor_ = new CurveEditor(this);
+  curveEditor_->setConfiguration(config_);
+  curveEditor_->setDataSource(dataSource_);
+  curveEditor_->setObservations(observations_);
+  curveEditor_->init();
+  curveEditor_->hide();
+
   // =========== 添加的菜单按钮 ===========
   dropButton_ = new QWDropWidget(this);
   FluMenu* menu = new FluMenu();
@@ -261,6 +268,7 @@ CustomPlotMap* CurveDisplay::appendCustomPlot(const QString& name ){
 
   QObject::connect(obj, &CustomPlotMap::publishNotify, this, &CurveDisplay::publishNotify);
   QObject::connect(obj, &CustomPlotMap::dragAccepted, dataSourceViewer_->getTreeWidget(), &QTreeWidget::clearSelection);
+  QObject::connect(obj, &CustomPlotMap::requestEditPlotLayer, curveEditor_, &CurveEditor::execEditor);
   QObject::connect(dataSourceViewer_, &DataSourceViewer::checkObjectData, obj, &CustomPlotMap::checkObjectData);
 
   QString tabName;
@@ -487,7 +495,7 @@ void CurveDisplay::SaveLayout() {
       for (const CustomPlotMapBind &bind : layer->bindList()) {
         QJsonObject bindObj;
         bindObj["color"] = bind.color.name(QColor::HexArgb);
-        bindObj["data"]  = topNode->findPathFromObjectData(bind.data, ContainsTopLevelNode);
+        bindObj["data"]  = topNode->findPathFromObjectData(bind.data, true);
         bindObj["name"]  = bind.data->type;
         bindObj["type"]  = bind.data->enable;
         bindsArray.append(bindObj);
@@ -554,9 +562,10 @@ void CurveDisplay::loadLayout() {
         defaultName,
         tr("Json File (*.json)"),
         nullptr);
+    } else {
+      filePath = result.second;
     }
 
-    filePath = result.second;
     if (filePath.isEmpty())
       return;
   }
@@ -629,6 +638,11 @@ void CurveDisplay::loadLayout() {
         QString name = bindObj["data"].toString();
 
         auto itNode = topNode->findObjectDataFromPath(name, true);
+
+        if (!config_->plot.leggedTopNode) {
+          // 去除topNode
+          name = name.section("/", 1, -1);
+        }
         layer->appedObjectData(itNode.get(), name, colorString);
       }
     }

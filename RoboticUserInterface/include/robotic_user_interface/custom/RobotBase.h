@@ -81,8 +81,6 @@ protected:
 
   virtual void catchData() = 0;
 
-  virtual void recordData() = 0;
-
   virtual void readyRead() = 0;
 
   const QString& getRecordFilePath();
@@ -92,15 +90,12 @@ protected:
   /****************  Called by subclasses  ****************/
   void updateDataSource(scalar_t time);
 
-  void writeData(const QByteArray& data);
+  bool writeData(const QByteArray& data);
 
-  void readData(QByteArray& data);
+  bool readData(DataPktBufferTimePtrVec& vec);
 
 signals:
   void publishNotify(NotifyType type,const QString &title, const QString& text);
-
-private: signals:
-  void dataReaches();
 
 protected:
   int numberOfActuator_ = 12;
@@ -117,9 +112,6 @@ protected:
   QPointer<robot::AsyncDataRecorder> dataRecorder_  = nullptr;
   QPointer<DataAllocator>            dataAllocator_ = nullptr;
 private:
-  QByteArray recvbuffer_;
-  QMutex recvMutex_; 
-
   // use for notify
   QWidget* topWidget_;
 

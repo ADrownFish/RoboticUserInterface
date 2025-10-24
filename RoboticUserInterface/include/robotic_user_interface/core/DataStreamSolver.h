@@ -64,13 +64,11 @@ private:
 	ObjectNode::Ptr csvNode;
 
 	QTimer timer_;
-	QMutex readMutex;
-	QByteArray recviveBuffer_;
 
 	// float
 private:
 
-	void parseFloatData();
+	void parseFloatData(scalar_t time);
 	bool parseFloatPacket(const QByteArray& packet, QVector<float>& result);
 
 	// Float字节流解析相关
@@ -94,7 +92,7 @@ private:
 		ObjectNode::Ptr root;
 	} jsonParser_;
 	
-	void parseJsonBuffer();
-	void parseJsonObject(const QByteArray& jsonData);
+	void parseJsonBuffer(scalar_t time);
+	void parseJsonObject(const QByteArray& jsonData, scalar_t time);
 	void parseJsonValue(const QString& key, const QJsonValue& value, scalar_t timestamp, ObjectNode::Ptr parentNode, bool &hasNew);
 };

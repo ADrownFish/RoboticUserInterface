@@ -65,6 +65,10 @@ public:
 
     StateItem& state(int index);
 
+    QSize sizeHint() const override;
+    
+    QSize minimumSizeHint() const override;
+
 signals:
     void selectIndexChanged(int index);
 

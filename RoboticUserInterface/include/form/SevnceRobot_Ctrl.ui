@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
+    <width>700</width>
     <height>165</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
+    <width>700</width>
     <height>0</height>
    </size>
   </property>
@@ -68,12 +68,11 @@
        <height>0</height>
       </size>
      </property>
-     
      <property name="text">
       <string>Robot - Control</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
    </item>
@@ -98,25 +97,8 @@
       <property name="verticalSpacing">
        <number>5</number>
       </property>
-      <item row="1" column="7">
-       <widget class="QWWindowButton" name="widget_walkMode" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>220</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>220</width>
-          <height>40</height>
-         </size>
-        </property>
-        
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QWWindowButton" name="widget_keepWalking" native="true">
+      <item row="2" column="3">
+       <widget class="QWWindowButton" name="widget_isPerceptive" native="true">
         <property name="minimumSize">
          <size>
           <width>120</width>
@@ -129,11 +111,10 @@
           <height>40</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="label_9">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -147,10 +128,114 @@
          </size>
         </property>
         <property name="text">
-         <string>锁定地形</string>
+         <string>感知</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QLabel" name="label_10">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>行走步态</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="7">
+       <widget class="QPushButton" name="btn_TakingControl">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+background-color: rgb(80, 80, 80);
+border:0;
+border-radius:8;
+color: rgb(255, 255, 255);
+padding: 5px;;
+}
+QPushButton::hover{
+background-color: rgba(80, 80, 80,200);
+}
+QPushButton::pressed{
+background-color: rgba(80, 80, 80,100);
+}</string>
+        </property>
+        <property name="text">
+         <string>获取控制</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_6">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>持续行走</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" colspan="6">
+       <widget class="QWWindowButton" name="widget_robotMode" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QWWindowButton" name="widget_walkGait" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>220</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>220</width>
+          <height>40</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -172,11 +257,27 @@
          <string>机器人模式</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
-      <item row="1" column="6">
+      <item row="1" column="5">
+       <widget class="QWWindowButton" name="widget_walkMode" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>220</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>220</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
        <widget class="QLabel" name="label_12">
         <property name="minimumSize">
          <size>
@@ -194,12 +295,12 @@
          <string>行走模式</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
-      <item row="1" column="5">
-       <widget class="QWWindowButton" name="widget_isPerceptive" native="true">
+      <item row="1" column="3">
+       <widget class="QWWindowButton" name="widget_keepWalking" native="true">
         <property name="minimumSize">
          <size>
           <width>120</width>
@@ -212,163 +313,37 @@
           <height>40</height>
          </size>
         </property>
-        
        </widget>
       </item>
-      <item row="2" column="6">
-       <widget class="QLabel" name="label_10">
-        <property name="minimumSize">
+      <item row="1" column="6">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>80</width>
-          <height>30</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
+       </spacer>
+      </item>
+      <item row="2" column="6" colspan="2">
+       <widget class="QLabel" name="label_msg">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">padding-left: 5px; padding-right: 5px;</string>
         </property>
         <property name="text">
-         <string>行走步态</string>
+         <string>Windows may need to turn off the firewall</string>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+        <property name="wordWrap">
+         <bool>true</bool>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QLabel" name="label_9">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>感知</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="7">
-       <widget class="QWWindowButton" name="widget_walkGait" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>220</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>220</width>
-          <height>40</height>
-         </size>
-        </property>
-        
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QWWindowButton" name="widget_lockedTerrain" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>120</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>120</width>
-          <height>40</height>
-         </size>
-        </property>
-        
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="label_6">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>持续行走</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3" colspan="5">
-       <widget class="QWWindowButton" name="widget_robotMode" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>40</height>
-         </size>
-        </property>
-        
-       </widget>
-      </item>
-      <item row="2" column="4">
-       <widget class="QLabel" name="label_11">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>接管控制权</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="5">
-       <widget class="QWWindowButton" name="widget_TakingControl" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>120</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>120</width>
-          <height>40</height>
-         </size>
-        </property>
-        
        </widget>
       </item>
      </layout>

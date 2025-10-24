@@ -1,4 +1,5 @@
 #include "robotic_user_interface/core/Communicator.h"
+#include "robotic_user_interface/core/FunctionUtils.h"
 
 #include <QEventLoop>
 
@@ -62,36 +63,35 @@ void Communicator::close() {
   requestClose();
 }
 
-void Communicator::write(const QByteArray& buffer){
+bool Communicator::write(const QByteArray& buffer){
   if(buffer.isEmpty()){
-    return;
+    return false;
   }
 
   if (isOpen()) {
     int size = buffer.size();
-    //writeBytesLength += size;
+    auto pkt = std::make_shared<DataPacketBuffer>(size);
+    std::copy(buffer.begin(), buffer.end(), pkt->buffer.begin());
 
-    writeBytesLength += tx_buffer.WriteBatch((uint8_t*)buffer.data(), size);
-    readySend();
+    tx_buffer.Write(pkt);
+    writeBytesLength += size;
   }
+  return true;
 }
 
-void Communicator::read(QByteArray& buffer) {
-  //qDebug() << "pull";
-  
+bool Communicator::read(DataPktBufferTimePtrVec& vec) {
   if(rx_buffer.IsEmpty()){
-    return;
+    return false;
   }
 
   int size = rx_buffer.Size();
-  //readBytesLength += size;
+  vec.resize(size);
+  rx_buffer.ReadBatch(vec.data(), size);
 
-  //qDebug() << "pull" << rx_buffer.Size();
-
-  buffer.resize(size);
-  readBytesLength += rx_buffer.ReadBatch((uint8_t*)buffer.data(), size);
-
-  dataTaken_ = true;
+  for (auto& it : vec) {
+    readBytesLength += it->buffer.size();
+  }
+  return true;
 }
 
 uint64_t Communicator::getReadBytesLength() {
@@ -109,6 +109,9 @@ void Communicator::setupSignalConnection(){
 
 void Communicator::start() {
   thread_->setPriority(QThread::HighPriority);
+
+  // timer
+  timer_ = new QTimer(this);
 
   // on obj thread
   socket_udp_ = new QUdpSocket(this);
@@ -160,7 +163,7 @@ void Communicator::start() {
     });
   QObject::connect(bluetooth_manager_, &BluetoothConnectionManager::publishNotify, this, &Communicator::publishNotify);
   QObject::connect(bluetooth_manager_, &BluetoothConnectionManager::readyRead, this, [this](const QByteArray& data) {
-    sendSignal_readyread(data);
+    enqueueDataToRing(data);
     });
 
   QObject::connect(socket_serial, &QSerialPort::readyRead, this,     &Communicator::readyReadSerial);
@@ -184,9 +187,12 @@ void Communicator::start() {
   QObject::connect(socket_serial, &QSerialPort::readyRead, this, [this]() { 
   });
 
-  QObject::connect(this,             &Communicator::readySend, this,            &Communicator::readySendSocket);
+  // QObject::connect(this,             &Communicator::readySend, this,            &Communicator::readySendSocket);
   QObject::connect(this,             &Communicator::requestOpen, this,        &Communicator::open_threadImpl);
   QObject::connect(this,             &Communicator::requestClose, this,        &Communicator::close_threadImpl);
+
+  QObject::connect(timer_, &QTimer::timeout, this, &Communicator::processEvent);
+  timer_->start(10);
 }
 
 void Communicator::tcpNewConnection() {
@@ -231,41 +237,60 @@ void Communicator::readyReadUdp(){
     quint16 senderPort;
     socket_udp_->readDatagram(buffer.data(), buffer.size(), &sender, &senderPort);
 
-    sendSignal_readyread(buffer);
+    enqueueDataToRing(buffer);
   }
 }
 void Communicator::readyReadTcp(){
   // on obj thread
   QByteArray buffer = socket_tcp_->readAll();
-  sendSignal_readyread(buffer);
+  enqueueDataToRing(buffer);
 }
 void Communicator::readyReadServerTcp(QTcpSocket* socket) {
   // on obj thread
   QByteArray buffer = socket->readAll();
-  sendSignal_readyread(buffer);
+  enqueueDataToRing(buffer);
 }
 
 void Communicator::readyReadSerial(){
   // on obj thread
   QByteArray buffer = socket_serial->readAll();
-  sendSignal_readyread(buffer);
+  enqueueDataToRing(buffer);
 }
 
-void Communicator::sendSignal_readyread(const QByteArray& buffer){
-    rx_buffer.WriteBatch((uint8_t*)buffer.data(), buffer.size());
-    // If the data has not been taken, no signal is sent. maybe wrong ?
-    if(dataTaken_){
-      dataTaken_ = false;
-      readyRead();
-    } else {
-    }
+void Communicator::enqueueDataToRing(const QByteArray& buffer){
+  if (buffer.isEmpty()) return;
+
+  auto pkt = std::make_shared<DataPktBufferTime>(buffer.size());
+
+  std::memcpy(pkt->buffer.data(), buffer.constData(), buffer.size());
+  pkt->timestamp = static_cast<uint64_t>(timestamp_ms_f());
+
+  rx_buffer.Write(pkt);
 }
 
-void Communicator::readySendSocket() {
+void Communicator::dequeueDataFromRing() {
   // on obj thread
+  
+  uint32_t bufferLength = tx_buffer.Size();
+  if (bufferLength == 0) {
+    return;
+  }
+
+  DataPktBufferPtrVec bufferVec(bufferLength);
+  tx_buffer.ReadBatch(bufferVec.data(), bufferLength);
+
+  uint32_t bufferBytes = 0;
+  for (auto &pkt : bufferVec) {
+    bufferBytes += pkt->buffer.size();
+  }
+
   QByteArray buffer;
-  buffer.resize(tx_buffer.Size());
-  tx_buffer.ReadBatch((uint8_t *)buffer.data(), buffer.size());
+  buffer.resize(bufferBytes);
+  auto destIt = buffer.begin();
+  for (auto &pkt : bufferVec) {
+    destIt = std::copy(pkt->buffer.begin(), pkt->buffer.end(), destIt);
+  }
+  
 
   switch (config_.commType){
     case CCType::UDP:{
@@ -453,6 +478,10 @@ void Communicator::open_threadImpl() {
     emit publishNotify(GCW::NotifyType::Warning, tr("Communicator"), tr("%1 startup error: %2").arg(toString(config_.commType),error_msg));
   }
   emit CommStatusChanged(result);
+}
+
+void Communicator::processEvent(){
+  dequeueDataFromRing();
 }
 
 QSerialPort::Parity Communicator::toQtParity(CCParity parity) {

@@ -742,6 +742,14 @@ void CustomPlotMap::setupSignalConnection() {
     delCustomPlotLayer();
   });
 
+  connect(ObtPlot_edit, &QAction::triggered, [this](bool ok) {
+    QPoint pos_toggle = verticalSplitter->mapFromGlobal(menuActivatePos);
+    CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);
+    if (clickedLayer) {
+      requestEditPlotLayer(clickedLayer);
+    }
+  });
+
   connect(ObtPlot_zoomSubplot, &QAction::triggered, [this](bool ok) {
     QPoint pos_toggle = verticalSplitter->mapFromGlobal(menuActivatePos);
     CustomPlotLayer* clickedLayer = getCustomPlotLayer(pos_toggle);

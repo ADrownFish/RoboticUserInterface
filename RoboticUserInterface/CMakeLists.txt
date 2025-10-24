@@ -19,6 +19,19 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
     add_compile_options(-fPIC)
 endif()
 
+option(ENABLE_PROFILING "Enable profiling tools" ON)
+
+if(ENABLE_PROFILING AND UNIX)
+    # 只在Debug模式下启用性能分析选项
+    add_compile_options(
+        "$<$<CONFIG:Debug>:-g;-fno-omit-frame-pointer;-pg>"
+    )
+    
+    add_link_options(
+        "$<$<CONFIG:Debug>:-pg>"
+    )
+endif()
+
 # 获取当前时间戳
 string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M:%S")
 

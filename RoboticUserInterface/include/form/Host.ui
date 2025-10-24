@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>260</width>
-    <height>195</height>
+    <height>143</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -41,30 +41,12 @@
    <property name="bottomMargin">
     <number>5</number>
    </property>
-   <property name="spacing">
+   <property name="horizontalSpacing">
+    <number>10</number>
+   </property>
+   <property name="verticalSpacing">
     <number>0</number>
    </property>
-   <item row="0" column="1">
-    <widget class="QLabel" name="title">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>System</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QWSwitcher" name="toggle" native="true">
      <property name="minimumSize">
@@ -81,7 +63,28 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" rowspan="2" colspan="2">
+   <item row="0" column="2">
+    <widget class="QLabel" name="title">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Host</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" rowspan="2" colspan="3">
     <widget class="QWidget" name="widget" native="true">
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
@@ -99,8 +102,8 @@
       <property name="spacing">
        <number>5</number>
       </property>
-      <item row="0" column="2">
-       <widget class="QtMaterialTextField" name="lineEdit_cpu" native="true">
+      <item row="1" column="1">
+       <widget class="QtMaterialTextField" name="lineEdit_disk" native="true">
         <property name="minimumSize">
          <size>
           <width>80</width>
@@ -113,7 +116,6 @@
           <height>50</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="1" column="0">
@@ -130,11 +132,10 @@
           <height>50</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QtMaterialTextField" name="lineEdit_cpu_package_temp" native="true">
+       <widget class="QtMaterialTextField" name="lineEdit_cpu_ferq" native="true">
         <property name="minimumSize">
          <size>
           <width>80</width>
@@ -147,28 +148,10 @@
           <height>50</height>
          </size>
         </property>
-        
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QtMaterialTextField" name="lineEdit_bodyTemp" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QtMaterialTextField" name="lineEdit_cpu_max_temp" native="true">
+       <widget class="QtMaterialTextField" name="lineEdit_cpu_temp" native="true">
         <property name="minimumSize">
          <size>
           <width>80</width>
@@ -181,11 +164,10 @@
           <height>50</height>
          </size>
         </property>
-        
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QtMaterialTextField" name="lineEdit_disk" native="true">
+      <item row="0" column="2">
+       <widget class="QtMaterialTextField" name="lineEdit_cpu" native="true">
         <property name="minimumSize">
          <size>
           <width>80</width>
@@ -198,27 +180,28 @@
           <height>50</height>
          </size>
         </property>
-        
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QtMaterialTextField" name="lineEdit_bodyHumidity" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>50</height>
-         </size>
-        </property>
-        
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="label_res">
+     <property name="minimumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
     </widget>
    </item>
   </layout>

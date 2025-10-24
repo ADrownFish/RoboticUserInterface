@@ -15,7 +15,8 @@
                 "${workspaceFolder}/libraries",
                 "/home/adf/Qt/6.9.0/qt6.9.0-static/include/QtWidgets",
                 "${workspaceFolder}/libraries/filter/include",
-                "${workspaceFolder}/build"
+                "${workspaceFolder}/build",
+                "${workspaceFolder}/libraries/ellipsoid-fit/include/ellipsoid_fit"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

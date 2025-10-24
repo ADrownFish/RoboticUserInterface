@@ -19,14 +19,14 @@ public:
 
   void setConfiguration(std::shared_ptr<Configuration> config);
 
-  void write(CommunicationConfiguration::CommProtocol protocol, const QByteArray& buffer);
+  bool write(CommunicationConfiguration::CommProtocol protocol, const QByteArray& buffer);
 
-  void read(CommunicationConfiguration::CommProtocol protocol, QByteArray& buffer);
+  bool read(CommunicationConfiguration::CommProtocol protocol, DataPktBufferTimePtrVec& vec);
 
   void init();
 
 signals:
-  void readyRead();
+  //void readyRead();
 
 private:
   QPointer<Communicator> comm_;

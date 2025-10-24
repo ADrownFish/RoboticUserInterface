@@ -8,9 +8,9 @@
 #include "qt_gcw/QSnackbarManager.h"
 #include "robotic_user_interface/plot/DataSourceViewer.h"
 #include "robotic_user_interface/plot/CustomPlotMap.h"
+#include "robotic_user_interface/plot/CurveEditor.h"
 #include "robotic_user_interface/core/DataSource.h"
 #include "robotic_user_interface/core/DataStreamSolver.h"
-
 
 #include "ui_Curve.h"
 
@@ -70,12 +70,13 @@ private:
 
   QPointer<DataSourceViewer> dataSourceViewer_;
   QPointer<QWDropWidget>     dropButton_;
-  CustomPlotMap* currentPlotMap = nullptr;
-  QSplitter* splitter = nullptr;
+  QPointer<CurveEditor>      curveEditor_;
+  CustomPlotMap*             currentPlotMap = nullptr;
+  QSplitter*                 splitter = nullptr;
 
-  std::shared_ptr<Configuration> config_;
+  std::shared_ptr<Configuration>    config_;
   std::shared_ptr<ObservationsBase> observations_;
-  std::shared_ptr<DataSource> dataSource_;
+  std::shared_ptr<DataSource>       dataSource_;
 
-  QPointer<DataStreamSolver> dataStreamSolver_;
+  QPointer<DataStreamSolver>        dataStreamSolver_;
 };

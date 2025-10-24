@@ -6,26 +6,8 @@
 
 #include "FluControls/FluMessageBox.h"
 
-void RobotBase::setDataAllocator(const QPointer<DataAllocator>& p)
-{
+void RobotBase::setDataAllocator(const QPointer<DataAllocator>& p){
   dataAllocator_ = p;
-
-  // 数据传递
-  QObject::connect(dataAllocator_, &DataAllocator::readyRead, [this]() {
-
-    // on signal thread
-    
-    if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::Plugin) {
-      QByteArray buffer;
-      dataAllocator_->read(CommunicationConfiguration::CommProtocol::Plugin, buffer);
-      
-      recvMutex_.lock();
-      recvbuffer_.append(buffer);
-      recvMutex_.unlock();
-
-      emit dataReaches();
-    }
-  });
 }
 
 void RobotBase::init(int numberOfActuator, int numberOfEndEffector){
@@ -53,10 +35,9 @@ void RobotBase::init(int numberOfActuator, int numberOfEndEffector){
   
   QObject::connect(&timer_flush, &QTimer::timeout, [this](){
     catchData();
+    readyRead();
     displayData();
   });
-
-  QObject::connect(this, &RobotBase::dataReaches, this, &RobotBase::readyRead, Qt::QueuedConnection);
 
   timer_flush.start(config_->display.getDt());
   dataSource_->topNode()->setTimeWindow(config_->plot.cacheDuration);
@@ -98,64 +79,48 @@ QDialog::DialogCode RobotBase::displayMessageDialog(const QString& title, const 
 }
 
 void RobotBase::updateDataSource(scalar_t time) {
+  time = time - dataSource_->startTime();
 
-  // scalar_t tttt =  DataSource::timestamp_ms_f() * 1000.;
   // 获取顶层节点引用
   const ObjectNode::Ptr& top = dataSource_->topNode();
-
-  // 查找并缓存各个节点
   const ObjectNode::Ptr& base = top->findObjectNode("Plugin");
-  const ObjectNode::Ptr& odom = base->findObjectNode("Odom");
 
+  const ObjectNode::Ptr& odom = base->findObjectNode("Odom");
   const ObjectNode::Ptr& position = odom->findObjectNode("position");
   const ObjectNode::Ptr& velocity = odom->findObjectNode("velocity");
-
-  // 获取对应的数据项
   const ObjectData::Ptr& position_x = position->findObjectData("x");
   const ObjectData::Ptr& position_y = position->findObjectData("y");
   const ObjectData::Ptr& position_z = position->findObjectData("z");
-
   const ObjectData::Ptr& velocity_x = velocity->findObjectData("x");
   const ObjectData::Ptr& velocity_y = velocity->findObjectData("y");
   const ObjectData::Ptr& velocity_z = velocity->findObjectData("z");
-
-  // 获取观测值
   auto& obs_odom = observations_->odom;
-
-  // 直接使用缓存的节点引用进行数据追加
   position_x->appendData(time, obs_odom.position[0]);
   position_y->appendData(time, obs_odom.position[1]);
   position_z->appendData(time, obs_odom.position[2]);
-
   velocity_x->appendData(time, obs_odom.velocity[0]);
   velocity_y->appendData(time, obs_odom.velocity[1]);
   velocity_z->appendData(time, obs_odom.velocity[2]);
 
-  // 处理 IMU 数据
   const ObjectNode::Ptr& imu = base->findObjectNode("IMU");
   const ObjectNode::Ptr& quat = imu->findObjectNode("quat");
   const ObjectNode::Ptr& euler = imu->findObjectNode("euler");
   const ObjectNode::Ptr& acc = imu->findObjectNode("acc");
   const ObjectNode::Ptr& angVel = imu->findObjectNode("angVel");
   const ObjectNode::Ptr& angAcc = imu->findObjectNode("angAcc");
-
   const ObjectData::Ptr& quat_w = quat->findObjectData("w");
   const ObjectData::Ptr& quat_x = quat->findObjectData("x");
   const ObjectData::Ptr& quat_y = quat->findObjectData("y");
   const ObjectData::Ptr& quat_z = quat->findObjectData("z");
-
   const ObjectData::Ptr& euler_x = euler->findObjectData("x");
   const ObjectData::Ptr& euler_y = euler->findObjectData("y");
   const ObjectData::Ptr& euler_z = euler->findObjectData("z");
-
   const ObjectData::Ptr& acc_x = acc->findObjectData("x");
   const ObjectData::Ptr& acc_y = acc->findObjectData("y");
   const ObjectData::Ptr& acc_z = acc->findObjectData("z");
-
   const ObjectData::Ptr& angVel_x = angVel->findObjectData("x");
   const ObjectData::Ptr& angVel_y = angVel->findObjectData("y");
   const ObjectData::Ptr& angVel_z = angVel->findObjectData("z");
-
   const ObjectData::Ptr& angAcc_x = angAcc->findObjectData("x");
   const ObjectData::Ptr& angAcc_y = angAcc->findObjectData("y");
   const ObjectData::Ptr& angAcc_z = angAcc->findObjectData("z");
@@ -164,8 +129,6 @@ void RobotBase::updateDataSource(scalar_t time) {
   auto& obs_imu = observations_->imu;
 
   auto& quat_buffer = obs_imu.quat;
-
-  // 直接使用缓存的节点引用进行数据追加
   quat_w->appendData(time, quat_buffer[3]);
   quat_x->appendData(time, quat_buffer[0]);
   quat_y->appendData(time, quat_buffer[1]);
@@ -190,7 +153,6 @@ void RobotBase::updateDataSource(scalar_t time) {
 
   // 处理 Battery 数据
   const ObjectNode::Ptr& battery = base->findObjectNode("Battery");
-
   const ObjectData::Ptr& battery_voltage = battery->findObjectData("voltage");
   const ObjectData::Ptr& battery_current = battery->findObjectData("current");
   const ObjectData::Ptr& battery_soc = battery->findObjectData("soc");
@@ -198,8 +160,6 @@ void RobotBase::updateDataSource(scalar_t time) {
 
   // 获取观测值
   auto& obs_battery = observations_->battery;
-
-  // 直接使用缓存的节点引用进行数据追加
   battery_voltage->appendData(time, obs_battery.voltage);
   battery_current->appendData(time, obs_battery.current);
   battery_soc->appendData(time, obs_battery.soc);
@@ -207,22 +167,29 @@ void RobotBase::updateDataSource(scalar_t time) {
 
   // 处理 System 数据
   const ObjectNode::Ptr& system = base->findObjectNode("System");
-
   const ObjectData::Ptr& system_cpuUsage = system->findObjectData("cpuUsage");
   const ObjectData::Ptr& system_memoryUsage = system->findObjectData("memoryUsage");
   const ObjectData::Ptr& system_diskUsage = system->findObjectData("diskUsage");
-  const ObjectData::Ptr& system_cpuCoreTemp = system->findObjectData("cpuCoreTemp");
-  const ObjectData::Ptr& system_cpuPackageTemp = system->findObjectData("cpuPackageTemp");
+  const ObjectData::Ptr& system_cpuTemp = system->findObjectData("cpuTemp");
+  const ObjectData::Ptr& system_cpuFerq = system->findObjectData("cpuFerq");
 
   // 获取观测值
   auto& obs_system = observations_->system;
-
-  // 直接使用缓存的节点引用进行数据追加
   system_cpuUsage->appendData(time, obs_system.cpuUsage);
   system_memoryUsage->appendData(time, obs_system.memoryUsage);
   system_diskUsage->appendData(time, obs_system.diskUsage);
-  system_cpuCoreTemp->appendData(time, obs_system.cpuCoreMaxTemp);
-  system_cpuPackageTemp->appendData(time, obs_system.cpuPackageTemp);
+  system_cpuTemp->appendData(time, obs_system.cpuTemp);
+  system_cpuFerq->appendData(time, obs_system.cpuFerq);
+
+  // 处理 System 数据
+  const ObjectNode::Ptr& sensor = base->findObjectNode("Sensor");
+  const ObjectData::Ptr& sensor_temp = sensor->findObjectData("temp");
+  const ObjectData::Ptr& sensor_humidity = sensor->findObjectData("humidity");
+
+  // 获取观测值
+  auto& obs_sensor = observations_->sensor;
+  sensor_temp->appendData(time, obs_sensor.temp);
+  sensor_humidity->appendData(time, obs_sensor.humidity);
 
   auto &obs_act = observations_->actuator;
   const ObjectNode::Ptr& actuators = base->findObjectNode("Actuators");
@@ -233,28 +200,19 @@ void RobotBase::updateDataSource(scalar_t time) {
     actuators_x->findObjectData("pos")           ->appendData(time, obs_act[i].pos);
     actuators_x->findObjectData("vel")            ->appendData(time, obs_act[i].vel);
     actuators_x->findObjectData("torque")      ->appendData(time, obs_act[i].torque);
-    actuators_x->findObjectData("voltage")     ->appendData(time, obs_act[i].voltage);
-    actuators_x->findObjectData("current")     ->appendData(time, obs_act[i].current);
     actuators_x->findObjectData("power")       ->appendData(time, obs_act[i].power);
     actuators_x->findObjectData("temp_m")    ->appendData(time, obs_act[i].temperature);
     actuators_x->findObjectData("Temp_d")    ->appendData(time, obs_act[i].driverTemperature);
   }
 
-  // qDebug() << "RobotBase::updateData() " << DataSource::timestamp_ms_f()*1000. - tttt;;
-
 }
 
-void RobotBase::writeData(const QByteArray& data){
-  dataAllocator_->write(CommunicationConfiguration::CommProtocol::Plugin, data);
+bool RobotBase::writeData(const QByteArray& data){
+  return dataAllocator_->write(CommunicationConfiguration::CommProtocol::Plugin, data);
 }
 
-void RobotBase::readData(QByteArray& data){
-
-  recvMutex_.lock();
-  if (!recvbuffer_.isEmpty()) {
-    data = std::move(recvbuffer_);
-  }
-  recvMutex_.unlock();
+bool RobotBase::readData(DataPktBufferTimePtrVec& vec){
+  return  dataAllocator_->read(CommunicationConfiguration::CommProtocol::Plugin, vec);
 }
 
 void RobotBase::setTopWidget(QWidget *topWidget){

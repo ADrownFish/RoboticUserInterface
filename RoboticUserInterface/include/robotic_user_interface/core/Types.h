@@ -71,8 +71,6 @@ public:
     scalar_t pos = 0.f;
     scalar_t vel = 0.f;
     scalar_t torque = 0.f;
-    scalar_t voltage = 0.f;
-    scalar_t current = 0.f;
     scalar_t power = 0.f;
     scalar_t temperature = 0.f;
     scalar_t driverTemperature = 0.f;
@@ -80,6 +78,7 @@ public:
   struct Odom {
     vector_t position;
     vector_t velocity;
+    scalar_t mileage;
   };
   struct Battery {
     int32_t cycle;
@@ -104,8 +103,8 @@ public:
     double cpuUsage;
     double memoryUsage;
     double diskUsage;
-    double cpuCoreMaxTemp;
-    double cpuPackageTemp;
+    double cpuTemp;
+    double cpuFerq;
   };
 
   struct Sensor {
@@ -129,6 +128,7 @@ public:
     // odom
     odom.position.resize(3, 0.0);
     odom.velocity.resize(3, 0.0);
+    odom.mileage = 0.0;
 
     // imu
 
@@ -151,8 +151,8 @@ public:
 
     // system
     system.status = 0;
-    system.cpuCoreMaxTemp = 0;
-    system.cpuPackageTemp = 0;
+    system.cpuTemp = 0;
+    system.cpuFerq = 0;
     system.cpuUsage = 0;
     system.memoryUsage = 0;
     system.diskUsage = 0;
@@ -563,3 +563,24 @@ public:
     return getColor(static_cast<ColorSchemeEnum>(wrappedIndex));
   }
 };
+
+struct alignas(64)  DataPacketBuffer {
+  using Ptr = std::shared_ptr<DataPacketBuffer>;
+  DataPacketBuffer(int size) {
+    buffer.resize(size);
+  }
+  std::vector<uint8_t> buffer;
+};
+struct alignas(64) DataPacketBufferWithTimestamp : DataPacketBuffer {
+  using Ptr = std::shared_ptr<DataPacketBufferWithTimestamp>;
+  DataPacketBufferWithTimestamp(int size)
+    : DataPacketBuffer(size) { }
+  scalar_t timestamp = 0;
+};
+
+using DataPktBuffer = DataPacketBuffer;
+using DataPktBufferPtr = DataPacketBuffer::Ptr;
+using DataPktBufferPtrVec = std::vector<DataPacketBuffer::Ptr>;
+using DataPktBufferTime = DataPacketBufferWithTimestamp;
+using DataPktBufferTimePtr = DataPacketBufferWithTimestamp::Ptr;
+using DataPktBufferTimePtrVec = std::vector<DataPacketBufferWithTimestamp::Ptr>;

@@ -72,7 +72,7 @@
       <string>Robot - State</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
    </item>
@@ -115,7 +115,7 @@
          <string>站立</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -133,7 +133,6 @@
           <height>40</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="1" column="4">
@@ -154,7 +153,7 @@
          <string>机体高度</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -172,7 +171,6 @@
           <height>16777215</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="2" column="5">
@@ -189,7 +187,6 @@
           <height>16777215</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="0" column="1" colspan="5">
@@ -207,7 +204,7 @@
          </size>
         </property>
         <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAsNeeded</enum>
+         <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
         </property>
         <property name="widgetResizable">
          <bool>true</bool>
@@ -251,7 +248,6 @@
               <height>40</height>
              </size>
             </property>
-            
            </widget>
           </item>
          </layout>
@@ -272,7 +268,6 @@
           <height>40</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="1" column="0">
@@ -293,7 +288,7 @@
          <string>控制模式</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -315,7 +310,7 @@
          <string>抬腿高度</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -333,7 +328,6 @@
           <height>40</height>
          </size>
         </property>
-        
        </widget>
       </item>
       <item row="0" column="0">
@@ -373,7 +367,7 @@
          <string>状态切换</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>

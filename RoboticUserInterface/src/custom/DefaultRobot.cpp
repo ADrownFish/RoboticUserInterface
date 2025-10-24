@@ -20,9 +20,6 @@ DefaultRobot::DefaultRobot(QObject *parent)
 
   solver_.setDeviceID(0xFF);
   solver_.setEnableFilter(false);
-
-  QObject::connect(&timer_sendCmd, &QTimer::timeout, this, &DefaultRobot::writeData);
-  timer_sendCmd.start(1000/50);
 }
 DefaultRobot::~DefaultRobot(){
 
@@ -65,13 +62,19 @@ void DefaultRobot::writeData() {
 void DefaultRobot::readyRead() {
 
   // receive
-  QByteArray data;
-  RobotBase::readData(data);
+  DataPktBufferTimePtrVec vec;
+  bool ret = RobotBase::readData(vec);
+  if (!ret) {
+    return;
+  }
 
-  solver_.pushBytes((uint8_t *)data.data(), data.size());
-  while (solver_.getAvailableSize()) {
-    auto data = solver_.getFirstDataPacket();
-    unpackData(data);
+  for (auto& it : vec) {
+    solver_.pushBytes(it->buffer.data(), it->buffer.size());
+    scalar_t& time = it->timestamp;
+    while (solver_.getAvailableSize()) {
+      auto data = solver_.getFirstDataPacket();
+      unpackData(time, data);
+    }
   }
 }
 
@@ -85,12 +88,12 @@ void DefaultRobot::init(){
   setupSignalConnection();
 }
 
-void DefaultRobot::unpackData(const Data &data) {
+void DefaultRobot::unpackData(scalar_t time, const Data &data) {
   uint32_t id = data.head.DataID;
   uint32_t length = data.length;
   const uint8_t *rawData = data.data;
 
-  scalar_t timestamp =  dataSource_->time();
+  scalar_t timestamp = time - dataSource_->startTime();
   scalar_t packTimestamp = NAN;
 
   switch (id) {
@@ -140,8 +143,8 @@ void DefaultRobot::unpackData(const Data &data) {
     observations_->system.cpuUsage = dptr[2];
     observations_->system.memoryUsage = dptr[3];
     observations_->system.diskUsage = dptr[4];
-    observations_->system.cpuCoreMaxTemp = dptr[5];
-    observations_->system.cpuPackageTemp = dptr[6];
+    observations_->system.cpuTemp = dptr[5];
+    observations_->system.cpuFerq = dptr[6];
 
     if(!std::isnan(packTimestamp))
       timestamp = packTimestamp;
@@ -258,8 +261,6 @@ void DefaultRobot::unpackData(const Data &data) {
       act.pos = fptr[0];
       act.vel = fptr[1];
       act.torque = fptr[2];
-      act.voltage = fptr[3];
-      act.current = fptr[4];
       act.power = fptr[5];
       act.temperature = fptr[6];
       act.driverTemperature = fptr[7];
@@ -295,6 +296,7 @@ QList<QWidget *> DefaultRobot::createCustomInfoWidgets(){
 
 void DefaultRobot::catchData(){
   
+  writeData();
 }
 
 void DefaultRobot::recordData() {

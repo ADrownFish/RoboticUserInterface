@@ -6,6 +6,7 @@ x64/
 # RoboticUserInterface
 RoboticUserInterface/x64/
 RoboticUserInterface/build/
+RoboticUserInterface/FlameGraph
 
 # RoboticUserInterfaceTest
 RoboticUserInterfaceTest/x64/

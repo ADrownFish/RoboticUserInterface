@@ -48,8 +48,6 @@ protected:
 
   void catchData() override;
 
-  void recordData() override;
-
   void readyRead() override;   // received data
 
 private:
@@ -57,7 +55,7 @@ private:
 
   void setupSignalConnection();
 
-  void unpackData(const Data& data);
+  void unpackData(scalar_t time, const Data& data);
   
   void copyToObservations();
   
@@ -65,8 +63,7 @@ private:
   
   void writeData();
 
-private:
-  QTimer timer_sendCmd;
+  void recordData();
 };
 
 }

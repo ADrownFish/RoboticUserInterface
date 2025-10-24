@@ -64,6 +64,7 @@ public:
 
   void updateActuators(const std::vector<ObservationsBase::Actuator> &actuators);
 
+  std::vector<ActuatorUnit *> &actuatorUnits(){return actuator_;}
 private:
   void setupSignalConnection();
 

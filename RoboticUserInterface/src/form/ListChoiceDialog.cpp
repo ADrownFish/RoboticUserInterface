@@ -1,6 +1,6 @@
 #include "robotic_user_interface/form/ListChoiceDialog.h"
 
-#include "FluControls/FluRadioButton.h"
+#include "qwool/qwwindowbutton.h"
 #include "qt_material_widgets/qtmaterialraisedbutton.h"
 
 #include <QApplication>
@@ -15,11 +15,11 @@ ListChoiceDialog::getChoice(QWidget *parent, const QString &title,
                             const QString &message, const QStringList &items,
                             const QString &defaultItem) {
   ListChoiceDialog dialog(parent, title, message, items, defaultItem);
-  if (dialog.exec() == QDialog::Accepted &&
-      dialog.m_buttonGroup->checkedButton()) {
-    int index = dialog.m_buttonGroup->checkedId();
-    QString text = dialog.m_buttonGroup->checkedButton()->text();
-
+  auto result = dialog.exec();
+  int index = dialog.btn->getCurrentUnitIndex();
+  if (result == QDialog::Accepted && index >= 0) {
+    QString text = dialog.btn->getUnitName(index);
+    // qDebug() << index << text;
     return {index, text};
   }
   return {-1, QString()};
@@ -29,7 +29,7 @@ ListChoiceDialog::ListChoiceDialog(QWidget *parent, const QString &title,
                                    const QString &message,
                                    const QStringList &items,
                                    const QString &defaultItem)
-    : QDialog(parent), m_buttonGroup(new QButtonGroup(this)) {
+    : QDialog(parent) {
   setWindowTitle(title);
   setModal(true);
   setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -50,20 +50,39 @@ ListChoiceDialog::ListChoiceDialog(QWidget *parent, const QString &title,
   line->setLineWidth(3);               // 设置线宽为 2px
   line->setFixedHeight(3);             // 固定高度（避免占用额外空间）
   line->setStyleSheet(
-      "background-color: rgb(150, 150, 150);"); // RGB(150, 150, 150) 灰色
+      "background-color: rgb(150, 150, 150);");
   layout->addWidget(line);
 
   // 添加单选按钮
+  btn = new QWWindowButton(this);
+  btn->setBackgroundColor(QColor(0,0,0,0));
+  btn->setAllowMouseClicked(true);
+  btn->setDirection(QWWindowButton::Direction::Vertical);
+  btn->setFixedUnitSize(30);
+  btn->setIntervalDistance(4);
+  layout->addWidget(btn);
+  // qDebug() << items;
+  QString longestText;
   for (int i = 0; i < items.size(); ++i) {
-    FluRadioButton *radio = new FluRadioButton(items[i], this);
-    m_buttonGroup->addButton(radio, i); // 将按钮与索引关联
-    layout->addWidget(radio);
+    
+    auto &item = items[i];
 
-    // 设置默认选中项
-    if (items[i] == defaultItem) {
-      radio->setChecked(true);
+    btn->addUnit(item);
+    
+    if (item == defaultItem) {
+      btn->setSelectUnitIndex(i);
+    }
+
+    if (item.length() > longestText.length()) {
+      longestText = item;
     }
   }
+
+  QFontMetrics fm(font());
+  QRect textRect = fm.boundingRect(QRect(0, 0, parent->width(), 1000), 
+                                    Qt::TextWordWrap, 
+                                    longestText);
+  int minWidth = textRect.width() + 80;                                  
 
   line = new QFrame;
   line->setFrameShape(QFrame::HLine);  // 设置为水平线
@@ -93,20 +112,21 @@ ListChoiceDialog::ListChoiceDialog(QWidget *parent, const QString &title,
   connect(btn_ok, &QPushButton::clicked, this, &QDialog::accept);
   connect(btn_cancel, &QPushButton::clicked, this, &QDialog::reject);
 
-  // 自动计算合适的大小
-  adjustSize();
-  setMinimumWidth(std::max(width(), 300));
+  // // 自动计算合适的大小
+  // adjustSize();
 
   setStyleSheet(R"(
       ListChoiceDialog {
-        background-color: rgb(80, 80, 80);
+        background-color: rgb(60, 60, 60);
         border-radius: 10px;
         border: none;
       }
       QLabel {
-        color: white;  /* 提示文字颜色 */
+        color: white;
       }
     )");
 
   setWindowFlag(Qt::FramelessWindowHint);
+  adjustSize();
+  setMinimumWidth(minWidth);
 }

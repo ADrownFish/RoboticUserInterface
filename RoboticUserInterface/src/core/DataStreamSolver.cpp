@@ -12,18 +12,13 @@
 
 DataStreamSolver::DataStreamSolver(QWidget* parent) {
 
-
-
 }
 
 DataStreamSolver::~DataStreamSolver() {
 
-
-
 }
 
 void DataStreamSolver::init() {
-
 	setupSignalConnection();
 }
 
@@ -61,7 +56,7 @@ void DataStreamSolver::setDataAllocator(const QPointer<DataAllocator>& p) {
 void DataStreamSolver::setActivate(bool ok)
 {
   if (ok) {
-    timer_.start();
+    timer_.start(30);
   }
   else {
     timer_.stop();
@@ -69,44 +64,28 @@ void DataStreamSolver::setActivate(bool ok)
 }
 
 void DataStreamSolver::setupSignalConnection() {
-  using CCC = CommunicationConfiguration::CommProtocol;
-
-  // 数据传递
-  QObject::connect(dataAllocator_, &DataAllocator::readyRead, [this]() {
-    // on signal thread
-    if (config_->comm.commProtocol == CCC::JSON ||
-      config_->comm.commProtocol == CCC::Float
-      ) {
-      QByteArray buffer;
-      dataAllocator_->read(config_->comm.commProtocol, buffer);
-
-      readMutex.lock();
-      recviveBuffer_.append(buffer);
-      readMutex.unlock();
-    }
-    });
-
   QObject::connect(&timer_, &QTimer::timeout, this, &DataStreamSolver::processData);
 }
 
 
 void DataStreamSolver::processData() {
-  QByteArray buffer;
-
-  readMutex.lock();
-  if (recviveBuffer_.isEmpty()) {
-    readMutex.unlock();
-    return;
-  }
-  buffer = std::move(recviveBuffer_);
-  readMutex.unlock();
-
-  if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::JSON){
-    jsonParser_.buffer.append(buffer);
-    parseJsonBuffer();
-  } else if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::Float) {
-    floatParser_.buffer.append(buffer);
-    parseFloatData();
+  using CCC = CommunicationConfiguration::CommProtocol;
+  if (config_->comm.commProtocol == CCC::JSON ||
+    config_->comm.commProtocol == CCC::Float
+    ) {
+    DataPktBufferTimePtrVec vec;
+    dataAllocator_->read(config_->comm.commProtocol, vec);
+    for (auto& it : vec) {
+      QByteArray buffer((char*)it->buffer.data(), it->buffer.size());
+      if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::JSON) {
+        jsonParser_.buffer.append(buffer);
+        parseJsonBuffer(it->timestamp);
+      }
+      else if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::Float) {
+        floatParser_.buffer.append(buffer);
+        parseFloatData(it->timestamp);
+      }
+    }
   }
 }
 
@@ -273,7 +252,7 @@ void DataStreamSolver::loadCSV(const QString& filePath,
   std::cout  << csvNode->toString().toLocal8Bit().data() << std::endl;
 }
 
-void DataStreamSolver::parseJsonBuffer() {
+void DataStreamSolver::parseJsonBuffer(scalar_t time) {
   for (int i = 0; i < jsonParser_.buffer.size(); ++i) {
     const char c = jsonParser_.buffer[i];
 
@@ -327,12 +306,12 @@ void DataStreamSolver::parseJsonBuffer() {
       jsonParser_.startIndex = 0;
       jsonParser_.state = Start;
 
-      parseJsonObject(jsonData);
+      parseJsonObject(jsonData, time);
     }
   }
 }
 
-void DataStreamSolver::parseJsonObject(const QByteArray& jsonData) {
+void DataStreamSolver::parseJsonObject(const QByteArray& jsonData, scalar_t time) {
   QJsonParseError error;
   QJsonDocument doc = QJsonDocument::fromJson(jsonData, &error);
 
@@ -345,7 +324,7 @@ void DataStreamSolver::parseJsonObject(const QByteArray& jsonData) {
   if (config_->stream.timestampEnable_json && rootObj.contains(config_->stream.timestampString_json)) {
     timestamp = rootObj.value(config_->stream.timestampString_json).toDouble();
   }  else{
-    timestamp = dataSource_->time();
+    timestamp = time - dataSource_->startTime();
   }
 
   bool emitSignal = false;
@@ -393,9 +372,14 @@ void DataStreamSolver::parseJsonValue(const QString& key, const QJsonValue& valu
 	}
 	else if (value.isArray()) {
 		QJsonArray arr = value.toArray();
+    ObjectNode::Ptr arrayNode = parentNode->findObjectNode(key);
+		if (!arrayNode) {
+			arrayNode = std::make_shared<ObjectNode>(key);
+			parentNode->addNode(arrayNode);
+		}
 		for (int i = 0; i < arr.size(); ++i) {
-			QString indexedKey = QString("%1[%2]").arg(key).arg(i);
-			parseJsonValue(indexedKey, arr[i], timestamp, parentNode, hasNew);
+			QString indexedKey = QString("[%2]").arg(i);
+			parseJsonValue(indexedKey, arr[i], timestamp, arrayNode, hasNew);
 		}
 	}
 
@@ -403,7 +387,7 @@ void DataStreamSolver::parseJsonValue(const QString& key, const QJsonValue& valu
 }
 
 
-void DataStreamSolver::parseFloatData() {
+void DataStreamSolver::parseFloatData(scalar_t time) {
 
   bool emitSignal = false;
 
@@ -443,7 +427,7 @@ void DataStreamSolver::parseFloatData() {
       if (config_->stream.timestampEnable_float) {
         timestamp = floatData.front();
       } else {
-        timestamp = dataSource_->time();
+        timestamp = time - dataSource_->startTime();
       }
 
       // 如果存在直接给值

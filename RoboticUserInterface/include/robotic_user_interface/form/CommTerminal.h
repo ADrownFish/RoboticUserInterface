@@ -56,8 +56,6 @@ private:
 	QPointer<DataAllocator> dataAllocator_;
 	QValidator* hexValidator;
 
-	QByteArray recviveBuffer_;
 	QTimer timer_;
-	QMutex readMutex;
 
 };

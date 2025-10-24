@@ -19,6 +19,8 @@
 class Communicator : public QObject{
   Q_OBJECT
 public:
+  static constexpr int RingBufferSize = 1 << 14;
+
   using CCDataBits = CommunicationConfiguration::DataBits;
   using CCStopBits = CommunicationConfiguration::StopBits;
   using CCFlowControl = CommunicationConfiguration::FlowControl;
@@ -42,9 +44,9 @@ public:
 
   void close();
 
-  void write(const QByteArray& buffer);
+  bool write(const QByteArray& buffer);
 
-  void read(QByteArray& buffer);
+  bool read(DataPktBufferTimePtrVec &vec);
 
   uint64_t getReadBytesLength();
 
@@ -54,6 +56,8 @@ private:
   void setupSignalConnection();
 
   void start();
+
+  void processEvent();
 
   void tcpNewConnection();
 
@@ -65,9 +69,9 @@ private:
 
   void readyReadSerial();
 
-  void sendSignal_readyread(const QByteArray& buffer);
+  void enqueueDataToRing(const QByteArray& buffer);
 
-  void readySendSocket();
+  void dequeueDataFromRing();
   
   void close_threadImpl();
 
@@ -83,10 +87,6 @@ signals:
   void publishFocusStatus(const QString& status);
 
   void publishNotify(GCW::NotifyType type,const QString &title, const QString& text);
-
-  void readyRead();
-
-  void readySend();
 
   void requestOpen();
 
@@ -105,6 +105,7 @@ public:
 
 private:
   QThread *thread_ = nullptr;
+  QTimer *timer_ = nullptr;
 
   CommunicationConfiguration config_;
 
@@ -121,11 +122,10 @@ private:
   std::atomic_bool open_serial_ = false;
   std::atomic_bool open_bluetooth_ = false;
 
-  std::atomic_bool dataTaken_ = true;
+  // std::atomic_bool dataTaken_ = true;
 
-  static constexpr int bufferSize = 1 << 24;
-  RingBuffer<uint8_t, bufferSize> rx_buffer;
-  RingBuffer<uint8_t, bufferSize> tx_buffer;
+  RingBuffer<DataPktBufferTimePtr, RingBufferSize> rx_buffer;
+  RingBuffer<DataPktBufferPtr,         RingBufferSize> tx_buffer;
 
   uint64_t writeBytesLength = 0;
   uint64_t readBytesLength = 0;

@@ -5,6 +5,8 @@
 #include <QVBoxLayout>
 #include <QStringList>
 
+class QWWindowButton;
+
 class ListChoiceDialog : public QDialog {
   Q_OBJECT
 
@@ -27,5 +29,5 @@ private:
     const QString& defaultItem
   );
 
-  QButtonGroup* m_buttonGroup;  // 管理单选按钮组
+  QWWindowButton* btn;
 };

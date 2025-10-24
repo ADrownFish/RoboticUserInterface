@@ -27,20 +27,6 @@ void CommTerminal::setConfiguration(std::shared_ptr<Configuration> config)
 void CommTerminal::setDataAllocator(const QPointer<DataAllocator>& p)
 {
   dataAllocator_ = p;
-
-	// 数据传递
-	QObject::connect(dataAllocator_, &DataAllocator::readyRead, [this]() {
-
-    // on signal thread
-		if (config_->comm.commProtocol == CommunicationConfiguration::CommProtocol::Raw) {
-			QByteArray buffer;
-			dataAllocator_->read(CommunicationConfiguration::CommProtocol::Raw, buffer);
-
-      readMutex.lock();
-      recviveBuffer_.append(buffer);
-      readMutex.unlock();
-		}
-	});
 }
 
 void CommTerminal::flushConfiguration()
@@ -50,7 +36,7 @@ void CommTerminal::flushConfiguration()
 void CommTerminal::setActivate(bool ok)
 {
 	if (ok) {
-		timer_.start();
+		timer_.start(30);
 	}
 	else {
 		timer_.stop();
@@ -83,8 +69,6 @@ void CommTerminal::setupWidgetsControls()
 	ui.widget_send->setText(tr("Send"));
 	ui.widget_send->setIcon(QIcon(":/svg/svg/return.svg"));
   ui.widget_send->setBackgroundColor(onColor);
-
-	timer_.setInterval(50);
 
   QRegularExpression regex("^(?:[0-9A-Fa-f]{2}\\s?)*$");
   hexValidator = new QRegularExpressionValidator(regex, this);
@@ -147,21 +131,31 @@ void CommTerminal::appendColoredText(int status, const QString& text) {
 
 void CommTerminal::processData()
 {
-  QByteArray buffer;
 
-  readMutex.lock();
-  if (recviveBuffer_.isEmpty()) {
-    readMutex.unlock();
+  DataPktBufferTimePtrVec vec;
+  bool ok = dataAllocator_->read(CommunicationConfiguration::CommProtocol::Raw, vec);
+  if (!ok)  {
     return;
   }
-  buffer = std::move(recviveBuffer_);
-  readMutex.unlock();
+  
+
+  uint64_t totalSize = 0;
+  for (auto& it : vec) {
+    totalSize += it->buffer.size();
+  }
+
+  QByteArray buffer;
+  buffer.reserve(totalSize);
+  for (auto& it : vec) {
+    buffer.append((char*)it->buffer.data(), it->buffer.size());
+  }
 
   if (config_->terminal.outputType == EncodingType::Hex) {
     QString hexStr = buffer.toHex(' ');
     appendColoredText(0, hexStr);
-  } else {
-    appendColoredText(0, QString::fromLocal8Bit(buffer));
+  }
+  else {
+    appendColoredText(0, buffer);
   }
 }
 

@@ -14,8 +14,10 @@
 #include "ui_IMU.h"
 #include "ui_Host.h"
 #include "ui_Odom.h"
-#include "ui_ActionCommand.h"
+#include "ui_VirtualJoystick.h"
 #include "ui_Actuator.h"
+#include "ui_Sensor.h"
+#include "ui_SystemInfo.h"
 
 class Dashboard : public QScrollArea{
 public:
@@ -57,17 +59,21 @@ protected:
   void flush();
 
 protected:
+  Ui::SystemInfo ui_systemInfo;
+  Ui::Sensor ui_sensor;
   Ui::Host ui_host;
   Ui::BMS ui_bms;
   Ui::IMU ui_imu;
   Ui::Odom ui_odom;
-  Ui::ActionCommand ui_actionCommand;
+  Ui::VirtualJoystick ui_virtualJoystick;
   
+  QWWindowWidget *widget_sysInfo;
+  QWWindowWidget *widget_sensor;
   QWWindowWidget *widget_host;
   QWWindowWidget *widget_bms;
   QWWindowWidget *widget_imu;
   QWWindowWidget *widget_odom;
-  QWWindowWidget *widget_actionCommand;
+  QWWindowWidget *widget_joy;
 
   ActuatorDisplay *widget_actuator;
 
